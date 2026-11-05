@@ -181,3 +181,15 @@ body.lb-open { overflow: hidden; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #555; }
   body { background: #fff; }
 }
+
+/* modes (v1.5): designer / teacher / student */
+.mode-switch { display: inline-flex; align-items: center; gap: .35rem; margin: 0; color: #fff; }
+.mode-switch select { width: auto; padding-top: .15rem; padding-bottom: .15rem; }
+body:not([data-mode=designer]) .layout { grid-template-columns: 17rem minmax(0, 1fr); }
+body[data-mode=student] .blk > .ref { display: none; }
+.ref-off { border-bottom: 1px dotted currentColor; cursor: help; }
+.mode-note { background: #f4f7fb; border: 1px solid var(--tli-line); border-radius: .4rem; padding: .6rem .9rem; }
+.quiz-key .quiz-opt[data-correct="1"] .quiz-txt { font-weight: 600; }
+.quiz-key .quiz-expl { display: block; }
+.quiz-gentle { font-size: 1.05rem; }
+@media (max-width: 991.98px) { body:not([data-mode=designer]) .layout { grid-template-columns: minmax(0, 1fr); } }

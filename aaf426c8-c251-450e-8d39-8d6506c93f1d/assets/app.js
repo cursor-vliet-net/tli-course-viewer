@@ -9,8 +9,23 @@
   var TYPES = ['edits', 'removals', 'comments'];
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
-  var partsById = {};
-  D.parts.forEach(function (p, i) { p.index = i; partsById[p.id] = p; });
+  var partsById = {}, blockModes = {};
+  D.parts.forEach(function (p, i) {
+    p.index = i; partsById[p.id] = p;
+    p.blocks.forEach(function (b) { blockModes[b.anchor] = b.modes || ['designer', 'teacher']; });
+  });
+  /* ---------------- modes ----------------
+     designer: everything (edit, comment, export, editor notes, Plan).
+     teacher:  read-only; no editor notes, no Plan / My feedback; quiz shows the answer key.
+     student:  only blocks marked "::: student" in the Markdown; interactive quiz without tags. */
+  var MODES = ['designer', 'teacher', 'student'];
+  var MODE = 'designer';
+  function inMode(anchor, mode) { var m = blockModes[anchor]; return !m || m.indexOf(mode || MODE) >= 0; }
+  function partVisible(p, mode) { return p.blocks.some(function (b) { return !/§0 ¶0$/.test(b.ref) && inMode(b.anchor, mode); }); }
+  function modeFromUrl() {
+    var m = /[?&]mode=([a-z]+)/i.exec(location.search || '') || /(?:^#|&)mode=([a-z]+)/i.exec(location.hash || '');
+    return m && MODES.indexOf(m[1].toLowerCase()) >= 0 ? m[1].toLowerCase() : null;
+  }
 
   /* ---------------- storage ---------------- */
   var memoryOnly = false;
@@ -153,7 +168,7 @@
 
   /* ---------------- layout: nav, notes, counts ---------------- */
   function buildNav() {
-    $('#partList').innerHTML = D.parts.map(function (p) {
+    $('#partList').innerHTML = D.parts.filter(function (p) { return partVisible(p); }).map(function (p) {
       return '<li><a href="#d-' + esc(p.id) + '" data-part="' + esc(p.id) + '"><span class="part-id">' + esc(p.id) + '</span> ' +
         '<span class="part-title">' + esc(p.title) + '</span> <span class="badge text-bg-warning part-count" data-count="' + esc(p.id) + '"></span></a></li>';
     }).join('');
@@ -171,7 +186,7 @@
   function setNotes(part) {
     var box = $('#notesBody'), aside = $('#notes');
     aside.hidden = false;
-    if (!part) { aside.hidden = true; return; }
+    if (!part || MODE !== 'designer') { aside.hidden = true; return; }
     box.innerHTML = part.notes.length
       ? '<p class="small text-body-secondary mb-2">' + esc(part.id) + ' · hidden from the lesson text</p><ol class="note-list">' + part.notes.map(function (n) { return '<li class="note">' + n + '</li>'; }).join('') + '</ol>'
       : '<p class="small text-body-secondary">No editor notes for ' + esc(part.id) + '.</p>';
@@ -195,8 +210,49 @@
   var editing = null;   // {blk, dirty}
   var original = {};    // anchor -> original body HTML (from the build)
 
+  /* Drop blocks that are not for this mode; links to dropped blocks become plain text. */
+  function applyMode(root) {
+    $$('.blk', root).forEach(function (b) { if (!inMode(b.id)) b.remove(); });
+    $$('a[href^="#p-"], a[href^="#d-"]', root).forEach(function (a) {
+      var h = a.getAttribute('href').slice(1), ok = h.indexOf('p-') === 0 ? inMode(h) : (!partsById[h.slice(2)] || partVisible(partsById[h.slice(2)]));
+      if (ok) return;
+      var s = document.createElement('span'); s.className = 'ref-off'; s.textContent = a.textContent;
+      s.title = 'Not shown in ' + MODE + ' mode'; a.parentNode.replaceChild(s, a);
+    });
+    if (MODE === 'student') { /* learner view: no RTTI columns in tables */
+      $$('table', root).forEach(function (t) {
+        var head = $$('tr', t)[0]; if (!head) return;
+        $$('th,td', head).forEach(function (c, i) {
+          if (c.textContent.trim() !== 'RTTI') return;
+          $$('tr', t).forEach(function (tr) { var cell = tr.children[i]; if (cell) cell.setAttribute('data-drop', '1'); });
+        });
+        $$('[data-drop]', t).forEach(function (c) { c.remove(); });
+      });
+    }
+  }
+  function setMode(m, quiet) {
+    if (MODES.indexOf(m) < 0) m = 'designer';
+    if (editing) cancelEdit();
+    MODE = m; S.settings.mode = m; save();
+    document.body.setAttribute('data-mode', m);
+    $('#modeSelect').value = m;
+    var designer = m === 'designer';
+    $$('.tabs [data-view=plan], .tabs [data-view=feedback]').forEach(function (a) { a.hidden = !designer; });
+    $('#editToggle').hidden = !designer;
+    buildNav(); updateCounts();
+    if (!quiet) { route(); toast(m.charAt(0).toUpperCase() + m.slice(1) + ' mode'); }
+  }
+
   function showPart(id, anchor) {
     var p = partsById[id] || D.parts[0];
+    if (!partVisible(p)) {
+      var alt = D.parts.filter(function (x) { return partVisible(x); })[0];
+      current = null; editing = null;
+      $('#main').innerHTML = '<article class="reading"><h1>' + esc(p.id) + ' ' + esc(p.title) + '</h1><p class="mode-note" role="note">' + icon('fa-circle-info') +
+        ' This part is not shown in ' + esc(MODE) + ' mode.' + (alt ? ' <a href="#d-' + esc(alt.id) + '">Go to ' + esc(alt.id) + ' ' + esc(alt.title) + '</a>.' : '') + '</p></article>';
+      setNotes(null); setActiveView('read', p.id);
+      return;
+    }
     current = p.id; editing = null;
     var main = $('#main');
     var meta = Object.keys(p.metadata || {}).map(function (k) { return '<tr><th scope="row">' + esc(k) + '</th><td>' + esc(p.metadata[k]) + '</td></tr>'; }).join('');
@@ -206,18 +262,20 @@
       '<div class="part-html">' + p.html + '</div>' +
       '</article>';
     var article = $('.reading', main);
+    applyMode(article);
     var goals = document.createElement('section');
     goals.className = 'goals'; goals.setAttribute('aria-label', 'Goals of this part');
     goals.innerHTML = '<h2 class="goals-title">' + icon('fa-bullseye') + ' Goals</h2><ul>' + p.goals.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('') + '</ul>' +
       (meta ? '<details class="meta"><summary>Metadata · ' + esc(p.file) + '</summary><table class="table table-sm mb-0">' + meta + '</table></details>' : '');
     var first = $('.blk', article);
-    first.parentNode.insertBefore(goals, first.nextSibling);
+    if (MODE !== 'designer') { var md = $('details.meta', goals); if (md) md.remove(); }
+    if (MODE !== 'student') first.parentNode.insertBefore(goals, first.nextSibling);
     original = {};
     $$('.blk', article).forEach(function (b) { decorate(b); });
     renderStaleList();
     setNotes(p); setActiveView('read', p.id);
     document.title = p.id + ' ' + p.title + ' · ' + D.project;
-    var target = anchor && document.getElementById(anchor);
+    var target = anchor && inMode(anchor) && document.getElementById(anchor);
     if (target) { flash(target); if (target.scrollIntoView) target.scrollIntoView({ block: 'center' }); }
     else if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) { /* jsdom */ } }
   }
@@ -231,6 +289,7 @@
     var editable = blk.hasAttribute('data-editable');
     var tools = document.createElement('div');
     tools.className = 'blk-tools'; tools.setAttribute('role', 'toolbar'); tools.setAttribute('aria-label', 'Actions for ' + blk.getAttribute('data-ref'));
+    if (MODE !== 'designer') tools.hidden = true;
     tools.innerHTML = (editable ? '<button type="button" class="btn btn-sm btn-light act-edit" title="Edit">' + icon('fa-pen') + '<span class="visually-hidden">Edit</span></button>' : '') +
       '<button type="button" class="btn btn-sm btn-light act-comment" title="Comment">' + icon('fa-comment') + '<span class="visually-hidden">Comment</span></button>' +
       '<button type="button" class="btn btn-sm btn-light act-remove" title="Propose removal">' + icon('fa-trash-can') + '<span class="visually-hidden">Propose removal</span></button>';
@@ -285,7 +344,7 @@
     var orphans = [];
     TYPES.forEach(function (t) { allItems(t).forEach(function (it) { if (it.part === current && !refs[it.ref]) orphans.push(it.ref + ' (' + t.replace(/s$/, '') + ')'); }); });
     var box = $('#staleList');
-    box.innerHTML = orphans.length ? '<div class="alert alert-warning py-2 small" role="note">' + icon('fa-triangle-exclamation') + ' Source changed since: these saved items point to paragraphs that no longer exist: ' + esc(orphans.join(', ')) + '. They are kept in My feedback and in the export.</div>' : '';
+    box.innerHTML = orphans.length && MODE === 'designer' ? '<div class="alert alert-warning py-2 small" role="note">' + icon('fa-triangle-exclamation') + ' Source changed since: these saved items point to paragraphs that no longer exist: ' + esc(orphans.join(', ')) + '. They are kept in My feedback and in the export.</div>' : '';
   }
 
   /* ---------------- editing ---------------- */
@@ -294,7 +353,7 @@
     return blk.getAttribute('data-kind') === 'table' ? $$('th,td', body) : [body];
   }
   function startEdit(blk, focusEl) {
-    if (!S.settings.editing) return;
+    if (!S.settings.editing || MODE !== 'designer') return;
     if (editing && editing.blk === blk) return;
     if (editing) {
       if (editing.dirty) { toast('Save or cancel your current edit first.'); flash(editing.blk); return; }
@@ -411,6 +470,36 @@
     $$('.quiz-q', q).forEach(function (f, i) {
       $$('input[type=radio]', f).forEach(function (r, j) { r.name = blk.id + '-q' + (i + 1); r.id = blk.id + '-q' + (i + 1) + '-' + (j + 1); });
     });
+    q.setAttribute('data-mode', MODE);
+    if (MODE === 'teacher') { /* answer key: correct option marked, every explanation shown */
+      q.classList.add('quiz-key');
+      $$('.quiz-opt', q).forEach(function (o) {
+        if (o.getAttribute('data-correct') === '1') $('.quiz-mark', o).innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + '<span class="visually-hidden"> correct answer</span></span>';
+        var x = $('.quiz-expl', o); if (x) x.hidden = false;
+      });
+      $$('input[type=radio]', q).forEach(function (r) { r.disabled = true; });
+      $('.quiz-actions', q).hidden = true;
+    } else if (MODE === 'student') { /* learner quiz: feedback right after each answer, no tags */
+      $$('.quiz-tag', q).forEach(function (x) { x.remove(); });
+      var rb = $('.quiz-rtti', q); if (rb) rb.remove();
+      $('.quiz-check', q).hidden = true;
+    }
+  }
+  function answerStudent(f) {
+    var q = f.closest('.quiz'), chosen = $('input[type=radio]:checked', f);
+    if (!chosen) return;
+    var opt = chosen.closest('.quiz-opt'), ok = opt.getAttribute('data-correct') === '1';
+    f.classList.add(ok ? 'q-right' : 'q-wrong');
+    $('.quiz-mark', opt).innerHTML = '<span class="' + (ok ? 'mark-right' : 'mark-wrong') + '">' + icon(ok ? 'fa-circle-check' : 'fa-circle-xmark') + '<span class="visually-hidden">' + (ok ? ' correct' : ' not yet') + '</span></span>';
+    var ex = $('.quiz-expl', opt); if (ex) ex.hidden = false;
+    $('.quiz-result', f).innerHTML = ok ? '<span class="mark-right">' + icon('fa-star') + ' Well done!</span>' : '<span class="mark-wrong">' + icon('fa-lightbulb') + ' Not yet. Read the tip.</span>';
+    $$('input[type=radio]', f).forEach(function (r) { r.disabled = true; });
+    var qs = $$('.quiz-q', q), done = qs.filter(function (x) { return x.classList.contains('q-right') || x.classList.contains('q-wrong'); });
+    if (done.length < qs.length) return;
+    var right = qs.filter(function (x) { return x.classList.contains('q-right'); }).length, n = qs.length;
+    var msg = right === n ? 'Great job! You got all ' + n + ' right.' : right * 2 >= n ? 'Good work! You got ' + right + ' of ' + n + '. Try again to get them all.' : 'Good try! You got ' + right + ' of ' + n + '. Let us practise and try again.';
+    var sc = $('.quiz-score', q); sc.textContent = msg; sc.classList.add('quiz-gentle');
+    $('.quiz-retry', q).hidden = false;
   }
   function checkQuiz(q) {
     var qs = $$('.quiz-q', q), right = 0, unanswered = 0;
@@ -474,7 +563,8 @@
     $$('input[type=radio]', q).forEach(function (r) { r.checked = false; r.disabled = false; });
     $('.quiz-score', q).textContent = '';
     $('.quiz-retry', q).hidden = true;
-    var c = $('.quiz-check', q); c.hidden = false; try { c.focus(); } catch (e) { /* ignore */ }
+    var c = $('.quiz-check', q); c.hidden = MODE === 'student';
+    try { (MODE === 'student' ? $('input[type=radio]', q) : c).focus(); } catch (e) { /* ignore */ }
   }
 
   /* ---------------- lightbox ---------------- */
@@ -644,7 +734,8 @@
     var needle = qs.trim().toLowerCase(), out = [], n = 0;
     if (needle.length >= 2) {
       D.parts.forEach(function (p) {
-        var hits = p.blocks.filter(function (b) { return b.text.toLowerCase().indexOf(needle) >= 0; });
+        if (!partVisible(p)) return;
+        var hits = p.blocks.filter(function (b) { return inMode(b.anchor) && b.text.toLowerCase().indexOf(needle) >= 0; });
         if (!hits.length) return;
         n += hits.length;
         out.push('<h2 class="h5 mt-3">' + esc(p.id) + ' ' + esc(p.title) + '</h2><ul class="search-hits">' + hits.map(function (b) {
@@ -663,6 +754,12 @@
   function route() {
     var h = decodeURIComponent((location.hash || '').slice(1));
     closeNav();
+    var hm = /(?:^|&)mode=([a-z]+)/i.exec(h);
+    if (hm) { /* #mode=student or #d-S.1&mode=student */
+      h = h.replace(/&?mode=[a-z]+/i, '');
+      if (MODES.indexOf(hm[1].toLowerCase()) >= 0 && hm[1].toLowerCase() !== MODE) setMode(hm[1].toLowerCase(), true);
+    }
+    if ((h === 'plan' || h === 'feedback') && MODE !== 'designer') h = '';
     if (h === 'help') return showPage('help', 'Help', D.pages.help);
     if (h === 'plan') return showPage('plan', 'Plan', '<h1>Plan</h1><p class="small text-body-secondary">Read-only copies of CHANGES.md and open-items.md from the build.</p><section class="plan-sec">' + D.pages.changes + '</section><hr><section class="plan-sec">' + D.pages.openItems + '</section>');
     if (h === 'feedback') return showFeedback();
@@ -714,6 +811,7 @@
       toast(ref);
       return;
     }
+    if (MODE !== 'designer') return; /* teacher and student: links and quizzes only */
     if (t.closest('.ed-save')) return saveEdit();
     if (t.closest('.ed-cancel')) return cancelEdit();
     if (t.closest('.ed-reset') || t.closest('.st-reset')) return resetEdit(blk);
@@ -738,6 +836,11 @@
     if (blk.hasAttribute('data-editable') && t.closest('[data-body]') && !blk.classList.contains('is-removed') && !blk.classList.contains('show-original')) {
       startEdit(blk, t.closest('th,td') || t);
     }
+  });
+  document.addEventListener('change', function (ev) {
+    var t = ev.target;
+    if (t.id === 'modeSelect') { setMode(t.value); return; }
+    if (MODE === 'student' && t.type === 'radio' && t.closest('.quiz-q')) answerStudent(t.closest('.quiz-q'));
   });
   document.addEventListener('input', function (ev) { if (editing && editing.blk.contains(ev.target)) editing.dirty = true; });
   document.addEventListener('paste', function (ev) {
@@ -777,11 +880,11 @@
   $('#brand').setAttribute('href', '#d-' + D.parts[0].id);
   $$('.tabs [data-view=read]').forEach(function (a) { a.setAttribute('href', '#d-' + D.parts[0].id); });
   setEditing(S.settings.editing !== false);
-  updateCounts();
+  setMode(modeFromUrl() || S.settings.mode || D.defaultMode || 'designer', true);
   route();
 
   window.TLIReader = {
-    version: D.version, exportMarkdown: exportMarkdown, exportJSON: exportJSON, route: route,
+    version: D.version, mode: function () { return MODE; }, setMode: setMode, exportMarkdown: exportMarkdown, exportJSON: exportJSON, route: route,
     state: function () { return S; }, storeKey: STORE_KEY, blockMD: blockMD, sanitize: sanitize,
     startEdit: startEdit, saveEdit: saveEdit, cancelEdit: cancelEdit
   };
