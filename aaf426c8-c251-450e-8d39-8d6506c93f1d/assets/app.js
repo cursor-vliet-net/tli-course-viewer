@@ -104,7 +104,8 @@
   function quizMD(q) {
     return $$('.quiz-q', q).map(function (f) {
       var stem = inl($('.quiz-stem', f)).replace(/^\d+\.\s*/, '');
-      return 'Q: ' + stem + '\n' + $$('.quiz-opt', f).map(function (o) {
+      var tag = f.getAttribute('data-sc') ? 'Tag: ' + f.getAttribute('data-sc') + ' ' + f.getAttribute('data-level') + '\n' : '';
+      return 'Q: ' + stem + '\n' + tag + $$('.quiz-opt', f).map(function (o) {
         var ex = $('.quiz-expl', o);
         return '- [' + (o.getAttribute('data-correct') === '1' ? 'x' : ' ') + '] ' + inl($('.quiz-txt', o)) + (ex ? ' | ' + inl(ex) : '');
       }).join('\n');
@@ -426,6 +427,7 @@
         right++; f.classList.add('q-right');
         $('.quiz-mark', opt).innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + '<span class="visually-hidden"> correct</span></span>';
         res.innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + ' Correct</span>';
+        var cx = $('.quiz-expl', opt); if (cx) cx.hidden = false;
       } else {
         f.classList.add('q-wrong');
         $('.quiz-mark', opt).innerHTML = '<span class="mark-wrong">' + icon('fa-circle-xmark') + '<span class="visually-hidden"> wrong</span></span>';
@@ -435,10 +437,37 @@
     });
     $$('input[type=radio]', q).forEach(function (r) { r.disabled = true; });
     $('.quiz-score', q).textContent = right + ' of ' + qs.length + ' correct' + (unanswered ? ' · ' + unanswered + ' not answered' : '');
+    rttiSummary(q);
     $('.quiz-check', q).hidden = true;
     var retry = $('.quiz-retry', q); retry.hidden = false; try { retry.focus(); } catch (e) { /* ignore */ }
   }
+  /* Feed up / RTTI: a level counts as reached when every question tagged with it is right. */
+  var RTTI = ['R', 'T1', 'T2', 'I'];
+  function rttiSummary(q) {
+    var box = $('.quiz-rtti', q), by = {}, order = [];
+    if (!box) return;
+    $$('.quiz-q[data-sc]', q).forEach(function (f) {
+      var sc = f.getAttribute('data-sc'), lv = f.getAttribute('data-level');
+      if (!by[sc]) { by[sc] = {}; order.push(sc); }
+      if (!by[sc][lv]) by[sc][lv] = { ok: true, qs: [] };
+      by[sc][lv].qs.push(f.getAttribute('data-q'));
+      if (!f.classList.contains('q-right')) by[sc][lv].ok = false;
+    });
+    if (!order.length) { box.hidden = true; return; }
+    var li = order.map(function (sc) {
+      var lv = RTTI.filter(function (l) { return by[sc][l]; });
+      var got = lv.filter(function (l) { return by[sc][l].ok; });
+      var next = lv.filter(function (l) { return !by[sc][l].ok; })[0];
+      var n = sc.replace(/^SC/, '');
+      var t = got.length ? 'You reached ' + got.join(' and ') + ' for criterion ' + n + '.' : 'Criterion ' + n + ': not reached yet.';
+      t += next ? ' Next try: ' + next + ' (question ' + by[sc][next].qs.join(', ') + ').' : ' Well done: all tested levels reached.';
+      return '<li data-sc="' + sc + '">' + t + '</li>';
+    });
+    box.innerHTML = '<p class="mb-1"><strong>Feedback by success criterion (RTTI)</strong></p><ul class="mb-0">' + li.join('') + '</ul>';
+    box.hidden = false;
+  }
   function resetQuiz(q) {
+    var rb = $('.quiz-rtti', q); if (rb) { rb.hidden = true; rb.innerHTML = ''; }
     $$('.quiz-q', q).forEach(function (f) { f.classList.remove('q-right', 'q-wrong', 'q-none'); $('.quiz-result', f).innerHTML = ''; });
     $$('.quiz-mark', q).forEach(function (m) { m.innerHTML = ''; });
     $$('.quiz-expl', q).forEach(function (x) { x.hidden = true; });
