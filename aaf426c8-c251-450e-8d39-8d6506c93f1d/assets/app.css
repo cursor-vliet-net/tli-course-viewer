@@ -22,6 +22,7 @@ body { font-family: var(--tli-font); color: var(--tli-ink); background: #f6f8fa;
 .tab:hover { color: #fff; background: rgba(255,255,255,.12); }
 .tab.active { color: var(--tli-bar); background: #fff; font-weight: 600; }
 .nav-toggle { display: none; }
+.header-toggle { display: none; }
 body.editing-off .edit-toggle { background: #6c757d; color: #fff; border-color: #6c757d; }
 
 /* three columns */
@@ -148,22 +149,31 @@ body.lb-open { overflow: hidden; }
 /* tablet / phone */
 @media (max-width: 991.98px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
-  .nav-toggle { display: inline-block; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .header-toggle { display: inline-flex; align-items: center; justify-content: center; margin-left: auto; order: 99; }
+  /* Collapsed by default: only left nav + right header tools toggle */
+  .topbar:not(.header-open) > :not(.nav-toggle):not(.header-toggle) { display: none !important; }
+  .topbar.header-open { align-items: flex-start; }
+  .topbar.header-open .header-toggle { position: sticky; top: .45rem; }
   .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 18rem; max-height: none; z-index: 1050; transform: translateX(-105%); transition: transform .2s; box-shadow: 2px 0 12px rgba(0,0,0,.2); }
   body.nav-open .sidebar { transform: none; }
   .nav-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 1040; }
   .notes { position: static; max-height: none; border-left: 0; border-top: 1px solid var(--tli-line); }
-  .main { padding: 1rem .75rem 2rem; }
-  .reading { padding: 1rem 1rem 1.5rem 2.9rem; }
-  .ref { left: -2.8rem; width: 2.6rem; }
+  .main { padding: .65rem .5rem 1.5rem; } /* ~8px side inset */
+  .reading { padding: .7rem .65rem 1.15rem; margin: 0; max-width: none; border-radius: .35rem; }
+  /* Free the desktop left gutter used for §¶ refs so the lesson / scene player can be wide */
+  .ref { position: static; display: inline-block; width: auto; left: auto; margin: 0 .35rem 0 0; text-align: left; vertical-align: baseline; }
+  body[data-mode=student] .blk > .ref { display: none; }
+  .topbar { padding-left: .5rem; padding-right: .5rem; }
 }
+
 @media (max-width: 575.98px) {
   .tabs .tab span:not(.badge) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .tab { padding: .3rem .5rem; }
   .edit-toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .search { order: 5; flex-basis: 100%; max-width: none; }
-  .reading { padding: .8rem .7rem 1.2rem 2.5rem; }
-  .ref { left: -2.45rem; width: 2.2rem; font-size: .6rem; }
+  .reading { padding: .6rem .5rem 1rem; }
+  .ref { font-size: .6rem; }
   .blk-figure, .blk-figure.fl-right, .blk-figure.fl-left { float: none !important; max-width: 100% !important; margin: .3rem 0 1rem !important; }
   .blk-tools { display: flex; position: static; box-shadow: none; border: 0; justify-content: flex-end; background: transparent; }
   .blk:not(.is-active):not(:focus-within) > .blk-tools { display: none; }
@@ -171,7 +181,7 @@ body.lb-open { overflow: hidden; }
 
 /* print: lesson text only */
 @media print {
-  .topbar, .sidebar, .blk-tools, .edit-bar, .comment-form, .toast-msg, .lb, .nav-backdrop, .skip-link, .quiz-actions { display: none !important; }
+  .topbar, .sidebar, .blk-tools, .edit-bar, .comment-form, .toast-msg, .lb, .nav-backdrop, .skip-link, .quiz-actions, .header-toggle { display: none !important; }
   .layout { display: block; }
   .notes { border: 0; page-break-before: always; }
   .main, .reading { padding: 0; box-shadow: none; max-width: none; }

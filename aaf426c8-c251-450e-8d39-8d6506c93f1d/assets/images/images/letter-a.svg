@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-label="Letter card A a"><rect x="4" y="4" width="392" height="192" rx="18" fill="#fff8e7" stroke="#d98b2b" stroke-width="6"/><text x="200" y="150" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="130" fill="#2b4d8c">A a</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" role="img" aria-label="Letter card A a: printed capital A, printed lowercase a, and handwritten single-storey a">
+  <rect x="4" y="4" width="472" height="192" rx="18" fill="#fff8e7" stroke="#d98b2b" stroke-width="6"/>
+  <text x="85" y="148" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="118" font-weight="700" fill="#2b4d8c">A</text>
+  <text x="215" y="148" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="118" fill="#2b4d8c">a</text>
+  <!-- Handwritten single-storey a: round bowl + right stem (paths only) -->
+  <g transform="translate(318 32)" fill="#2b4d8c" aria-hidden="true">
+    <path fill-rule="evenodd" d="
+      M 38 18
+      C 62 18 80 40 80 66
+      C 80 92 62 114 38 114
+      C 14 114 -4 92 -4 66
+      C -4 40 14 18 38 18
+      Z
+      M 38 40
+      C 51 40 60 51 60 66
+      C 60 81 51 92 38 92
+      C 25 92 16 81 16 66
+      C 16 51 25 40 38 40
+      Z"/>
+    <path d="M 68 24 H 86 V 128 C 86 140 94 148 108 150 V 162 H 60 C 64 152 68 142 68 130 Z"/>
+  </g>
+</svg>

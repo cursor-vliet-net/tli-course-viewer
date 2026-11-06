@@ -842,6 +842,20 @@
     if (t.closest('#lbClose')) { closeLightbox(); return; }
     if (t.closest('#lightbox')) { if (!t.closest('.lb-img')) closeLightbox(); return; }
     if (t.closest('#navToggle')) { document.body.classList.contains('nav-open') ? closeNav() : openNav(); return; }
+    if (t.closest('#headerToggle')) {
+      var bar = document.querySelector('.topbar');
+      var btn = $('#headerToggle');
+      if (bar && btn) {
+        var open = !bar.classList.contains('header-open');
+        bar.classList.toggle('header-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Hide header tools' : 'Show header tools');
+        btn.title = open ? 'Hide header tools' : 'Header tools';
+        var ic = btn.querySelector('i');
+        if (ic) ic.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-sliders';
+      }
+      return;
+    }
     if (t.closest('#navBackdrop')) { closeNav(); return; }
     if (t.closest('#editToggle')) { setEditing(!S.settings.editing); return; }
     if (t.closest('.quiz-check')) { checkQuiz(t.closest('.quiz')); return; }
@@ -918,6 +932,22 @@
       if (ev.key === 'Enter' && !ev.shiftKey && editing.blk.getAttribute('data-kind') !== 'list' && ev.target.closest('[contenteditable="true"]')) { ev.preventDefault(); saveEdit(); return; }
     }
     if (ev.key === 'Escape' && document.body.classList.contains('nav-open')) { closeNav(); $('#navToggle').focus(); return; }
+    if (ev.key === 'Escape') {
+      var bar = document.querySelector('.topbar.header-open');
+      if (bar) {
+        bar.classList.remove('header-open');
+        var btn = $('#headerToggle');
+        if (btn) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Show header tools');
+          btn.title = 'Header tools';
+          var ic = btn.querySelector('i');
+          if (ic) ic.className = 'fa-solid fa-sliders';
+          btn.focus();
+        }
+        return;
+      }
+    }
     /* keyboard: Enter on a focused, editable block body starts editing */
     if (ev.key === 'Enter' && ev.target.classList && ev.target.classList.contains('blk') && ev.target.hasAttribute('data-editable')) { ev.preventDefault(); startEdit(ev.target); }
   });
