@@ -35,7 +35,7 @@
       audio: !!S.settings.audio,
       subtitlesEn: S.settings.subtitlesEn !== false,
       subtitlesKm: S.settings.subtitlesKm !== false,
-      autoAdvance: S.settings.autoAdvance !== false,
+      autoAdvance: !!S.settings.autoAdvance,
       playbackSpeed: (typeof S.settings.playbackSpeed === 'number' && S.settings.playbackSpeed > 0) ? S.settings.playbackSpeed : 1
     };
   }
@@ -74,17 +74,17 @@
 
   /* ---------------- storage ---------------- */
   var memoryOnly = false;
-  function emptyState() { return { edits: {}, removals: {}, comments: {}, settings: { editing: true, audio: false, subtitlesEn: true, subtitlesKm: true, autoAdvance: true, playbackSpeed: 1 } }; }
+  function emptyState() { return { edits: {}, removals: {}, comments: {}, settings: { editing: true, audio: true, subtitlesEn: true, subtitlesKm: true, autoAdvance: false, playbackSpeed: 1 } }; }
   function loadState() {
     try {
       var raw = window.localStorage.getItem(STORE_KEY);
       var s = raw ? JSON.parse(raw) : emptyState();
       TYPES.forEach(function (t) { s[t] = s[t] || {}; });
       s.settings = s.settings || { editing: true };
-      if (typeof s.settings.audio !== 'boolean') s.settings.audio = false;
+      if (typeof s.settings.audio !== 'boolean') s.settings.audio = true;
       if (typeof s.settings.subtitlesEn !== 'boolean') s.settings.subtitlesEn = true;
       if (typeof s.settings.subtitlesKm !== 'boolean') s.settings.subtitlesKm = true;
-      if (typeof s.settings.autoAdvance !== 'boolean') s.settings.autoAdvance = true;
+      if (typeof s.settings.autoAdvance !== 'boolean') s.settings.autoAdvance = false;
       if (typeof s.settings.playbackSpeed !== 'number' || !(s.settings.playbackSpeed > 0)) s.settings.playbackSpeed = 1;
       return s;
     } catch (e) { memoryOnly = true; return emptyState(); }

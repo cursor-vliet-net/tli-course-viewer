@@ -67,14 +67,14 @@ Paths inside JSON are relative to `viewer/assets/`.
 
 ### Lines (multi-speaker scenes)
 
-Each scene has a `lines` array. Several characters can speak in one scene; the learner clicks a character to replay **that** character’s line (subtitles, and audio if Audio is on).
+Each scene has a `lines` array. Several characters can speak in one scene; the learner clicks a character **while paused** to replay **that** character’s line (subtitles, and audio if Audio is on). Clicks while playing are ignored.
 
 | Field | Meaning |
 |---|---|
 | `speaker` | Actor id (must appear in `placements` to be clickable). |
 | `text` | Source English line. |
 | `translations` | Map by language code (`km`, …). `translations.en` may override `text`. |
-| `audio` | Optional URL; ignored while Audio is bypassed. |
+| `audio` | Optional URL/file. When set and Audio is on, the file plays. When null/omitted, English `text` uses browser `speechSynthesis`. Ignored while Audio is bypassed. Never TTS for Khmer. |
 | `durationMs` | How long this line lasts (fallback: conversation `defaultDurationMs`). |
 | `atMs` | Optional start offset within the scene. If omitted, lines run in order (each after the previous duration). |
 
@@ -84,8 +84,9 @@ Clicking a character with no line in the current scene does nothing. If they hav
 
 ### Timing and playback
 
-- Conversation `defaultDurationMs` and per-line / per-scene durations drive auto-advance when **Auto** is on (default on).
-- Playback speed (0.25x–2x) scales wall-clock wait as `time / speed`.
+- Conversation `defaultDurationMs` and per-line / per-scene durations pace each scene. **Auto** (default **off**) advances to the next scene when on; at story end it resets to scene 1 paused.
+- With Auto off, Play finishes the current scene then pauses; Next/Prev land paused. Character clicks only work while paused.
+- Playback speed (0.25x–2x) scales wall-clock wait as `time / speed` and TTS rate.
 - Progress bar = elapsed time through the whole conversation (sum of scene durations + delays).
 
 ### Actors and sprites
@@ -98,5 +99,5 @@ Clicking a character with no line in the current scene does nothing. If they hav
 ### Subtitles and audio
 
 - Captions sit **below** the 16:9 stage (not over the picture). EN and KM toggles are independent (default both on).
-- Audio setting defaults **off** (bypass). Leave `"audio": null` until files exist.
+- Audio setting defaults **on**. Master switch: off = subtitles only (no file, no TTS). When on: if `audio` is a URL/file, play that file; else speak English `text` with browser `speechSynthesis` (English voice when available). Khmer has no TTS for now. Leave `"audio": null` until files exist — TTS covers English in the meantime.
 - Khmer is draft Grade-1 wording pending native-speaker check (open item 21).

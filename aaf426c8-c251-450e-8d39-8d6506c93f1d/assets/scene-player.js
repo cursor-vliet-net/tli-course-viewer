@@ -24,7 +24,7 @@
   function settings() {
     var R = global.TLIReader;
     if (R && typeof R.playerSettings === 'function') return R.playerSettings();
-    var out = { audio: false, subtitlesEn: true, subtitlesKm: true, autoAdvance: true, playbackSpeed: 1 };
+    var out = { audio: true, subtitlesEn: true, subtitlesKm: true, autoAdvance: false, playbackSpeed: 1 };
     try {
       var raw = global.localStorage && global.localStorage.getItem('tli-reader:tli-english-cambodia:v1');
       if (raw) {
@@ -47,6 +47,7 @@
 
   function Player(root, data) {
     this.root = root;
+    root._tliPlayer = this; /* test / debug hook */
     this.data = data;
     this.scenes = data.scenes || [];
     this.actors = data.actors || data.characters || {};
@@ -54,6 +55,7 @@
     this.lineIndex = 0;
     this.playing = false;
     this.ended = false;
+    this.sceneComplete = false;
     this.timer = null;
     this.lineTimer = null;
     this.raf = null;
@@ -156,10 +158,10 @@
         '<button type="button" class="tli-sp-btn tli-sp-replay" aria-label="Replay scene" title="Replay scene"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>' +
         '<div class="tli-sp-progress-wrap"><input type="range" class="tli-sp-progress" min="0" max="1000" value="0" step="1" aria-label="Story progress"></div>' +
         '<span class="tli-sp-counter" aria-live="polite">1 / 1</span>' +
-        '<button type="button" class="tli-sp-btn tli-sp-audio" aria-pressed="false" aria-label="Audio off" title="Audio"><i class="fa-solid fa-volume-xmark" aria-hidden="true"></i></button>' +
+        '<button type="button" class="tli-sp-btn tli-sp-audio" aria-pressed="true" aria-label="Audio on" title="Audio"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button>' +
         '<button type="button" class="tli-sp-btn tli-sp-cc-en" aria-pressed="true" aria-label="English subtitles on" title="English subtitles">EN</button>' +
         '<button type="button" class="tli-sp-btn tli-sp-cc-km" aria-pressed="true" aria-label="Khmer subtitles on" title="Khmer subtitles">ខ្មែរ</button>' +
-        '<button type="button" class="tli-sp-btn tli-sp-autoadv" aria-pressed="true" aria-label="Auto-advance on" title="Auto-advance">Auto</button>' +
+        '<button type="button" class="tli-sp-btn tli-sp-autoadv" aria-pressed="false" aria-label="Auto-advance off" title="Auto-advance">Auto</button>' +
         '<label class="tli-sp-speed-wrap" title="Playback speed"><span class="visually-hidden">Speed</span>' +
           '<select class="tli-sp-speed" aria-label="Playback speed">' + speedOpts + '</select></label>' +
         '<button type="button" class="tli-sp-btn tli-sp-fs" aria-label="Fullscreen" title="Fullscreen"><i class="fa-solid fa-expand" aria-hidden="true"></i></button>' +
@@ -198,7 +200,7 @@
     this.btnEn.classList.toggle('is-on', !!s.subtitlesEn);
     this.btnKm.setAttribute('aria-pressed', s.subtitlesKm ? 'true' : 'false');
     this.btnKm.classList.toggle('is-on', !!s.subtitlesKm);
-    var aa = s.autoAdvance !== false;
+    var aa = !!s.autoAdvance;
     this.btnAuto.setAttribute('aria-pressed', aa ? 'true' : 'false');
     this.btnAuto.setAttribute('aria-label', aa ? 'Auto-advance on' : 'Auto-advance off');
     this.btnAuto.title = aa ? 'Auto-advance on' : 'Auto-advance off';
@@ -241,11 +243,15 @@
       self._syncSettingButtons(); self._showLine(self._currentLine());
     });
     this.btnAuto.addEventListener('click', function () {
-      var next = !(settings().autoAdvance !== false);
+      var next = !settings().autoAdvance;
       if (global.TLIReader && global.TLIReader.setAutoAdvance) global.TLIReader.setAutoAdvance(next);
       else self._localSet('autoAdvance', next);
       self._syncSettingButtons();
-      if (self.playing) self._scheduleFromPaused();
+      if (next && self.sceneComplete && self.index < self.scenes.length - 1 && !self.playing) {
+        self.play(); /* continue into following scenes without stopping between them */
+      } else if (self.playing) {
+        self._scheduleFromPaused();
+      }
     });
     this.speedSel.addEventListener('change', function () {
       var v = parseFloat(self.speedSel.value) || 1;
@@ -302,18 +308,55 @@
       try { this.audioEl.pause(); this.audioEl.removeAttribute('src'); this.audioEl.load(); } catch (e) { /* ignore */ }
       this.audioEl = null;
     }
+    this._utterance = null;
+    if (global.speechSynthesis) {
+      try { global.speechSynthesis.cancel(); } catch (e) { /* ignore */ }
+    }
   };
 
+  Player.prototype._pickEnglishVoice = function () {
+    if (!global.speechSynthesis || !global.speechSynthesis.getVoices) return null;
+    var voices = global.speechSynthesis.getVoices() || [];
+    var i, v, en = null;
+    for (i = 0; i < voices.length; i++) {
+      v = voices[i];
+      if (/^en(-|_)/i.test(v.lang || '') || /^en$/i.test(v.lang || '')) {
+        if (/US|GB|AU|en-US|en-GB/i.test(v.lang)) return v;
+        if (!en) en = v;
+      }
+    }
+    return en;
+  };
+
+  /* Audio file wins when set; otherwise English TTS via speechSynthesis. Never TTS Khmer. */
   Player.prototype._playAudioFor = function (ln) {
     this._stopAudio();
-    if (!settings().audio || !ln || !ln.audio) return;
-    var url = resolveUrl(ln.audio);
-    if (!url) return;
+    if (!settings().audio || !ln) return;
+    if (ln.audio) {
+      var url = resolveUrl(ln.audio);
+      if (!url) return;
+      try {
+        var a = new Audio(url);
+        this.audioEl = a;
+        try { a.playbackRate = this.speed(); } catch (e) { /* ignore */ }
+        a.play().catch(function () {});
+      } catch (e) { /* ignore */ }
+      return;
+    }
+    var text = ln.text ? String(ln.text).trim() : '';
+    if (!text) return;
+    if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return;
     try {
-      var a = new Audio(url);
-      this.audioEl = a;
-      try { a.playbackRate = this.speed(); } catch (e) { /* ignore */ }
-      a.play().catch(function () {});
+      var u = new global.SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      var voice = this._pickEnglishVoice();
+      if (voice) u.voice = voice;
+      var rate = this.speed();
+      if (rate < 0.1) rate = 0.1;
+      if (rate > 2) rate = 2;
+      u.rate = rate;
+      this._utterance = u;
+      global.speechSynthesis.speak(u);
     } catch (e) { /* ignore */ }
   };
 
@@ -452,6 +495,7 @@
     this.pausedElapsed = 0;
     this.sceneStartedAt = 0;
     this.ended = false;
+    this.sceneComplete = false;
     this.lastSpokenByActor = {};
     var sc = this.scenes[idx];
     this.counter.textContent = (this.index + 1) + ' / ' + Math.max(1, this.scenes.length);
@@ -500,24 +544,57 @@
       })(i);
     }
 
-    if (settings().autoAdvance === false) return;
+    /* Always schedule scene end: pause after this scene unless autoplay continues. */
     var sceneLen = this.sceneDuration(sc) + this.delayOf(sc);
     var remain = sceneLen - elapsed;
     if (remain < 0) remain = 0;
     this.timer = setTimeout(function () {
-      self.pausedElapsed = 0;
-      if (self.index >= self.scenes.length - 1) {
-        self.ended = true;
-        self.pause();
+      self._onSceneFinished();
+    }, remain / this.speed());
+  };
+
+  Player.prototype._onSceneFinished = function () {
+    this.sceneComplete = true;
+    this.pausedElapsed = this.sceneDuration(this.scenes[this.index]) + this.delayOf(this.scenes[this.index]);
+    this.playing = false;
+    this._clearTimers();
+    this._stopAudio();
+    this._setPlayIcon(false);
+    this._updateProgressUI();
+    if (settings().autoAdvance) {
+      if (this.index >= this.scenes.length - 1) {
+        this._resetToStart();
         return;
       }
-      self.goTo(self.index + 1, { play: true });
-    }, remain / this.speed());
+      this.goTo(this.index + 1, { auto: false });
+      this.play();
+      return;
+    }
+    this._updateOverlay();
+  };
+
+  Player.prototype._resetToStart = function () {
+    this.ended = true;
+    this.sceneComplete = false;
+    this.pausedElapsed = 0;
+    this.sceneStartedAt = 0;
+    this.lineIndex = 0;
+    this.lastSpokenByActor = {};
+    this.playing = false;
+    this._clearTimers();
+    this._stopAudio();
+    this.index = 0;
+    this.counter.textContent = '1 / ' + Math.max(1, this.scenes.length);
+    this._showLine(this.linesOf(this.scenes[0])[0] || null);
+    this._setPlayIcon(false);
+    this._updateProgressUI();
+    this._updateOverlay();
   };
 
   Player.prototype._clearTimers = function () {
     if (this.timer) { clearTimeout(this.timer); this.timer = null; }
     if (this.lineTimer) { clearTimeout(this.lineTimer); this.lineTimer = null; }
+    if (this._charReplayTimer) { clearTimeout(this._charReplayTimer); this._charReplayTimer = null; }
     if (this._lineHandles) {
       this._lineHandles.forEach(function (h) { clearTimeout(h); });
       this._lineHandles = [];
@@ -529,9 +606,23 @@
     if (!this.scenes.length) return;
     if (this.ended) {
       this.ended = false;
+      this.sceneComplete = false;
       this.pausedElapsed = 0;
       this.goTo(0, { auto: false });
+    } else if (this.sceneComplete) {
+      if (this.index >= this.scenes.length - 1) {
+        /* Last scene finished with autoplay off: Replay Scene or Prev; Play restarts this scene. */
+        this.sceneComplete = false;
+        this.pausedElapsed = 0;
+        this.lineIndex = 0;
+        this.lastSpokenByActor = {};
+        this._showLine(this.linesOf(this.scenes[this.index])[0] || null);
+      } else {
+        this.sceneComplete = false;
+        this.goTo(this.index + 1, { auto: false });
+      }
     }
+    this.sceneComplete = false;
     this.playing = true;
     this._setPlayIcon(true);
     this._updateOverlay();
@@ -558,6 +649,7 @@
   Player.prototype.replayScene = function () {
     if (!this.scenes.length) return;
     this.ended = false;
+    this.sceneComplete = false;
     this.pausedElapsed = 0;
     this.sceneStartedAt = 0;
     this.lineIndex = 0;
@@ -575,24 +667,24 @@
   };
 
   Player.prototype.prev = function () {
-    var was = this.playing;
     this.ended = false;
-    this.goTo(this.index - 1, { auto: false });
-    if (was) this.play();
-    else this._updateOverlay();
+    this.sceneComplete = false;
+    this.goTo(Math.max(0, this.index - 1), { auto: false });
+    if (settings().autoAdvance) this.play();
+    else { this.playing = false; this._setPlayIcon(false); this._updateOverlay(); }
   };
 
   Player.prototype.next = function () {
-    var was = this.playing;
     if (this.index >= this.scenes.length - 1) {
-      this.ended = true;
+      this.sceneComplete = true;
       this.pause();
       return;
     }
     this.ended = false;
+    this.sceneComplete = false;
     this.goTo(this.index + 1, { auto: false });
-    if (was) this.play();
-    else this._updateOverlay();
+    if (settings().autoAdvance) this.play();
+    else { this.playing = false; this._setPlayIcon(false); this._updateOverlay(); }
   };
 
   Player.prototype.seekMs = function (ms) {
@@ -621,6 +713,7 @@
   };
 
   Player.prototype.repeatActor = function (actorId) {
+    if (this.playing) return; /* character clicks only work while paused */
     var sc = this.scenes[this.index];
     var lines = this.linesOf(sc);
     var ln = this.lastSpokenByActor[actorId];
@@ -631,8 +724,16 @@
       }
     }
     if (!ln) return;
+    var self = this;
     this._showLine(ln, { flash: true });
     this._playAudioFor(ln);
+    if (this._charReplayTimer) { clearTimeout(this._charReplayTimer); this._charReplayTimer = null; }
+    var wait = this.lineDuration(ln) / this.speed();
+    this._charReplayTimer = setTimeout(function () {
+      self._charReplayTimer = null;
+      self._stopAudio();
+      /* remain paused */
+    }, wait);
   };
 
   function mount(el) {
