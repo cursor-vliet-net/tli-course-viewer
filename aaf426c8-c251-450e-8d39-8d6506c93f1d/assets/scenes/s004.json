@@ -56,9 +56,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "Good morning, Bora.",
-      "textKm": "អរុណសួស្តី បូរ៉ា។",
       "audio": null,
-      "durationMs": 3000
+      "durationMs": 3000,
+      "translations": {
+        "km": "អរុណសួស្តី បូរ៉ា។"
+      }
     },
     {
       "id": "2",
@@ -86,9 +88,11 @@
       ],
       "speaker": "bora",
       "text": "Good morning, teacher.",
-      "textKm": "អរុណសួស្តី គ្រូ។",
       "audio": null,
-      "durationMs": 3000
+      "durationMs": 3000,
+      "translations": {
+        "km": "អរុណសួស្តី គ្រូ។"
+      }
     },
     {
       "id": "3",
@@ -116,9 +120,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "Good morning, Sreyneang.",
-      "textKm": "អរុណសួស្តី ស្រីណាង។",
       "audio": null,
-      "durationMs": 3200
+      "durationMs": 3200,
+      "translations": {
+        "km": "អរុណសួស្តី ស្រីណាង។"
+      }
     },
     {
       "id": "4",
@@ -146,9 +152,11 @@
       ],
       "speaker": "sreyneang",
       "text": "Good morning, teacher.",
-      "textKm": "អរុណសួស្តី គ្រូ។",
       "audio": null,
-      "durationMs": 3000
+      "durationMs": 3000,
+      "translations": {
+        "km": "អរុណសួស្តី គ្រូ។"
+      }
     },
     {
       "id": "5",
@@ -176,9 +184,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "I am Kru Sopheak. You are Bora.",
-      "textKm": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។ អ្នកគឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 4200
+      "durationMs": 4200,
+      "translations": {
+        "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។ អ្នកគឺបូរ៉ា។"
+      }
     },
     {
       "id": "6",
@@ -206,9 +216,11 @@
       ],
       "speaker": "bora",
       "text": "I am Bora. You are Kru Sopheak.",
-      "textKm": "ខ្ញុំគឺបូរ៉ា។ អ្នកគឺគ្រូសុភ័ក្ត្រ។",
       "audio": null,
-      "durationMs": 4000
+      "durationMs": 4000,
+      "translations": {
+        "km": "ខ្ញុំគឺបូរ៉ា។ អ្នកគឺគ្រូសុភ័ក្ត្រ។"
+      }
     },
     {
       "id": "7",
@@ -236,9 +248,11 @@
       ],
       "speaker": "sreyneang",
       "text": "I am Sreyneang.",
-      "textKm": "ខ្ញុំគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "ខ្ញុំគឺស្រីណាង។"
+      }
     }
   ]
 }

@@ -56,9 +56,11 @@
       ],
       "speaker": "yeay-chan",
       "text": "Hello, Bora.",
-      "textKm": "សួស្តី បូរ៉ា។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "សួស្តី បូរ៉ា។"
+      }
     },
     {
       "id": "2",
@@ -86,9 +88,11 @@
       ],
       "speaker": "bora",
       "text": "Hello, Yeay. I am Bora.",
-      "textKm": "សួស្តី យាយ។ ខ្ញុំគឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 3500
+      "durationMs": 3500,
+      "translations": {
+        "km": "សួស្តី យាយ។ ខ្ញុំគឺបូរ៉ា។"
+      }
     },
     {
       "id": "3",
@@ -116,9 +120,11 @@
       ],
       "speaker": "yeay-chan",
       "text": "Hello, Sreyneang.",
-      "textKm": "សួស្តី ស្រីណាង។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "សួស្តី ស្រីណាង។"
+      }
     },
     {
       "id": "4",
@@ -146,9 +152,11 @@
       ],
       "speaker": "sreyneang",
       "text": "Hello, Yeay. I am Sreyneang.",
-      "textKm": "សួស្តី យាយ។ ខ្ញុំគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 3600
+      "durationMs": 3600,
+      "translations": {
+        "km": "សួស្តី យាយ។ ខ្ញុំគឺស្រីណាង។"
+      }
     },
     {
       "id": "5",
@@ -176,9 +184,11 @@
       ],
       "speaker": "yeay-chan",
       "text": "Bora, you are Bora.",
-      "textKm": "បូរ៉ា អ្នកគឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 3200
+      "durationMs": 3200,
+      "translations": {
+        "km": "បូរ៉ា អ្នកគឺបូរ៉ា។"
+      }
     },
     {
       "id": "6",
@@ -206,9 +216,11 @@
       ],
       "speaker": "bora",
       "text": "Yes. I am Bora. You are Yeay.",
-      "textKm": "បាទ។ ខ្ញុំគឺបូរ៉ា។ អ្នកគឺយាយ។",
       "audio": null,
-      "durationMs": 4000
+      "durationMs": 4000,
+      "translations": {
+        "km": "បាទ។ ខ្ញុំគឺបូរ៉ា។ អ្នកគឺយាយ។"
+      }
     },
     {
       "id": "7",
@@ -236,9 +248,11 @@
       ],
       "speaker": "yeay-chan",
       "text": "Sreyneang, you are Sreyneang.",
-      "textKm": "ស្រីណាង អ្នកគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 3400
+      "durationMs": 3400,
+      "translations": {
+        "km": "ស្រីណាង អ្នកគឺស្រីណាង។"
+      }
     },
     {
       "id": "8",
@@ -266,9 +280,11 @@
       ],
       "speaker": "sreyneang",
       "text": "Yes. I am Sreyneang. You are Yeay.",
-      "textKm": "ចាស។ ខ្ញុំគឺស្រីណាង។ អ្នកគឺយាយ។",
       "audio": null,
-      "durationMs": 4200
+      "durationMs": 4200,
+      "translations": {
+        "km": "ចាស។ ខ្ញុំគឺស្រីណាង។ អ្នកគឺយាយ។"
+      }
     }
   ]
 }

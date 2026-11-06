@@ -270,13 +270,22 @@
     this._updateProgressUI();
   };
 
+  Player.prototype._translation = function (sc, code) {
+    if (!sc) return '';
+    var tr = sc.translations;
+    if (tr && typeof tr === 'object' && tr[code] != null && String(tr[code]).length)
+      return String(tr[code]);
+    return '';
+  };
+
   Player.prototype._applySubs = function () {
     var sc = this.scenes[this.index];
     var s = settings();
-    var en = sc && sc.text ? String(sc.text) : '';
-    var km = sc && (sc.textKm || sc.text_km) ? String(sc.textKm || sc.text_km) : '';
-    var showEn = s.subtitlesEn && en;
-    var showKm = s.subtitlesKm && km;
+    /* English: translations.en overrides text when present; otherwise text is the source line. */
+    var en = this._translation(sc, 'en') || (sc && sc.text ? String(sc.text) : '');
+    var km = this._translation(sc, 'km');
+    var showEn = s.subtitlesEn && !!en;
+    var showKm = s.subtitlesKm && !!km;
     this.subEn.textContent = en;
     this.subKm.textContent = km;
     this.subEn.hidden = !showEn;

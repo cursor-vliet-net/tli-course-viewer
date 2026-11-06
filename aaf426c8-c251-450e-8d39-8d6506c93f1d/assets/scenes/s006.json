@@ -56,9 +56,11 @@
       ],
       "speaker": "bora",
       "text": "Hello, teacher.",
-      "textKm": "សួស្តី គ្រូ។",
       "audio": null,
-      "durationMs": 2600
+      "durationMs": 2600,
+      "translations": {
+        "km": "សួស្តី គ្រូ។"
+      }
     },
     {
       "id": "2",
@@ -86,9 +88,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "Hello, Bora.",
-      "textKm": "សួស្តី បូរ៉ា។",
       "audio": null,
-      "durationMs": 2600
+      "durationMs": 2600,
+      "translations": {
+        "km": "សួស្តី បូរ៉ា។"
+      }
     },
     {
       "id": "3",
@@ -116,9 +120,11 @@
       ],
       "speaker": "bora",
       "text": "A book, please.",
-      "textKm": "សូមសៀវភៅ។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "សូមសៀវភៅ។"
+      }
     },
     {
       "id": "4",
@@ -146,9 +152,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "Yes.",
-      "textKm": "បាទ/ចាស។",
       "audio": null,
-      "durationMs": 2000
+      "durationMs": 2000,
+      "translations": {
+        "km": "បាទ/ចាស។"
+      }
     },
     {
       "id": "5",
@@ -176,9 +184,11 @@
       ],
       "speaker": "bora",
       "text": "Thank you.",
-      "textKm": "អរគុណ។",
       "audio": null,
-      "durationMs": 2400
+      "durationMs": 2400,
+      "translations": {
+        "km": "អរគុណ។"
+      }
     },
     {
       "id": "6",
@@ -206,9 +216,11 @@
       ],
       "speaker": "sreyneang",
       "text": "A book, please.",
-      "textKm": "សូមសៀវភៅ។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "សូមសៀវភៅ។"
+      }
     },
     {
       "id": "7",
@@ -236,9 +248,11 @@
       ],
       "speaker": "bora",
       "text": "Yes.",
-      "textKm": "បាទ។",
       "audio": null,
-      "durationMs": 2000
+      "durationMs": 2000,
+      "translations": {
+        "km": "បាទ។"
+      }
     },
     {
       "id": "8",
@@ -266,9 +280,11 @@
       ],
       "speaker": "sreyneang",
       "text": "Thank you.",
-      "textKm": "អរគុណ។",
       "audio": null,
-      "durationMs": 2400
+      "durationMs": 2400,
+      "translations": {
+        "km": "អរគុណ។"
+      }
     },
     {
       "id": "9",
@@ -296,9 +312,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "She is Sreyneang. He is Bora.",
-      "textKm": "នាងគឺស្រីណាង។ គាត់គឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 4200
+      "durationMs": 4200,
+      "translations": {
+        "km": "នាងគឺស្រីណាង។ គាត់គឺបូរ៉ា។"
+      }
     }
   ]
 }

@@ -56,9 +56,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "I am Kru Sopheak.",
-      "textKm": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។",
       "audio": null,
-      "durationMs": 3000
+      "durationMs": 3000,
+      "translations": {
+        "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។"
+      }
     },
     {
       "id": "2",
@@ -86,9 +88,11 @@
       ],
       "speaker": "bora",
       "text": "I am Bora.",
-      "textKm": "ខ្ញុំគឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 2600
+      "durationMs": 2600,
+      "translations": {
+        "km": "ខ្ញុំគឺបូរ៉ា។"
+      }
     },
     {
       "id": "3",
@@ -116,9 +120,11 @@
       ],
       "speaker": "sreyneang",
       "text": "I am Sreyneang.",
-      "textKm": "ខ្ញុំគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "ខ្ញុំគឺស្រីណាង។"
+      }
     },
     {
       "id": "4",
@@ -146,9 +152,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "You are Bora. You are Sreyneang.",
-      "textKm": "អ្នកគឺបូរ៉ា។ អ្នកគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 4000
+      "durationMs": 4000,
+      "translations": {
+        "km": "អ្នកគឺបូរ៉ា។ អ្នកគឺស្រីណាង។"
+      }
     },
     {
       "id": "5",
@@ -176,9 +184,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "He is Bora.",
-      "textKm": "គាត់គឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "គាត់គឺបូរ៉ា។"
+      }
     },
     {
       "id": "6",
@@ -206,9 +216,11 @@
       ],
       "speaker": "sreyneang",
       "text": "He is Bora.",
-      "textKm": "គាត់គឺបូរ៉ា។",
       "audio": null,
-      "durationMs": 2800
+      "durationMs": 2800,
+      "translations": {
+        "km": "គាត់គឺបូរ៉ា។"
+      }
     },
     {
       "id": "7",
@@ -236,9 +248,11 @@
       ],
       "speaker": "kru-sopheak",
       "text": "She is Sreyneang.",
-      "textKm": "នាងគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 3000
+      "durationMs": 3000,
+      "translations": {
+        "km": "នាងគឺស្រីណាង។"
+      }
     },
     {
       "id": "8",
@@ -266,9 +280,11 @@
       ],
       "speaker": "bora",
       "text": "She is Sreyneang.",
-      "textKm": "នាងគឺស្រីណាង។",
       "audio": null,
-      "durationMs": 3000
+      "durationMs": 3000,
+      "translations": {
+        "km": "នាងគឺស្រីណាង។"
+      }
     },
     {
       "id": "9",
@@ -296,9 +312,11 @@
       ],
       "speaker": "bora",
       "text": "She is Kru Sopheak.",
-      "textKm": "នាងគឺគ្រូសុភ័ក្ត្រ។",
       "audio": null,
-      "durationMs": 3200
+      "durationMs": 3200,
+      "translations": {
+        "km": "នាងគឺគ្រូសុភ័ក្ត្រ។"
+      }
     }
   ]
 }

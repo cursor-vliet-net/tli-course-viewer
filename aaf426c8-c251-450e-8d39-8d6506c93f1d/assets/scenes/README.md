@@ -43,7 +43,7 @@ Paths inside JSON are relative to `viewer/assets/`.
       ],
       "speaker": "yeay-chan",
       "text": "Good morning, Bora!",
-      "textKm": "អរុណសួស្តី បូរ៉ា!",
+      "translations": { "km": "អរុណសួស្តី បូរ៉ា!" },
       "audio": null,
       "durationMs": 3500,
       "delayMs": 0
@@ -71,7 +71,8 @@ The progress bar is **elapsed time through the whole conversation** (sum of each
 
 ### Subtitles
 
-- `text` = English, `textKm` = Khmer. Viewer toggles show either, both, or neither.
+- `text` = source line (English). `translations` is a map keyed by language code (`km`, later others). `translations.en` may override `text` for the English caption; it is not required.
+- Viewer toggles currently show EN (`text` / `translations.en`) and KM (`translations.km`), independently. Missing translation → that caption is hidden.
 - Khmer in these files is draft Grade-1 wording and must be verified by a native speaker (open item 21).
 
 ### Audio
