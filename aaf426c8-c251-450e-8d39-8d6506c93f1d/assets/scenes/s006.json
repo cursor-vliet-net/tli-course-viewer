@@ -1,0 +1,304 @@
+{
+  "id": "S006",
+  "title": "Please and thank you",
+  "defaultDurationMs": 2800,
+  "background": "media/backgrounds/classroom.png",
+  "actors": {
+    "kru-sopheak": {
+      "name": "Kru Sopheak",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/kru-sopheak-idle.png",
+        "speak": "media/characters/kru-sopheak-speak.png"
+      }
+    },
+    "bora": {
+      "name": "Bora",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/bora-idle.png",
+        "speak": "media/characters/bora-speak.png"
+      }
+    },
+    "sreyneang": {
+      "name": "Sreyneang",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/sreyneang-idle.png",
+        "speak": "media/characters/sreyneang-speak.png"
+      }
+    }
+  },
+  "scenes": [
+    {
+      "id": "1",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "bora",
+      "text": "Hello, teacher.",
+      "textKm": "សួស្តី គ្រូ។",
+      "audio": null,
+      "durationMs": 2600
+    },
+    {
+      "id": "2",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "kru-sopheak",
+      "text": "Hello, Bora.",
+      "textKm": "សួស្តី បូរ៉ា។",
+      "audio": null,
+      "durationMs": 2600
+    },
+    {
+      "id": "3",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "bora",
+      "text": "A book, please.",
+      "textKm": "សូមសៀវភៅ។",
+      "audio": null,
+      "durationMs": 2800
+    },
+    {
+      "id": "4",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "kru-sopheak",
+      "text": "Yes.",
+      "textKm": "បាទ/ចាស។",
+      "audio": null,
+      "durationMs": 2000
+    },
+    {
+      "id": "5",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "bora",
+      "text": "Thank you.",
+      "textKm": "អរគុណ។",
+      "audio": null,
+      "durationMs": 2400
+    },
+    {
+      "id": "6",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "speak",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "sreyneang",
+      "text": "A book, please.",
+      "textKm": "សូមសៀវភៅ។",
+      "audio": null,
+      "durationMs": 2800
+    },
+    {
+      "id": "7",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "bora",
+      "text": "Yes.",
+      "textKm": "បាទ។",
+      "audio": null,
+      "durationMs": 2000
+    },
+    {
+      "id": "8",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "speak",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "sreyneang",
+      "text": "Thank you.",
+      "textKm": "អរគុណ។",
+      "audio": null,
+      "durationMs": 2400
+    },
+    {
+      "id": "9",
+      "background": "media/backgrounds/classroom.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 28,
+          "y": 92,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "speaker": "kru-sopheak",
+      "text": "She is Sreyneang. He is Bora.",
+      "textKm": "នាងគឺស្រីណាង។ គាត់គឺបូរ៉ា។",
+      "audio": null,
+      "durationMs": 4200
+    }
+  ]
+}

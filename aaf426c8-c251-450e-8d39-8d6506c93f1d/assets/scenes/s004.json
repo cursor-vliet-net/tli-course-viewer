@@ -1,0 +1,244 @@
+{
+  "id": "S004",
+  "title": "Good morning, teacher",
+  "defaultDurationMs": 3200,
+  "background": "media/backgrounds/school-door.png",
+  "actors": {
+    "kru-sopheak": {
+      "name": "Kru Sopheak",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/kru-sopheak-idle.png",
+        "speak": "media/characters/kru-sopheak-speak.png"
+      }
+    },
+    "bora": {
+      "name": "Bora",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/bora-idle.png",
+        "speak": "media/characters/bora-speak.png"
+      }
+    },
+    "sreyneang": {
+      "name": "Sreyneang",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/sreyneang-idle.png",
+        "speak": "media/characters/sreyneang-speak.png"
+      }
+    }
+  },
+  "scenes": [
+    {
+      "id": "1",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "kru-sopheak",
+      "text": "Good morning, Bora.",
+      "textKm": "អរុណសួស្តី បូរ៉ា។",
+      "audio": null,
+      "durationMs": 3000
+    },
+    {
+      "id": "2",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "bora",
+      "text": "Good morning, teacher.",
+      "textKm": "អរុណសួស្តី គ្រូ។",
+      "audio": null,
+      "durationMs": 3000
+    },
+    {
+      "id": "3",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "kru-sopheak",
+      "text": "Good morning, Sreyneang.",
+      "textKm": "អរុណសួស្តី ស្រីណាង។",
+      "audio": null,
+      "durationMs": 3200
+    },
+    {
+      "id": "4",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "speak",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "sreyneang",
+      "text": "Good morning, teacher.",
+      "textKm": "អរុណសួស្តី គ្រូ។",
+      "audio": null,
+      "durationMs": 3000
+    },
+    {
+      "id": "5",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "kru-sopheak",
+      "text": "I am Kru Sopheak. You are Bora.",
+      "textKm": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។ អ្នកគឺបូរ៉ា។",
+      "audio": null,
+      "durationMs": 4200
+    },
+    {
+      "id": "6",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "bora",
+      "text": "I am Bora. You are Kru Sopheak.",
+      "textKm": "ខ្ញុំគឺបូរ៉ា។ អ្នកគឺគ្រូសុភ័ក្ត្រ។",
+      "audio": null,
+      "durationMs": 4000
+    },
+    {
+      "id": "7",
+      "background": "media/backgrounds/school-door.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 32,
+          "y": 93,
+          "scale": 1.05
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 58,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "speak",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "speaker": "sreyneang",
+      "text": "I am Sreyneang.",
+      "textKm": "ខ្ញុំគឺស្រីណាង។",
+      "audio": null,
+      "durationMs": 2800
+    }
+  ]
+}

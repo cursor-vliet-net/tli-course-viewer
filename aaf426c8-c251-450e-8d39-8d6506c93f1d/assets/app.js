@@ -26,16 +26,52 @@
     var m = /[?&]mode=([a-z]+)/i.exec(location.search || '') || /(?:^#|&)mode=([a-z]+)/i.exec(location.hash || '');
     return m && MODES.indexOf(m[1].toLowerCase()) >= 0 ? m[1].toLowerCase() : null;
   }
+  function audioFromUrl() {
+    var m = /[?&]audio=(on|off)/i.exec(location.search || '') || /(?:^#|&)audio=(on|off)/i.exec(location.hash || '');
+    return m ? m[1].toLowerCase() === 'on' : null;
+  }
+  function playerSettings() {
+    return {
+      audio: !!S.settings.audio,
+      subtitlesEn: S.settings.subtitlesEn !== false,
+      subtitlesKm: S.settings.subtitlesKm !== false
+    };
+  }
+  function notifyPlayerSettings() {
+    try { document.dispatchEvent(new CustomEvent('tli-player-settings', { detail: playerSettings() })); } catch (e) { /* ignore */ }
+  }
+  function syncPlayerControls() {
+    var ps = playerSettings();
+    var a = $('#audioSelect'), e = $('#subEnSelect'), k = $('#subKmSelect');
+    if (a) a.value = ps.audio ? 'on' : 'off';
+    if (e) e.value = ps.subtitlesEn ? 'on' : 'off';
+    if (k) k.value = ps.subtitlesKm ? 'on' : 'off';
+  }
+  function setAudio(on, quiet) {
+    S.settings.audio = !!on; save(); syncPlayerControls(); notifyPlayerSettings();
+    if (!quiet) toast(on ? 'Audio on' : 'Audio off');
+  }
+  function setSubtitlesEn(on, quiet) {
+    S.settings.subtitlesEn = !!on; save(); syncPlayerControls(); notifyPlayerSettings();
+    if (!quiet) toast(on ? 'English subtitles on' : 'English subtitles off');
+  }
+  function setSubtitlesKm(on, quiet) {
+    S.settings.subtitlesKm = !!on; save(); syncPlayerControls(); notifyPlayerSettings();
+    if (!quiet) toast(on ? 'Khmer subtitles on' : 'Khmer subtitles off');
+  }
 
   /* ---------------- storage ---------------- */
   var memoryOnly = false;
-  function emptyState() { return { edits: {}, removals: {}, comments: {}, settings: { editing: true } }; }
+  function emptyState() { return { edits: {}, removals: {}, comments: {}, settings: { editing: true, audio: false, subtitlesEn: true, subtitlesKm: true } }; }
   function loadState() {
     try {
       var raw = window.localStorage.getItem(STORE_KEY);
       var s = raw ? JSON.parse(raw) : emptyState();
       TYPES.forEach(function (t) { s[t] = s[t] || {}; });
       s.settings = s.settings || { editing: true };
+      if (typeof s.settings.audio !== 'boolean') s.settings.audio = false;
+      if (typeof s.settings.subtitlesEn !== 'boolean') s.settings.subtitlesEn = true;
+      if (typeof s.settings.subtitlesKm !== 'boolean') s.settings.subtitlesKm = true;
       return s;
     } catch (e) { memoryOnly = true; return emptyState(); }
   }
@@ -153,7 +189,8 @@
         }
         Array.prototype.slice.call(n.attributes).forEach(function (a) {
           var keep = (n.tagName === 'A' && (a.name === 'href' || a.name === 'data-href' || a.name === 'target' || a.name === 'rel' || a.name === 'data-internal')) ||
-                     (a.name === 'class' && (n.tagName === 'TD' || n.tagName === 'TH' || n.tagName === 'SPAN' || n.tagName === 'I')) ||
+                     (a.name === 'class' && (n.tagName === 'TD' || n.tagName === 'TH' || n.tagName === 'SPAN' || n.tagName === 'I' || n.tagName === 'DIV')) ||
+                     (n.tagName === 'DIV' && (a.name === 'data-scene' || a.name === 'role' || a.name === 'aria-label')) ||
                      (a.name === 'data-tag' || a.name === 'title' || a.name === 'aria-hidden') && n.tagName === 'SPAN' ||
                      (a.name === 'aria-hidden' && n.tagName === 'I');
           if (n.tagName === 'A' && a.name === 'href' && /^\s*javascript:/i.test(a.value)) keep = false;
@@ -278,6 +315,7 @@
     var target = anchor && inMode(anchor) && document.getElementById(anchor);
     if (target) { flash(target); if (target.scrollIntoView) target.scrollIntoView({ block: 'center' }); }
     else if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) { /* jsdom */ } }
+    if (window.TLIScenePlayer && window.TLIScenePlayer.mountAll) window.TLIScenePlayer.mountAll(article);
   }
   function flash(el) { el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1800); }
   function bodyOf(blk) { return $('[data-body]', blk); }
@@ -840,6 +878,9 @@
   document.addEventListener('change', function (ev) {
     var t = ev.target;
     if (t.id === 'modeSelect') { setMode(t.value); return; }
+    if (t.id === 'audioSelect') { setAudio(t.value === 'on'); return; }
+    if (t.id === 'subEnSelect') { setSubtitlesEn(t.value === 'on'); return; }
+    if (t.id === 'subKmSelect') { setSubtitlesKm(t.value === 'on'); return; }
     if (MODE === 'student' && t.type === 'radio' && t.closest('.quiz-q')) answerStudent(t.closest('.quiz-q'));
   });
   document.addEventListener('input', function (ev) { if (editing && editing.blk.contains(ev.target)) editing.dirty = true; });
@@ -881,11 +922,15 @@
   $$('.tabs [data-view=read]').forEach(function (a) { a.setAttribute('href', '#d-' + D.parts[0].id); });
   setEditing(S.settings.editing !== false);
   setMode(modeFromUrl() || S.settings.mode || D.defaultMode || 'designer', true);
+  var au = audioFromUrl();
+  if (au !== null) S.settings.audio = au;
+  syncPlayerControls();
   route();
 
   window.TLIReader = {
     version: D.version, mode: function () { return MODE; }, setMode: setMode, exportMarkdown: exportMarkdown, exportJSON: exportJSON, route: route,
     state: function () { return S; }, storeKey: STORE_KEY, blockMD: blockMD, sanitize: sanitize,
-    startEdit: startEdit, saveEdit: saveEdit, cancelEdit: cancelEdit
+    startEdit: startEdit, saveEdit: saveEdit, cancelEdit: cancelEdit,
+    playerSettings: playerSettings, setAudio: setAudio, setSubtitlesEn: setSubtitlesEn, setSubtitlesKm: setSubtitlesKm
   };
 })();
