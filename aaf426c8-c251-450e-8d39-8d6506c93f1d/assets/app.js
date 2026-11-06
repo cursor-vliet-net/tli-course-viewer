@@ -65,27 +65,70 @@
     var map = (D.i18n && D.i18n.km) || {};
     return map[text] || '';
   }
+  function plainFromHtml(html) {
+    var d = document.createElement('div');
+    d.innerHTML = html || '';
+    return (d.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+  function i18nNodes(root) {
+    var nodes = $$('[data-i18n]', root || document);
+    if (root && root.nodeType === 1 && root.hasAttribute && root.hasAttribute('data-i18n')) nodes.unshift(root);
+    return nodes;
+  }
+  /* Primary language, with the other language in a smaller gray line when a translation exists. */
+  function bilingualHtml(primaryHtml, secondaryText, secondaryLang) {
+    var alt = (secondaryText || '').replace(/\s+/g, ' ').trim();
+    var primaryPlain = plainFromHtml(primaryHtml);
+    if (!alt || alt === primaryPlain) return primaryHtml;
+    return '<span class="i18n-primary">' + primaryHtml + '</span>' +
+      '<span class="i18n-alt" lang="' + secondaryLang + '">' + esc(alt) + '</span>';
+  }
+  function fillBilingual(el, primary, secondary, secondaryLang) {
+    var pri = (primary || '').replace(/\s+/g, ' ').trim();
+    var alt = (secondary || '').replace(/\s+/g, ' ').trim();
+    el.textContent = '';
+    var p = document.createElement('span');
+    p.className = 'i18n-primary';
+    p.textContent = pri;
+    el.appendChild(p);
+    if (alt && alt !== pri) {
+      var s = document.createElement('span');
+      s.className = 'i18n-alt';
+      s.lang = secondaryLang;
+      s.textContent = alt;
+      el.appendChild(s);
+    }
+  }
   function applyUiLang() {
-    var pack = UI_STRINGS[uiLang()] || UI_STRINGS.en;
+    var lang = uiLang();
+    var pack = UI_STRINGS[lang] || UI_STRINGS.en;
+    var other = lang === 'km' ? UI_STRINGS.en : UI_STRINGS.km;
+    var otherLang = lang === 'km' ? 'en' : 'km';
     $$('[data-i18n-ui]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-ui');
-      if (pack[key] != null) el.textContent = pack[key];
+      if (pack[key] == null) return;
+      fillBilingual(el, pack[key], other[key], otherLang);
     });
-    var sel = $('#uiLang');
-    if (sel) sel.value = uiLang();
-    document.documentElement.lang = uiLang() === 'km' ? 'km' : 'en';
+    $$('input[name="uiLang"]').forEach(function (r) { r.checked = r.value === lang; });
+    document.documentElement.lang = lang === 'km' ? 'km' : 'en';
     var banner = $('#kmDraft');
-    if (banner) { banner.hidden = uiLang() !== 'km'; banner.textContent = pack.draft || ''; }
+    if (banner) { banner.hidden = lang !== 'km'; banner.textContent = pack.draft || ''; }
+  }
+  function restoreAuthored(root) {
+    i18nNodes(root).forEach(function (el) {
+      var en = el.getAttribute('data-en-html');
+      if (en != null) el.innerHTML = en;
+    });
   }
   function applyContentLang(root) {
     var km = uiLang() === 'km';
-    var nodes = $$('[data-i18n]', root || document);
-    if (root && root.nodeType === 1 && root.hasAttribute && root.hasAttribute('data-i18n')) nodes.unshift(root);
-    nodes.forEach(function (el) {
+    i18nNodes(root).forEach(function (el) {
       if (el.isContentEditable) return;
       var en = el.getAttribute('data-en-html');
       if (en == null) return;
-      if (km && el.getAttribute('data-km')) el.textContent = el.getAttribute('data-km');
+      var kmText = el.getAttribute('data-km') || '';
+      if (km && kmText) el.innerHTML = bilingualHtml(esc(kmText), plainFromHtml(en), 'en');
+      else if (!km && kmText) el.innerHTML = bilingualHtml(en, kmText, 'km');
       else el.innerHTML = en;
     });
   }
@@ -287,9 +330,12 @@
   /* ---------------- layout: nav, notes, counts ---------------- */
   function buildNav() {
     $('#partList').innerHTML = D.parts.filter(function (p) { return partVisible(p); }).map(function (p) {
+      var km = kmText(p.title);
       return '<li><a href="#d-' + esc(p.id) + '" data-part="' + esc(p.id) + '"><span class="part-id">' + esc(p.id) + '</span> ' +
-        '<span class="part-title">' + esc(p.title) + '</span> <span class="badge text-bg-warning part-count" data-count="' + esc(p.id) + '"></span></a></li>';
+        '<span class="part-title" data-i18n="1" data-en-html="' + esc(p.title) + '"' + (km ? ' data-km="' + esc(km) + '"' : '') + '>' + esc(p.title) + '</span> ' +
+        '<span class="badge text-bg-warning part-count" data-count="' + esc(p.id) + '"></span></a></li>';
     }).join('');
+    applyContentLang($('#partList'));
   }
   function updateCounts() {
     var per = {}, total = 0;
@@ -388,7 +434,7 @@
       var ic = (g && g.icon) ? g.icon : '';
       var km = kmText(text);
       var iconHtml = ic ? '<i class="fa-solid ' + esc(ic) + ' goal-icon" aria-hidden="true"></i>' : '';
-      return '<li>' + iconHtml + '<span data-i18n="1"' + (km ? ' data-km="' + esc(km) + '"' : '') + '>' + esc(text) + '</span></li>';
+      return '<li>' + iconHtml + '<span data-i18n="1" data-en-html="' + esc(text) + '"' + (km ? ' data-km="' + esc(km) + '"' : '') + '>' + esc(text) + '</span></li>';
     }).join('') + '</ul>' +
       (meta ? '<details class="meta"><summary>Metadata · ' + esc(p.file) + '</summary><table class="table table-sm mb-0">' + meta + '</table></details>' : '');
     var first = $('.blk', article);
@@ -496,6 +542,7 @@
     var e = findItem('edits', me.part, me.ref);
     if (e && e.item.h !== me.h) { body = bodyOf(blk); }
     var body = bodyOf(blk);
+    restoreAuthored(body);
     blk.classList.add('is-editing');
     editTargets(blk).forEach(function (t) { t.setAttribute('contenteditable', 'true'); t.setAttribute('spellcheck', 'true'); });
     $$('.cell-tag', body).forEach(function (t) { t.setAttribute('contenteditable', 'false'); });
@@ -968,7 +1015,7 @@
   document.addEventListener('change', function (ev) {
     var t = ev.target;
     if (t.id === 'modeSelect') { setMode(t.value); return; }
-    if (t.id === 'uiLang') { setUiLang(t.value); return; }
+    if (t.name === 'uiLang') { setUiLang(t.value); return; }
     if (MODE === 'student' && t.type === 'radio' && t.closest('.quiz-q')) answerStudent(t.closest('.quiz-q'));
   });
   document.addEventListener('input', function (ev) { if (editing && editing.blk.contains(ev.target)) editing.dirty = true; });

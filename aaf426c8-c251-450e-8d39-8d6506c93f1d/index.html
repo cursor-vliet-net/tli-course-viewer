@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="generator" content="tli reader v1.7.0, built 2026-11-06 23:40">
+<meta name="generator" content="tli reader v1.7.1, built 2026-11-07 00:45">
 <title>tli.cloud: English in Cambodia · reader</title>
 <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-<link rel="stylesheet" href="assets/app.css?v=1bec7d3f26">
-<link rel="stylesheet" href="assets/scene-player.css?v=1bec7d3f26">
+<link rel="stylesheet" href="assets/app.css?v=b9c0b2eebd">
+<link rel="stylesheet" href="assets/scene-player.css?v=b9c0b2eebd">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -28,12 +28,11 @@
       <option value="teacher">Teacher</option>
       <option value="student">Student</option>
     </select></label>
-  <label class="ui-lang" for="uiLang"><i class="fa-solid fa-language" aria-hidden="true"></i>
-    <span class="visually-hidden" data-i18n-ui="interfaceLanguage">Interface language</span>
-    <select id="uiLang" class="form-select form-select-sm" aria-label="Interface language">
-      <option value="en">English</option>
-      <option value="km">ខ្មែរ</option>
-    </select></label>
+  <div class="ui-lang" role="radiogroup" aria-label="Interface language">
+    <label class="ui-lang-opt"><input type="radio" name="uiLang" value="km" aria-label="Khmer"><span aria-hidden="true">KH</span></label>
+    <span class="ui-lang-sep" aria-hidden="true">|</span>
+    <label class="ui-lang-opt"><input type="radio" name="uiLang" value="en" aria-label="English" checked><span aria-hidden="true">EN</span></label>
+  </div>
   <button type="button" class="btn btn-sm btn-outline-light" id="themeToggle" aria-pressed="false" aria-label="Dark mode" title="Dark mode"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
   <button type="button" class="btn btn-sm btn-light edit-toggle" id="editToggle" aria-pressed="true"><i class="fa-solid fa-pen" aria-hidden="true"></i><span data-i18n-ui="editingOn"> Editing on</span></button>
   <button type="button" class="btn btn-sm btn-outline-light header-toggle" id="headerToggle" aria-controls="topbar" aria-expanded="false" aria-label="Show header tools" title="Header tools"><i class="fa-solid fa-sliders" aria-hidden="true"></i></button>
@@ -52,14 +51,14 @@
     <div id="notesBody"></div>
   </aside>
 </div>
-<footer class="footer" id="footer">tli.cloud: English in Cambodia · reader v1.7.0 · built 2026-11-06 23:40</footer>
+<footer class="footer" id="footer">tli.cloud: English in Cambodia · reader v1.7.1 · built 2026-11-07 00:45</footer>
 <div id="toast" class="toast-msg" role="status" aria-live="polite"></div>
 <div id="lightbox" class="lb" role="dialog" aria-modal="true" aria-labelledby="lbCap" hidden>
   <figure class="lb-fig"><img class="lb-img" id="lbImg" alt=""><figcaption class="lb-cap" id="lbCap"></figcaption></figure>
   <button type="button" class="lb-close" id="lbClose" aria-label="Close image viewer"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
 </div>
-<script src="assets/data.js?v=1bec7d3f26" charset="utf-8"></script>
-<script src="assets/app.js?v=1bec7d3f26" charset="utf-8"></script>
-<script src="assets/scene-player.js?v=1bec7d3f26" charset="utf-8"></script>
+<script src="assets/data.js?v=b9c0b2eebd" charset="utf-8"></script>
+<script src="assets/app.js?v=b9c0b2eebd" charset="utf-8"></script>
+<script src="assets/scene-player.js?v=b9c0b2eebd" charset="utf-8"></script>
 </body>
 </html>
