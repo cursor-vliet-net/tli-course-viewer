@@ -7,7 +7,8 @@
 .tli-sp.is-fullscreen .tli-sp-stage { max-height: 100%; }
 .tli-sp-bg { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .tli-sp-actors { position: absolute; inset: 0; }
-.tli-sp-actor { position: absolute; transform: translate(-50%, -100%) scale(var(--sp-scale, 1)); border: 0; background: transparent; padding: 0; cursor: pointer; width: 22%; max-width: 9.5rem; min-width: 4.5rem; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+.tli-sp-actor { position: absolute; transform: translate(-50%, -100%) scale(var(--sp-scale, 1)); border: 0; background: transparent; padding: 0; cursor: default; width: 22%; max-width: 9.5rem; min-width: 4.5rem; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+.tli-sp-actor.is-clickable { cursor: pointer; }
 .tli-sp-actor img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; }
 .tli-sp-actor.face-left img { transform: scaleX(-1); }
 .tli-sp-actor.is-speaking { z-index: 3; filter: drop-shadow(0 0 0 3px #ffd666) drop-shadow(0 2px 6px rgba(0,0,0,.4)); }

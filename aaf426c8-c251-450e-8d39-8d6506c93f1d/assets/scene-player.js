@@ -55,6 +55,7 @@
     this.lineIndex = 0;
     this.playing = false;
     this.ended = false;
+    this.awaitingStart = true; /* big-play overlay until first Play; not restored on mid-story pause */
     this.sceneComplete = false;
     this.timer = null;
     this.lineTimer = null;
@@ -378,25 +379,47 @@
     return ln && ln.speaker;
   };
 
+  Player.prototype._canReplayCharacters = function () {
+    /* Pointer + click-to-replay only while paused, not while playing or waiting on the big play overlay. */
+    return !this.playing && this.bigPlay && this.bigPlay.hidden;
+  };
+
+  Player.prototype._actorHasLine = function (sc, actorId) {
+    var lines = this.linesOf(sc);
+    var i;
+    for (i = 0; i < lines.length; i++) {
+      if (lines[i].speaker === actorId) return true;
+    }
+    return false;
+  };
+
   Player.prototype._renderPlacements = function (sc) {
     var self = this;
     var speaker = this._activeSpeaker();
+    var canReplay = this._canReplayCharacters();
     var bgPath = (sc && sc.background) || this.data.background || '';
-    this.bg.style.backgroundImage = bgPath ? 'url("' + resolveUrl(bgPath).replace(/"/g, '\\"') + '")' : 'none';
+    this.bg.style.backgroundImage = bgPath ? 'url("' + resolveUrl(bgPath).replace(/"/g, '\"') + '")' : 'none';
     this.actorsEl.innerHTML = '';
     ((sc && sc.placements) || []).forEach(function (p) {
       var actor = self.actors[p.id];
       if (!actor) return;
       var wantSpeak = speaker === p.id;
+      var hasLine = self._actorHasLine(sc, p.id);
+      var clickable = canReplay && hasLine;
       var sprite = p.sprite;
       if (wantSpeak) sprite = 'speak';
       else if (sprite === 'speak') sprite = 'idle';
       var url = self._spriteUrl(p.id, sprite || (wantSpeak ? 'speak' : 'idle'));
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'tli-sp-actor' + (wantSpeak ? ' is-speaking' : '');
+      btn.className = 'tli-sp-actor' + (wantSpeak ? ' is-speaking' : '') + (clickable ? ' is-clickable' : '');
       btn.setAttribute('data-actor', p.id);
-      btn.setAttribute('aria-label', (actor.name || p.id) + (wantSpeak ? ' (speaking — click to repeat)' : ''));
+      btn.setAttribute('aria-disabled', clickable ? 'false' : 'true');
+      btn.tabIndex = clickable ? 0 : -1;
+      var label = actor.name || p.id;
+      if (clickable) label += ' (click to replay line)';
+      else if (wantSpeak) label += ' (speaking)';
+      btn.setAttribute('aria-label', label);
       btn.style.left = (typeof p.x === 'number' ? p.x : 50) + '%';
       btn.style.top = (typeof p.y === 'number' ? p.y : 70) + '%';
       if (typeof p.scale === 'number') btn.style.setProperty('--sp-scale', String(p.scale));
@@ -441,11 +464,11 @@
   };
 
   Player.prototype._updateOverlay = function () {
-    var atStart = this.index === 0 && !this.pausedElapsed && this.lineIndex === 0;
-    var show = !this.playing && (atStart || this.ended);
+    var show = !this.playing && (this.awaitingStart || this.ended);
     this.bigPlay.hidden = !show;
     this.bigPlay.setAttribute('aria-label', this.ended ? 'Replay story' : 'Play story');
     this.root.classList.toggle('tli-sp-waiting', show);
+    if (this.scenes && this.scenes.length) this._renderPlacements(this.scenes[this.index]);
   };
 
   Player.prototype._sceneElapsed = function () {
@@ -576,6 +599,7 @@
 
   Player.prototype._resetToStart = function () {
     this.ended = true;
+    this.awaitingStart = true;
     this.sceneComplete = false;
     this.pausedElapsed = 0;
     this.sceneStartedAt = 0;
@@ -605,6 +629,7 @@
 
   Player.prototype.play = function () {
     if (!this.scenes.length) return;
+    this.awaitingStart = false;
     if (this.ended) {
       this.ended = false;
       this.sceneComplete = false;
@@ -649,6 +674,7 @@
   /* Restart the current scene from its first line and play it. */
   Player.prototype.replayScene = function () {
     if (!this.scenes.length) return;
+    this.awaitingStart = false;
     this.ended = false;
     this.sceneComplete = false;
     this.pausedElapsed = 0;
@@ -714,7 +740,8 @@
   };
 
   Player.prototype.repeatActor = function (actorId) {
-    if (this.playing) return; /* character clicks only work while paused */
+    if (!this._canReplayCharacters()) return; /* only while paused (not playing / not big-play waiting) */
+    if (!this._actorHasLine(this.scenes[this.index], actorId)) return;
     var sc = this.scenes[this.index];
     var lines = this.linesOf(sc);
     var ln = this.lastSpokenByActor[actorId];

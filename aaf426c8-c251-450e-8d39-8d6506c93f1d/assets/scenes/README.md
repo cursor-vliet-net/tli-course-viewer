@@ -67,7 +67,7 @@ Paths inside JSON are relative to `viewer/assets/`.
 
 ### Lines (multi-speaker scenes)
 
-Each scene has a `lines` array. Several characters can speak in one scene; the learner clicks a character **while paused** to replay **that** character’s line (subtitles, and audio if Audio is on). Clicks while playing are ignored.
+Each scene has a `lines` array. Several characters can speak in one scene; while **paused**, only characters that have a line in the current scene are clickable (pointer cursor) to replay **that** line (subtitles, and audio if Audio is on). Other characters keep the default cursor. While playing or on the big-play overlay, no character is clickable.
 
 | Field | Meaning |
 |---|---|
@@ -80,7 +80,7 @@ Each scene has a `lines` array. Several characters can speak in one scene; the l
 
 Scene-level `durationMs`, if omitted, is the end of the last line (`max(atMs + durationMs)`). Scene-level `delayMs` (optional) pauses before the scene’s timer.
 
-Clicking a character with no line in the current scene does nothing. If they have several lines, the player replays the most recently spoken one, or else their last listed line.
+Characters with no line in the current scene are not clickable. If they have several lines, the player replays the most recently spoken one, or else their last listed line.
 
 ### Timing and playback
 
