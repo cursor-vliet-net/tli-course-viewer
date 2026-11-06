@@ -152,7 +152,8 @@ body.lb-open { overflow: hidden; }
   .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
   .header-toggle { display: inline-flex; align-items: center; justify-content: center; margin-left: auto; order: 99; }
   /* Collapsed by default: only left nav + right header tools toggle */
-  .topbar:not(.header-open) > :not(.nav-toggle):not(.header-toggle) { display: none !important; }
+  /* Language and theme stay visible; other tools sit behind the sliders button. */
+  .topbar:not(.header-open) > :not(.nav-toggle):not(.header-toggle):not(#themeToggle):not(.ui-lang) { display: none !important; }
   .topbar.header-open { align-items: flex-start; }
   .topbar.header-open .header-toggle { position: sticky; top: .45rem; }
   .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 18rem; max-height: none; z-index: 1050; transform: translateX(-105%); transition: transform .2s; box-shadow: 2px 0 12px rgba(0,0,0,.2); }
@@ -171,7 +172,6 @@ body.lb-open { overflow: hidden; }
   .tabs .tab span:not(.badge) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .tab { padding: .3rem .5rem; }
   .edit-toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .search { order: 5; flex-basis: 100%; max-width: none; }
   .reading { padding: .6rem .5rem 1rem; }
   .ref { font-size: .6rem; }
   .blk-figure, .blk-figure.fl-right, .blk-figure.fl-left { float: none !important; max-width: 100% !important; margin: .3rem 0 1rem !important; }
@@ -203,3 +203,31 @@ body[data-mode=student] .blk > .ref { display: none; }
 .quiz-key .quiz-expl { display: block; }
 .quiz-gentle { font-size: 1.05rem; }
 @media (max-width: 991.98px) { body:not([data-mode=designer]) .layout { grid-template-columns: minmax(0, 1fr); } }
+
+/* grammar teacher — name not chosen; the label is Professor */
+.professor-callout { display: flex; gap: .75rem; align-items: flex-start; border: 1px solid var(--tli-line); background: var(--tli-accent-2); border-radius: .6rem; padding: .7rem .85rem; margin: .35rem 0; }
+.professor-face { width: 4.25rem; flex: 0 0 auto; }
+.professor-face svg { width: 100%; height: auto; display: block; }
+.professor-label { font-weight: 700; margin: 0 0 .2rem; }
+.professor-copy > :last-child { margin-bottom: 0; }
+.professor-copy ul, .professor-copy ol { margin-bottom: 0; }
+.goal-icon { color: var(--tli-accent); margin-right: .35rem; font-size: 1.15em; vertical-align: -0.1em; }
+.ui-lang { display: inline-flex; align-items: center; gap: .3rem; margin: 0; color: #fff; }
+.ui-lang select { width: auto; padding-top: .15rem; padding-bottom: .15rem; }
+.km-draft { background: #fff6d6; border: 1px solid #e6d38a; border-radius: .4rem; padding: .55rem .75rem; margin: 0 0 .8rem; font-size: .92rem; }
+#themeToggle { min-width: 2.2rem; }
+
+/* dark theme */
+[data-theme="dark"] {
+  --tli-ink: #e7eef5; --tli-muted: #b7c3d0; --tli-accent: #8fd0ea; --tli-accent-2: #163044;
+  --tli-bar: #071820; --tli-line: #314555; --tli-edit: #3d3620; color-scheme: dark;
+}
+[data-theme="dark"] body { background: #12181e; color: var(--tli-ink); }
+[data-theme="dark"] .reading, [data-theme="dark"] .sidebar, [data-theme="dark"] .notes, [data-theme="dark"] .page { background: #1b242e; color: var(--tli-ink); }
+[data-theme="dark"] .table { color: var(--tli-ink); --bs-table-color: var(--tli-ink); --bs-table-bg: transparent; --bs-table-border-color: var(--tli-line); }
+[data-theme="dark"] .form-control, [data-theme="dark"] .form-select { background: #243140; color: var(--tli-ink); border-color: var(--tli-line); }
+[data-theme="dark"] .km-draft { background: #3d3620; border-color: #6d6238; color: #f3e7bf; }
+[data-theme="dark"] .mode-note { background: #243140; color: var(--tli-ink); }
+[data-theme="dark"] a { color: #9fd4ee; }
+[data-theme="dark"] .part-list a { color: var(--tli-ink); }
+[data-theme="dark"] .part-list a.active { color: #fff; }

@@ -4,55 +4,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="generator" content="tli reader v1.6.7, built 2026-11-06 16:56">
+<meta name="generator" content="tli reader v1.7.0, built 2026-11-06 23:40">
 <title>tli.cloud: English in Cambodia · reader</title>
 <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-<link rel="stylesheet" href="assets/app.css?v=3cbd4c1aa4">
-<link rel="stylesheet" href="assets/scene-player.css?v=3cbd4c1aa4">
+<link rel="stylesheet" href="assets/app.css?v=1bec7d3f26">
+<link rel="stylesheet" href="assets/scene-player.css?v=1bec7d3f26">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="topbar" role="banner">
   <button type="button" class="btn btn-sm btn-outline-light nav-toggle" id="navToggle" aria-controls="sidebar" aria-expanded="false" aria-label="Show navigation"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
   <a class="brand" href="#d-first" id="brand">tli.cloud: English in Cambodia</a>
-  <form class="search" role="search" id="searchForm" onsubmit="return false">
-    <label class="visually-hidden" for="search">Search all parts</label>
-    <input type="search" id="search" class="form-control form-control-sm" placeholder="Search…" autocomplete="off">
-  </form>
   <nav class="tabs" aria-label="Views">
-    <a href="#d-first" data-view="read" class="tab"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span> Read</span></a>
-    <a href="#feedback" data-view="feedback" class="tab"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span> My feedback</span> <span class="badge text-bg-warning" id="fbCount">0</span></a>
-    <a href="#plan" data-view="plan" class="tab"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span> Plan</span></a>
-    <a href="#help" data-view="help" class="tab"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span> Help</span></a>
+    <a href="#d-first" data-view="read" class="tab"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span data-i18n-ui="read"> Read</span></a>
+    <a href="#feedback" data-view="feedback" class="tab"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span data-i18n-ui="feedback"> My feedback</span> <span class="badge text-bg-warning" id="fbCount">0</span></a>
+    <a href="#plan" data-view="plan" class="tab"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i><span data-i18n-ui="plan"> Plan</span></a>
+    <a href="#help" data-view="help" class="tab"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span data-i18n-ui="help"> Help</span></a>
   </nav>
-  <label class="mode-switch" for="modeSelect"><i class="fa-solid fa-user-gear" aria-hidden="true"></i><span class="visually-hidden">View mode</span>
+  <label class="mode-switch" for="modeSelect"><i class="fa-solid fa-user-gear" aria-hidden="true"></i><span class="visually-hidden" data-i18n-ui="viewMode">View mode</span>
     <select id="modeSelect" class="form-select form-select-sm" aria-label="View mode">
       <option value="designer">Designer</option>
       <option value="teacher">Teacher</option>
       <option value="student">Student</option>
     </select></label>
-  <label class="mode-switch" for="audioSelect" title="Audio (browser English TTS; file when set)"><i class="fa-solid fa-volume-high" aria-hidden="true"></i><span class="visually-hidden">Audio</span>
-    <select id="audioSelect" class="form-select form-select-sm" aria-label="Audio">
-      <option value="on" selected>Audio on</option>
-      <option value="off">Audio off</option>
+  <label class="ui-lang" for="uiLang"><i class="fa-solid fa-language" aria-hidden="true"></i>
+    <span class="visually-hidden" data-i18n-ui="interfaceLanguage">Interface language</span>
+    <select id="uiLang" class="form-select form-select-sm" aria-label="Interface language">
+      <option value="en">English</option>
+      <option value="km">ខ្មែរ</option>
     </select></label>
-  <label class="mode-switch" for="subEnSelect" title="English subtitles"><span class="visually-hidden">English subtitles</span>
-    <select id="subEnSelect" class="form-select form-select-sm" aria-label="English subtitles">
-      <option value="on">EN on</option>
-      <option value="off">EN off</option>
-    </select></label>
-  <label class="mode-switch" for="subKmSelect" title="Khmer subtitles"><span class="visually-hidden">Khmer subtitles</span>
-    <select id="subKmSelect" class="form-select form-select-sm" aria-label="Khmer subtitles">
-      <option value="on">ខ្មែរ on</option>
-      <option value="off">ខ្មែរ off</option>
-    </select></label>
-  <button type="button" class="btn btn-sm btn-light edit-toggle" id="editToggle" aria-pressed="true"><i class="fa-solid fa-pen" aria-hidden="true"></i><span> Editing on</span></button>
+  <button type="button" class="btn btn-sm btn-outline-light" id="themeToggle" aria-pressed="false" aria-label="Dark mode" title="Dark mode"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+  <button type="button" class="btn btn-sm btn-light edit-toggle" id="editToggle" aria-pressed="true"><i class="fa-solid fa-pen" aria-hidden="true"></i><span data-i18n-ui="editingOn"> Editing on</span></button>
   <button type="button" class="btn btn-sm btn-outline-light header-toggle" id="headerToggle" aria-controls="topbar" aria-expanded="false" aria-label="Show header tools" title="Header tools"><i class="fa-solid fa-sliders" aria-hidden="true"></i></button>
 </header>
 <div class="layout">
   <nav class="sidebar" id="sidebar" aria-label="Parts">
-    <h2 class="sidebar-title">Parts</h2>
+    <h2 class="sidebar-title" data-i18n-ui="parts">Parts</h2>
     <ol class="part-list" id="partList"></ol>
   </nav>
   <div class="nav-backdrop" id="navBackdrop" hidden></div>
@@ -60,18 +48,18 @@
     <noscript><p class="p-4">This reader needs JavaScript.</p></noscript>
   </main>
   <aside class="notes" id="notes" aria-labelledby="notesTitle">
-    <h2 class="notes-title" id="notesTitle"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i> Editor notes</h2>
+    <h2 class="notes-title" id="notesTitle"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i> <span data-i18n-ui="notes">Editor notes</span></h2>
     <div id="notesBody"></div>
   </aside>
 </div>
-<footer class="footer" id="footer">tli.cloud: English in Cambodia · reader v1.6.7 · built 2026-11-06 16:56</footer>
+<footer class="footer" id="footer">tli.cloud: English in Cambodia · reader v1.7.0 · built 2026-11-06 23:40</footer>
 <div id="toast" class="toast-msg" role="status" aria-live="polite"></div>
 <div id="lightbox" class="lb" role="dialog" aria-modal="true" aria-labelledby="lbCap" hidden>
   <figure class="lb-fig"><img class="lb-img" id="lbImg" alt=""><figcaption class="lb-cap" id="lbCap"></figcaption></figure>
   <button type="button" class="lb-close" id="lbClose" aria-label="Close image viewer"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
 </div>
-<script src="assets/data.js?v=3cbd4c1aa4" charset="utf-8"></script>
-<script src="assets/app.js?v=3cbd4c1aa4" charset="utf-8"></script>
-<script src="assets/scene-player.js?v=3cbd4c1aa4" charset="utf-8"></script>
+<script src="assets/data.js?v=1bec7d3f26" charset="utf-8"></script>
+<script src="assets/app.js?v=1bec7d3f26" charset="utf-8"></script>
+<script src="assets/scene-player.js?v=1bec7d3f26" charset="utf-8"></script>
 </body>
 </html>

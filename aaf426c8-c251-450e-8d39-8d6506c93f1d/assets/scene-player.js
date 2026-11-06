@@ -787,7 +787,13 @@
     var rel = el.getAttribute('data-scene');
     if (!rel) return;
     el.setAttribute('data-tli-sp', '1');
-    fetch(resolveUrl(rel)).then(function (r) {
+    var doFetch = global.fetch;
+    if (typeof doFetch !== 'function') {
+      el.classList.add('tli-sp', 'tli-sp-error');
+      el.innerHTML = '<p class="tli-sp-err">Could not load storyboard <code>' + esc(rel) + '</code>.</p>';
+      return;
+    }
+    doFetch(resolveUrl(rel)).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     }).then(function (data) {
