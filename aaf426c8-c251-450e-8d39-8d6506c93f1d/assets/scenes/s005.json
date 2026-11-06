@@ -54,13 +54,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "I am Kru Sopheak.",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "I am Kru Sopheak.",
+          "translations": {
+            "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3000
     },
     {
       "id": "2",
@@ -86,13 +92,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "I am Bora.",
-      "audio": null,
-      "durationMs": 2600,
-      "translations": {
-        "km": "ខ្ញុំគឺបូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "I am Bora.",
+          "translations": {
+            "km": "ខ្ញុំគឺបូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 2600,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2600
     },
     {
       "id": "3",
@@ -118,13 +130,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "I am Sreyneang.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "ខ្ញុំគឺស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "I am Sreyneang.",
+          "translations": {
+            "km": "ខ្ញុំគឺស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "4",
@@ -150,13 +168,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "You are Bora. You are Sreyneang.",
-      "audio": null,
-      "durationMs": 4000,
-      "translations": {
-        "km": "អ្នកគឺបូរ៉ា។ អ្នកគឺស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "You are Bora. You are Sreyneang.",
+          "translations": {
+            "km": "អ្នកគឺបូរ៉ា។ អ្នកគឺស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 4000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 4000
     },
     {
       "id": "5",
@@ -182,13 +206,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "He is Bora.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "គាត់គឺបូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "He is Bora.",
+          "translations": {
+            "km": "គាត់គឺបូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "6",
@@ -214,13 +244,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "He is Bora.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "គាត់គឺបូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "He is Bora.",
+          "translations": {
+            "km": "គាត់គឺបូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "7",
@@ -246,13 +282,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "She is Sreyneang.",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "នាងគឺស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "She is Sreyneang.",
+          "translations": {
+            "km": "នាងគឺស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3000
     },
     {
       "id": "8",
@@ -278,13 +320,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "She is Sreyneang.",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "នាងគឺស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "She is Sreyneang.",
+          "translations": {
+            "km": "នាងគឺស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3000
     },
     {
       "id": "9",
@@ -310,13 +358,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "She is Kru Sopheak.",
-      "audio": null,
-      "durationMs": 3200,
-      "translations": {
-        "km": "នាងគឺគ្រូសុភ័ក្ត្រ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "She is Kru Sopheak.",
+          "translations": {
+            "km": "នាងគឺគ្រូសុភ័ក្ត្រ។"
+          },
+          "audio": null,
+          "durationMs": 3200,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3200
     }
   ]
 }

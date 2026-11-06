@@ -54,13 +54,29 @@
           "y": 95
         }
       ],
-      "speaker": "yeay-chan",
-      "text": "Good morning, Bora!",
-      "audio": null,
-      "durationMs": 3200,
-      "translations": {
-        "km": "អរុណសួស្តី បូរ៉ា!"
-      }
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Good morning, Bora!",
+          "translations": {
+            "km": "អរុណសួស្តី បូរ៉ា!"
+          },
+          "audio": null,
+          "durationMs": 3200,
+          "atMs": 0
+        },
+        {
+          "speaker": "bora",
+          "text": "Good morning, Yeay!",
+          "translations": {
+            "km": "អរុណសួស្តី យាយ!"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 3200
+        }
+      ],
+      "durationMs": 6200
     },
     {
       "id": "2",
@@ -68,14 +84,14 @@
       "placements": [
         {
           "id": "yeay-chan",
-          "sprite": "idle",
+          "sprite": "speak",
           "x": 26,
           "y": 93,
           "scale": 1.05
         },
         {
           "id": "bora",
-          "sprite": "speak",
+          "sprite": "idle",
           "x": 55,
           "y": 95
         },
@@ -86,13 +102,29 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "Good morning, Yeay!",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "អរុណសួស្តី យាយ!"
-      }
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Good morning, Sreyneang!",
+          "translations": {
+            "km": "អរុណសួស្តី ស្រីណាង!"
+          },
+          "audio": null,
+          "durationMs": 3200,
+          "atMs": 0
+        },
+        {
+          "speaker": "sreyneang",
+          "text": "Good morning, Yeay!",
+          "translations": {
+            "km": "អរុណសួស្តី យាយ!"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 3200
+        }
+      ],
+      "durationMs": 6200
     },
     {
       "id": "3",
@@ -118,13 +150,19 @@
           "y": 95
         }
       ],
-      "speaker": "yeay-chan",
-      "text": "Good morning, Sreyneang!",
-      "audio": null,
-      "durationMs": 3200,
-      "translations": {
-        "km": "អរុណសួស្តី ស្រីណាង!"
-      }
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Bora, what is your name?",
+          "translations": {
+            "km": "បូរ៉ា ឈ្មោះអ្នកអ្វី?"
+          },
+          "audio": null,
+          "durationMs": 3500,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3500
     },
     {
       "id": "4",
@@ -139,24 +177,30 @@
         },
         {
           "id": "bora",
-          "sprite": "idle",
+          "sprite": "speak",
           "x": 55,
           "y": 95
         },
         {
           "id": "sreyneang",
-          "sprite": "speak",
+          "sprite": "idle",
           "x": 78,
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "Good morning, Yeay!",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "អរុណសួស្តី យាយ!"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "I am Bora.",
+          "translations": {
+            "km": "ខ្ញុំគឺបូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "5",
@@ -182,13 +226,19 @@
           "y": 95
         }
       ],
-      "speaker": "yeay-chan",
-      "text": "Bora, what is your name?",
-      "audio": null,
-      "durationMs": 3500,
-      "translations": {
-        "km": "បូរ៉ា ឈ្មោះអ្នកអ្វី?"
-      }
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Sreyneang, what is your name?",
+          "translations": {
+            "km": "ស្រីណាង ឈ្មោះអ្នកអ្វី?"
+          },
+          "audio": null,
+          "durationMs": 3500,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3500
     },
     {
       "id": "6",
@@ -203,70 +253,6 @@
         },
         {
           "id": "bora",
-          "sprite": "speak",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "speaker": "bora",
-      "text": "I am Bora.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "ខ្ញុំគឺបូរ៉ា។"
-      }
-    },
-    {
-      "id": "7",
-      "background": "media/backgrounds/home-morning.png",
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "speak",
-          "x": 26,
-          "y": 93,
-          "scale": 1.05
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "speaker": "yeay-chan",
-      "text": "Sreyneang, what is your name?",
-      "audio": null,
-      "durationMs": 3500,
-      "translations": {
-        "km": "ស្រីណាង ឈ្មោះអ្នកអ្វី?"
-      }
-    },
-    {
-      "id": "8",
-      "background": "media/backgrounds/home-morning.png",
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "idle",
-          "x": 26,
-          "y": 93,
-          "scale": 1.05
-        },
-        {
-          "id": "bora",
           "sprite": "idle",
           "x": 55,
           "y": 95
@@ -278,13 +264,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "I am Sreyneang.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "ខ្ញុំគឺស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "I am Sreyneang.",
+          "translations": {
+            "km": "ខ្ញុំគឺស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     }
   ]
 }

@@ -54,13 +54,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "Good morning, Bora.",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "អរុណសួស្តី បូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "Good morning, Bora.",
+          "translations": {
+            "km": "អរុណសួស្តី បូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3000
     },
     {
       "id": "2",
@@ -86,13 +92,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "Good morning, teacher.",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "អរុណសួស្តី គ្រូ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Good morning, teacher.",
+          "translations": {
+            "km": "អរុណសួស្តី គ្រូ។"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3000
     },
     {
       "id": "3",
@@ -118,13 +130,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "Good morning, Sreyneang.",
-      "audio": null,
-      "durationMs": 3200,
-      "translations": {
-        "km": "អរុណសួស្តី ស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "Good morning, Sreyneang.",
+          "translations": {
+            "km": "អរុណសួស្តី ស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 3200,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3200
     },
     {
       "id": "4",
@@ -150,13 +168,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "Good morning, teacher.",
-      "audio": null,
-      "durationMs": 3000,
-      "translations": {
-        "km": "អរុណសួស្តី គ្រូ។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "Good morning, teacher.",
+          "translations": {
+            "km": "អរុណសួស្តី គ្រូ។"
+          },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3000
     },
     {
       "id": "5",
@@ -182,13 +206,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "I am Kru Sopheak. You are Bora.",
-      "audio": null,
-      "durationMs": 4200,
-      "translations": {
-        "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។ អ្នកគឺបូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "I am Kru Sopheak. You are Bora.",
+          "translations": {
+            "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។ អ្នកគឺបូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 4200,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 4200
     },
     {
       "id": "6",
@@ -214,13 +244,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "I am Bora. You are Kru Sopheak.",
-      "audio": null,
-      "durationMs": 4000,
-      "translations": {
-        "km": "ខ្ញុំគឺបូរ៉ា។ អ្នកគឺគ្រូសុភ័ក្ត្រ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "I am Bora. You are Kru Sopheak.",
+          "translations": {
+            "km": "ខ្ញុំគឺបូរ៉ា។ អ្នកគឺគ្រូសុភ័ក្ត្រ។"
+          },
+          "audio": null,
+          "durationMs": 4000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 4000
     },
     {
       "id": "7",
@@ -246,13 +282,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "I am Sreyneang.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "ខ្ញុំគឺស្រីណាង។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "I am Sreyneang.",
+          "translations": {
+            "km": "ខ្ញុំគឺស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     }
   ]
 }

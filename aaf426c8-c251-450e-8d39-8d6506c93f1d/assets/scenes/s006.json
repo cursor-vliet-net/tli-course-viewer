@@ -54,13 +54,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "Hello, teacher.",
-      "audio": null,
-      "durationMs": 2600,
-      "translations": {
-        "km": "សួស្តី គ្រូ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Hello, teacher.",
+          "translations": {
+            "km": "សួស្តី គ្រូ។"
+          },
+          "audio": null,
+          "durationMs": 2600,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2600
     },
     {
       "id": "2",
@@ -86,13 +92,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "Hello, Bora.",
-      "audio": null,
-      "durationMs": 2600,
-      "translations": {
-        "km": "សួស្តី បូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "Hello, Bora.",
+          "translations": {
+            "km": "សួស្តី បូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 2600,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2600
     },
     {
       "id": "3",
@@ -118,13 +130,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "A book, please.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "សូមសៀវភៅ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "A book, please.",
+          "translations": {
+            "km": "សូមសៀវភៅ។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "4",
@@ -150,13 +168,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "Yes.",
-      "audio": null,
-      "durationMs": 2000,
-      "translations": {
-        "km": "បាទ/ចាស។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "Yes.",
+          "translations": {
+            "km": "បាទ/ចាស។"
+          },
+          "audio": null,
+          "durationMs": 2000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2000
     },
     {
       "id": "5",
@@ -182,13 +206,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "Thank you.",
-      "audio": null,
-      "durationMs": 2400,
-      "translations": {
-        "km": "អរគុណ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Thank you.",
+          "translations": {
+            "km": "អរគុណ។"
+          },
+          "audio": null,
+          "durationMs": 2400,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2400
     },
     {
       "id": "6",
@@ -214,13 +244,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "A book, please.",
-      "audio": null,
-      "durationMs": 2800,
-      "translations": {
-        "km": "សូមសៀវភៅ។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "A book, please.",
+          "translations": {
+            "km": "សូមសៀវភៅ។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "7",
@@ -246,13 +282,19 @@
           "y": 95
         }
       ],
-      "speaker": "bora",
-      "text": "Yes.",
-      "audio": null,
-      "durationMs": 2000,
-      "translations": {
-        "km": "បាទ។"
-      }
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Yes.",
+          "translations": {
+            "km": "បាទ។"
+          },
+          "audio": null,
+          "durationMs": 2000,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2000
     },
     {
       "id": "8",
@@ -278,13 +320,19 @@
           "y": 95
         }
       ],
-      "speaker": "sreyneang",
-      "text": "Thank you.",
-      "audio": null,
-      "durationMs": 2400,
-      "translations": {
-        "km": "អរគុណ។"
-      }
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "Thank you.",
+          "translations": {
+            "km": "អរគុណ។"
+          },
+          "audio": null,
+          "durationMs": 2400,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2400
     },
     {
       "id": "9",
@@ -310,13 +358,19 @@
           "y": 95
         }
       ],
-      "speaker": "kru-sopheak",
-      "text": "She is Sreyneang. He is Bora.",
-      "audio": null,
-      "durationMs": 4200,
-      "translations": {
-        "km": "នាងគឺស្រីណាង។ គាត់គឺបូរ៉ា។"
-      }
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "She is Sreyneang. He is Bora.",
+          "translations": {
+            "km": "នាងគឺស្រីណាង។ គាត់គឺបូរ៉ា។"
+          },
+          "audio": null,
+          "durationMs": 4200,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 4200
     }
   ]
 }

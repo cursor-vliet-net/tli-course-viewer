@@ -38,43 +38,65 @@ Paths inside JSON are relative to `viewer/assets/`.
       "id": "1",
       "background": "media/backgrounds/home-morning.png",
       "placements": [
-        { "id": "yeay-chan", "sprite": "speak", "x": 28, "y": 92 },
-        { "id": "bora", "sprite": "idle", "x": 55, "y": 94, "scale": 0.95 }
+        { "id": "yeay-chan", "sprite": "idle", "x": 28, "y": 92 },
+        { "id": "bora", "sprite": "idle", "x": 55, "y": 94 }
       ],
-      "speaker": "yeay-chan",
-      "text": "Good morning, Bora!",
-      "translations": { "km": "អរុណសួស្តី បូរ៉ា!" },
-      "audio": null,
-      "durationMs": 3500,
-      "delayMs": 0
+      "durationMs": 6200,
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Good morning, Bora!",
+          "translations": { "km": "អរុណសួស្តី បូរ៉ា!" },
+          "audio": null,
+          "durationMs": 3200,
+          "atMs": 0
+        },
+        {
+          "speaker": "bora",
+          "text": "Good morning, Yeay!",
+          "translations": { "km": "អរុណសួស្តី យាយ!" },
+          "audio": null,
+          "durationMs": 3000,
+          "atMs": 3200
+        }
+      ]
     }
   ]
 }
 ```
 
-### Timing (first-class)
+### Lines (multi-speaker scenes)
 
-| Field | Where | Meaning |
-|---|---|---|
-| `defaultDurationMs` | conversation | Fallback length of a scene before auto-advance. |
-| `durationMs` | scene | How long this line/scene plays before auto-advance. Honoured even when audio is on; if omitted later and `audio` exists, the player may use the audio length — for now audio is bypassed, so always set milliseconds. |
-| `delayMs` | scene (optional) | Pause before the line's timer counts as playing; omit when unused. |
+Each scene has a `lines` array. Several characters can speak in one scene; the learner clicks a character to replay **that** character’s line (subtitles, and audio if Audio is on).
 
-The progress bar is **elapsed time through the whole conversation** (sum of each scene's `delayMs + durationMs`), not only the scene index. Scrubbing jumps to the scene at that time. Pause freezes the current scene timer; Play resumes it.
+| Field | Meaning |
+|---|---|
+| `speaker` | Actor id (must appear in `placements` to be clickable). |
+| `text` | Source English line. |
+| `translations` | Map by language code (`km`, …). `translations.en` may override `text`. |
+| `audio` | Optional URL; ignored while Audio is bypassed. |
+| `durationMs` | How long this line lasts (fallback: conversation `defaultDurationMs`). |
+| `atMs` | Optional start offset within the scene. If omitted, lines run in order (each after the previous duration). |
+
+Scene-level `durationMs`, if omitted, is the end of the last line (`max(atMs + durationMs)`). Scene-level `delayMs` (optional) pauses before the scene’s timer.
+
+Clicking a character with no line in the current scene does nothing. If they have several lines, the player replays the most recently spoken one, or else their last listed line.
+
+### Timing and playback
+
+- Conversation `defaultDurationMs` and per-line / per-scene durations drive auto-advance when **Auto** is on (default on).
+- Playback speed (0.25x–2x) scales wall-clock wait as `time / speed`.
+- Progress bar = elapsed time through the whole conversation (sum of scene durations + delays).
 
 ### Actors and sprites
 
-- `kind` is `"character"` or `"animal"` (renderer treats both the same; animals can be added later).
-- `sprites` maps a sprite key (`idle`, `speak`, …) to an image path.
-- Each placement sets `id`, `sprite`, `x`/`y` (percent of the stage; anchor is bottom-centre), optional `scale`, optional `facing` (`"left"` / `"right"`).
-- `speaker` is the actor id whose line is shown; click that actor to repeat the line (subtitles + audio if enabled).
+- `kind` is `"character"` or `"animal"` (same renderer).
+- `sprites` maps keys (`idle`, `speak`, …) to image paths.
+- Placements: `id`, `sprite`, `x`/`y` (percent; bottom-centre anchor), optional `scale` / `facing`.
+- While a line plays, that speaker is highlighted (speak sprite when available).
 
-### Subtitles
+### Subtitles and audio
 
-- `text` = source line (English). `translations` is a map keyed by language code (`km`, later others). `translations.en` may override `text` for the English caption; it is not required.
-- Viewer toggles currently show EN (`text` / `translations.en`) and KM (`translations.km`), independently. Missing translation → that caption is hidden.
-- Khmer in these files is draft Grade-1 wording and must be verified by a native speaker (open item 21).
-
-### Audio
-
-Leave `"audio": null` for now. The viewer **Audio** setting defaults to off (bypass). When on, a non-null `audio` URL is played; missing files still show subtitles only.
+- Captions sit **below** the 16:9 stage (not over the picture). EN and KM toggles are independent (default both on).
+- Audio setting defaults **off** (bypass). Leave `"audio": null` until files exist.
+- Khmer is draft Grade-1 wording pending native-speaker check (open item 21).

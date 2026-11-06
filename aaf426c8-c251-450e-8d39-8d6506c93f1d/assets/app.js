@@ -34,7 +34,9 @@
     return {
       audio: !!S.settings.audio,
       subtitlesEn: S.settings.subtitlesEn !== false,
-      subtitlesKm: S.settings.subtitlesKm !== false
+      subtitlesKm: S.settings.subtitlesKm !== false,
+      autoAdvance: S.settings.autoAdvance !== false,
+      playbackSpeed: (typeof S.settings.playbackSpeed === 'number' && S.settings.playbackSpeed > 0) ? S.settings.playbackSpeed : 1
     };
   }
   function notifyPlayerSettings() {
@@ -59,10 +61,20 @@
     S.settings.subtitlesKm = !!on; save(); syncPlayerControls(); notifyPlayerSettings();
     if (!quiet) toast(on ? 'Khmer subtitles on' : 'Khmer subtitles off');
   }
+  function setAutoAdvance(on, quiet) {
+    S.settings.autoAdvance = !!on; save(); notifyPlayerSettings();
+    if (!quiet) toast(on ? 'Auto-advance on' : 'Auto-advance off');
+  }
+  function setPlaybackSpeed(speed, quiet) {
+    var v = parseFloat(speed);
+    if (!(v > 0)) v = 1;
+    S.settings.playbackSpeed = v; save(); notifyPlayerSettings();
+    if (!quiet) toast(v + 'x speed');
+  }
 
   /* ---------------- storage ---------------- */
   var memoryOnly = false;
-  function emptyState() { return { edits: {}, removals: {}, comments: {}, settings: { editing: true, audio: false, subtitlesEn: true, subtitlesKm: true } }; }
+  function emptyState() { return { edits: {}, removals: {}, comments: {}, settings: { editing: true, audio: false, subtitlesEn: true, subtitlesKm: true, autoAdvance: true, playbackSpeed: 1 } }; }
   function loadState() {
     try {
       var raw = window.localStorage.getItem(STORE_KEY);
@@ -72,6 +84,8 @@
       if (typeof s.settings.audio !== 'boolean') s.settings.audio = false;
       if (typeof s.settings.subtitlesEn !== 'boolean') s.settings.subtitlesEn = true;
       if (typeof s.settings.subtitlesKm !== 'boolean') s.settings.subtitlesKm = true;
+      if (typeof s.settings.autoAdvance !== 'boolean') s.settings.autoAdvance = true;
+      if (typeof s.settings.playbackSpeed !== 'number' || !(s.settings.playbackSpeed > 0)) s.settings.playbackSpeed = 1;
       return s;
     } catch (e) { memoryOnly = true; return emptyState(); }
   }
@@ -931,6 +945,6 @@
     version: D.version, mode: function () { return MODE; }, setMode: setMode, exportMarkdown: exportMarkdown, exportJSON: exportJSON, route: route,
     state: function () { return S; }, storeKey: STORE_KEY, blockMD: blockMD, sanitize: sanitize,
     startEdit: startEdit, saveEdit: saveEdit, cancelEdit: cancelEdit,
-    playerSettings: playerSettings, setAudio: setAudio, setSubtitlesEn: setSubtitlesEn, setSubtitlesKm: setSubtitlesKm
+    playerSettings: playerSettings, setAudio: setAudio, setSubtitlesEn: setSubtitlesEn, setSubtitlesKm: setSubtitlesKm, setAutoAdvance: setAutoAdvance, setPlaybackSpeed: setPlaybackSpeed
   };
 })();

@@ -1,7 +1,10 @@
-/* YouTube-like scene player for tli.cloud English in Cambodia */
-.tli-sp { max-width: 46rem; margin: 1rem 0 1.4rem; background: #0b1220; border-radius: .55rem; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.18); color: #fff; }
-.tli-sp-stage-wrap { position: relative; width: 100%; }
+/* YouTube-like scene player — stage, captions below, controls */
+.tli-sp { max-width: 46rem; margin: 1rem 0 1.4rem; background: #0b1220; border-radius: .55rem; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.18); color: #fff; display: flex; flex-direction: column; }
+.tli-sp.is-fullscreen { max-width: none; width: 100%; height: 100%; margin: 0; border-radius: 0; }
+.tli-sp-stage-wrap { position: relative; width: 100%; flex: 0 0 auto; }
+.tli-sp.is-fullscreen .tli-sp-stage-wrap { flex: 1 1 auto; display: flex; align-items: center; }
 .tli-sp-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #1a2332; overflow: hidden; outline: none; }
+.tli-sp.is-fullscreen .tli-sp-stage { max-height: 100%; }
 .tli-sp-bg { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .tli-sp-actors { position: absolute; inset: 0; }
 .tli-sp-actor { position: absolute; transform: translate(-50%, -100%) scale(var(--sp-scale, 1)); border: 0; background: transparent; padding: 0; cursor: pointer; width: 22%; max-width: 9.5rem; min-width: 4.5rem; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
@@ -10,22 +13,35 @@
 .tli-sp-actor.is-speaking { z-index: 3; filter: drop-shadow(0 0 0 3px #ffd666) drop-shadow(0 2px 6px rgba(0,0,0,.4)); }
 .tli-sp-actor:focus-visible { outline: 3px solid #ffbf47; outline-offset: 4px; border-radius: .4rem; }
 
-/* Subtitles overlaid on the stage (YouTube-caption style) */
-.tli-sp-subs { position: absolute; left: 50%; bottom: 4.5%; transform: translateX(-50%); width: min(92%, 36rem); z-index: 5; text-align: center; pointer-events: none; }
-.tli-sp-sub-en, .tli-sp-sub-km { display: inline-block; max-width: 100%; margin: .12rem auto; padding: .2rem .55rem; border-radius: .25rem; background: rgba(0,0,0,.72); color: #fff; font-weight: 700; line-height: 1.35; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
-.tli-sp-sub-en { font-size: clamp(.95rem, 2.4vw, 1.2rem); }
-.tli-sp-sub-km { font-size: clamp(.9rem, 2.2vw, 1.1rem); font-family: "Noto Sans Khmer", system-ui, sans-serif; font-weight: 600; color: #ffe9a8; }
-.tli-sp-subs.tli-sp-flash .tli-sp-sub-en, .tli-sp-subs.tli-sp-flash .tli-sp-sub-km { animation: tli-sp-pulse .45s ease; }
-@keyframes tli-sp-pulse { from { transform: scale(1.04); } to { transform: scale(1); } }
+/* Big play overlay (YouTube-style) — only when waiting to start / replay */
+.tli-sp-bigplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 6; width: 4.5rem; height: 4.5rem; border: 0; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 2px 12px rgba(0,0,0,.35); }
+.tli-sp-bigplay:hover { background: rgba(11,93,122,.9); }
+.tli-sp-bigplay:focus-visible { outline: 3px solid #ffbf47; outline-offset: 3px; }
+.tli-sp-bigplay[hidden] { display: none !important; }
+.tli-sp-waiting .tli-sp-stage { cursor: pointer; }
 
-.tli-sp-bar { display: flex; align-items: center; gap: .35rem; padding: .45rem .55rem; background: #111827; flex-wrap: wrap; }
-.tli-sp-btn { border: 0; background: #1f2937; color: #fff; border-radius: .35rem; width: 2.15rem; height: 2.15rem; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: .85rem; font-weight: 700; padding: 0; }
+/* Captions UNDER the stage (not over sprites) */
+.tli-sp-subs { flex: 0 0 auto; width: 100%; box-sizing: border-box; padding: .55rem .75rem .65rem; background: #0b1220; text-align: center; border-top: 1px solid rgba(255,255,255,.08); min-height: 0; }
+.tli-sp-subs[hidden] { display: none !important; padding: 0; min-height: 0; border: 0; }
+.tli-sp-subs-one { min-height: 2.6rem; }
+.tli-sp-subs-both { min-height: 4.6rem; }
+.tli-sp-sub-en, .tli-sp-sub-km { display: block; max-width: 42rem; margin: .1rem auto; padding: .15rem .4rem; color: #fff; font-weight: 700; line-height: 1.4; }
+.tli-sp-sub-en { font-size: clamp(.95rem, 2.2vw, 1.15rem); }
+.tli-sp-sub-km { font-size: clamp(.9rem, 2vw, 1.05rem); font-family: "Noto Sans Khmer", system-ui, sans-serif; font-weight: 600; color: #ffe9a8; }
+.tli-sp-subs.tli-sp-flash .tli-sp-sub-en, .tli-sp-subs.tli-sp-flash .tli-sp-sub-km { animation: tli-sp-pulse .45s ease; }
+@keyframes tli-sp-pulse { from { opacity: .55; } to { opacity: 1; } }
+
+.tli-sp-bar { display: flex; align-items: center; gap: .3rem; padding: .45rem .55rem; background: #111827; flex-wrap: wrap; flex: 0 0 auto; }
+.tli-sp-btn { border: 0; background: #1f2937; color: #fff; border-radius: .35rem; width: 2.15rem; height: 2.15rem; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: .8rem; font-weight: 700; padding: 0; }
 .tli-sp-btn:hover { background: #374151; }
 .tli-sp-btn:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
-.tli-sp-btn.is-on, .tli-sp-btn[aria-pressed="true"].tli-sp-cc-en, .tli-sp-btn[aria-pressed="true"].tli-sp-cc-km { background: #0b5d7a; }
-.tli-sp-cc-en, .tli-sp-cc-km { width: auto; min-width: 2.15rem; padding: 0 .45rem; font-size: .75rem; }
+.tli-sp-btn.is-on, .tli-sp-btn[aria-pressed="true"].tli-sp-cc-en, .tli-sp-btn[aria-pressed="true"].tli-sp-cc-km, .tli-sp-btn[aria-pressed="true"].tli-sp-autoadv { background: #0b5d7a; }
+.tli-sp-cc-en, .tli-sp-cc-km, .tli-sp-autoadv { width: auto; min-width: 2.15rem; padding: 0 .45rem; font-size: .72rem; }
 .tli-sp-cc-km { font-family: "Noto Sans Khmer", system-ui, sans-serif; }
-.tli-sp-progress-wrap { flex: 1 1 8rem; min-width: 6rem; display: flex; align-items: center; }
+.tli-sp-speed-wrap { margin: 0; display: inline-flex; align-items: center; }
+.tli-sp-speed { background: #1f2937; color: #fff; border: 0; border-radius: .35rem; height: 2.15rem; padding: 0 .35rem; font-size: .75rem; font-weight: 700; cursor: pointer; }
+.tli-sp-speed:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
+.tli-sp-progress-wrap { flex: 1 1 7rem; min-width: 5rem; display: flex; align-items: center; }
 .tli-sp-progress { width: 100%; accent-color: #ffbf47; height: 0.45rem; cursor: pointer; }
 .tli-sp-counter { font-size: .8rem; color: #cbd5e1; white-space: nowrap; min-width: 3.2rem; text-align: center; }
 .tli-sp-error { background: #fff3f3; color: #7a1f1f; padding: 1rem; }
@@ -34,4 +50,5 @@
 @media (max-width: 560px) {
   .tli-sp-actor { width: 28%; min-width: 3.6rem; }
   .tli-sp-btn { width: 2rem; height: 2rem; }
+  .tli-sp-bigplay { width: 3.6rem; height: 3.6rem; font-size: 1.3rem; }
 }
