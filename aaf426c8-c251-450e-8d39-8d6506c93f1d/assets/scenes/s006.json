@@ -9,7 +9,7 @@
       "kind": "character",
       "sprites": {
         "idle": "media/characters/kru-sopheak-idle.png",
-        "speak": "media/characters/kru-sopheak-speak.png"
+        "speak": "media/characters/kru-sopheak-speak.gif"
       }
     },
     "bora": {
@@ -17,7 +17,7 @@
       "kind": "character",
       "sprites": {
         "idle": "media/characters/bora-idle.png",
-        "speak": "media/characters/bora-speak.png"
+        "speak": "media/characters/bora-speak.gif"
       }
     },
     "sreyneang": {
@@ -25,7 +25,7 @@
       "kind": "character",
       "sprites": {
         "idle": "media/characters/sreyneang-idle.png",
-        "speak": "media/characters/sreyneang-speak.png"
+        "speak": "media/characters/sreyneang-speak.gif"
       }
     }
   },

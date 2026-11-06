@@ -362,11 +362,29 @@
     } catch (e) { /* ignore */ }
   };
 
+  Player.prototype._prefersReducedMotion = function () {
+    try {
+      return !!(global.matchMedia && global.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) { return false; }
+  };
+
+  /* Animated speak sprites (GIF/WebP/APNG) fall back to a still .png when reduced motion is on. */
+  Player.prototype._stillSpeakPath = function (path) {
+    if (!path) return path;
+    return String(path).replace(/\.(gif|webp|apng)$/i, '.png');
+  };
+
   Player.prototype._spriteUrl = function (actorId, spriteKey) {
     var actor = this.actors[actorId];
     if (!actor) return '';
     var sprites = actor.sprites || {};
-    return resolveUrl(sprites[spriteKey || 'idle'] || sprites.idle || actor.image || '');
+    var key = spriteKey || 'idle';
+    var path = sprites[key] || sprites.idle || actor.image || '';
+    if (key === 'speak' && path && this._prefersReducedMotion()) {
+      var still = sprites.speakStill || this._stillSpeakPath(path);
+      if (still) path = still;
+    }
+    return resolveUrl(path);
   };
 
   Player.prototype._currentLine = function () {

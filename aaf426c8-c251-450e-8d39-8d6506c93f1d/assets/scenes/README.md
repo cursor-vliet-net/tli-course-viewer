@@ -1,7 +1,7 @@
 # Scene storyboards (JSON)
 
 These files power the in-page scene player. They are **not** compiled into `data.js`.
-Edit a JSON file (or swap a PNG under `media/`) and reload the viewer — no Markdown rebuild needed
+Edit a JSON file (or swap a sprite under `media/`) and reload the viewer — no Markdown rebuild needed
 for scene changes. Markdown only points at a file:
 
 ```html
@@ -24,7 +24,7 @@ Paths inside JSON are relative to `viewer/assets/`.
       "kind": "character",
       "sprites": {
         "idle": "media/characters/bora-idle.png",
-        "speak": "media/characters/bora-speak.png"
+        "speak": "media/characters/bora-speak.gif"
       }
     },
     "cat": {
@@ -92,9 +92,10 @@ Characters with no line in the current scene are not clickable. If they have sev
 ### Actors and sprites
 
 - `kind` is `"character"` or `"animal"` (same renderer).
-- `sprites` maps keys (`idle`, `speak`, …) to image paths.
+- `sprites` maps keys (`idle`, `speak`, …) to image paths. Paths may be `.gif`, `.svg`, `.webp`, `.png`, or `.apng` — the player uses a plain `<img src>`; the browser plays animated formats natively. There is no extension filter in the player.
+- Typical cast: `idle` is a still PNG; `speak` is a short looping talking GIF (idle mouth + open mouth). Keep the matching `*-speak.png` next to the GIF for `prefers-reduced-motion` (the player swaps `.gif`/`.webp`/`.apng` → `.png` when reduced motion is set). Optional `speakStill` overrides that still path.
 - Placements: `id`, `sprite`, `x`/`y` (percent; bottom-centre anchor), optional `scale` / `facing`.
-- While a line plays, that speaker is highlighted (speak sprite when available).
+- While a line plays (or that character is the current speaker while paused), that speaker uses the speak sprite; others use idle. Do not CSS-animate the `img` in a way that fights `.face-left img { transform: scaleX(-1) }`.
 
 ### Subtitles and audio
 
