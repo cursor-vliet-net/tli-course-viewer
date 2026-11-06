@@ -153,6 +153,7 @@
         '<button type="button" class="tli-sp-btn tli-sp-prev" aria-label="Previous scene" title="Previous"><i class="fa-solid fa-backward-step" aria-hidden="true"></i></button>' +
         '<button type="button" class="tli-sp-btn tli-sp-play" aria-label="Play" title="Play"><i class="fa-solid fa-play" aria-hidden="true"></i></button>' +
         '<button type="button" class="tli-sp-btn tli-sp-next" aria-label="Next scene" title="Next"><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>' +
+        '<button type="button" class="tli-sp-btn tli-sp-replay" aria-label="Replay scene" title="Replay scene"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>' +
         '<div class="tli-sp-progress-wrap"><input type="range" class="tli-sp-progress" min="0" max="1000" value="0" step="1" aria-label="Story progress"></div>' +
         '<span class="tli-sp-counter" aria-live="polite">1 / 1</span>' +
         '<button type="button" class="tli-sp-btn tli-sp-audio" aria-pressed="false" aria-label="Audio off" title="Audio"><i class="fa-solid fa-volume-xmark" aria-hidden="true"></i></button>' +
@@ -173,6 +174,7 @@
     this.btnPlay = this.root.querySelector('.tli-sp-play');
     this.btnPrev = this.root.querySelector('.tli-sp-prev');
     this.btnNext = this.root.querySelector('.tli-sp-next');
+    this.btnReplay = this.root.querySelector('.tli-sp-replay');
     this.btnAudio = this.root.querySelector('.tli-sp-audio');
     this.btnEn = this.root.querySelector('.tli-sp-cc-en');
     this.btnKm = this.root.querySelector('.tli-sp-cc-km');
@@ -222,6 +224,7 @@
     this.bigPlay.addEventListener('click', function () { self.play(); });
     this.btnPrev.addEventListener('click', function () { self.prev(); });
     this.btnNext.addEventListener('click', function () { self.next(); });
+    this.btnReplay.addEventListener('click', function () { self.replayScene(); });
     this.btnAudio.addEventListener('click', function () {
       if (global.TLIReader && global.TLIReader.setAudio) global.TLIReader.setAudio(!settings().audio);
       else self._localSet('audio', !settings().audio);
@@ -549,6 +552,26 @@
     this._setPlayIcon(false);
     this._updateProgressUI();
     this._updateOverlay();
+  };
+
+  /* Restart the current scene from its first line and play it. */
+  Player.prototype.replayScene = function () {
+    if (!this.scenes.length) return;
+    this.ended = false;
+    this.pausedElapsed = 0;
+    this.sceneStartedAt = 0;
+    this.lineIndex = 0;
+    this.lastSpokenByActor = {};
+    this._clearTimers();
+    this._stopAudio();
+    var sc = this.scenes[this.index];
+    this.counter.textContent = (this.index + 1) + ' / ' + Math.max(1, this.scenes.length);
+    this._showLine(this.linesOf(sc)[0] || null);
+    this._updateProgressUI();
+    this.playing = true;
+    this._setPlayIcon(true);
+    this._updateOverlay();
+    this._scheduleFromPaused();
   };
 
   Player.prototype.prev = function () {
