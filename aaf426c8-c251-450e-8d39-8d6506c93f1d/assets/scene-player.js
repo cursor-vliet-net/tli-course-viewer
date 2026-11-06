@@ -156,12 +156,12 @@
         '<button type="button" class="tli-sp-btn tli-sp-play" aria-label="Play" title="Play"><i class="fa-solid fa-play" aria-hidden="true"></i></button>' +
         '<button type="button" class="tli-sp-btn tli-sp-next" aria-label="Next scene" title="Next"><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>' +
         '<button type="button" class="tli-sp-btn tli-sp-replay" aria-label="Replay scene" title="Replay scene"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>' +
+        '<button type="button" class="tli-sp-btn tli-sp-autoadv" aria-pressed="false" aria-label="Autoplay off" title="Autoplay"><i class="fa-solid fa-forward-fast" aria-hidden="true"></i></button>' +
         '<div class="tli-sp-progress-wrap"><input type="range" class="tli-sp-progress" min="0" max="1000" value="0" step="1" aria-label="Story progress"></div>' +
         '<span class="tli-sp-counter" aria-live="polite">1 / 1</span>' +
         '<button type="button" class="tli-sp-btn tli-sp-audio" aria-pressed="true" aria-label="Audio on" title="Audio"><i class="fa-solid fa-volume-high" aria-hidden="true"></i></button>' +
         '<button type="button" class="tli-sp-btn tli-sp-cc-en" aria-pressed="true" aria-label="English subtitles on" title="English subtitles">EN</button>' +
         '<button type="button" class="tli-sp-btn tli-sp-cc-km" aria-pressed="true" aria-label="Khmer subtitles on" title="Khmer subtitles">ខ្មែរ</button>' +
-        '<button type="button" class="tli-sp-btn tli-sp-autoadv" aria-pressed="false" aria-label="Auto-advance off" title="Auto-advance">Auto</button>' +
         '<label class="tli-sp-speed-wrap" title="Playback speed"><span class="visually-hidden">Speed</span>' +
           '<select class="tli-sp-speed" aria-label="Playback speed">' + speedOpts + '</select></label>' +
         '<button type="button" class="tli-sp-btn tli-sp-fs" aria-label="Fullscreen" title="Fullscreen"><i class="fa-solid fa-expand" aria-hidden="true"></i></button>' +
@@ -202,9 +202,10 @@
     this.btnKm.classList.toggle('is-on', !!s.subtitlesKm);
     var aa = !!s.autoAdvance;
     this.btnAuto.setAttribute('aria-pressed', aa ? 'true' : 'false');
-    this.btnAuto.setAttribute('aria-label', aa ? 'Auto-advance on' : 'Auto-advance off');
-    this.btnAuto.title = aa ? 'Auto-advance on' : 'Auto-advance off';
+    this.btnAuto.setAttribute('aria-label', aa ? 'Autoplay on' : 'Autoplay off');
+    this.btnAuto.title = aa ? 'Autoplay on' : 'Autoplay off';
     this.btnAuto.classList.toggle('is-on', aa);
+    this.btnAuto.innerHTML = '<i class="fa-solid fa-forward-fast" aria-hidden="true"></i>';
     var sp = this.speed();
     if (String(this.speedSel.value) !== String(sp)) this.speedSel.value = String(sp);
   };

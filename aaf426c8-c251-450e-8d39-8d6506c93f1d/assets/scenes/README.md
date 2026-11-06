@@ -84,7 +84,7 @@ Clicking a character with no line in the current scene does nothing. If they hav
 
 ### Timing and playback
 
-- Conversation `defaultDurationMs` and per-line / per-scene durations pace each scene. **Auto** (default **off**) advances to the next scene when on; at story end it resets to scene 1 paused.
+- Conversation `defaultDurationMs` and per-line / per-scene durations pace each scene. **Autoplay** (default **off**, icon with Prev/Play/Next/Replay) advances to the next scene when on; at story end it resets to scene 1 paused.
 - With Auto off, Play finishes the current scene then pauses; Next/Prev land paused. Character clicks only work while paused.
 - Playback speed (0.25x–2x) scales wall-clock wait as `time / speed` and TTS rate.
 - Progress bar = elapsed time through the whole conversation (sum of scene durations + delays).

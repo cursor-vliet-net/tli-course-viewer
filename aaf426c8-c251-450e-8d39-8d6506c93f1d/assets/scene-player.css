@@ -36,7 +36,7 @@
 .tli-sp-btn:hover { background: #374151; }
 .tli-sp-btn:focus-visible { outline: 3px solid #ffbf47; outline-offset: 2px; }
 .tli-sp-btn.is-on, .tli-sp-btn[aria-pressed="true"].tli-sp-cc-en, .tli-sp-btn[aria-pressed="true"].tli-sp-cc-km, .tli-sp-btn[aria-pressed="true"].tli-sp-autoadv { background: #0b5d7a; }
-.tli-sp-cc-en, .tli-sp-cc-km, .tli-sp-autoadv { width: auto; min-width: 2.15rem; padding: 0 .45rem; font-size: .72rem; }
+.tli-sp-cc-en, .tli-sp-cc-km { width: auto; min-width: 2.15rem; padding: 0 .45rem; font-size: .72rem; }
 .tli-sp-cc-km { font-family: "Noto Sans Khmer", system-ui, sans-serif; }
 .tli-sp-speed-wrap { margin: 0; display: inline-flex; align-items: center; }
 .tli-sp-speed { background: #1f2937; color: #fff; border: 0; border-radius: .35rem; height: 2.15rem; padding: 0 .35rem; font-size: .75rem; font-weight: 700; cursor: pointer; }
