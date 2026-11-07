@@ -51,13 +51,21 @@
       read: ' Read', feedback: ' My feedback', plan: ' Plan', help: ' Help', parts: 'Parts', notes: 'Editor notes',
       goals: 'Goals', editingOn: ' Editing on', editingOff: ' Editing off', viewMode: 'View mode',
       interfaceLanguage: 'Interface language', themeDark: 'Dark mode', themeLight: 'Light mode',
-      draft: 'Khmer in this reader is an unreviewed draft. It has not been checked by a native speaker. Any line without Khmer stays in English. Dialogue subtitles are a separate control, on the story player.'
+      draft: 'Khmer in this reader is an unreviewed draft, including question-bank prompts and feedback. It has not been checked by a native speaker. Any line without Khmer stays in English. Dialogue subtitles are a separate control, on the story player.',
+      listen: 'Listen', moveUp: 'Up', moveDown: 'Down', useTile: 'Use', record: 'Record', stopRec: 'Stop', playRec: 'Play',
+      discardRec: 'Discard', iSaid: 'I said it', notYet: 'Not yet', met: 'Met',
+      teacherListens: 'Your teacher listens. The computer does not score this.',
+      sttNote: 'Speech-to-text is not used. The recording stays in this browser until you discard it or leave the page. It is not uploaded and it is not scored.'
     },
     km: {
       read: ' អាន', feedback: ' មតិរបស់ខ្ញុំ', plan: ' ផែនការ', help: ' ជំនួយ', parts: 'ផ្នែក', notes: 'កំណត់ចំណាំ',
       goals: 'គោលដៅ', editingOn: ' កំពុងកែ', editingOff: ' បិទការកែ', viewMode: 'របៀបមើល',
       interfaceLanguage: 'ភាសាអេក្រង់', themeDark: 'ងងឹត', themeLight: 'ភ្លឺ',
-      draft: 'អក្សរខ្មែរនៅទីនេះជាសេចក្តីព្រាង មិនទាន់មានអ្នកនិយាយភាសាខ្មែរពិនិត្យ។ ឃ្លាដែលមិនទាន់មានខ្មែរ នៅជាភាសាអង់គ្លេស។ ប៊ូតុងអក្សររត់លើរឿង គឺការកំណត់ផ្សេង។'
+      draft: 'អក្សរខ្មែរនៅទីនេះជាសេចក្តីព្រាង រួមទាំងសំណួរ និងមតិក្នុងធនាគារសំណួរ។ មិនទាន់មានអ្នកនិយាយភាសាខ្មែរពិនិត្យ។ ឃ្លាដែលមិនទាន់មានខ្មែរ នៅជាភាសាអង់គ្លេស។ ប៊ូតុងអក្សររត់លើរឿង គឺការកំណត់ផ្សេង។',
+      listen: 'ស្តាប់', moveUp: 'ឡើង', moveDown: 'ចុះ', useTile: 'ប្រើ', record: 'ថត', stopRec: 'ឈប់', playRec: 'ចាក់',
+      discardRec: 'បោះចោល', iSaid: 'ខ្ញុំបាននិយាយ', notYet: 'មិនទាន់', met: 'បាន',
+      teacherListens: 'គ្រូស្តាប់។ កុំព្យូទ័រមិនដាក់ពិន្ទុទេ។',
+      sttNote: 'មិនប្រើការបំប្លែងសំឡេងទៅជាអក្សរ។ សំឡេងនៅក្នុងកម្មវិធីរុករកនេះ រហូតដល់អ្នកបោះចោល ឬចាកចេញ។ មិនផ្ញើចេញ និងមិនដាក់ពិន្ទុ។'
     }
   };
   function uiLang() { return S.settings.uiLang === 'km' ? 'km' : 'en'; }
@@ -120,16 +128,45 @@
       if (en != null) el.innerHTML = en;
     });
   }
+  function safeFontFamily(family) {
+    var f = String(family || '');
+    if (!/^[A-Za-z0-9 ]{1,40}$/.test(f)) return 'sans-serif';
+    return "'" + f + "',sans-serif";
+  }
+  /* Split plain text on a placeholder. Translated text is escaped; the sample span is ours. */
+  function slotHtml(template, token, html) {
+    return String(template || '').split(token).map(esc).join(html);
+  }
+  function renderLetterPrompt(el) {
+    var sample = el.getAttribute('data-sample') || '';
+    var span = '<span class="q-letter-sample" lang="en" style="font-family:' +
+      safeFontFamily(el.getAttribute('data-font-sample')) + '">' + esc(sample) + '</span>';
+    var en = el.getAttribute('data-en') || '';
+    var kmText = el.getAttribute('data-km') || '';
+    var useKm = uiLang() === 'km' && kmText && kmText !== en;
+    var primary = slotHtml(useKm ? kmText : en, '{sample}', span);
+    var altTpl = useKm ? en : kmText;
+    var alt = altTpl && altTpl !== (useKm ? kmText : en) ? slotHtml(altTpl, '{sample}', span) : '';
+    if (!alt || plainFromHtml(alt) === plainFromHtml(primary)) el.innerHTML = primary;
+    else el.innerHTML = '<span class="i18n-primary" lang="' + (useKm ? 'km' : 'en') + '">' + primary + '</span>' +
+      '<span class="i18n-alt" lang="' + (useKm ? 'en' : 'km') + '">' + alt + '</span>';
+  }
   function applyContentLang(root) {
     var km = uiLang() === 'km';
     i18nNodes(root).forEach(function (el) {
       if (el.isContentEditable) return;
+      if (el.getAttribute('data-letter-prompt') === '1') { renderLetterPrompt(el); return; }
       var en = el.getAttribute('data-en-html');
       if (en == null) return;
       var kmText = el.getAttribute('data-km') || '';
-      if (km && kmText) el.innerHTML = bilingualHtml(esc(kmText), plainFromHtml(en), 'en');
-      else if (!km && kmText) el.innerHTML = bilingualHtml(en, kmText, 'km');
+      if (km && kmText && kmText !== plainFromHtml(en)) el.innerHTML = bilingualHtml(esc(kmText), plainFromHtml(en), 'en');
+      else if (!km && kmText && kmText !== plainFromHtml(en)) el.innerHTML = bilingualHtml(en, kmText, 'km');
       else el.innerHTML = en;
+    });
+    $$('img[data-alt-en]', root || document).forEach(function (img) {
+      var enAlt = img.getAttribute('data-alt-en') || '';
+      var kmAlt = img.getAttribute('data-alt-km') || '';
+      img.alt = (km && kmAlt) ? kmAlt : enAlt;
     });
   }
   function systemTheme() {
@@ -277,6 +314,8 @@
     return lines.join('\n');
   }
   function quizMD(q) {
+    var ids = $$('.quiz-q', q).map(function (f) { return f.getAttribute('data-bank-id'); });
+    if (ids.length && ids.every(Boolean)) return ids.map(function (id) { return 'Bank: ' + id; }).join('\n');
     return $$('.quiz-q', q).map(function (f) {
       var stem = inl($('.quiz-stem', f)).replace(/^\d+\.\s*/, '');
       var tag = f.getAttribute('data-sc') ? 'Tag: ' + f.getAttribute('data-sc') + ' ' + f.getAttribute('data-level') + '\n' : '';
@@ -445,6 +484,7 @@
     draft.hidden = true;
     article.insertBefore(draft, article.firstChild);
     applyUiLang();
+    bindReview(article);
     original = {};
     $$('.blk', article).forEach(function (b) { decorate(b); });
     applyContentLang(goals);
@@ -644,6 +684,136 @@
   function deleteItem(type, key) { delete S[type][key]; save(); }
 
   /* ---------------- quiz ---------------- */
+  var recordings = typeof WeakMap === 'function' ? new WeakMap() : null;
+  function recBag(f) {
+    if (!recordings || !f) return { url: '', stream: null, recorder: null, chunks: [] };
+    var bag = recordings.get(f);
+    if (!bag) { bag = { url: '', stream: null, recorder: null, chunks: [] }; recordings.set(f, bag); }
+    return bag;
+  }
+  function recNote(f, text) { var n = f && $('.q-rec-note', f); if (n) n.textContent = text || ''; }
+  function speakEnglish(btn) {
+    var text = btn.getAttribute('data-speak') || '';
+    var file = btn.getAttribute('data-audio') || '';
+    function tts() {
+      if (!text || !window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+        recNote(btn.closest('.quiz-q'), 'English listening is not available in this browser.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      window.speechSynthesis.speak(u);
+    }
+    if (!text) return;
+    if (file) {
+      var audio = new Audio(file);
+      audio.onerror = tts;
+      var played = audio.play();
+      if (played && played.catch) played.catch(tts);
+      return;
+    }
+    tts();
+  }
+  function moveTile(btn) {
+    var li = btn.closest('.quiz-tile'), list = li && li.parentNode;
+    if (!list || btn.disabled) return;
+    if (btn.classList.contains('q-up') && li.previousElementSibling) list.insertBefore(li, li.previousElementSibling);
+    if (btn.classList.contains('q-down') && li.nextElementSibling) list.insertBefore(li.nextElementSibling, li);
+  }
+  function startRecording(f) {
+    if (!f) return;
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+      recNote(f, 'Recording is not available in this browser. You can still say it aloud and mark I said it, or ask your teacher.');
+      return;
+    }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+      discardRecording(f, true);
+      var bag = recBag(f);
+      bag.stream = stream;
+      bag.chunks = [];
+      var rec;
+      try { rec = new MediaRecorder(stream); }
+      catch (err) {
+        stream.getTracks().forEach(function (track) { track.stop(); });
+        recNote(f, 'Recording is not available in this browser.');
+        return;
+      }
+      bag.recorder = rec;
+      rec.ondataavailable = function (ev) { if (ev.data && ev.data.size) bag.chunks.push(ev.data); };
+      rec.onstop = function () {
+        if (bag.url) URL.revokeObjectURL(bag.url);
+        bag.url = URL.createObjectURL(new Blob(bag.chunks, { type: rec.mimeType || 'audio/webm' }));
+        var play = $('.q-play', f), discard = $('.q-discard', f), stop = $('.q-stop', f), start = $('.q-rec', f);
+        if (play) play.hidden = false;
+        if (discard) discard.hidden = false;
+        if (stop) stop.hidden = true;
+        if (start) start.hidden = false;
+        recNote(f, 'Recording ready. It stays on this page only.');
+      };
+      rec.start();
+      var startBtn = $('.q-rec', f), stopBtn = $('.q-stop', f);
+      if (startBtn) startBtn.hidden = true;
+      if (stopBtn) stopBtn.hidden = false;
+      recNote(f, 'Recording…');
+    }).catch(function () {
+      recNote(f, 'The browser did not allow the microphone. Nothing was saved. You can still practise out loud.');
+    });
+  }
+  function stopRecording(f) {
+    var bag = recBag(f);
+    if (bag.recorder && bag.recorder.state === 'recording') bag.recorder.stop();
+    if (bag.stream) { bag.stream.getTracks().forEach(function (track) { track.stop(); }); bag.stream = null; }
+  }
+  function playRecording(f) {
+    var bag = recBag(f);
+    if (bag.url) new Audio(bag.url).play();
+  }
+  function discardRecording(f, silent) {
+    var bag = recBag(f);
+    if (bag.recorder && bag.recorder.state === 'recording') { try { bag.recorder.stop(); } catch (e) { /* already stopped */ } }
+    if (bag.stream) { bag.stream.getTracks().forEach(function (track) { track.stop(); }); bag.stream = null; }
+    if (bag.url) { URL.revokeObjectURL(bag.url); bag.url = ''; }
+    bag.chunks = [];
+    var play = f && $('.q-play', f), discard = f && $('.q-discard', f), stop = f && $('.q-stop', f), start = f && $('.q-rec', f);
+    if (play) play.hidden = true;
+    if (discard) discard.hidden = true;
+    if (stop) stop.hidden = true;
+    if (start) start.hidden = false;
+    if (!silent) recNote(f, 'Recording discarded. Nothing was kept.');
+  }
+  function markSelf(f, ok) {
+    if (!f) return;
+    f.classList.remove('q-right', 'q-wrong');
+    f.classList.add(ok ? 'q-right' : 'q-wrong');
+    var res = $('.quiz-result', f);
+    if (res) res.textContent = ok ? 'You marked: I said it. This is not a score from the computer.' : 'Not yet. Say the model again. This is not a score.';
+  }
+  function markObserved(f, met) {
+    if (!f) return;
+    f.classList.remove('q-right', 'q-wrong');
+    f.classList.add(met ? 'q-right' : 'q-wrong');
+    var res = $('.quiz-result', f);
+    if (res) res.textContent = met ? 'Teacher mark: met. This is not a score from the computer.' : 'Teacher mark: not yet. This is not a score from the computer.';
+  }
+  function bindReview(root) {
+    var scope = root || document;
+    $$('.ff-review', scope).forEach(function (a) {
+      var article = a.closest('.reading') || scope;
+      var goals = (a.getAttribute('data-goals') || '').split(',').filter(Boolean);
+      var row = null, i, found;
+      for (i = 0; i < goals.length; i++) {
+        found = article.querySelector('[data-goal="' + goals[i].replace(/"/g, '') + '"]');
+        if (found) { row = found; break; }
+      }
+      var target = row ? (row.closest('.blk') || row) : article.querySelector('[data-review-lesson]');
+      if (!target) target = article.querySelector('.blk') || article;
+      if (target && target.id) a.setAttribute('href', '#' + target.id);
+      var goalLine = $('.ff-goal', a), lessonLine = $('.ff-lesson', a);
+      if (goalLine) goalLine.hidden = !row;
+      if (lessonLine) lessonLine.hidden = !!row;
+    });
+  }
   function setupQuiz(blk) {
     var q = $('.quiz', blk);
     if (!q) return;
@@ -651,18 +821,24 @@
       $$('input[type=radio]', f).forEach(function (r, j) { r.name = blk.id + '-q' + (i + 1); r.id = blk.id + '-q' + (i + 1) + '-' + (j + 1); });
     });
     q.setAttribute('data-mode', MODE);
-    if (MODE === 'teacher') { /* answer key: correct option marked, every explanation shown */
+    var openEnded = !$('.quiz-opt, .quiz-order', q);
+    var needsCheck = !!$('.quiz-order, input[type=checkbox]', q);
+    if (MODE === 'teacher') { /* answer key: acceptable options marked, every explanation shown */
       q.classList.add('quiz-key');
       $$('.quiz-opt', q).forEach(function (o) {
         if (o.getAttribute('data-correct') === '1') $('.quiz-mark', o).innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + '<span class="visually-hidden"> correct answer</span></span>';
         var x = $('.quiz-expl', o); if (x) x.hidden = false;
       });
-      $$('input[type=radio]', q).forEach(function (r) { r.disabled = true; });
+      $$('.quiz-order-feedback, .ff-wrong, .ff-right', q).forEach(function (x) { x.hidden = false; });
+      $$('input[type=radio], input[type=checkbox]', q).forEach(function (r) { r.disabled = true; });
+      $$('.q-up, .q-down, .q-use', q).forEach(function (b) { b.disabled = true; });
       $('.quiz-actions', q).hidden = true;
     } else if (MODE === 'student') { /* learner quiz: feedback right after each answer, no tags */
       $$('.quiz-tag', q).forEach(function (x) { x.remove(); });
       var rb = $('.quiz-rtti', q); if (rb) rb.remove();
-      $('.quiz-check', q).hidden = true;
+      $$('.q-teacher-mark', q).forEach(function (x) { x.hidden = true; });
+      if (!needsCheck) $('.quiz-check', q).hidden = true;
+      if (openEnded) $('.quiz-actions', q).hidden = true;
     }
   }
   function answerStudent(f) {
@@ -672,6 +848,7 @@
     f.classList.add(ok ? 'q-right' : 'q-wrong');
     $('.quiz-mark', opt).innerHTML = '<span class="' + (ok ? 'mark-right' : 'mark-wrong') + '">' + icon(ok ? 'fa-circle-check' : 'fa-circle-xmark') + '<span class="visually-hidden">' + (ok ? ' correct' : ' not yet') + '</span></span>';
     var ex = $('.quiz-expl', opt); if (ex) ex.hidden = false;
+    if (f.getAttribute('data-response') === 'picture-choice') showResultLine(f, ok);
     $('.quiz-result', f).innerHTML = ok ? '<span class="mark-right">' + icon('fa-star') + ' Well done!</span>' : '<span class="mark-wrong">' + icon('fa-lightbulb') + ' Not yet. Read the tip.</span>';
     $$('input[type=radio]', f).forEach(function (r) { r.disabled = true; });
     var qs = $$('.quiz-q', q), done = qs.filter(function (x) { return x.classList.contains('q-right') || x.classList.contains('q-wrong'); });
@@ -681,31 +858,81 @@
     var sc = $('.quiz-score', q); sc.textContent = msg; sc.classList.add('quiz-gentle');
     $('.quiz-retry', q).hidden = false;
   }
+  function choiceCorrect(f) {
+    var boxes = $$('input[type=checkbox]', f);
+    if (boxes.length) {
+      if (!boxes.some(function (b) { return b.checked; })) return null;
+      return boxes.every(function (b) {
+        return b.checked === (b.closest('.quiz-opt').getAttribute('data-correct') === '1');
+      });
+    }
+    var chosen = $('input[type=radio]:checked', f);
+    if (!chosen) return null;
+    return chosen.closest('.quiz-opt').getAttribute('data-correct') === '1';
+  }
+  function orderKey(f) {
+    return $$('.quiz-tile', f).filter(function (li) {
+      var use = $('.q-use', li);
+      return use && use.checked;
+    }).map(function (li) { return li.getAttribute('data-tile'); });
+  }
+  function orderCorrect(f) {
+    var list = $('.quiz-order', f);
+    var raw = list ? (list.getAttribute('data-orders') || '') : '';
+    if (!raw) return null;
+    var orders;
+    try { orders = JSON.parse(raw); } catch (e) { return false; }
+    var key = orderKey(f).join('|');
+    if (!key) return null;
+    return orders.some(function (seq) { return seq.join('|') === key; });
+  }
+  function showResultLine(f, ok) {
+    $$('.ff-wrong, .ff-right', f).forEach(function (el) { el.hidden = true; });
+    var box = $(ok ? '.ff-right' : '.ff-wrong', f);
+    if (box) box.hidden = false;
+  }
+  function showChoiceMarks(f, ok) {
+    var chosen = $$('input:checked', f).map(function (input) { return input.closest('.quiz-opt'); });
+    $$('.quiz-opt', f).forEach(function (o) {
+      var picked = chosen.indexOf(o) >= 0;
+      var right = o.getAttribute('data-correct') === '1';
+      if (picked || (f.getAttribute('data-response') === 'multiple-choice' && right && !ok)) {
+        $('.quiz-mark', o).innerHTML = '<span class="' + (right ? 'mark-right' : 'mark-wrong') + '">' + icon(right ? 'fa-circle-check' : 'fa-circle-xmark') + '</span>';
+        var ex = $('.quiz-expl', o);
+        if (ex && (picked || !right)) ex.hidden = !picked && right ? ex.hidden : false;
+        if (ex && picked) ex.hidden = false;
+      }
+    });
+  }
   function checkQuiz(q) {
     var qs = $$('.quiz-q', q), right = 0, unanswered = 0;
     qs.forEach(function (f) {
-      var chosen = $('input[type=radio]:checked', f), res = $('.quiz-result', f);
+      var res = $('.quiz-result', f);
+      var response = f.getAttribute('data-response');
+      if (response === 'spoken' || response === 'observed') return;
       f.classList.remove('q-right', 'q-wrong', 'q-none');
-      if (!chosen) {
+      var ok = response === 'ordering' ? orderCorrect(f) : choiceCorrect(f);
+      if (ok === null) {
         unanswered++; f.classList.add('q-none');
         res.innerHTML = icon('fa-circle-minus') + ' Not answered';
         return;
       }
-      var opt = chosen.closest('.quiz-opt');
-      if (opt.getAttribute('data-correct') === '1') {
+      if (ok) {
         right++; f.classList.add('q-right');
-        $('.quiz-mark', opt).innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + '<span class="visually-hidden"> correct</span></span>';
         res.innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + ' Correct</span>';
-        var cx = $('.quiz-expl', opt); if (cx) cx.hidden = false;
       } else {
         f.classList.add('q-wrong');
-        $('.quiz-mark', opt).innerHTML = '<span class="mark-wrong">' + icon('fa-circle-xmark') + '<span class="visually-hidden"> wrong</span></span>';
-        var ex = $('.quiz-expl', opt); if (ex) ex.hidden = false;
-        res.innerHTML = '<span class="mark-wrong">' + icon('fa-circle-xmark') + ' Wrong</span>';
+        res.innerHTML = '<span class="mark-wrong">' + icon('fa-circle-xmark') + ' Not yet</span>';
       }
+      if (response === 'ordering' || response === 'picture-choice') showResultLine(f, ok);
+      else showChoiceMarks(f, ok);
     });
-    $$('input[type=radio]', q).forEach(function (r) { r.disabled = true; });
-    $('.quiz-score', q).textContent = right + ' of ' + qs.length + ' correct' + (unanswered ? ' · ' + unanswered + ' not answered' : '');
+    $$('input[type=radio], input[type=checkbox], .q-up, .q-down, .q-use', q).forEach(function (r) { r.disabled = true; });
+    var scored = qs.filter(function (f) {
+      var response = f.getAttribute('data-response');
+      return response !== 'spoken' && response !== 'observed';
+    });
+    $('.quiz-score', q).textContent = right + ' of ' + scored.length + ' correct' + (unanswered ? ' · ' + unanswered + ' not answered' : '');
     rttiSummary(q);
     $('.quiz-check', q).hidden = true;
     var retry = $('.quiz-retry', q); retry.hidden = false; try { retry.focus(); } catch (e) { /* ignore */ }
@@ -736,14 +963,17 @@
     box.hidden = false;
   }
   function resetQuiz(q) {
+    $$('.quiz-speak', q).forEach(function (box) { discardRecording(box.closest('.quiz-q'), true); });
     var rb = $('.quiz-rtti', q); if (rb) { rb.hidden = true; rb.innerHTML = ''; }
     $$('.quiz-q', q).forEach(function (f) { f.classList.remove('q-right', 'q-wrong', 'q-none'); $('.quiz-result', f).innerHTML = ''; });
     $$('.quiz-mark', q).forEach(function (m) { m.innerHTML = ''; });
     $$('.quiz-expl', q).forEach(function (x) { x.hidden = true; });
-    $$('input[type=radio]', q).forEach(function (r) { r.checked = false; r.disabled = false; });
+    $$('input[type=radio], input[type=checkbox]', q).forEach(function (r) { r.checked = false; r.disabled = false; });
+    $$('.q-up, .q-down, .q-use', q).forEach(function (b) { b.disabled = false; if (b.classList.contains('q-use')) b.checked = true; });
     $('.quiz-score', q).textContent = '';
     $('.quiz-retry', q).hidden = true;
-    var c = $('.quiz-check', q); c.hidden = MODE === 'student';
+    var needs = !!$('.quiz-order, input[type=checkbox]', q);
+    var c = $('.quiz-check', q); c.hidden = MODE === 'student' && !needs;
     try { (MODE === 'student' ? $('input[type=radio]', q) : c).focus(); } catch (e) { /* ignore */ }
   }
 
@@ -969,6 +1199,16 @@
     if (t.closest('#themeToggle')) { setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); return; }
     if (t.closest('.quiz-check')) { checkQuiz(t.closest('.quiz')); return; }
     if (t.closest('.quiz-retry')) { resetQuiz(t.closest('.quiz')); return; }
+    if (t.closest('.q-listen')) { speakEnglish(t.closest('.q-listen')); return; }
+    if (t.closest('.q-up, .q-down')) { moveTile(t.closest('.q-up, .q-down')); return; }
+    if (t.closest('.q-rec')) { startRecording(t.closest('.quiz-q')); return; }
+    if (t.closest('.q-stop')) { stopRecording(t.closest('.quiz-q')); return; }
+    if (t.closest('.q-play')) { playRecording(t.closest('.quiz-q')); return; }
+    if (t.closest('.q-discard')) { discardRecording(t.closest('.quiz-q')); return; }
+    if (t.closest('.q-said')) { markSelf(t.closest('.quiz-q'), true); return; }
+    if (t.closest('.q-notyet') && t.closest('.quiz-speak')) { markSelf(t.closest('.quiz-q'), false); return; }
+    if (t.closest('.q-met')) { markObserved(t.closest('.quiz-q'), true); return; }
+    if (t.closest('.q-notyet') && t.closest('.quiz-observe')) { markObserved(t.closest('.quiz-q'), false); return; }
     if (t.closest('#copyMd')) { copyText(exportMarkdown()); return; }
     if (t.closest('#dlMd')) { download('feedback-' + D.projectKey + '-' + fileStamp() + '.md', exportMarkdown(), 'text/markdown'); return; }
     if (t.closest('#dlJson')) { download('feedback-' + D.projectKey + '-' + fileStamp() + '.json', exportJSON(), 'application/json'); return; }
@@ -1079,6 +1319,6 @@
     state: function () { return S; }, storeKey: STORE_KEY, blockMD: blockMD, sanitize: sanitize,
     startEdit: startEdit, saveEdit: saveEdit, cancelEdit: cancelEdit,
     playerSettings: playerSettings, setAudio: setAudio, setSubtitlesEn: setSubtitlesEn, setSubtitlesKm: setSubtitlesKm, setAutoAdvance: setAutoAdvance, setPlaybackSpeed: setPlaybackSpeed,
-    setUiLang: setUiLang, setTheme: setTheme
+    setUiLang: setUiLang, setTheme: setTheme, bindReview: bindReview
   };
 })();

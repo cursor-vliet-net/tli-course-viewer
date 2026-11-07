@@ -89,6 +89,45 @@ Characters with no line in the current scene are not clickable. If they have sev
 - Playback speed (0.25x–2x) scales wall-clock wait as `time / speed` and TTS rate.
 - Progress bar = elapsed time through the whole conversation (sum of scene durations + delays).
 
+### Professor explanation (optional)
+
+A story with no `professor` and no `explanations` plays exactly as before. Do not add an explanation to every scene.
+
+```json
+"professor": {
+  "id": "professor-mordechai",
+  "name": "Professor Mordechai",
+  "cueMs": 8000,
+  "avatar": "media/characters/professor-mordechai.svg",
+  "sprites": { "idle": "media/characters/professor-mordechai.svg" }
+}
+```
+
+On a scene:
+
+```json
+"explanations": [
+  {
+    "id": "s001.greet-without-name",
+    "atMs": 0,
+    "durationMs": 12000,
+    "review": { "km": "draft", "cultural": "pending-khmer-native-review" },
+    "text": { "en": "…", "km": "…" },
+    "subtitles": {
+      "en": [{ "atMs": 0, "durationMs": 4000, "text": "…" }],
+      "km": [{ "atMs": 0, "durationMs": 4000, "text": "…" }]
+    },
+    "audio": { "en": null, "km": null }
+  }
+]
+```
+
+`atMs` is the scene clock. The cue appears when playback has reached it, including at 0 before Play. `cueMs` (default 8000) is how long the corner icon stays prominent. After that it rests as a smaller button. It does not rest while the pointer is on it or while it has focus. It is removed only when the scene has no current explanation. Replay and a scene change start the cue clock again and clear the previous timer.
+
+The panel opens only from that button. It does not open by itself and it does not speak until its own Play. It stays until Close or until the scene changes. Closing it does not start the story. Its language (`en` or `km`) is not the story's EN / ខ្មែរ switches. One smaller subtitle track follows the selected language. The progress bar is `durationMs` for this explanation, not the story bar. Seek keeps that clock. A real `audio.en` or `audio.km` file is seeked to the same time and replaces speech. With no English file, Play speaks the active English cue with `speechSynthesis` (`en-US`). With no Khmer file, Khmer is spoken only when the browser exposes a voice whose language starts with `km`. Otherwise the panel says Khmer speech is not in this copy and does not speak the English line. Switching language stops the previous sound, keeps the clock, and starts the other track from the cue at that time.
+
+Opening or playing the professor pauses the story and stops its audio. Playing or seeking the story pauses the professor. The picture is the existing still face until a talking clip is added. `sprites.talk` is not set.
+
 ### Actors and sprites
 
 - `kind` is `"character"` or `"animal"` (same renderer).

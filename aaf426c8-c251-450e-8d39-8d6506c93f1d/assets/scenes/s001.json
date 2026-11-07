@@ -3,6 +3,15 @@
   "title": "Good morning, Yeay",
   "defaultDurationMs": 3200,
   "background": "media/backgrounds/home-morning.png",
+  "professor": {
+    "id": "professor-mordechai",
+    "name": "Professor Mordechai",
+    "cueMs": 8000,
+    "avatar": "media/characters/professor-mordechai.svg",
+    "sprites": {
+      "idle": "media/characters/professor-mordechai.svg"
+    }
+  },
   "actors": {
     "yeay-chan": {
       "name": "Yeay Chan",
@@ -76,7 +85,36 @@
           "atMs": 3200
         }
       ],
-      "durationMs": 6200
+      "durationMs": 6200,
+      "explanations": [
+        {
+          "id": "s001.greet-without-name",
+          "atMs": 0,
+          "durationMs": 12000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Child wording from process/cast/professor-mordechai.md. No palm-height rules."
+          },
+          "text": {
+            "en": "Yeay said the name. You can also say good morning when you do not know a name. Hello can be words. It can also be how you stand and what your hands do. A visitor might not use the same hands. That does not by itself mean they are rude. If you are not sure, wait and ask.",
+            "km": "យាយបាននិយាយឈ្មោះ។ អ្នកក៏អាចនិយាយ good morning ពេលមិនស្គាល់ឈ្មោះ។ សួស្តីអាចជាពាក្យ។ វាក៏អាចជារបៀបឈរ និងអ្វីដែលដៃធ្វើ។ ភ្ញៀវខ្លះមិនប្រើដៃដូចគ្នាទេ។ នោះមិនមានន័យថាពួកគេមិនគោរពទេ។ បើមិនប្រាកដ រង់ចាំ ហើយសួរ។"
+          },
+          "subtitles": {
+            "en": [
+              {"atMs": 0, "durationMs": 4000, "text": "Yeay said the name. You can also say good morning when you do not know a name."},
+              {"atMs": 4000, "durationMs": 4000, "text": "Hello can be words. It can also be how you stand and what your hands do."},
+              {"atMs": 8000, "durationMs": 4000, "text": "A visitor might not use the same hands. That does not by itself mean they are rude. If you are not sure, wait and ask."}
+            ],
+            "km": [
+              {"atMs": 0, "durationMs": 4000, "text": "យាយបាននិយាយឈ្មោះ។ អ្នកក៏អាចនិយាយ good morning ពេលមិនស្គាល់ឈ្មោះ។"},
+              {"atMs": 4000, "durationMs": 4000, "text": "សួស្តីអាចជាពាក្យ។ វាក៏អាចជារបៀបឈរ និងអ្វីដែលដៃធ្វើ។"},
+              {"atMs": 8000, "durationMs": 4000, "text": "ភ្ញៀវខ្លះមិនប្រើដៃដូចគ្នាទេ។ នោះមិនមានន័យថាពួកគេមិនគោរពទេ។ បើមិនប្រាកដ រង់ចាំ ហើយសួរ។"}
+            ]
+          },
+          "audio": {"en": null, "km": null}
+        }
+      ]
     },
     {
       "id": "2",

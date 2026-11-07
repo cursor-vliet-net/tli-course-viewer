@@ -5,6 +5,7 @@
   'use strict';
 
   var SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+  var PROF_CUE_MS = 8000;
   var ASSET_BASE = (function () {
     var scripts = document.getElementsByTagName('script');
     for (var i = scripts.length - 1; i >= 0; i--) {
@@ -45,6 +46,59 @@
     return ASSET_BASE + rel.replace(/^\.\//, '');
   }
 
+  /* Optional professor explanations. Missing professor/explanations is valid. */
+  function validateStory(data) {
+    var errors = [];
+    if (!data || typeof data !== 'object' || !Array.isArray(data.scenes)) {
+      errors.push('scenes must be an array');
+      return errors;
+    }
+    var prof = data.professor;
+    if (prof != null) {
+      if (!prof.id) errors.push('professor.id is required when professor is set');
+      if (prof.cueMs != null && !(typeof prof.cueMs === 'number' && prof.cueMs > 0)) {
+        errors.push('professor.cueMs must be a positive number of milliseconds');
+      }
+      if (prof.avatar != null && typeof prof.avatar !== 'string') errors.push('professor.avatar must be a path');
+      if (prof.sprites != null && typeof prof.sprites !== 'object') errors.push('professor.sprites must be an object');
+    }
+    data.scenes.forEach(function (sc, si) {
+      if (!sc || sc.explanations == null) return;
+      if (!Array.isArray(sc.explanations)) {
+        errors.push('scene ' + (sc.id || si) + ' explanations must be an array');
+        return;
+      }
+      sc.explanations.forEach(function (ex) {
+        var id = (ex && ex.id) || ('scene ' + si);
+        if (!ex || !ex.id) errors.push(id + ' needs an id');
+        if (!ex || !ex.text || typeof ex.text.en !== 'string' || !ex.text.en) errors.push(id + ' needs text.en');
+        if (ex && ex.text && ex.text.km != null && typeof ex.text.km !== 'string') errors.push(id + ' text.km must be a string');
+        if (ex && ex.atMs != null && typeof ex.atMs !== 'number') errors.push(id + ' atMs must be a number');
+        if (ex && ex.durationMs != null && (typeof ex.durationMs !== 'number' || ex.durationMs <= 0)) {
+          errors.push(id + ' durationMs must be a positive number');
+        }
+        if (ex && ex.audio) {
+          ['en', 'km'].forEach(function (code) {
+            if (ex.audio[code] != null && typeof ex.audio[code] !== 'string') errors.push(id + ' audio.' + code + ' must be a path or null');
+          });
+        }
+        if (ex && ex.subtitles) {
+          ['en', 'km'].forEach(function (code) {
+            var cues = ex.subtitles[code];
+            if (cues == null) return;
+            if (!Array.isArray(cues)) { errors.push(id + ' subtitles.' + code + ' must be an array'); return; }
+            cues.forEach(function (c, ci) {
+              if (!c || typeof c.atMs !== 'number' || typeof c.text !== 'string') {
+                errors.push(id + ' subtitles.' + code + '[' + ci + '] needs atMs and text');
+              }
+            });
+          });
+        }
+      });
+    });
+    return errors;
+  }
+
   function Player(root, data) {
     this.root = root;
     root._tliPlayer = this; /* test / debug hook */
@@ -64,6 +118,12 @@
     this.pausedElapsed = 0; /* nominal ms into current scene */
     this.lastSpokenByActor = {}; /* actorId -> line object in current scene */
     this.audioEl = null;
+    this.profLang = 'en';
+    this.profElapsed = 0;
+    this.profPlaying = false;
+    this._profAvailHandles = [];
+    this._profCueTimers = [];
+    this._cueEpoch = 0;
     this._build();
     this._bind();
     this.goTo(0, { auto: false });
@@ -146,6 +206,29 @@
           '<button type="button" class="tli-sp-bigplay" aria-label="Play story">' +
             '<i class="fa-solid fa-play" aria-hidden="true"></i><span class="visually-hidden">Play</span>' +
           '</button>' +
+          '<button type="button" class="tli-sp-prof-cue" hidden aria-label="Professor Mordechai can explain">' +
+            '<img alt="" class="tli-sp-prof-cue-img" hidden>' +
+            '<span class="tli-sp-prof-cue-fallback" aria-hidden="true">PM</span>' +
+          '</button>' +
+        '</div>' +
+        '<div class="tli-sp-prof" hidden role="dialog" aria-label="Professor Mordechai">' +
+          '<div class="tli-sp-prof-face" aria-hidden="true">' +
+            '<img alt="" class="tli-sp-prof-img" hidden>' +
+            '<span class="tli-sp-prof-fallback">PM</span>' +
+          '</div>' +
+          '<p class="tli-sp-prof-name">Professor Mordechai</p>' +
+          '<p class="visually-hidden tli-sp-prof-picture-note">Still picture. A talking clip is not in this copy.</p>' +
+          '<p class="tli-sp-prof-text" lang="en"></p>' +
+          '<p class="tli-sp-prof-status" role="status"></p>' +
+          '<div class="tli-sp-prof-controls">' +
+            '<button type="button" class="tli-sp-btn tli-sp-prof-play" aria-label="Play explanation"><i class="fa-solid fa-play" aria-hidden="true"></i></button>' +
+            '<div class="tli-sp-progress-wrap"><input type="range" class="tli-sp-prof-progress" min="0" max="1000" value="0" step="1" aria-label="Professor explanation progress"></div>' +
+            '<div class="tli-sp-prof-lang" role="group" aria-label="Professor language">' +
+              '<button type="button" class="tli-sp-btn tli-sp-prof-en" aria-pressed="true">EN</button>' +
+              '<button type="button" class="tli-sp-btn tli-sp-prof-km" aria-pressed="false">KH</button>' +
+            '</div>' +
+            '<button type="button" class="tli-sp-btn tli-sp-prof-close" aria-label="Close professor"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
+          '</div>' +
         '</div>' +
       '</div>' +
       '<div class="tli-sp-subs" hidden>' +
@@ -186,7 +269,21 @@
     this.btnFs = this.root.querySelector('.tli-sp-fs');
     this.progress = this.root.querySelector('.tli-sp-progress');
     this.counter = this.root.querySelector('.tli-sp-counter');
+    this.cueBtn = this.root.querySelector('.tli-sp-prof-cue');
+    this.cueImg = this.root.querySelector('.tli-sp-prof-cue-img');
+    this.cueFallback = this.root.querySelector('.tli-sp-prof-cue-fallback');
+    this.profPanel = this.root.querySelector('.tli-sp-prof');
+    this.profImg = this.root.querySelector('.tli-sp-prof-img');
+    this.profFallback = this.root.querySelector('.tli-sp-prof-fallback');
+    this.profText = this.root.querySelector('.tli-sp-prof-text');
+    this.profStatus = this.root.querySelector('.tli-sp-prof-status');
+    this.profPlay = this.root.querySelector('.tli-sp-prof-play');
+    this.profProgress = this.root.querySelector('.tli-sp-prof-progress');
+    this.profEn = this.root.querySelector('.tli-sp-prof-en');
+    this.profKm = this.root.querySelector('.tli-sp-prof-km');
+    this.profClose = this.root.querySelector('.tli-sp-prof-close');
     this._syncSettingButtons();
+    this._syncProfLang();
   };
 
   Player.prototype._syncSettingButtons = function () {
@@ -279,6 +376,30 @@
     });
     document.addEventListener('fullscreenchange', function () { self._syncFsButton(); });
     document.addEventListener('webkitfullscreenchange', function () { self._syncFsButton(); });
+    this.cueBtn.addEventListener('click', function () { self.openProfessor(); });
+    this.cueBtn.addEventListener('mouseenter', function () { self._cueHover = true; });
+    this.cueBtn.addEventListener('mouseleave', function () {
+      self._cueHover = false;
+      if (self._cueDeadline && Date.now() >= self._cueDeadline) self._restCueIfIdle();
+    });
+    this.cueBtn.addEventListener('focus', function () { self._cueFocus = true; });
+    this.cueBtn.addEventListener('blur', function () {
+      self._cueFocus = false;
+      if (self._cueDeadline && Date.now() >= self._cueDeadline) self._restCueIfIdle();
+    });
+    this.profPlay.addEventListener('click', function () {
+      if (self.profPlaying) self._pauseProfessor();
+      else self.playProfessor();
+    });
+    this.profClose.addEventListener('click', function () { self._closeProfessor(true); });
+    this.profEn.addEventListener('click', function () { self.setProfessorLang('en'); });
+    this.profKm.addEventListener('click', function () { self.setProfessorLang('km'); });
+    this.profProgress.addEventListener('input', function () {
+      self.seekProfessor((+self.profProgress.value) / 1000 * self._profDuration());
+    });
+    this.profPanel.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') { ev.preventDefault(); self._closeProfessor(true); }
+    });
   };
 
   Player.prototype._fsElement = function () {
@@ -530,6 +651,9 @@
     opts = opts || {};
     if (!this.scenes.length) return;
     idx = Math.max(0, Math.min(this.scenes.length - 1, idx));
+    this._cueEpoch += 1;
+    this._presentedId = null;
+    this._closeProfessor(false);
     this._clearTimers();
     this._stopAudio();
     this.index = idx;
@@ -545,6 +669,7 @@
     this._showLine(lines[0] || null);
     this._updateProgressUI();
     this._updateOverlay();
+    this._armProfAvail();
     if (opts.auto === false && !this.playing) {
       this._setPlayIcon(false);
       return;
@@ -593,6 +718,7 @@
     this.timer = setTimeout(function () {
       self._onSceneFinished();
     }, remain / this.speed());
+    this._armProfAvail();
   };
 
   Player.prototype._onSceneFinished = function () {
@@ -642,11 +768,16 @@
       this._lineHandles.forEach(function (h) { clearTimeout(h); });
       this._lineHandles = [];
     }
+    if (this._profAvailHandles) {
+      this._profAvailHandles.forEach(function (h) { clearTimeout(h); });
+      this._profAvailHandles = [];
+    }
     if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
   };
 
   Player.prototype.play = function () {
     if (!this.scenes.length) return;
+    this._pauseProfessor();
     this.awaitingStart = false;
     if (this.ended) {
       this.ended = false;
@@ -692,6 +823,9 @@
   /* Restart the current scene from its first line and play it. */
   Player.prototype.replayScene = function () {
     if (!this.scenes.length) return;
+    this._cueEpoch += 1;
+    this._presentedId = null;
+    this._closeProfessor(false);
     this.awaitingStart = false;
     this.ended = false;
     this.sceneComplete = false;
@@ -734,6 +868,7 @@
 
   Player.prototype.seekMs = function (ms) {
     var t = 0, i;
+    this._pauseProfessor();
     ms = Math.max(0, Math.min(this.totalMs(), ms));
     for (i = 0; i < this.scenes.length; i++) {
       var d = this.sceneDuration(this.scenes[i]) + this.delayOf(this.scenes[i]);
@@ -750,7 +885,7 @@
         this.counter.textContent = (this.index + 1) + ' / ' + Math.max(1, this.scenes.length);
         this._showLine(this.linesOf(this.scenes[i])[this.lineIndex] || null);
         if (was) this.play();
-        else { this._updateProgressUI(); this._updateOverlay(); }
+        else { this._updateProgressUI(); this._updateOverlay(); this._armProfAvail(); }
         return;
       }
       t += d;
@@ -759,6 +894,7 @@
 
   Player.prototype.repeatActor = function (actorId) {
     if (!this._canReplayCharacters()) return; /* only while paused (not playing / not big-play waiting) */
+    this._pauseProfessor();
     if (!this._actorHasLine(this.scenes[this.index], actorId)) return;
     var sc = this.scenes[this.index];
     var lines = this.linesOf(sc);
@@ -780,6 +916,390 @@
       self._stopAudio();
       /* remain paused */
     }, wait);
+  };
+
+  Player.prototype._cueMs = function () {
+    var p = this.data && this.data.professor;
+    if (p && typeof p.cueMs === 'number' && p.cueMs > 0) return p.cueMs;
+    return PROF_CUE_MS;
+  };
+
+  Player.prototype._profDuration = function () {
+    var ex = this._openExplanation;
+    if (ex && typeof ex.durationMs === 'number' && ex.durationMs > 0) return ex.durationMs;
+    return 8000;
+  };
+
+  Player.prototype._profNow = function () {
+    if (this.profPlaying && this._profStartedAt) {
+      return Math.min(this._profDuration(), this.profElapsed + (Date.now() - this._profStartedAt));
+    }
+    return this.profElapsed || 0;
+  };
+
+  Player.prototype._clearCueFade = function () {
+    if (this._profFadeTimer) { clearTimeout(this._profFadeTimer); this._profFadeTimer = null; }
+  };
+
+  Player.prototype._clearProfClock = function () {
+    if (this._profTick) { clearInterval(this._profTick); this._profTick = null; }
+    if (this._profCueTimers) {
+      this._profCueTimers.forEach(function (h) { clearTimeout(h); });
+      this._profCueTimers = [];
+    }
+  };
+
+  Player.prototype._stopProfSound = function () {
+    if (this.profAudio) {
+      try { this.profAudio.pause(); this.profAudio.removeAttribute('src'); this.profAudio.load(); } catch (e) { /* ignore */ }
+      this.profAudio = null;
+    }
+    this._profUtterance = null;
+    if (global.speechSynthesis) {
+      try { global.speechSynthesis.cancel(); } catch (e2) { /* ignore */ }
+    }
+  };
+
+  Player.prototype._pauseProfessor = function () {
+    if (this.profPlaying && this._profStartedAt) {
+      this.profElapsed = this._profNow();
+    }
+    this.profPlaying = false;
+    this._profStartedAt = 0;
+    this._clearProfClock();
+    this._stopProfSound();
+    this._setProfPlayIcon(false);
+    this._updateProfProgress();
+  };
+
+  Player.prototype._closeProfessor = function (restoreFocus) {
+    this._pauseProfessor();
+    this._openExplanation = null;
+    if (this.profPanel) this.profPanel.hidden = true;
+    if (restoreFocus && this.cueBtn && !this.cueBtn.hidden) {
+      try { this.cueBtn.focus(); } catch (e) { /* ignore */ }
+    }
+  };
+
+  Player.prototype._setProfPlayIcon = function (playing) {
+    if (!this.profPlay) return;
+    this.profPlay.innerHTML = playing
+      ? '<i class="fa-solid fa-pause" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-play" aria-hidden="true"></i>';
+    this.profPlay.setAttribute('aria-label', playing ? 'Pause explanation' : 'Play explanation');
+  };
+
+  Player.prototype._syncProfLang = function () {
+    if (!this.profEn) return;
+    var km = this.profLang === 'km';
+    this.profEn.setAttribute('aria-pressed', km ? 'false' : 'true');
+    this.profKm.setAttribute('aria-pressed', km ? 'true' : 'false');
+    this.profEn.classList.toggle('is-on', !km);
+    this.profKm.classList.toggle('is-on', km);
+  };
+
+  Player.prototype._pickKhmerVoice = function () {
+    if (!global.speechSynthesis || !global.speechSynthesis.getVoices) return null;
+    var voices = global.speechSynthesis.getVoices() || [];
+    var i, v;
+    for (i = 0; i < voices.length; i++) {
+      v = voices[i];
+      if (/^km(-|$)/i.test(v.lang || '')) return v;
+    }
+    return null;
+  };
+
+  Player.prototype._activeExplanation = function () {
+    var sc = this.scenes[this.index];
+    var list = (sc && sc.explanations) || [];
+    var elapsed = this.pausedElapsed || 0;
+    var active = null;
+    var i, at;
+    for (i = 0; i < list.length; i++) {
+      at = typeof list[i].atMs === 'number' ? list[i].atMs : 0;
+      if (at <= elapsed) active = list[i];
+    }
+    return active;
+  };
+
+  Player.prototype._armProfAvail = function () {
+    var self = this;
+    var sc = this.scenes[this.index];
+    var list = (sc && sc.explanations) || [];
+    var elapsed = this.pausedElapsed || 0;
+    var active = null;
+    if (this._profAvailHandles) {
+      this._profAvailHandles.forEach(function (h) { clearTimeout(h); });
+    }
+    this._profAvailHandles = [];
+    list.forEach(function (ex) {
+      var at = typeof ex.atMs === 'number' ? ex.atMs : 0;
+      if (at <= elapsed) active = ex;
+      else if (self.playing && self.sceneStartedAt) {
+        var handle = setTimeout(function () {
+          if (!self.playing || self.scenes[self.index] !== sc) return;
+          self._presentCue(ex);
+        }, (at - elapsed) / self.speed());
+        self._profAvailHandles.push(handle);
+      }
+    });
+    if (active) this._presentCue(active);
+    else this._hideCue();
+  };
+
+  Player.prototype._hideCue = function () {
+    this._clearCueFade();
+    this._presentedId = null;
+    if (this.cueBtn) this.cueBtn.hidden = true;
+    if (this.profPanel && !this.profPanel.hidden) this._closeProfessor(false);
+  };
+
+  Player.prototype._cueHeld = function () {
+    return !!(this._cueHover || this._cueFocus || (this.cueBtn && document.activeElement === this.cueBtn));
+  };
+
+  Player.prototype._restCueIfIdle = function () {
+    if (!this.cueBtn || this.cueBtn.hidden) return;
+    if (this._cueHeld()) return;
+    this.cueBtn.classList.remove('is-cue');
+    this.cueBtn.classList.add('is-resting');
+  };
+
+  Player.prototype._startCueFade = function () {
+    var self = this;
+    this._clearCueFade();
+    this._cueDeadline = Date.now() + this._cueMs();
+    this._profFadeTimer = setTimeout(function () {
+      self._profFadeTimer = null;
+      self._restCueIfIdle();
+    }, this._cueMs());
+  };
+
+  Player.prototype._presentCue = function (ex) {
+    if (!this.cueBtn || !ex) return;
+    var same = this._presentedId === ex.id && this._presentedEpoch === this._cueEpoch && !this.cueBtn.hidden;
+    this._presentedId = ex.id;
+    this._presentedEpoch = this._cueEpoch;
+    this.cueBtn.hidden = false;
+    var who = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
+    this.cueBtn.setAttribute('aria-label', who + ' can explain');
+    this._renderProfFace(this.cueImg, this.cueFallback);
+    if (same) return;
+    this.cueBtn.classList.remove('is-resting');
+    this.cueBtn.classList.add('is-cue');
+    this._startCueFade();
+  };
+
+  Player.prototype._renderProfFace = function (img, fallback) {
+    var prof = (this.data && this.data.professor) || {};
+    var sprites = prof.sprites || {};
+    var path = sprites.idle || prof.avatar || '';
+    if (!img) return;
+    img.hidden = !path;
+    if (fallback) fallback.hidden = !!path;
+    img.onerror = function () {
+      img.hidden = true;
+      if (fallback) fallback.hidden = false;
+    };
+    if (path) img.src = resolveUrl(path);
+    else img.removeAttribute('src');
+  };
+
+  Player.prototype._subtitleAt = function (ex, code, elapsed) {
+    if (!ex) return '';
+    var cues = ex.subtitles && ex.subtitles[code];
+    var i, start, dur, end;
+    if (cues && cues.length) {
+      for (i = 0; i < cues.length; i++) {
+        start = cues[i].atMs || 0;
+        dur = cues[i].durationMs;
+        end = typeof dur === 'number' ? start + dur : Infinity;
+        if (elapsed >= start && elapsed < end) return cues[i].text || '';
+      }
+      return '';
+    }
+    return (ex.text && ex.text[code]) || '';
+  };
+
+  Player.prototype._showProfSubtitle = function () {
+    this._showProfSubtitleAt(this._profNow());
+  };
+
+  Player.prototype._showProfSubtitleAt = function (elapsed) {
+    var ex = this._openExplanation;
+    var code = this.profLang === 'km' ? 'km' : 'en';
+    var text = this._subtitleAt(ex, code, elapsed);
+    if (!this.profText) return;
+    this.profText.lang = code;
+    this.profText.textContent = text;
+    if (code === 'km' && !text) this._setProfStatus(this._kmGap(ex));
+  };
+
+  Player.prototype._kmGap = function (ex) {
+    var hasWords = !!(ex && ((ex.text && ex.text.km) || (ex.subtitles && ex.subtitles.km && ex.subtitles.km.length)));
+    if (!hasWords) return 'Khmer words are not in this copy.';
+    if (!(ex.audio && ex.audio.km) && !this._pickKhmerVoice()) {
+      return 'Khmer speech is not in this copy. The Khmer line is a draft.';
+    }
+    return '';
+  };
+
+  Player.prototype._setProfStatus = function (msg) {
+    if (!this.profStatus) return;
+    this.profStatus.textContent = msg || '';
+    this.profStatus.hidden = !msg;
+  };
+
+  Player.prototype._updateProfProgress = function () {
+    if (!this.profProgress) return;
+    var dur = this._profDuration() || 1;
+    var v = Math.max(0, Math.min(1000, Math.round((this._profNow() / dur) * 1000)));
+    if (document.activeElement !== this.profProgress) this.profProgress.value = String(v);
+  };
+
+  Player.prototype._startProfOutput = function () {
+    var ex = this._openExplanation;
+    var code = this.profLang === 'km' ? 'km' : 'en';
+    var elapsed = this._profNow();
+    this._stopProfSound();
+    if (!ex) return 'silent';
+    if (ex.audio && ex.audio[code]) {
+      var url = resolveUrl(ex.audio[code]);
+      try {
+        var file = new Audio(url);
+        this.profAudio = file;
+        try { file.currentTime = elapsed / 1000; } catch (e) { /* ignore */ }
+        file.play().catch(function () {});
+      } catch (e2) { /* ignore */ }
+      this._setProfStatus('');
+      return 'file';
+    }
+    if (code === 'km') {
+      var gap = this._kmGap(ex);
+      if (gap) { this._setProfStatus(gap); return 'unavailable'; }
+      var voice = this._pickKhmerVoice();
+      return this._speakProf(this._subtitleAt(ex, 'km', elapsed) || (ex.text && ex.text.km) || '', 'km', voice);
+    }
+    this._setProfStatus('');
+    var en = this._subtitleAt(ex, 'en', elapsed) || (ex.text && ex.text.en) || '';
+    return this._speakProf(en, 'en-US', this._pickEnglishVoice());
+  };
+
+  Player.prototype._speakProf = function (text, lang, voice) {
+    text = text ? String(text).trim() : '';
+    if (!text) return 'silent';
+    if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return 'silent';
+    try {
+      var u = new global.SpeechSynthesisUtterance(text);
+      u.lang = lang;
+      if (voice) u.voice = voice;
+      u.rate = 1;
+      this._profUtterance = u;
+      global.speechSynthesis.speak(u);
+    } catch (e) { return 'silent'; }
+    return 'tts';
+  };
+
+  Player.prototype._scheduleProfSubtitles = function () {
+    var self = this;
+    var ex = this._openExplanation;
+    var code = this.profLang === 'km' ? 'km' : 'en';
+    var cues = (ex && ex.subtitles && ex.subtitles[code]) || [];
+    var elapsed = this._profNow();
+    var file = !!(ex && ex.audio && ex.audio[code]);
+    this._profCueTimers.forEach(function (h) { clearTimeout(h); });
+    this._profCueTimers = [];
+    cues.forEach(function (cue) {
+      var at = cue.atMs || 0;
+      if (at <= elapsed) return;
+      var handle = setTimeout(function () {
+        if (!self.profPlaying) return;
+        self.profElapsed = at;
+        self._profStartedAt = Date.now();
+        self._showProfSubtitleAt(at);
+        if (!file && !(code === 'km' && !self._pickKhmerVoice() && !(ex.audio && ex.audio.km))) {
+          if (code === 'km' && !self._pickKhmerVoice()) return;
+          self._stopProfSound();
+          if (code === 'km') self._speakProf(cue.text || '', 'km', self._pickKhmerVoice());
+          else self._speakProf(cue.text || '', 'en-US', self._pickEnglishVoice());
+        }
+      }, at - elapsed);
+      self._profCueTimers.push(handle);
+    });
+  };
+
+  Player.prototype.playProfessor = function () {
+    var ex = this._openExplanation;
+    var self = this;
+    if (!ex || !this.profPanel || this.profPanel.hidden) return;
+    if (this.playing) this.pause();
+    if (this.profElapsed >= this._profDuration()) this.profElapsed = 0;
+    this._clearProfClock();
+    this.profPlaying = true;
+    this._profStartedAt = Date.now();
+    this._setProfPlayIcon(true);
+    this._showProfSubtitle();
+    this._startProfOutput();
+    this._scheduleProfSubtitles();
+    this._profTick = setInterval(function () {
+      if (!self.profPlaying) return;
+      var now = self._profNow();
+      self._showProfSubtitleAt(now);
+      self._updateProfProgress();
+      if (now >= self._profDuration()) {
+        self.profElapsed = self._profDuration();
+        self._pauseProfessor();
+        self._showProfSubtitleAt(self.profElapsed);
+      }
+    }, 100);
+  };
+
+  Player.prototype.seekProfessor = function (ms) {
+    var was = this.profPlaying;
+    ms = Math.max(0, Math.min(this._profDuration(), ms));
+    this._clearProfClock();
+    this._stopProfSound();
+    this.profElapsed = ms;
+    this._profStartedAt = 0;
+    this.profPlaying = false;
+    this._showProfSubtitleAt(ms);
+    this._updateProfProgress();
+    if (was) this.playProfessor();
+  };
+
+  Player.prototype.setProfessorLang = function (code) {
+    var was = this.profPlaying;
+    this.profLang = code === 'km' ? 'km' : 'en';
+    this.profElapsed = this._profNow();
+    this._profStartedAt = 0;
+    this.profPlaying = false;
+    this._clearProfClock();
+    this._stopProfSound();
+    this._syncProfLang();
+    this._showProfSubtitleAt(this.profElapsed);
+    this._setProfPlayIcon(false);
+    if (was) this.playProfessor();
+    else this._setProfStatus(this.profLang === 'km' ? this._kmGap(this._openExplanation) : '');
+  };
+
+  Player.prototype.openProfessor = function () {
+    var ex = this._activeExplanation();
+    if (!ex) return;
+    if (this.playing) this.pause();
+    this._pauseProfessor();
+    this._openExplanation = ex;
+    this.profElapsed = 0;
+    this.profPanel.hidden = false;
+    if (this.profName) this.profName.textContent = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
+    this._renderProfFace(this.profImg, this.profFallback);
+    this._syncProfLang();
+    this._showProfSubtitleAt(0);
+    this._updateProfProgress();
+    var prof = this.data.professor || {};
+    var path = (prof.sprites && prof.sprites.idle) || prof.avatar;
+    if (!path) this._setProfStatus('Picture file is not in this copy.');
+    else this._setProfStatus(this.profLang === 'km' ? this._kmGap(ex) : '');
+    try { this.profPlay.focus(); } catch (e) { /* ignore */ }
   };
 
   function mount(el) {
@@ -811,7 +1331,15 @@
     Array.prototype.forEach.call(nodes, mount);
   }
 
-  global.TLIScenePlayer = { mount: mount, mountAll: mountAll, settings: settings, speeds: SPEEDS.slice(), assetBase: function () { return ASSET_BASE; } };
+  global.TLIScenePlayer = {
+    mount: mount,
+    mountAll: mountAll,
+    settings: settings,
+    speeds: SPEEDS.slice(),
+    assetBase: function () { return ASSET_BASE; },
+    validateStory: validateStory,
+    cueDefaultMs: PROF_CUE_MS
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { mountAll(document); });
