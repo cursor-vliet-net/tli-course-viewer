@@ -415,6 +415,7 @@
     this._lineReplayActor = null; /* set only while a paused character replay is actually sounding */
     this._spriteCache = [];
     this._voiceChoice = {};
+    this._profTick = null;
     this._build();
     this._bind();
     this._preloadSprites();
@@ -520,8 +521,10 @@
           '<p class="tli-sp-prof-text" lang="en"></p>' +
           '<p class="tli-sp-prof-status" role="status"></p>' +
           '<div class="tli-sp-prof-controls">' +
+            '<button type="button" class="tli-sp-btn tli-sp-prof-prev" aria-label="Previous part" disabled><i class="fa-solid fa-backward-step" aria-hidden="true"></i></button>' +
             '<button type="button" class="tli-sp-btn tli-sp-prof-play" aria-label="Play explanation"><i class="fa-solid fa-play" aria-hidden="true"></i></button>' +
-            '<div class="tli-sp-progress-wrap"><input type="range" class="tli-sp-prof-progress" min="0" max="1000" value="0" step="1" aria-label="Professor explanation progress"></div>' +
+            '<button type="button" class="tli-sp-btn tli-sp-prof-next" aria-label="Next part"><i class="fa-solid fa-forward-step" aria-hidden="true"></i></button>' +
+            '<span class="tli-sp-prof-count" aria-live="polite">1 / 1</span>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -572,7 +575,9 @@
     this.profText = this.root.querySelector('.tli-sp-prof-text');
     this.profStatus = this.root.querySelector('.tli-sp-prof-status');
     this.profPlay = this.root.querySelector('.tli-sp-prof-play');
-    this.profProgress = this.root.querySelector('.tli-sp-prof-progress');
+    this.profPrev = this.root.querySelector('.tli-sp-prof-prev');
+    this.profNext = this.root.querySelector('.tli-sp-prof-next');
+    this.profCount = this.root.querySelector('.tli-sp-prof-count');
     this.profLangSel = this.root.querySelector('.tli-sp-prof-lang');
     this.profClose = this.root.querySelector('.tli-sp-prof-close');
     this._syncSettingButtons();
@@ -678,11 +683,10 @@
       if (self.profPlaying) self._pauseProfessor();
       else self.playProfessor();
     });
+    this.profPrev.addEventListener('click', function () { self._stepProfessor(-1); });
+    this.profNext.addEventListener('click', function () { self._stepProfessor(1); });
     this.profClose.addEventListener('click', function () { self._closeProfessor(true, true); });
     this.profLangSel.addEventListener('change', function () { self.setProfessorLang(self.profLangSel.value); });
-    this.profProgress.addEventListener('input', function () {
-      self.seekProfessor((+self.profProgress.value) / 1000 * self._profDuration());
-    });
     this.profPanel.addEventListener('keydown', function (ev) {
       if (ev.key === 'Escape') { ev.preventDefault(); self._closeProfessor(true, true); }
     });
@@ -1462,6 +1466,7 @@
   };
 
   Player.prototype._stopProfSound = function () {
+    this._profSpeakGen = (this._profSpeakGen || 0) + 1;
     if (this.profAudio) {
       try { this.profAudio.pause(); this.profAudio.removeAttribute('src'); this.profAudio.load(); } catch (e) { /* ignore */ }
       this.profAudio = null;
@@ -1481,7 +1486,7 @@
     this._clearProfClock();
     this._stopProfSound();
     this._setProfPlayIcon(false);
-    this._updateProfProgress();
+    this._updateProfControls();
     if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, false);
   };
 
@@ -1575,7 +1580,7 @@
     this.profElapsed = this._profDuration();
     this._pauseProfessor();
     this._showProfLine(line, lang);
-    this._updateProfProgress();
+    this._updateProfControls();
   };
 
   Player.prototype._pickKhmerVoice = function () {
@@ -1793,92 +1798,133 @@
     this.profStatus.hidden = !msg;
   };
 
-  Player.prototype._updateProfProgress = function () {
-    if (!this.profProgress) return;
-    var dur = this._profDuration() || 1;
-    var v = Math.max(0, Math.min(1000, Math.round((this._profNow() / dur) * 1000)));
-    if (document.activeElement !== this.profProgress) this.profProgress.value = String(v);
+  Player.prototype._profCode = function () {
+    var ex = this._openExplanation;
+    if (this.profLang === 'km' && this._profKhmerFile(ex)) return 'km';
+    return 'en';
   };
 
-  Player.prototype._startProfOutput = function () {
-    var self = this;
+  Player.prototype._profSegments = function () {
     var ex = this._openExplanation;
-    this._stopProfSound();
-    if (!ex || !this.profPlaying) return 'silent';
-    this._syncProfLang();
-    var code = this.profLang === 'km' && this._profKhmerFile(ex) ? 'km' : 'en';
-    this.profLang = code;
-    var filePath = ex.audio && ex.audio[code];
+    var code = this._profCode();
+    var cues = ex && ex.subtitles && ex.subtitles[code];
+    var out = [];
+    if (cues && cues.length) {
+      cues.forEach(function (c) {
+        var text = c && c.text ? String(c.text).trim() : '';
+        if (!text) return;
+        out.push({ text: text, atMs: c.atMs || 0 });
+      });
+    }
+    if (!out.length) {
+      var whole = ex && ex.text && ex.text[code];
+      if (whole && String(whole).trim()) out.push({ text: String(whole).trim(), atMs: 0 });
+    }
+    return out;
+  };
+
+  Player.prototype._updateProfControls = function () {
+    var n = this._profSegments().length;
+    var idx = this._profLineIndex || 0;
+    if (n && idx >= n) idx = n - 1;
+    if (idx < 0) idx = 0;
+    this._profLineIndex = idx;
+    if (this.profCount) this.profCount.textContent = n ? ((idx + 1) + ' / ' + n) : '';
+    if (this.profPrev) this.profPrev.disabled = !n || idx <= 0;
+    if (this.profNext) this.profNext.disabled = !n || idx >= n - 1;
+  };
+
+  Player.prototype._showCurrentSegment = function () {
+    var segs = this._profSegments();
+    this._updateProfControls();
+    var seg = segs[this._profLineIndex];
+    if (seg) this._showProfLine(seg.text, this._profCode());
+  };
+
+  Player.prototype._advanceProfSegment = function () {
+    if (!this.profPlaying) return;
+    var segs = this._profSegments();
+    if (this._profLineIndex + 1 >= segs.length) {
+      this._finishProfessor();
+      return;
+    }
+    this._profLineIndex += 1;
+    this._speakCurrentSegment();
+  };
+
+  Player.prototype._speakCurrentSegment = function () {
+    var self = this;
+    var segs = this._profSegments();
+    this._showCurrentSegment();
+    if (!this.profPlaying) return;
+    var seg = segs[this._profLineIndex];
+    if (!seg) { this._finishProfessor(); return; }
+    var ex = this._openExplanation;
+    var code = this._profCode();
+    var filePath = ex && ex.audio && ex.audio[code];
+    var gen = this._profSpeakGen;
     if (filePath) {
-      var url = resolveUrl(filePath);
+      var next = segs[this._profLineIndex + 1];
+      var endAt = next ? next.atMs / 1000 : null;
       try {
-        var file = new Audio(url);
+        var file = new Audio(resolveUrl(filePath));
         this.profAudio = file;
+        try { file.currentTime = (seg.atMs || 0) / 1000; } catch (e) { /* ignore */ }
+        file.ontimeupdate = function () {
+          if (self._profSpeakGen !== gen || self.profAudio !== file || !self.profPlaying) return;
+          if (endAt == null) return;
+          if (file.currentTime >= endAt - 0.03) {
+            file.ontimeupdate = null;
+            try { file.pause(); } catch (e2) { /* ignore */ }
+            self._advanceProfSegment();
+          }
+        };
         file.onended = function () {
-          if (self.profAudio !== file || !self.profPlaying) return;
-          self._finishProfessor();
+          if (self._profSpeakGen !== gen || self.profAudio !== file || !self.profPlaying) return;
+          self._advanceProfSegment();
         };
         file.onerror = function () {
-          if (self.profAudio !== file) return;
+          if (self._profSpeakGen !== gen || self.profAudio !== file) return;
           self.profAudio = null;
           if (code === 'km') {
             self._kmAudioFailed = true;
             self.profLang = 'en';
             self._syncProfLang();
-            self._startProfOutput();
+            self._speakCurrentSegment();
             return;
           }
-          self._speakProfLines(self._profLines(ex, 'en'), 0);
+          self._speakOneLine(seg.text, gen);
         };
-        try { if (this.profElapsed > 0) file.currentTime = this.profElapsed / 1000; } catch (e) { /* ignore */ }
         var played = file.play();
         if (played && typeof played.catch === 'function') played.catch(function () {});
-      } catch (e2) {
+      } catch (err) {
         if (code === 'km') {
           this._kmAudioFailed = true;
           this.profLang = 'en';
           this._syncProfLang();
-          return this._startProfOutput();
+          this._speakCurrentSegment();
+          return;
         }
-        this._speakProfLines(this._profLines(ex, 'en'), 0);
-        return 'tts';
+        this._speakOneLine(seg.text, gen);
       }
-      this._setProfStatus('');
-      this._showProfSubtitle();
-      return 'file';
+      return;
     }
     if (code === 'km') {
       this._kmAudioFailed = true;
       this.profLang = 'en';
       this._syncProfLang();
-      return this._startProfOutput();
+      this._speakCurrentSegment();
+      return;
     }
-    this._setProfStatus('');
-    var lines = this._profLines(ex, 'en');
-    var start = 0;
-    var cues = ex.subtitles && ex.subtitles.en;
-    var elapsed = this.profElapsed || 0;
-    if (cues && cues.length) {
-      for (var i = 0; i < cues.length; i++) if ((cues[i].atMs || 0) <= elapsed) start = i;
-    }
-    this._speakProfLines(lines, start);
-    return 'tts';
+    this._speakOneLine(seg.text, gen);
   };
 
-  /* Each line is spoken to its own end. The subtitle clock must not cancel it. */
-  Player.prototype._speakProfLines = function (lines, index) {
+  Player.prototype._speakOneLine = function (text, gen) {
     var self = this;
-    if (!this.profPlaying) return 'silent';
-    if (!lines || index >= lines.length) {
-      this._finishProfessor();
-      return 'done';
-    }
-    var text = String(lines[index] || '').trim();
-    if (!text) return this._speakProfLines(lines, index + 1);
-    this._showProfLine(text, 'en');
-    this._profLineIndex = index;
-    this._profLineCount = lines.length;
-    if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return 'silent';
+    text = text ? String(text).trim() : '';
+    if (!this.profPlaying) return;
+    if (!text) { this._advanceProfSegment(); return; }
+    if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return;
     try {
       var u = new global.SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
@@ -1886,93 +1932,55 @@
       if (voice) u.voice = voice;
       u.rate = 1;
       u.onend = function () {
-        if (self._profUtterance !== u || !self.profPlaying) return;
-        self._speakProfLines(lines, index + 1);
+        if (self._profSpeakGen !== gen || self._profUtterance !== u || !self.profPlaying) return;
+        self._advanceProfSegment();
       };
       u.onerror = function () {
-        if (self._profUtterance !== u || !self.profPlaying) return;
-        self._speakProfLines(lines, index + 1);
+        if (self._profSpeakGen !== gen || self._profUtterance !== u || !self.profPlaying) return;
+        self._advanceProfSegment();
       };
       this._profUtterance = u;
       global.speechSynthesis.speak(u);
-    } catch (e) { return 'silent'; }
-    return 'tts';
+    } catch (e) { /* ignore */ }
   };
 
-  Player.prototype._speakProf = function (text, lang, voice) {
-    text = text ? String(text).trim() : '';
-    if (!text) return 'silent';
-    if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return 'silent';
-    try {
-      var u = new global.SpeechSynthesisUtterance(text);
-      u.lang = lang;
-      if (voice) u.voice = voice;
-      u.rate = 1;
-      this._profUtterance = u;
-      global.speechSynthesis.speak(u);
-    } catch (e) { return 'silent'; }
-    return 'tts';
-  };
-
-  /* File playback only. Moves the caption. Does not stop the recording. */
-  Player.prototype._scheduleProfSubtitles = function () {
-    var self = this;
-    var ex = this._openExplanation;
-    var code = this.profLang === 'km' ? 'km' : 'en';
-    var cues = (ex && ex.subtitles && ex.subtitles[code]) || [];
-    var elapsed = this.profElapsed || 0;
-    this._profCueTimers.forEach(function (h) { clearTimeout(h); });
-    this._profCueTimers = [];
-    if (!this.profAudio) return;
-    cues.forEach(function (cue) {
-      var at = cue.atMs || 0;
-      if (at <= elapsed) return;
-      self._profCueTimers.push(setTimeout(function () {
-        if (!self.profPlaying || !self.profAudio) return;
-        self._showProfLine(cue.text || '', code);
-      }, at - elapsed));
-    });
+  Player.prototype._stepProfessor = function (delta) {
+    var segs = this._profSegments();
+    var idx = (this._profLineIndex || 0) + delta;
+    if (!segs.length || idx < 0 || idx >= segs.length) return;
+    var was = this.profPlaying;
+    this._stopProfSound();
+    this.profPlaying = was;
+    this._profLineIndex = idx;
+    if (was) this._speakCurrentSegment();
+    else {
+      this._showCurrentSegment();
+      if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, false);
+    }
   };
 
   Player.prototype.playProfessor = function () {
     var ex = this._openExplanation;
-    var self = this;
     if (!ex || !this.profPanel || this.profPanel.hidden) return;
     if (this.playing) this.pause();
-    if (this.profElapsed >= this._profDuration()) this.profElapsed = 0;
-    this._clearProfClock();
+    this._stopProfSound();
     this.profPlaying = true;
-    this._profStartedAt = Date.now();
-    this._profLineIndex = 0;
-    this._profLineCount = 0;
     this._setProfPlayIcon(true);
     if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, true);
-    var mode = this._startProfOutput();
-    if (mode === 'file') this._scheduleProfSubtitles();
-    this._profTick = setInterval(function () {
-      if (!self.root || !self.root.isConnected) {
-        self._pauseProfessor();
-        self._clearTimers();
-        return;
-      }
-      if (!self.profPlaying) {
-        self._clearProfClock();
-        return;
-      }
-      self._updateProfProgress();
-    }, 100);
+    this._setProfStatus('');
+    this._speakCurrentSegment();
   };
 
   Player.prototype.seekProfessor = function (ms) {
+    var segs = this._profSegments();
+    var idx = 0;
+    var i;
+    for (i = 0; i < segs.length; i++) if ((segs[i].atMs || 0) <= ms) idx = i;
     var was = this.profPlaying;
-    ms = Math.max(0, Math.min(this._profDuration(), ms));
-    this._clearProfClock();
     this._stopProfSound();
-    this.profElapsed = ms;
-    this._profStartedAt = 0;
     this.profPlaying = false;
-    this._showProfSubtitleAt(ms);
-    this._updateProfProgress();
+    this._profLineIndex = idx;
+    this._showCurrentSegment();
     if (was) this.playProfessor();
   };
 
@@ -1980,13 +1988,11 @@
     var was = this.profPlaying;
     var wantKm = code === 'km' && !!this._profKhmerFile();
     this.profLang = wantKm ? 'km' : 'en';
-    this.profElapsed = 0;
-    this._profStartedAt = 0;
-    this.profPlaying = false;
-    this._clearProfClock();
     this._stopProfSound();
+    this.profPlaying = false;
+    this._profLineIndex = 0;
     this._syncProfLang();
-    this._showProfSubtitleAt(0);
+    this._showCurrentSegment();
     this._setProfPlayIcon(false);
     this._setProfStatus('');
     if (was) this.playProfessor();
@@ -2009,22 +2015,23 @@
     this._pauseProfessor();
     this._openExplanation = ex;
     this.profElapsed = 0;
+    this._profLineIndex = 0;
+    this._kmAudioFailed = false;
     if (this.profPanel) {
       this.profPanel.classList.remove('is-closing');
       this.profPanel.hidden = false;
     }
     if (this.profName) this.profName.textContent = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
-    this._renderProfFace(this.profImg, this.profFallback, false);
-    this._kmAudioFailed = false;
     this._syncProfLang();
-    this._showProfSubtitleAt(0);
-    this._updateProfProgress();
+    this._showCurrentSegment();
     var prof = this.data.professor || {};
     var path = (prof.sprites && prof.sprites.idle) || prof.avatar;
     if (!path) this._setProfStatus('Picture file is not in this copy.');
     else this._setProfStatus('');
     this._hideCue(true);
     this._profOpening = false;
+    if (this._profSegments().length) this.playProfessor();
+    if (!path) this._setProfStatus('Picture file is not in this copy.');
     try { this.profPlay.focus(); } catch (e) { /* ignore */ }
   };
 

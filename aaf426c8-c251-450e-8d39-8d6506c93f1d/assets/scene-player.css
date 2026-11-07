@@ -82,8 +82,9 @@
 .tli-sp-prof-text[lang="km"] { font-family: "Noto Sans Khmer", system-ui, sans-serif; font-size: .68rem; font-weight: 600; color: #ffe9a8; }
 .tli-sp-prof-status { margin: 0; font-size: .68rem; line-height: 1.3; color: #ffe9a8; }
 .tli-sp-prof-status[hidden] { display: none !important; }
-.tli-sp-prof-controls { display: flex; align-items: center; gap: .25rem; }
-.tli-sp-prof-controls .tli-sp-progress-wrap { flex: 1 1 4rem; min-width: 3rem; }
+.tli-sp-prof-controls { display: flex; align-items: center; justify-content: center; gap: .35rem; }
+.tli-sp-prof-count { font-size: .72rem; font-weight: 700; min-width: 2.4rem; text-align: center; }
+.tli-sp-prof-controls .tli-sp-btn[disabled] { opacity: .35; cursor: default; }
 .tli-sp-prof .tli-sp-btn[aria-pressed="true"] { background: #0b5d7a; }
 
 @media (max-width: 560px) {
