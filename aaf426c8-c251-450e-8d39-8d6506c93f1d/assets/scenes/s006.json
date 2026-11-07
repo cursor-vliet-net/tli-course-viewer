@@ -147,7 +147,7 @@
           "speaker": "bora",
           "text": "A book, please.",
           "translations": {
-            "km": "សូមសៀវភៅ។"
+            "km": "សុំសៀវភៅមួយ។"
           },
           "audio": null,
           "durationMs": 2800,
@@ -185,9 +185,9 @@
       "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "Yes.",
+          "text": "Here you are.",
           "translations": {
-            "km": "បាទ/ចាស។"
+            "km": "នេះណា។"
           },
           "audio": null,
           "durationMs": 2000,
@@ -267,7 +267,7 @@
           "speaker": "sreyneang",
           "text": "A book, please.",
           "translations": {
-            "km": "សូមសៀវភៅ។"
+            "km": "សុំសៀវភៅមួយ។"
           },
           "audio": null,
           "durationMs": 2800,
@@ -305,9 +305,9 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "Yes.",
+          "text": "Here you are.",
           "translations": {
-            "km": "បាទ។"
+            "km": "នេះណា។"
           },
           "audio": null,
           "durationMs": 2000,
@@ -387,7 +387,7 @@
           "speaker": "kru-sopheak",
           "text": "She is Sreyneang. He is Bora.",
           "translations": {
-            "km": "នាងគឺស្រីណាង។ គាត់គឺបូរ៉ា។"
+            "km": "នាងឈ្មោះស្រីណាង។ គេឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 4200,

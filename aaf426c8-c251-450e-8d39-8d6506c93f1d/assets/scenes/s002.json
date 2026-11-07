@@ -107,7 +107,7 @@
           "speaker": "bora",
           "text": "Hello, Yeay. I am Bora.",
           "translations": {
-            "km": "សួស្តី យាយ។ ខ្ញុំគឺបូរ៉ា។"
+            "km": "សួស្តី យាយ។ ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 3500,
@@ -187,7 +187,7 @@
           "speaker": "sreyneang",
           "text": "Hello, Yeay. I am Sreyneang.",
           "translations": {
-            "km": "សួស្តី យាយ។ ខ្ញុំគឺស្រីណាង។"
+            "km": "សួស្តី យាយ។ ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 3600,
@@ -225,9 +225,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Bora, you are Bora.",
+          "text": "You are Bora.",
           "translations": {
-            "km": "បូរ៉ា អ្នកគឺបូរ៉ា។"
+            "km": "អ្នកឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 3200,
@@ -267,7 +267,7 @@
           "speaker": "bora",
           "text": "Yes. I am Bora. You are Yeay.",
           "translations": {
-            "km": "បាទ។ ខ្ញុំគឺបូរ៉ា។ អ្នកគឺយាយ។"
+            "km": "បាទ។ ខ្ញុំឈ្មោះបូរ៉ា។ អ្នកឈ្មោះយាយ។"
           },
           "audio": null,
           "durationMs": 4000,
@@ -305,9 +305,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Sreyneang, you are Sreyneang.",
+          "text": "You are Sreyneang.",
           "translations": {
-            "km": "ស្រីណាង អ្នកគឺស្រីណាង។"
+            "km": "អ្នកឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 3400,
@@ -347,7 +347,7 @@
           "speaker": "sreyneang",
           "text": "Yes. I am Sreyneang. You are Yeay.",
           "translations": {
-            "km": "ចាស។ ខ្ញុំគឺស្រីណាង។ អ្នកគឺយាយ។"
+            "km": "ចាស។ ខ្ញុំឈ្មោះស្រីណាង។ អ្នកឈ្មោះយាយ។"
           },
           "audio": null,
           "durationMs": 4200,

@@ -227,7 +227,7 @@
           "speaker": "kru-sopheak",
           "text": "I am Kru Sopheak. You are Bora.",
           "translations": {
-            "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។ អ្នកគឺបូរ៉ា។"
+            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រ។ អ្នកឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 4200,
@@ -267,7 +267,7 @@
           "speaker": "bora",
           "text": "I am Bora. You are Kru Sopheak.",
           "translations": {
-            "km": "ខ្ញុំគឺបូរ៉ា។ អ្នកគឺគ្រូសុភ័ក្ត្រ។"
+            "km": "ខ្ញុំឈ្មោះបូរ៉ា។ អ្នកឈ្មោះគ្រូសុភ័ក្ត្រ។"
           },
           "audio": null,
           "durationMs": 4000,
@@ -307,7 +307,7 @@
           "speaker": "sreyneang",
           "text": "I am Sreyneang.",
           "translations": {
-            "km": "ខ្ញុំគឺស្រីណាង។"
+            "km": "ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 2800,

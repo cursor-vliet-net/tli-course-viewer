@@ -237,9 +237,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Bora, what is your name?",
+          "text": "What's your name?",
           "translations": {
-            "km": "បូរ៉ា ឈ្មោះអ្នកអ្វី?"
+            "km": "ឈ្មោះអ្វី?"
           },
           "audio": null,
           "durationMs": 3500,
@@ -279,7 +279,7 @@
           "speaker": "bora",
           "text": "I am Bora.",
           "translations": {
-            "km": "ខ្ញុំគឺបូរ៉ា។"
+            "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 2800,
@@ -317,9 +317,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Sreyneang, what is your name?",
+          "text": "What's your name?",
           "translations": {
-            "km": "ស្រីណាង ឈ្មោះអ្នកអ្វី?"
+            "km": "ឈ្មោះអ្វី?"
           },
           "audio": null,
           "durationMs": 3500,
@@ -359,7 +359,7 @@
           "speaker": "sreyneang",
           "text": "I am Sreyneang.",
           "translations": {
-            "km": "ខ្ញុំគឺស្រីណាង។"
+            "km": "ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 2800,

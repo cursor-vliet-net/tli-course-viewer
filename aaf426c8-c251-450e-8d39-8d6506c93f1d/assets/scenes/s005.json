@@ -67,7 +67,7 @@
           "speaker": "kru-sopheak",
           "text": "I am Kru Sopheak.",
           "translations": {
-            "km": "ខ្ញុំគឺគ្រូសុភ័ក្ត្រ។"
+            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រ។"
           },
           "audio": null,
           "durationMs": 3000,
@@ -107,7 +107,7 @@
           "speaker": "bora",
           "text": "I am Bora.",
           "translations": {
-            "km": "ខ្ញុំគឺបូរ៉ា។"
+            "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 2600,
@@ -147,7 +147,7 @@
           "speaker": "sreyneang",
           "text": "I am Sreyneang.",
           "translations": {
-            "km": "ខ្ញុំគឺស្រីណាង។"
+            "km": "ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 2800,
@@ -185,9 +185,9 @@
       "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "You are Bora. You are Sreyneang.",
+          "text": "You are Bora.",
           "translations": {
-            "km": "អ្នកគឺបូរ៉ា។ អ្នកគឺស្រីណាង។"
+            "km": "អ្នកឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 4000,
@@ -227,7 +227,7 @@
           "speaker": "kru-sopheak",
           "text": "He is Bora.",
           "translations": {
-            "km": "គាត់គឺបូរ៉ា។"
+            "km": "គេឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 2800,
@@ -267,7 +267,7 @@
           "speaker": "sreyneang",
           "text": "He is Bora.",
           "translations": {
-            "km": "គាត់គឺបូរ៉ា។"
+            "km": "គេឈ្មោះបូរ៉ា។"
           },
           "audio": null,
           "durationMs": 2800,
@@ -307,7 +307,7 @@
           "speaker": "kru-sopheak",
           "text": "She is Sreyneang.",
           "translations": {
-            "km": "នាងគឺស្រីណាង។"
+            "km": "នាងឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 3000,
@@ -347,7 +347,7 @@
           "speaker": "bora",
           "text": "She is Sreyneang.",
           "translations": {
-            "km": "នាងគឺស្រីណាង។"
+            "km": "នាងឈ្មោះស្រីណាង។"
           },
           "audio": null,
           "durationMs": 3000,
@@ -387,7 +387,7 @@
           "speaker": "bora",
           "text": "She is Kru Sopheak.",
           "translations": {
-            "km": "នាងគឺគ្រូសុភ័ក្ត្រ។"
+            "km": "នាងឈ្មោះគ្រូសុភ័ក្ត្រ។"
           },
           "audio": null,
           "durationMs": 3200,
