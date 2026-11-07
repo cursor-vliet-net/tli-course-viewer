@@ -284,6 +284,9 @@
         if (prof.lipSync != null && prof.lipSync !== false) {
           errors.push('professor.lipSync cannot be true; the talking picture is not matched to the sound');
         }
+        if (prof.gender != null && prof.gender !== 'female' && prof.gender !== 'male') {
+          errors.push('professor.gender must be female or male');
+        }
         if (hasExplanations) {
           if (typeof prof.icon !== 'string' || !prof.icon) {
             errors.push('professor.icon is required when a scene has explanations');
@@ -294,6 +297,16 @@
           }
         }
       }
+    }
+    var actors = data.actors;
+    if (actors != null && typeof actors === 'object') {
+      Object.keys(actors).forEach(function (aid) {
+        var actor = actors[aid];
+        if (!actor || typeof actor !== 'object') return;
+        if (actor.gender != null && actor.gender !== 'female' && actor.gender !== 'male') {
+          errors.push('actor ' + aid + ' gender must be female or male');
+        }
+      });
     }
     data.scenes.forEach(function (sc, si) {
       if (!sc || sc.explanations == null) return;
@@ -401,6 +414,7 @@
     this._settingProgress = false;
     this._lineReplayActor = null; /* set only while a paused character replay is actually sounding */
     this._spriteCache = [];
+    this._voiceChoice = {};
     this._build();
     this._bind();
     this._preloadSprites();
@@ -714,18 +728,90 @@
     }
   };
 
-  Player.prototype._pickEnglishVoice = function () {
+  /* Browser voices have no gender field. These names are the ones Windows, macOS, and Chrome label as female or male. A name that is not in this list stays unused for matching. */
+  var FEMALE_VOICE = { zira: 1, aria: 1, jenny: 1, ana: 1, emma: 1, sonia: 1, libby: 1, michelle: 1, heather: 1, hazel: 1, samantha: 1, victoria: 1, karen: 1, moira: 1, kate: 1, serena: 1, fiona: 1, veena: 1, tessa: 1, allison: 1, ava: 1, susan: 1, linda: 1 };
+  var MALE_VOICE = { david: 1, mark: 1, guy: 1, andrew: 1, brian: 1, ryan: 1, eric: 1, george: 1, james: 1, daniel: 1, alex: 1, fred: 1, tom: 1, rishi: 1, lee: 1 };
+
+  function englishRank(voice) {
+    var lang = String((voice && voice.lang) || '').replace(/_/g, '-').toLowerCase();
+    if (lang === 'en-us') return 0;
+    if (lang === 'en-gb') return 1;
+    if (lang.indexOf('en-') === 0) return 2;
+    if (lang === 'en') return 3;
+    return 99;
+  }
+
+  function labeledGender(voice) {
+    var name = String((voice && voice.name) || '');
+    if (/\bfemale\b/i.test(name)) return 'female';
+    if (/\bmale\b/i.test(name)) return 'male';
+    var parts = name.split(/[^A-Za-z]+/);
+    var i, token;
+    for (i = 0; i < parts.length; i++) {
+      token = parts[i].toLowerCase();
+      if (FEMALE_VOICE[token]) return 'female';
+      if (MALE_VOICE[token]) return 'male';
+    }
+    return '';
+  }
+
+  Player.prototype._ensureVoiceListener = function () {
+    var synth = global.speechSynthesis;
+    if (this._voiceListen || !synth) return;
+    this._voiceListen = true;
+    var self = this;
+    var note = function () { self._voicesChanged = true; };
+    if (synth.addEventListener) synth.addEventListener('voiceschanged', note);
+    else synth.onvoiceschanged = note;
+  };
+
+  /* hint is female, male, or empty. Empty and a missing match both use an English voice, not a pitch change. */
+  Player.prototype._voiceForGender = function (hint, key) {
+    this._ensureVoiceListener();
     if (!global.speechSynthesis || !global.speechSynthesis.getVoices) return null;
     var voices = global.speechSynthesis.getVoices() || [];
-    var i, v, en = null;
+    var english = [];
+    var i;
     for (i = 0; i < voices.length; i++) {
-      v = voices[i];
-      if (/^en(-|_)/i.test(v.lang || '') || /^en$/i.test(v.lang || '')) {
-        if (/US|GB|AU|en-US|en-GB/i.test(v.lang)) return v;
-        if (!en) en = v;
+      if (englishRank(voices[i]) < 99) english.push(voices[i]);
+    }
+    if (!english.length) return null;
+    english.sort(function (a, b) {
+      var d = englishRank(a) - englishRank(b);
+      if (d) return d;
+      return String(a.name || '').localeCompare(String(b.name || ''));
+    });
+    var want = hint === 'female' || hint === 'male' ? hint : '';
+    var cacheKey = key || want || 'english';
+    var cached = this._voiceChoice[cacheKey];
+    if (cached) {
+      for (i = 0; i < english.length; i++) {
+        if (english[i].name === cached) return english[i];
       }
     }
-    return en;
+    var pool = english;
+    if (want) {
+      var matched = [];
+      for (i = 0; i < english.length; i++) {
+        if (labeledGender(english[i]) === want) matched.push(english[i]);
+      }
+      if (matched.length) pool = matched;
+    }
+    var chosen = pool[0];
+    if (chosen && chosen.name) this._voiceChoice[cacheKey] = chosen.name;
+    return chosen || null;
+  };
+
+  Player.prototype._voiceForSpeaker = function (speakerId) {
+    var actor = speakerId && this.actors[speakerId];
+    var hint = actor && (actor.gender === 'female' || actor.gender === 'male') ? actor.gender : '';
+    return this._voiceForGender(hint, speakerId || 'line');
+  };
+
+  Player.prototype._pickEnglishVoice = function () {
+    var prof = this.data && this.data.professor;
+    var hint = prof && (prof.gender === 'female' || prof.gender === 'male') ? prof.gender : '';
+    return this._voiceForGender(hint, (prof && prof.id) || 'professor');
   };
 
   /* Audio file wins when set; otherwise English TTS via speechSynthesis. Never TTS Khmer. */
@@ -749,7 +835,7 @@
     try {
       var u = new global.SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
-      var voice = this._pickEnglishVoice();
+      var voice = this._voiceForSpeaker(ln.speaker);
       if (voice) u.voice = voice;
       var rate = this.speed();
       if (rate < 0.1) rate = 0.1;

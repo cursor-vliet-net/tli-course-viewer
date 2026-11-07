@@ -6,6 +6,7 @@
   "professor": {
     "id": "professor-mordechai",
     "name": "Professor Mordechai",
+    "gender": "male",
     "leadMs": 1200,
     "windowMs": 2800,
     "minVisibleMs": 7000,
@@ -21,6 +22,7 @@
   "actors": {
     "yeay-chan": {
       "name": "Yeay Chan",
+      "gender": "female",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/yeay-chan-neutral.png",
@@ -31,6 +33,7 @@
     },
     "bora": {
       "name": "Bora",
+      "gender": "male",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/bora-neutral.png",
@@ -41,6 +44,7 @@
     },
     "sreyneang": {
       "name": "Sreyneang",
+      "gender": "female",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/sreyneang-neutral.png",

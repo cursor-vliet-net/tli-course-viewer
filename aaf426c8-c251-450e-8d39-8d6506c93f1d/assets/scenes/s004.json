@@ -6,6 +6,7 @@
   "actors": {
     "kru-sopheak": {
       "name": "Kru Sopheak",
+      "gender": "female",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/kru-sopheak-neutral.png",
@@ -16,6 +17,7 @@
     },
     "bora": {
       "name": "Bora",
+      "gender": "male",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/bora-neutral.png",
@@ -26,6 +28,7 @@
     },
     "sreyneang": {
       "name": "Sreyneang",
+      "gender": "female",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/sreyneang-neutral.png",
