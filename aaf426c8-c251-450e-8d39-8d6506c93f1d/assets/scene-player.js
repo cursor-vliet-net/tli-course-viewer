@@ -48,7 +48,125 @@
   function resolveUrl(rel) {
     if (!rel) return '';
     if (/^https?:\/\//i.test(rel) || rel.charAt(0) === '/') return rel;
+    if (/^assets\//i.test(rel)) return rel;
     return ASSET_BASE + rel.replace(/^\.\//, '');
+  }
+
+  /* A runtime image path is a single relative file name, not a sentence or a design note. */
+  function isRuntimeImagePath(rel) {
+    if (typeof rel !== 'string') return false;
+    var s = rel.trim();
+    if (!s || s.length > 240) return false;
+    if (/[\s{}*<>]/.test(s)) return false;
+    if (/^(?:https?:|data:|blob:)/i.test(s)) return false;
+    return /\.(?:png|apng|gif|webp|svg|jpe?g)$/i.test(s);
+  }
+
+  function collectFromStoryboard(data, out) {
+    function walk(value) {
+      if (typeof value === 'string') {
+        if (isRuntimeImagePath(value)) out[value] = true;
+        return;
+      }
+      if (!value || typeof value !== 'object') return;
+      if (Array.isArray(value)) {
+        for (var i = 0; i < value.length; i++) walk(value[i]);
+        return;
+      }
+      Object.keys(value).forEach(function (k) { walk(value[k]); });
+    }
+    walk(data);
+  }
+
+  function collectFromHtml(html, images, scenes) {
+    if (typeof html !== 'string' || html.indexOf('<') < 0 && html.indexOf('url(') < 0 && html.indexOf('data-scene') < 0) return;
+    var m;
+    var imgRe = /<img\b[^>]*\bsrc=["']([^"']+)["']/gi;
+    while ((m = imgRe.exec(html))) if (isRuntimeImagePath(m[1])) images[m[1]] = true;
+    var urlRe = /url\(\s*['"]?([^'")]+)['"]?\s*\)/gi;
+    while ((m = urlRe.exec(html))) if (isRuntimeImagePath(m[1])) images[m[1]] = true;
+    var sceneRe = /data-scene=["']([^"']+)["']/gi;
+    while ((m = sceneRe.exec(html))) {
+      if (/^scenes\/s\d+\.json$/.test(m[1])) scenes[m[1]] = true;
+    }
+  }
+
+  function collectRuntimeRefs(course) {
+    var images = {};
+    var scenes = {};
+    function walk(value) {
+      if (typeof value === 'string') {
+        if (isRuntimeImagePath(value)) images[value] = true;
+        collectFromHtml(value, images, scenes);
+        return;
+      }
+      if (!value || typeof value !== 'object') return;
+      if (Array.isArray(value)) {
+        for (var i = 0; i < value.length; i++) walk(value[i]);
+        return;
+      }
+      Object.keys(value).forEach(function (k) { walk(value[k]); });
+    }
+    if (course) walk(course);
+    return { images: images, scenes: scenes };
+  }
+
+  /* Detached Image objects. Do not call decode() or createImageBitmap: that can pin an APNG on frame 1. */
+  var imageCache = {};
+  var storyboardLoads = {};
+
+  function preloadUrl(url) {
+    if (!url || imageCache[url]) return imageCache[url] || null;
+    var im;
+    try { im = new global.Image(); } catch (e) { return null; }
+    im.onerror = function () { /* a missing file must not stop the player */ };
+    try { im.src = url; } catch (e2) { return null; }
+    imageCache[url] = im;
+    return im;
+  }
+
+  function preloadPath(rel) {
+    return preloadUrl(resolveUrl(rel));
+  }
+
+  function preloadStoryboard(rel) {
+    if (!rel || storyboardLoads[rel]) return storyboardLoads[rel];
+    if (typeof global.fetch !== 'function') {
+      storyboardLoads[rel] = Promise.resolve();
+      return storyboardLoads[rel];
+    }
+    storyboardLoads[rel] = global.fetch(resolveUrl(rel)).then(function (r) {
+      if (!r || !r.ok) return null;
+      return r.json();
+    }).then(function (data) {
+      if (!data) return;
+      var paths = {};
+      collectFromStoryboard(data, paths);
+      Object.keys(paths).forEach(preloadPath);
+    }).catch(function () { /* one missing storyboard does not block the rest */ });
+    return storyboardLoads[rel];
+  }
+
+  function preloadRuntime(data, rel) {
+    if (data) {
+      if (rel) storyboardLoads[rel] = Promise.resolve();
+      var own = {};
+      collectFromStoryboard(data, own);
+      Object.keys(own).forEach(preloadPath);
+    }
+    var found = collectRuntimeRefs(global.TLI_DATA);
+    Object.keys(found.images).forEach(preloadPath);
+    var scenes = found.scenes;
+    if (global.document && document.querySelectorAll) {
+      Array.prototype.forEach.call(document.querySelectorAll('[data-scene]'), function (el) {
+        var sceneRel = el.getAttribute('data-scene');
+        if (/^scenes\/s\d+\.json$/.test(sceneRel || '')) scenes[sceneRel] = true;
+      });
+    }
+    Object.keys(scenes).forEach(function (sceneRel) {
+      if (rel && sceneRel === rel) return;
+      preloadStoryboard(sceneRel);
+    });
   }
 
   function isNum(n) {
@@ -281,6 +399,7 @@
     this._cueHeldEx = null; /* latest explanation the icon may still open */
     this._cueHeldReady = false;
     this._settingProgress = false;
+    this._lineReplayActor = null; /* set only while a paused character replay is actually sounding */
     this._spriteCache = [];
     this._build();
     this._bind();
@@ -671,6 +790,13 @@
     return ln && ln.speaker;
   };
 
+  /* Talk picture only while this story is playing, or while that person's replay is sounding. */
+  Player.prototype._animatedSpeakerId = function () {
+    if (this._lineReplayActor) return this._lineReplayActor;
+    if (!this.playing) return null;
+    return this._activeSpeaker() || null;
+  };
+
   Player.prototype._canReplayCharacters = function () {
     /* Pointer + click-to-replay only while paused, not while playing or waiting on the big play overlay. */
     return !this.playing && this.bigPlay && this.bigPlay.hidden;
@@ -697,40 +823,17 @@
     img.src = url;
   };
 
-  /* Decode talk pictures before the line starts. Reduced motion keeps the still pose and does not fetch the loop. */
+  /* Warm every runtime picture. The displayed <img> is a different node, so this cache does not restart a loop. */
   Player.prototype._preloadSprites = function () {
-    var self = this;
-    var urls = {};
-    function add(path, animated) {
-      if (!path) return;
-      if (animated && self._prefersReducedMotion()) return;
-      var url = resolveUrl(path);
-      if (url) urls[url] = true;
-    }
-    Object.keys(this.actors || {}).forEach(function (id) {
-      var sprites = (self.actors[id] && self.actors[id].sprites) || {};
-      add(sprites.idle, false);
-      add(sprites.speakStill, false);
-      if (self._prefersReducedMotion()) add(sprites.speakStill || sprites.idle, false);
-      else add(sprites.speak, true);
-    });
-    var prof = (this.data && this.data.professor) || {};
-    var ps = prof.sprites || {};
-    add(prof.icon, false);
-    add(ps.idle || prof.avatar, false);
-    add(ps.speakStill, false);
-    if (!this._prefersReducedMotion()) add(ps.talk, true);
-    this._spriteCache = Object.keys(urls).map(function (url) {
-      var im = new Image();
-      im.decoding = 'async';
-      im.src = url;
-      return im;
-    });
+    var rel = this.root && this.root.getAttribute('data-scene');
+    if (rel && !/^scenes\/s\d+\.json$/.test(rel)) rel = '';
+    preloadRuntime(this.data, rel || '');
+    this._spriteCache = imageCache;
   };
 
   Player.prototype._renderPlacements = function (sc) {
     var self = this;
-    var speaker = this._activeSpeaker();
+    var speaker = this._animatedSpeakerId();
     var canReplay = this._canReplayCharacters();
     var bgPath = (sc && sc.background) || this.data.background || '';
     this.bg.style.backgroundImage = bgPath ? 'url("' + resolveUrl(bgPath).replace(/"/g, '\"') + '")' : 'none';
@@ -967,6 +1070,7 @@
     this.sceneComplete = true;
     this.pausedElapsed = this.sceneDuration(this.scenes[this.index]) + this.delayOf(this.scenes[this.index]);
     this.playing = false;
+    this._lineReplayActor = null;
     this._clearTimers();
     this._stopAudio();
     this._setPlayIcon(false);
@@ -1025,6 +1129,7 @@
 
   Player.prototype.play = function () {
     if (!this.scenes.length) return;
+    this._lineReplayActor = null;
     this._profHold = null;
     this._pauseProfessor();
     this.awaitingStart = false;
@@ -1054,6 +1159,7 @@
   };
 
   Player.prototype.pause = function () {
+    this._lineReplayActor = null;
     if (this.playing && this.sceneStartedAt) {
       var wall = (Date.now() - this.sceneStartedAt) * this.speed();
       this.pausedElapsed = Math.min(
@@ -1073,6 +1179,7 @@
   /* Restart the current scene from its first line and play it. */
   Player.prototype.replayScene = function () {
     if (!this.scenes.length) return;
+    this._lineReplayActor = null;
     this._cueEpoch += 1;
     this._disposeProfCue();
     this._profHold = null;
@@ -1099,9 +1206,12 @@
   Player.prototype.prev = function () {
     this.ended = false;
     this.sceneComplete = false;
+    this._lineReplayActor = null;
+    var resume = !!settings().autoAdvance;
+    if (!resume) this.playing = false;
     this.goTo(Math.max(0, this.index - 1), { auto: false });
-    if (settings().autoAdvance) this.play();
-    else { this.playing = false; this._setPlayIcon(false); this._updateOverlay(); }
+    if (resume) this.play();
+    else { this._setPlayIcon(false); this._updateOverlay(); }
   };
 
   Player.prototype.next = function () {
@@ -1112,13 +1222,17 @@
     }
     this.ended = false;
     this.sceneComplete = false;
+    this._lineReplayActor = null;
+    var resume = !!settings().autoAdvance;
+    if (!resume) this.playing = false;
     this.goTo(this.index + 1, { auto: false });
-    if (settings().autoAdvance) this.play();
-    else { this.playing = false; this._setPlayIcon(false); this._updateOverlay(); }
+    if (resume) this.play();
+    else { this._setPlayIcon(false); this._updateOverlay(); }
   };
 
   Player.prototype.seekMs = function (ms) {
     var t = 0, i;
+    this._lineReplayActor = null;
     this._disposeProfCue();
     this._profHold = null;
     this._dismissProfessor();
@@ -1162,14 +1276,16 @@
     }
     if (!ln) return;
     var self = this;
+    this._lineReplayActor = actorId;
     this._showLine(ln, { flash: true });
     this._playAudioFor(ln);
     if (this._charReplayTimer) { clearTimeout(this._charReplayTimer); this._charReplayTimer = null; }
     var wait = this.lineDuration(ln) / this.speed();
     this._charReplayTimer = setTimeout(function () {
       self._charReplayTimer = null;
+      if (self._lineReplayActor === actorId) self._lineReplayActor = null;
       self._stopAudio();
-      /* remain paused */
+      if (!self.playing) self._showLine(self._currentLine());
     }, wait);
   };
 
@@ -1762,7 +1878,18 @@
     leadDefaultMs: PROF_LEAD_MS,
     windowDefaultMs: PROF_WINDOW_MS,
     minVisibleMs: PROF_MIN_VISIBLE_MS,
-    fadeMs: PROF_FADE_MS
+    fadeMs: PROF_FADE_MS,
+    collectRuntimeRefs: collectRuntimeRefs,
+    collectFromStoryboard: function (data) {
+      var out = {};
+      collectFromStoryboard(data, out);
+      return Object.keys(out);
+    },
+    preloadRuntime: preloadRuntime,
+    preloadPaths: function (paths) {
+      (paths || []).forEach(preloadPath);
+    },
+    preloadedUrls: function () { return Object.keys(imageCache); }
   };
 
   if (document.readyState === 'loading') {
