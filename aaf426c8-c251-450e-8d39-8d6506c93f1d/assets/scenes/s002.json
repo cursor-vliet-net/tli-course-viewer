@@ -8,25 +8,31 @@
       "name": "Yeay Chan",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/yeay-chan-idle.png",
-        "speak": "media/characters/yeay-chan-speak.gif"
-      }
+        "idle": "media/characters/year-01/yeay-chan-neutral.png",
+        "speak": "media/characters/year-01/yeay-chan-talking.apng",
+        "speakStill": "media/characters/year-01/yeay-chan-neutral.png"
+      },
+      "lipSync": false
     },
     "bora": {
       "name": "Bora",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/bora-idle.png",
-        "speak": "media/characters/bora-speak.gif"
-      }
+        "idle": "media/characters/year-01/bora-neutral.png",
+        "speak": "media/characters/year-01/bora-talking.apng",
+        "speakStill": "media/characters/year-01/bora-neutral.png"
+      },
+      "lipSync": false
     },
     "sreyneang": {
       "name": "Sreyneang",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/sreyneang-idle.png",
-        "speak": "media/characters/sreyneang-speak.gif"
-      }
+        "idle": "media/characters/year-01/sreyneang-neutral.png",
+        "speak": "media/characters/year-01/sreyneang-talking.apng",
+        "speakStill": "media/characters/year-01/sreyneang-neutral.png"
+      },
+      "lipSync": false
     }
   },
   "scenes": [
@@ -39,19 +45,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -77,19 +85,21 @@
           "sprite": "idle",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -115,19 +125,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -153,19 +165,21 @@
           "sprite": "idle",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -191,19 +205,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -229,19 +245,21 @@
           "sprite": "idle",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -267,19 +285,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -305,19 +325,21 @@
           "sprite": "idle",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [

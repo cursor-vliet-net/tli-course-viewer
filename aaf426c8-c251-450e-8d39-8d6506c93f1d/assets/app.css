@@ -11,6 +11,20 @@
 html { scroll-padding-top: 4.5rem; }
 body { font-family: var(--tli-font); color: var(--tli-ink); background: var(--tli-page); }
 :lang(km), .km { font-family: "Noto Sans Khmer", var(--tli-font); line-height: 1.9; }
+/* Khmer text must not replace icon glyphs. :lang(km) matches every element.
+   Solid icons need weight 900 or the browser drops the icon font and draws another glyph. */
+:lang(km) .fa, :lang(km) .fas, :lang(km) .fa-solid,
+:lang(km) .fa::before, :lang(km) .fas::before, :lang(km) .fa-solid::before {
+  font-family: "Font Awesome 6 Free"; font-weight: 900; font-style: normal; line-height: 1;
+}
+:lang(km) .far, :lang(km) .fa-regular,
+:lang(km) .far::before, :lang(km) .fa-regular::before {
+  font-family: "Font Awesome 6 Free"; font-weight: 400; font-style: normal; line-height: 1;
+}
+:lang(km) .fab, :lang(km) .fa-brands,
+:lang(km) .fab::before, :lang(km) .fa-brands::before {
+  font-family: "Font Awesome 6 Brands"; font-weight: 400; font-style: normal; line-height: 1;
+}
 :focus-visible { outline: 3px solid var(--tli-focus) !important; outline-offset: 2px; box-shadow: 0 0 0 5px rgba(11,61,82,.35); }
 .skip-link { position: absolute; left: -999px; top: 0; z-index: 2000; background: #fff; padding: .5rem 1rem; }
 .skip-link:focus { left: .5rem; top: .5rem; }
@@ -22,6 +36,7 @@ body { font-family: var(--tli-font); color: var(--tli-ink); background: var(--tl
 .search { flex: 1 1 12rem; max-width: 24rem; }
 .tabs { display: flex; gap: .15rem; }
 .tab { color: #d9ecf3; text-decoration: none; padding: .3rem .6rem; border-radius: .35rem; white-space: nowrap; }
+.tab-icon { display: inline-flex; align-items: center; justify-content: center; min-width: 2.2rem; padding: .35rem .45rem; }
 .tab:hover { color: #fff; background: rgba(255,255,255,.12); }
 .tab.active { color: var(--tli-bar); background: #fff; font-weight: 600; }
 .nav-toggle { display: none; }
@@ -244,6 +259,7 @@ body[data-mode=student] .blk > .ref { display: none; }
 .professor-copy > :last-child { margin-bottom: 0; }
 .professor-copy ul, .professor-copy ol { margin-bottom: 0; }
 .goal-icon { color: var(--tli-accent); margin-right: .35rem; font-size: 1.15em; vertical-align: -0.1em; }
+.goal-icon-file { display: inline-block; width: 1.15em; height: 1.15em; background-color: currentColor; -webkit-mask: var(--goal-icon) center / contain no-repeat; mask: var(--goal-icon) center / contain no-repeat; }
 .ui-lang { display: inline-flex; align-items: center; gap: 0; margin: 0; color: #fff; border: 1px solid rgba(255,255,255,.45); border-radius: .35rem; overflow: hidden; }
 .ui-lang-sep { padding: 0 .2rem; opacity: .75; font-weight: 700; }
 .ui-lang-opt { margin: 0; cursor: pointer; position: relative; }

@@ -6,36 +6,47 @@
   "professor": {
     "id": "professor-mordechai",
     "name": "Professor Mordechai",
-    "cueMs": 8000,
-    "avatar": "media/characters/professor-mordechai.svg",
+    "leadMs": 1200,
+    "windowMs": 2800,
+    "icon": "media/characters/year-01/professor-icon.svg",
+    "avatar": "media/characters/year-01/professor-closeup-neutral.png",
     "sprites": {
-      "idle": "media/characters/professor-mordechai.svg"
-    }
+      "idle": "media/characters/year-01/professor-closeup-neutral.png",
+      "talk": "media/characters/year-01/professor-closeup-talk.apng",
+      "speakStill": "media/characters/year-01/professor-closeup-neutral.png"
+    },
+    "lipSync": false
   },
   "actors": {
     "yeay-chan": {
       "name": "Yeay Chan",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/yeay-chan-idle.png",
-        "speak": "media/characters/yeay-chan-speak.gif"
-      }
+        "idle": "media/characters/year-01/yeay-chan-neutral.png",
+        "speak": "media/characters/year-01/yeay-chan-talking.apng",
+        "speakStill": "media/characters/year-01/yeay-chan-neutral.png"
+      },
+      "lipSync": false
     },
     "bora": {
       "name": "Bora",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/bora-idle.png",
-        "speak": "media/characters/bora-speak.gif"
-      }
+        "idle": "media/characters/year-01/bora-neutral.png",
+        "speak": "media/characters/year-01/bora-talking.apng",
+        "speakStill": "media/characters/year-01/bora-neutral.png"
+      },
+      "lipSync": false
     },
     "sreyneang": {
       "name": "Sreyneang",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/sreyneang-idle.png",
-        "speak": "media/characters/sreyneang-speak.gif"
-      }
+        "idle": "media/characters/year-01/sreyneang-neutral.png",
+        "speak": "media/characters/year-01/sreyneang-talking.apng",
+        "speakStill": "media/characters/year-01/sreyneang-neutral.png"
+      },
+      "lipSync": false
     }
   },
   "scenes": [
@@ -48,19 +59,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -89,7 +102,9 @@
       "explanations": [
         {
           "id": "s001.greet-without-name",
-          "atMs": 0,
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
           "durationMs": 12000,
           "review": {
             "km": "draft",
@@ -102,17 +117,44 @@
           },
           "subtitles": {
             "en": [
-              {"atMs": 0, "durationMs": 4000, "text": "Yeay said the name. You can also say good morning when you do not know a name."},
-              {"atMs": 4000, "durationMs": 4000, "text": "Hello can be words. It can also be how you stand and what your hands do."},
-              {"atMs": 8000, "durationMs": 4000, "text": "A visitor might not use the same hands. That does not by itself mean they are rude. If you are not sure, wait and ask."}
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "Yeay said the name. You can also say good morning when you do not know a name."
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "Hello can be words. It can also be how you stand and what your hands do."
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "A visitor might not use the same hands. That does not by itself mean they are rude. If you are not sure, wait and ask."
+              }
             ],
             "km": [
-              {"atMs": 0, "durationMs": 4000, "text": "យាយបាននិយាយឈ្មោះ។ អ្នកក៏អាចនិយាយ good morning ពេលមិនស្គាល់ឈ្មោះ។"},
-              {"atMs": 4000, "durationMs": 4000, "text": "សួស្តីអាចជាពាក្យ។ វាក៏អាចជារបៀបឈរ និងអ្វីដែលដៃធ្វើ។"},
-              {"atMs": 8000, "durationMs": 4000, "text": "ភ្ញៀវខ្លះមិនប្រើដៃដូចគ្នាទេ។ នោះមិនមានន័យថាពួកគេមិនគោរពទេ។ បើមិនប្រាកដ រង់ចាំ ហើយសួរ។"}
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "យាយបាននិយាយឈ្មោះ។ អ្នកក៏អាចនិយាយ good morning ពេលមិនស្គាល់ឈ្មោះ។"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "សួស្តីអាចជាពាក្យ។ វាក៏អាចជារបៀបឈរ និងអ្វីដែលដៃធ្វើ។"
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "ភ្ញៀវខ្លះមិនប្រើដៃដូចគ្នាទេ។ នោះមិនមានន័យថាពួកគេមិនគោរពទេ។ បើមិនប្រាកដ រង់ចាំ ហើយសួរ។"
+              }
             ]
           },
-          "audio": {"en": null, "km": null}
+          "audio": {
+            "en": null,
+            "km": null
+          }
         }
       ]
     },
@@ -125,19 +167,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -173,19 +217,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -211,19 +257,21 @@
           "sprite": "idle",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -249,19 +297,21 @@
           "sprite": "speak",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [
@@ -287,19 +337,21 @@
           "sprite": "idle",
           "x": 26,
           "y": 93,
-          "scale": 1.05
+          "scale": 1.25
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 78,
-          "y": 95
+          "y": 95,
+          "scale": 1.05
         }
       ],
       "lines": [

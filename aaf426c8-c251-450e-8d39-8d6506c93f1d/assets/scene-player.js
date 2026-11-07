@@ -5,7 +5,10 @@
   'use strict';
 
   var SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
-  var PROF_CUE_MS = 8000;
+  /* Icon may fade in this long before a scene or line ends. The panel opens only at the end. */
+  var PROF_LEAD_MS = 1200;
+  var PROF_WINDOW_MS = 2800;
+  var PROF_FADE_MS = 180;
   var ASSET_BASE = (function () {
     var scripts = document.getElementsByTagName('script');
     for (var i = scripts.length - 1; i >= 0; i--) {
@@ -46,43 +49,173 @@
     return ASSET_BASE + rel.replace(/^\.\//, '');
   }
 
-  /* Optional professor explanations. Missing professor/explanations is valid. */
+  function isNum(n) {
+    return typeof n === 'number' && isFinite(n);
+  }
+
+  function storyDefaultDur(data) {
+    return data && isNum(data.defaultDurationMs) ? data.defaultDurationMs : 3500;
+  }
+
+  function lineDurationOf(ln, fallback) {
+    if (ln && isNum(ln.durationMs) && ln.durationMs >= 0) return ln.durationMs;
+    return fallback;
+  }
+
+  function lineAtOf(lines, i, fallback) {
+    var ln = lines[i];
+    if (!ln) return 0;
+    if (isNum(ln.atMs) && ln.atMs >= 0) return ln.atMs;
+    var t = 0, j;
+    for (j = 0; j < i; j++) t += lineDurationOf(lines[j], fallback);
+    return t;
+  }
+
+  function sceneDurationOf(sc, fallback) {
+    if (!sc) return 0;
+    if (isNum(sc.durationMs) && sc.durationMs >= 0) return sc.durationMs;
+    var lines = (sc.lines && sc.lines.length) ? sc.lines : [];
+    if (!lines.length) return fallback;
+    var max = 0, i, end;
+    for (i = 0; i < lines.length; i++) {
+      end = lineAtOf(lines, i, fallback) + lineDurationOf(lines[i], fallback);
+      if (end > max) max = end;
+    }
+    return max || fallback;
+  }
+
+  function resolvedLead(data, ex) {
+    if (ex && isNum(ex.leadMs) && ex.leadMs >= 0) return ex.leadMs;
+    var p = data && data.professor;
+    if (p && isNum(p.leadMs) && p.leadMs >= 0) return p.leadMs;
+    return PROF_LEAD_MS;
+  }
+
+  function resolvedWindow(data, ex) {
+    if (ex && isNum(ex.windowMs) && ex.windowMs > 0) return ex.windowMs;
+    var p = data && data.professor;
+    if (p && isNum(p.windowMs) && p.windowMs > 0) return p.windowMs;
+    return PROF_WINDOW_MS;
+  }
+
+  function scopeEndOf(data, sc, ex) {
+    var fallback = storyDefaultDur(data);
+    var lines = (sc && sc.lines) || [];
+    if (!ex || ex.scope === 'scene') return sceneDurationOf(sc, fallback);
+    if (ex.scope === 'line' && isNum(ex.line) && ex.line >= 0 && ex.line < lines.length && Math.floor(ex.line) === ex.line) {
+      return lineAtOf(lines, ex.line, fallback) + lineDurationOf(lines[ex.line], fallback);
+    }
+    return null;
+  }
+
+  /* openAt is the icon. readyAt is the scope end: the words may be opened only after the scene or line has finished. */
+  function availabilityOf(data, sc, ex) {
+    var end = scopeEndOf(data, sc, ex);
+    if (end == null) return null;
+    var lead = resolvedLead(data, ex);
+    var win = resolvedWindow(data, ex);
+    return { scopeEnd: end, openAt: end - lead, readyAt: end, closeAt: end + win, leadMs: lead, windowMs: win };
+  }
+
+  function windowsOverlap(a, b) {
+    return a.openAt < b.closeAt && b.openAt < a.closeAt;
+  }
+
+  /* Optional professor explanations. Missing professor/explanations is valid.
+     The checker accepts a scope and a clock. It does not judge the sentences. */
   function validateStory(data) {
     var errors = [];
     if (!data || typeof data !== 'object' || !Array.isArray(data.scenes)) {
       errors.push('scenes must be an array');
       return errors;
     }
+    var hasExplanations = data.scenes.some(function (sc) {
+      return sc && sc.explanations != null && sc.explanations.length !== 0;
+    });
     var prof = data.professor;
+    if (hasExplanations && (prof == null || typeof prof !== 'object')) {
+      errors.push('professor is required when a scene has explanations');
+    }
     if (prof != null) {
-      if (!prof.id) errors.push('professor.id is required when professor is set');
-      if (prof.cueMs != null && !(typeof prof.cueMs === 'number' && prof.cueMs > 0)) {
-        errors.push('professor.cueMs must be a positive number of milliseconds');
+      if (typeof prof !== 'object') errors.push('professor must be an object');
+      else {
+        if (!prof.id) errors.push('professor.id is required when professor is set');
+        if (Object.prototype.hasOwnProperty.call(prof, 'cueMs')) {
+          errors.push('professor.cueMs is not a window; set leadMs and windowMs');
+        }
+        if (prof.leadMs != null && !(isNum(prof.leadMs) && prof.leadMs >= 0)) {
+          errors.push('professor.leadMs must be a number of milliseconds, zero or more');
+        }
+        if (prof.windowMs != null && !(isNum(prof.windowMs) && prof.windowMs > 0)) {
+          errors.push('professor.windowMs must be a positive number of milliseconds');
+        }
+        if (prof.icon != null && typeof prof.icon !== 'string') errors.push('professor.icon must be a path');
+        if (prof.avatar != null && typeof prof.avatar !== 'string') errors.push('professor.avatar must be a path');
+        if (prof.sprites != null && typeof prof.sprites !== 'object') errors.push('professor.sprites must be an object');
+        else if (prof.sprites) {
+          Object.keys(prof.sprites).forEach(function (key) {
+            var path = prof.sprites[key];
+            if (path != null && typeof path !== 'string') errors.push('professor.sprites.' + key + ' must be a path');
+          });
+        }
+        if (prof.lipSync != null && prof.lipSync !== false) {
+          errors.push('professor.lipSync cannot be true; the talking picture is not matched to the sound');
+        }
+        if (hasExplanations) {
+          if (typeof prof.icon !== 'string' || !prof.icon) {
+            errors.push('professor.icon is required when a scene has explanations');
+          }
+          var idle = prof.sprites && prof.sprites.idle;
+          if (!idle && !prof.avatar) {
+            errors.push('professor.sprites.idle or professor.avatar is required when a scene has explanations');
+          }
+        }
       }
-      if (prof.avatar != null && typeof prof.avatar !== 'string') errors.push('professor.avatar must be a path');
-      if (prof.sprites != null && typeof prof.sprites !== 'object') errors.push('professor.sprites must be an object');
     }
     data.scenes.forEach(function (sc, si) {
       if (!sc || sc.explanations == null) return;
+      var label = sc.id || si;
       if (!Array.isArray(sc.explanations)) {
-        errors.push('scene ' + (sc.id || si) + ' explanations must be an array');
+        errors.push('scene ' + label + ' explanations must be an array');
         return;
       }
+      var lines = sc.lines || [];
+      var windows = [];
+      var sceneEnd = sceneDurationOf(sc, storyDefaultDur(data));
       sc.explanations.forEach(function (ex) {
-        var id = (ex && ex.id) || ('scene ' + si);
+        var id = (ex && ex.id) || ('scene ' + label);
         if (!ex || !ex.id) errors.push(id + ' needs an id');
-        if (!ex || !ex.text || typeof ex.text.en !== 'string' || !ex.text.en) errors.push(id + ' needs text.en');
-        if (ex && ex.text && ex.text.km != null && typeof ex.text.km !== 'string') errors.push(id + ' text.km must be a string');
-        if (ex && ex.atMs != null && typeof ex.atMs !== 'number') errors.push(id + ' atMs must be a number');
-        if (ex && ex.durationMs != null && (typeof ex.durationMs !== 'number' || ex.durationMs <= 0)) {
+        if (!ex) return;
+        if (!ex.text || typeof ex.text.en !== 'string' || !ex.text.en) errors.push(id + ' needs text.en');
+        else if (ex.text.km != null && typeof ex.text.km !== 'string') errors.push(id + ' text.km must be a string');
+        if (Object.prototype.hasOwnProperty.call(ex, 'cueMs')) {
+          errors.push(id + ' cueMs is not a window; set leadMs and windowMs');
+        }
+        if (Object.prototype.hasOwnProperty.call(ex, 'atMs')) {
+          errors.push(id + ' atMs is not the availability clock; set scope to scene or line');
+        }
+        if (ex.scope !== 'scene' && ex.scope !== 'line') errors.push(id + ' scope must be scene or line');
+        else if (ex.scope === 'scene' && Object.prototype.hasOwnProperty.call(ex, 'line')) {
+          errors.push(id + ' scene scope must not reference a line');
+        } else if (ex.scope === 'line') {
+          var lineOk = isNum(ex.line) && Math.floor(ex.line) === ex.line && ex.line >= 0 && ex.line < lines.length;
+          if (!lineOk) errors.push(id + ' line scope needs a line index in this scene');
+        }
+        if (ex.leadMs != null && !(isNum(ex.leadMs) && ex.leadMs >= 0)) {
+          errors.push(id + ' leadMs must be a number of milliseconds, zero or more');
+        }
+        if (ex.windowMs != null && !(isNum(ex.windowMs) && ex.windowMs > 0)) {
+          errors.push(id + ' windowMs must be a positive number of milliseconds');
+        }
+        if (ex.durationMs != null && !(isNum(ex.durationMs) && ex.durationMs > 0)) {
           errors.push(id + ' durationMs must be a positive number');
         }
-        if (ex && ex.audio) {
+        if (ex.audio) {
           ['en', 'km'].forEach(function (code) {
             if (ex.audio[code] != null && typeof ex.audio[code] !== 'string') errors.push(id + ' audio.' + code + ' must be a path or null');
           });
         }
-        if (ex && ex.subtitles) {
+        if (ex.subtitles) {
           ['en', 'km'].forEach(function (code) {
             var cues = ex.subtitles[code];
             if (cues == null) return;
@@ -93,6 +226,16 @@
               }
             });
           });
+        }
+        if (ex.scope === 'scene' || ex.scope === 'line') {
+          var window = availabilityOf(data, sc, ex);
+          if (!window) return;
+          if (window.openAt < 0) errors.push(id + ' leadMs is longer than its ' + ex.scope);
+          if (ex.scope === 'line' && window.scopeEnd > sceneEnd) errors.push(id + ' line ends after the scene');
+          windows.forEach(function (prev) {
+            if (windowsOverlap(prev.window, window)) errors.push(id + ' availability overlaps ' + prev.id);
+          });
+          windows.push({ id: id, window: window });
         }
       });
     });
@@ -124,6 +267,11 @@
     this._profAvailHandles = [];
     this._profCueTimers = [];
     this._cueEpoch = 0;
+    this._profArm = null;
+    this._profHold = null;
+    this._cueHideToken = 0;
+    this._profOpening = false;
+    this._profSyncing = false;
     this._build();
     this._bind();
     this.goTo(0, { auto: false });
@@ -217,7 +365,7 @@
             '<span class="tli-sp-prof-fallback">PM</span>' +
           '</div>' +
           '<p class="tli-sp-prof-name">Professor Mordechai</p>' +
-          '<p class="visually-hidden tli-sp-prof-picture-note">Still picture. A talking clip is not in this copy.</p>' +
+          '<p class="visually-hidden tli-sp-prof-picture-note">The picture can move while he speaks. The movement is not matched to the sound.</p>' +
           '<p class="tli-sp-prof-text" lang="en"></p>' +
           '<p class="tli-sp-prof-status" role="status"></p>' +
           '<div class="tli-sp-prof-controls">' +
@@ -377,28 +525,18 @@
     document.addEventListener('fullscreenchange', function () { self._syncFsButton(); });
     document.addEventListener('webkitfullscreenchange', function () { self._syncFsButton(); });
     this.cueBtn.addEventListener('click', function () { self.openProfessor(); });
-    this.cueBtn.addEventListener('mouseenter', function () { self._cueHover = true; });
-    this.cueBtn.addEventListener('mouseleave', function () {
-      self._cueHover = false;
-      if (self._cueDeadline && Date.now() >= self._cueDeadline) self._restCueIfIdle();
-    });
-    this.cueBtn.addEventListener('focus', function () { self._cueFocus = true; });
-    this.cueBtn.addEventListener('blur', function () {
-      self._cueFocus = false;
-      if (self._cueDeadline && Date.now() >= self._cueDeadline) self._restCueIfIdle();
-    });
     this.profPlay.addEventListener('click', function () {
       if (self.profPlaying) self._pauseProfessor();
       else self.playProfessor();
     });
-    this.profClose.addEventListener('click', function () { self._closeProfessor(true); });
+    this.profClose.addEventListener('click', function () { self._closeProfessor(true, true); });
     this.profEn.addEventListener('click', function () { self.setProfessorLang('en'); });
     this.profKm.addEventListener('click', function () { self.setProfessorLang('km'); });
     this.profProgress.addEventListener('input', function () {
       self.seekProfessor((+self.profProgress.value) / 1000 * self._profDuration());
     });
     this.profPanel.addEventListener('keydown', function (ev) {
-      if (ev.key === 'Escape') { ev.preventDefault(); self._closeProfessor(true); }
+      if (ev.key === 'Escape') { ev.preventDefault(); self._closeProfessor(true, true); }
     });
   };
 
@@ -652,8 +790,9 @@
     if (!this.scenes.length) return;
     idx = Math.max(0, Math.min(this.scenes.length - 1, idx));
     this._cueEpoch += 1;
-    this._presentedId = null;
-    this._closeProfessor(false);
+    this._profArm = null;
+    this._profHold = null;
+    this._dismissProfessor();
     this._clearTimers();
     this._stopAudio();
     this.index = idx;
@@ -669,7 +808,7 @@
     this._showLine(lines[0] || null);
     this._updateProgressUI();
     this._updateOverlay();
-    this._armProfAvail();
+    this._syncProfAvail({ immediate: true });
     if (opts.auto === false && !this.playing) {
       this._setPlayIcon(false);
       return;
@@ -718,7 +857,8 @@
     this.timer = setTimeout(function () {
       self._onSceneFinished();
     }, remain / this.speed());
-    this._armProfAvail();
+    /* A jump (play, replay) places the icon now. The fade is for the window closing in time. */
+    this._syncProfAvail({ immediate: true });
   };
 
   Player.prototype._onSceneFinished = function () {
@@ -739,6 +879,7 @@
       return;
     }
     this._updateOverlay();
+    this._syncProfAvail();
   };
 
   Player.prototype._resetToStart = function () {
@@ -755,9 +896,13 @@
     this.index = 0;
     this.counter.textContent = '1 / ' + Math.max(1, this.scenes.length);
     this._showLine(this.linesOf(this.scenes[0])[0] || null);
+    this._profArm = null;
+    this._profHold = null;
+    this._dismissProfessor();
     this._setPlayIcon(false);
     this._updateProgressUI();
     this._updateOverlay();
+    this._syncProfAvail({ immediate: true });
   };
 
   Player.prototype._clearTimers = function () {
@@ -777,6 +922,7 @@
 
   Player.prototype.play = function () {
     if (!this.scenes.length) return;
+    this._profHold = null;
     this._pauseProfessor();
     this.awaitingStart = false;
     if (this.ended) {
@@ -818,14 +964,16 @@
     this._setPlayIcon(false);
     this._updateProgressUI();
     this._updateOverlay();
+    this._syncProfAvail();
   };
 
   /* Restart the current scene from its first line and play it. */
   Player.prototype.replayScene = function () {
     if (!this.scenes.length) return;
     this._cueEpoch += 1;
-    this._presentedId = null;
-    this._closeProfessor(false);
+    this._profArm = null;
+    this._profHold = null;
+    this._dismissProfessor();
     this.awaitingStart = false;
     this.ended = false;
     this.sceneComplete = false;
@@ -868,6 +1016,9 @@
 
   Player.prototype.seekMs = function (ms) {
     var t = 0, i;
+    this._profArm = null;
+    this._profHold = null;
+    this._dismissProfessor();
     this._pauseProfessor();
     ms = Math.max(0, Math.min(this.totalMs(), ms));
     for (i = 0; i < this.scenes.length; i++) {
@@ -877,6 +1028,7 @@
         this.playing = false;
         this._clearTimers();
         this.index = i;
+        this.sceneComplete = false;
         this.pausedElapsed = Math.max(0, ms - t);
         this.sceneStartedAt = 0;
         this.ended = false;
@@ -885,7 +1037,7 @@
         this.counter.textContent = (this.index + 1) + ' / ' + Math.max(1, this.scenes.length);
         this._showLine(this.linesOf(this.scenes[i])[this.lineIndex] || null);
         if (was) this.play();
-        else { this._updateProgressUI(); this._updateOverlay(); this._armProfAvail(); }
+        else { this._updateProgressUI(); this._updateOverlay(); this._syncProfAvail({ immediate: true }); }
         return;
       }
       t += d;
@@ -918,10 +1070,63 @@
     }, wait);
   };
 
-  Player.prototype._cueMs = function () {
-    var p = this.data && this.data.professor;
-    if (p && typeof p.cueMs === 'number' && p.cueMs > 0) return p.cueMs;
-    return PROF_CUE_MS;
+  Player.prototype._fadeMs = function () {
+    return this._prefersReducedMotion() ? 0 : PROF_FADE_MS;
+  };
+
+  Player.prototype._sceneCap = function () {
+    var sc = this.scenes[this.index];
+    return this.sceneDuration(sc) + this.delayOf(sc);
+  };
+
+  Player.prototype._sceneClock = function () {
+    var cap = this._sceneCap();
+    var elapsed = this.pausedElapsed || 0;
+    if (this.playing && this.sceneStartedAt) {
+      elapsed = Math.min(cap, elapsed + (Date.now() - this.sceneStartedAt) * this.speed());
+    }
+    return elapsed;
+  };
+
+  /* After the scene clock stops, windowMs still runs, but only for this scene. */
+  Player.prototype._availElapsed = function () {
+    var clock = this._sceneClock();
+    if (!this.playing && this._profHold && this._profHold.index === this.index) {
+      var extra = Date.now() - this._profHold.startedAt;
+      if (extra < 0) extra = 0;
+      if (extra > this._profHold.ms) extra = this._profHold.ms;
+      return this._sceneCap() + extra;
+    }
+    return clock;
+  };
+
+  Player.prototype._explanationList = function () {
+    var sc = this.scenes[this.index];
+    return (sc && sc.explanations) || [];
+  };
+
+  Player.prototype._windowFor = function (ex) {
+    return availabilityOf(this.data, this.scenes[this.index], ex);
+  };
+
+  Player.prototype._visibleExplanation = function (elapsed) {
+    var list = this._explanationList();
+    var found = null, i, w;
+    for (i = 0; i < list.length; i++) {
+      w = this._windowFor(list[i]);
+      if (w && elapsed >= w.openAt && elapsed < w.closeAt) found = list[i];
+    }
+    return found;
+  };
+
+  Player.prototype._openableExplanation = function (elapsed) {
+    var list = this._explanationList();
+    var found = null, i, w;
+    for (i = 0; i < list.length; i++) {
+      w = this._windowFor(list[i]);
+      if (w && elapsed >= w.readyAt && elapsed < w.closeAt) found = list[i];
+    }
+    return found;
   };
 
   Player.prototype._profDuration = function () {
@@ -935,10 +1140,6 @@
       return Math.min(this._profDuration(), this.profElapsed + (Date.now() - this._profStartedAt));
     }
     return this.profElapsed || 0;
-  };
-
-  Player.prototype._clearCueFade = function () {
-    if (this._profFadeTimer) { clearTimeout(this._profFadeTimer); this._profFadeTimer = null; }
   };
 
   Player.prototype._clearProfClock = function () {
@@ -970,15 +1171,36 @@
     this._stopProfSound();
     this._setProfPlayIcon(false);
     this._updateProfProgress();
+    if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, false);
   };
 
-  Player.prototype._closeProfessor = function (restoreFocus) {
+  Player.prototype._dismissProfessor = function () {
     this._pauseProfessor();
     this._openExplanation = null;
-    if (this.profPanel) this.profPanel.hidden = true;
-    if (restoreFocus && this.cueBtn && !this.cueBtn.hidden) {
-      try { this.cueBtn.focus(); } catch (e) { /* ignore */ }
+    if (this.profPanel) {
+      this.profPanel.classList.remove('is-closing');
+      this.profPanel.hidden = true;
     }
+  };
+
+  Player.prototype._closeProfessor = function (restoreFocus, animate) {
+    var self = this;
+    this._pauseProfessor();
+    this._openExplanation = null;
+    var panel = this.profPanel;
+    var finish = function () {
+      if (panel) {
+        panel.classList.remove('is-closing');
+        panel.hidden = true;
+      }
+      self._syncProfAvail();
+      if (restoreFocus && self.cueBtn && !self.cueBtn.hidden) {
+        try { self.cueBtn.focus(); } catch (e) { /* ignore */ }
+      }
+    };
+    if (!panel || panel.hidden || !animate || this._fadeMs() === 0) { finish(); return; }
+    panel.classList.add('is-closing');
+    setTimeout(finish, this._fadeMs());
   };
 
   Player.prototype._setProfPlayIcon = function (playing) {
@@ -1009,91 +1231,129 @@
     return null;
   };
 
-  Player.prototype._activeExplanation = function () {
-    var sc = this.scenes[this.index];
-    var list = (sc && sc.explanations) || [];
-    var elapsed = this.pausedElapsed || 0;
-    var active = null;
-    var i, at;
-    for (i = 0; i < list.length; i++) {
-      at = typeof list[i].atMs === 'number' ? list[i].atMs : 0;
-      if (at <= elapsed) active = list[i];
-    }
-    return active;
-  };
-
-  Player.prototype._armProfAvail = function () {
-    var self = this;
-    var sc = this.scenes[this.index];
-    var list = (sc && sc.explanations) || [];
-    var elapsed = this.pausedElapsed || 0;
-    var active = null;
-    if (this._profAvailHandles) {
-      this._profAvailHandles.forEach(function (h) { clearTimeout(h); });
-    }
-    this._profAvailHandles = [];
-    list.forEach(function (ex) {
-      var at = typeof ex.atMs === 'number' ? ex.atMs : 0;
-      if (at <= elapsed) active = ex;
-      else if (self.playing && self.sceneStartedAt) {
-        var handle = setTimeout(function () {
-          if (!self.playing || self.scenes[self.index] !== sc) return;
-          self._presentCue(ex);
-        }, (at - elapsed) / self.speed());
-        self._profAvailHandles.push(handle);
-      }
-    });
-    if (active) this._presentCue(active);
-    else this._hideCue();
-  };
-
-  Player.prototype._hideCue = function () {
-    this._clearCueFade();
-    this._presentedId = null;
-    if (this.cueBtn) this.cueBtn.hidden = true;
-    if (this.profPanel && !this.profPanel.hidden) this._closeProfessor(false);
-  };
-
-  Player.prototype._cueHeld = function () {
-    return !!(this._cueHover || this._cueFocus || (this.cueBtn && document.activeElement === this.cueBtn));
-  };
-
-  Player.prototype._restCueIfIdle = function () {
-    if (!this.cueBtn || this.cueBtn.hidden) return;
-    if (this._cueHeld()) return;
-    this.cueBtn.classList.remove('is-cue');
-    this.cueBtn.classList.add('is-resting');
-  };
-
-  Player.prototype._startCueFade = function () {
-    var self = this;
-    this._clearCueFade();
-    this._cueDeadline = Date.now() + this._cueMs();
-    this._profFadeTimer = setTimeout(function () {
-      self._profFadeTimer = null;
-      self._restCueIfIdle();
-    }, this._cueMs());
-  };
-
-  Player.prototype._presentCue = function (ex) {
+  Player.prototype._showCue = function (ex, elapsed) {
     if (!this.cueBtn || !ex) return;
-    var same = this._presentedId === ex.id && this._presentedEpoch === this._cueEpoch && !this.cueBtn.hidden;
-    this._presentedId = ex.id;
-    this._presentedEpoch = this._cueEpoch;
-    this.cueBtn.hidden = false;
+    var w = this._windowFor(ex);
     var who = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
-    this.cueBtn.setAttribute('aria-label', who + ' can explain');
-    this._renderProfFace(this.cueImg, this.cueFallback);
-    if (same) return;
-    this.cueBtn.classList.remove('is-resting');
-    this.cueBtn.classList.add('is-cue');
-    this._startCueFade();
+    var openable = !!(w && elapsed >= w.readyAt);
+    this._cueHideToken += 1;
+    this.cueBtn.hidden = false;
+    this.cueBtn.classList.add('is-available');
+    this.cueBtn.classList.toggle('is-lead', !openable);
+    this.cueBtn.classList.toggle('is-openable', openable);
+    this.cueBtn.setAttribute('aria-label', openable ? (who + ' can explain') : (who + ' can explain when this finishes'));
+    this._renderCueIcon();
   };
 
-  Player.prototype._renderProfFace = function (img, fallback) {
+  Player.prototype._hideCue = function (immediate) {
+    var btn = this.cueBtn;
+    if (!btn) return;
+    btn.classList.remove('is-available', 'is-lead', 'is-openable');
+    var ms = immediate || this._fadeMs() === 0 ? 0 : this._fadeMs();
+    if (ms === 0) { btn.hidden = true; return; }
+    var self = this;
+    var token = ++this._cueHideToken;
+    setTimeout(function () {
+      if (token !== self._cueHideToken) return;
+      if (!btn.classList.contains('is-available')) btn.hidden = true;
+    }, ms);
+  };
+
+  Player.prototype._renderCueIcon = function () {
+    var prof = (this.data && this.data.professor) || {};
+    var path = typeof prof.icon === 'string' ? prof.icon : '';
+    var img = this.cueImg;
+    var fallback = this.cueFallback;
+    if (!img) return;
+    img.hidden = !path;
+    if (fallback) fallback.hidden = !!path;
+    img.onerror = function () {
+      img.hidden = true;
+      if (fallback) fallback.hidden = false;
+    };
+    if (path) img.src = resolveUrl(path);
+    else img.removeAttribute('src');
+  };
+
+  /* Recompute from the scene clock. Seek, scene changes, and the end of a window all come through here. */
+  Player.prototype._syncProfAvail = function (opts) {
+    opts = opts || {};
+    if (this._profSyncing) return;
+    this._profSyncing = true;
+    var self = this;
+    if (this._profAvailHandles) this._profAvailHandles.forEach(function (h) { clearTimeout(h); });
+    this._profAvailHandles = [];
+    var sc = this.scenes[this.index];
+    var list = this._explanationList();
+    var cap = this._sceneCap();
+    if (!this.playing && this.sceneComplete && sc && (!this._profHold || this._profHold.index !== this.index)) {
+      var tail = 0;
+      list.forEach(function (ex) {
+        var w = self._windowFor(ex);
+        if (w && w.closeAt > cap && w.openAt <= cap) tail = Math.max(tail, w.closeAt - cap);
+      });
+      if (tail > 0) this._profHold = { index: this.index, startedAt: Date.now(), ms: tail };
+    }
+    var elapsed = this._availElapsed();
+    var panelOpen = !!(this.profPanel && !this.profPanel.hidden && !this.profPanel.classList.contains('is-closing'));
+    var vis = this._visibleExplanation(elapsed);
+    if (vis && !panelOpen) this._showCue(vis, elapsed);
+    else this._hideCue(!!opts.immediate);
+
+    if (this._profArm && !this._profOpening) {
+      var armed = null;
+      list.forEach(function (ex) { if (ex.id === self._profArm) armed = ex; });
+      var aw = armed && this._windowFor(armed);
+      if (!aw || elapsed < aw.openAt || elapsed >= aw.closeAt) this._profArm = null;
+      else if (elapsed >= aw.readyAt && !panelOpen) {
+        this._profArm = null;
+        this._profSyncing = false;
+        this.openProfessor();
+        return;
+      }
+    }
+
+    if (this.playing && sc) {
+      var next = null;
+      list.forEach(function (ex) {
+        var w = self._windowFor(ex);
+        if (!w) return;
+        [w.openAt, w.readyAt, w.closeAt].forEach(function (t) {
+          if (t > elapsed + 0.5 && (next == null || t < next)) next = t;
+        });
+      });
+      if (next != null) {
+        this._profAvailHandles.push(setTimeout(function () {
+          if (!self.playing || self.scenes[self.index] !== sc) return;
+          self._syncProfAvail();
+        }, (next - elapsed) / self.speed()));
+      }
+    } else if (this._profHold && this._profHold.index === this.index && !this._profHold.done) {
+      var left = this._profHold.ms - (Date.now() - this._profHold.startedAt);
+      if (left > 0) {
+        this._profAvailHandles.push(setTimeout(function () {
+          if (self.playing || !self._profHold || self._profHold.index !== self.index) return;
+          self._profHold.done = true;
+          self._profHold.startedAt = Date.now() - self._profHold.ms;
+          self._syncProfAvail();
+        }, left));
+      } else {
+        this._profHold.done = true;
+      }
+    }
+    this._profSyncing = false;
+  };
+
+  Player.prototype._profFacePath = function (talking) {
     var prof = (this.data && this.data.professor) || {};
     var sprites = prof.sprites || {};
-    var path = sprites.idle || prof.avatar || '';
+    if (talking && sprites.talk && !this._prefersReducedMotion()) return sprites.talk;
+    if (talking && sprites.speakStill) return sprites.speakStill;
+    return sprites.idle || prof.avatar || '';
+  };
+
+  Player.prototype._renderProfFace = function (img, fallback, talking) {
+    var path = this._profFacePath(!!talking);
     if (!img) return;
     img.hidden = !path;
     if (fallback) fallback.hidden = !!path;
@@ -1238,6 +1498,7 @@
     this.profPlaying = true;
     this._profStartedAt = Date.now();
     this._setProfPlayIcon(true);
+    if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, true);
     this._showProfSubtitle();
     this._startProfOutput();
     this._scheduleProfSubtitles();
@@ -1283,15 +1544,26 @@
   };
 
   Player.prototype.openProfessor = function () {
-    var ex = this._activeExplanation();
-    if (!ex) return;
+    if (this._profOpening) return;
+    var elapsed = this._availElapsed();
+    var ex = this._openableExplanation(elapsed);
+    if (!ex) {
+      var vis = this._visibleExplanation(elapsed);
+      if (vis) this._profArm = vis.id;
+      return;
+    }
+    this._profArm = null;
+    this._profOpening = true;
     if (this.playing) this.pause();
     this._pauseProfessor();
     this._openExplanation = ex;
     this.profElapsed = 0;
-    this.profPanel.hidden = false;
+    if (this.profPanel) {
+      this.profPanel.classList.remove('is-closing');
+      this.profPanel.hidden = false;
+    }
     if (this.profName) this.profName.textContent = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
-    this._renderProfFace(this.profImg, this.profFallback);
+    this._renderProfFace(this.profImg, this.profFallback, false);
     this._syncProfLang();
     this._showProfSubtitleAt(0);
     this._updateProfProgress();
@@ -1299,6 +1571,8 @@
     var path = (prof.sprites && prof.sprites.idle) || prof.avatar;
     if (!path) this._setProfStatus('Picture file is not in this copy.');
     else this._setProfStatus(this.profLang === 'km' ? this._kmGap(ex) : '');
+    this._hideCue(true);
+    this._profOpening = false;
     try { this.profPlay.focus(); } catch (e) { /* ignore */ }
   };
 
@@ -1338,7 +1612,10 @@
     speeds: SPEEDS.slice(),
     assetBase: function () { return ASSET_BASE; },
     validateStory: validateStory,
-    cueDefaultMs: PROF_CUE_MS
+    availability: availabilityOf,
+    leadDefaultMs: PROF_LEAD_MS,
+    windowDefaultMs: PROF_WINDOW_MS,
+    fadeMs: PROF_FADE_MS
   };
 
   if (document.readyState === 'loading') {

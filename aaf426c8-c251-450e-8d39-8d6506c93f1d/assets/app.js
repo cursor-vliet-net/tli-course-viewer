@@ -118,6 +118,13 @@
       fillBilingual(el, pack[key], other[key], otherLang);
     });
     $$('input[name="uiLang"]').forEach(function (r) { r.checked = r.value === lang; });
+    ['read', 'help'].forEach(function (view) {
+      var link = document.querySelector('a[data-view="' + view + '"]');
+      if (!link || pack[view] == null) return;
+      var name = String(pack[view]).trim();
+      link.setAttribute('aria-label', name);
+      link.title = name;
+    });
     document.documentElement.lang = lang === 'km' ? 'km' : 'en';
     var banner = $('#kmDraft');
     if (banner) { banner.hidden = lang !== 'km'; banner.textContent = pack.draft || ''; }
@@ -260,6 +267,15 @@
     clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
   }
   function icon(name) { return '<i class="fa-solid ' + name + '" aria-hidden="true"></i>'; }
+  /* Goal cues only. Header and player buttons stay font glyphs. */
+  function goalCueIcon(name) {
+    var files = (D && D.goalIconFiles) || [];
+    if (name && files.indexOf(name) !== -1) {
+      return '<span class="goal-icon goal-icon-file" style="--goal-icon:url(\'assets/images/goal-icons/' +
+        name + '.svg\')" aria-hidden="true"></span>';
+    }
+    return name ? '<i class="fa-solid ' + esc(name) + ' goal-icon" aria-hidden="true"></i>' : '';
+  }
   function refSort(a, b) {
     var pa = partsById[a.part], pb = partsById[b.part];
     return ((pa ? pa.index : 999) - (pb ? pb.index : 999)) || (a.sec - b.sec) || (a.par - b.par);
@@ -472,7 +488,7 @@
       var text = typeof g === 'string' ? g : (g.text || '');
       var ic = (g && g.icon) ? g.icon : '';
       var km = kmText(text);
-      var iconHtml = ic ? '<i class="fa-solid ' + esc(ic) + ' goal-icon" aria-hidden="true"></i>' : '';
+      var iconHtml = goalCueIcon(ic);
       return '<li>' + iconHtml + '<span data-i18n="1" data-en-html="' + esc(text) + '"' + (km ? ' data-km="' + esc(km) + '"' : '') + '>' + esc(text) + '</span></li>';
     }).join('') + '</ul>' +
       (meta ? '<details class="meta"><summary>Metadata · ' + esc(p.file) + '</summary><table class="table table-sm mb-0">' + meta + '</table></details>' : '');
