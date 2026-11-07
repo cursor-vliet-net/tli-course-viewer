@@ -490,6 +490,13 @@
           '</button>' +
         '</div>' +
         '<div class="tli-sp-prof" hidden role="dialog" aria-label="Professor Mordechai">' +
+          '<div class="tli-sp-prof-top">' +
+            '<select class="tli-sp-prof-lang" hidden aria-label="Professor language">' +
+              '<option value="en">EN</option>' +
+              '<option value="km">KH</option>' +
+            '</select>' +
+            '<button type="button" class="tli-sp-btn tli-sp-prof-close" aria-label="Close professor"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
+          '</div>' +
           '<div class="tli-sp-prof-face" aria-hidden="true">' +
             '<img alt="" class="tli-sp-prof-img" hidden>' +
             '<span class="tli-sp-prof-fallback">PM</span>' +
@@ -501,11 +508,6 @@
           '<div class="tli-sp-prof-controls">' +
             '<button type="button" class="tli-sp-btn tli-sp-prof-play" aria-label="Play explanation"><i class="fa-solid fa-play" aria-hidden="true"></i></button>' +
             '<div class="tli-sp-progress-wrap"><input type="range" class="tli-sp-prof-progress" min="0" max="1000" value="0" step="1" aria-label="Professor explanation progress"></div>' +
-            '<div class="tli-sp-prof-lang" role="group" aria-label="Professor language">' +
-              '<button type="button" class="tli-sp-btn tli-sp-prof-en" aria-pressed="true">EN</button>' +
-              '<button type="button" class="tli-sp-btn tli-sp-prof-km" aria-pressed="false">KH</button>' +
-            '</div>' +
-            '<button type="button" class="tli-sp-btn tli-sp-prof-close" aria-label="Close professor"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
           '</div>' +
         '</div>' +
       '</div>' +
@@ -557,8 +559,7 @@
     this.profStatus = this.root.querySelector('.tli-sp-prof-status');
     this.profPlay = this.root.querySelector('.tli-sp-prof-play');
     this.profProgress = this.root.querySelector('.tli-sp-prof-progress');
-    this.profEn = this.root.querySelector('.tli-sp-prof-en');
-    this.profKm = this.root.querySelector('.tli-sp-prof-km');
+    this.profLangSel = this.root.querySelector('.tli-sp-prof-lang');
     this.profClose = this.root.querySelector('.tli-sp-prof-close');
     this._syncSettingButtons();
     this._syncProfLang();
@@ -664,14 +665,18 @@
       else self.playProfessor();
     });
     this.profClose.addEventListener('click', function () { self._closeProfessor(true, true); });
-    this.profEn.addEventListener('click', function () { self.setProfessorLang('en'); });
-    this.profKm.addEventListener('click', function () { self.setProfessorLang('km'); });
+    this.profLangSel.addEventListener('change', function () { self.setProfessorLang(self.profLangSel.value); });
     this.profProgress.addEventListener('input', function () {
       self.seekProfessor((+self.profProgress.value) / 1000 * self._profDuration());
     });
     this.profPanel.addEventListener('keydown', function (ev) {
       if (ev.key === 'Escape') { ev.preventDefault(); self._closeProfessor(true, true); }
     });
+    this._onPageHide = function () {
+      self._pauseProfessor();
+      self._clearTimers();
+    };
+    window.addEventListener('pagehide', this._onPageHide);
   };
 
   Player.prototype._fsElement = function () {
@@ -997,7 +1002,7 @@
     this._cueEpoch += 1;
     if (!opts.keepCue) this._disposeProfCue();
     this._profHold = null;
-    this._dismissProfessor();
+    if (!(opts.keepProfessor && this.profPanel && !this.profPanel.hidden)) this._dismissProfessor();
     this._clearTimers();
     this._stopAudio();
     this.index = idx;
@@ -1081,8 +1086,8 @@
         return;
       }
       /* Automatic advance is not a user navigation. The icon keeps its seven real seconds. */
-      this.goTo(this.index + 1, { auto: false, keepCue: true });
-      this.play();
+      this.goTo(this.index + 1, { auto: false, keepCue: true, keepProfessor: true });
+      this.play({ keepProfessor: true });
       return;
     }
     this._updateOverlay();
@@ -1127,11 +1132,12 @@
     if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
   };
 
-  Player.prototype.play = function () {
+  Player.prototype.play = function (opts) {
+    opts = opts || {};
     if (!this.scenes.length) return;
     this._lineReplayActor = null;
     this._profHold = null;
-    this._pauseProfessor();
+    if (!opts.keepProfessor) this._pauseProfessor();
     this.awaitingStart = false;
     if (this.ended) {
       this.ended = false;
@@ -1446,13 +1452,44 @@
     this.profPlay.setAttribute('aria-label', playing ? 'Pause explanation' : 'Play explanation');
   };
 
+  /* Recorded Khmer is the only reason to offer KH. There is no Khmer browser voice. */
+  Player.prototype._profKhmerFile = function (ex) {
+    ex = ex || this._openExplanation;
+    if (this._kmAudioFailed) return '';
+    var path = ex && ex.audio && ex.audio.km;
+    return path ? String(path) : '';
+  };
+
   Player.prototype._syncProfLang = function () {
-    if (!this.profEn) return;
-    var km = this.profLang === 'km';
-    this.profEn.setAttribute('aria-pressed', km ? 'false' : 'true');
-    this.profKm.setAttribute('aria-pressed', km ? 'true' : 'false');
-    this.profEn.classList.toggle('is-on', !km);
-    this.profKm.classList.toggle('is-on', km);
+    if (!this._profKhmerFile()) this.profLang = 'en';
+    if (!this.profLangSel) return;
+    var allow = !!this._profKhmerFile();
+    this.profLangSel.hidden = !allow;
+    this.profLangSel.value = this.profLang === 'km' ? 'km' : 'en';
+    this.profLangSel.setAttribute('aria-hidden', allow ? 'false' : 'true');
+  };
+
+  Player.prototype._profLines = function (ex, code) {
+    var cues = ex && ex.subtitles && ex.subtitles[code];
+    if (cues && cues.length) return cues.map(function (c) { return c.text || ''; }).filter(function (t) { return String(t).trim(); });
+    var text = ex && ex.text && ex.text[code];
+    return text ? [String(text)] : [];
+  };
+
+  Player.prototype._showProfLine = function (text, code) {
+    if (!this.profText) return;
+    this.profText.lang = code === 'km' ? 'km' : 'en';
+    this.profText.textContent = text || '';
+  };
+
+  Player.prototype._finishProfessor = function () {
+    if (!this.profPlaying) return;
+    var line = this.profText ? this.profText.textContent : '';
+    var lang = this.profText ? this.profText.lang : 'en';
+    this.profElapsed = this._profDuration();
+    this._pauseProfessor();
+    this._showProfLine(line, lang);
+    this._updateProfProgress();
   };
 
   Player.prototype._pickKhmerVoice = function () {
@@ -1678,31 +1715,102 @@
   };
 
   Player.prototype._startProfOutput = function () {
+    var self = this;
     var ex = this._openExplanation;
-    var code = this.profLang === 'km' ? 'km' : 'en';
-    var elapsed = this._profNow();
     this._stopProfSound();
-    if (!ex) return 'silent';
-    if (ex.audio && ex.audio[code]) {
-      var url = resolveUrl(ex.audio[code]);
+    if (!ex || !this.profPlaying) return 'silent';
+    this._syncProfLang();
+    var code = this.profLang === 'km' && this._profKhmerFile(ex) ? 'km' : 'en';
+    this.profLang = code;
+    var filePath = ex.audio && ex.audio[code];
+    if (filePath) {
+      var url = resolveUrl(filePath);
       try {
         var file = new Audio(url);
         this.profAudio = file;
-        try { file.currentTime = elapsed / 1000; } catch (e) { /* ignore */ }
-        file.play().catch(function () {});
-      } catch (e2) { /* ignore */ }
+        file.onended = function () {
+          if (self.profAudio !== file || !self.profPlaying) return;
+          self._finishProfessor();
+        };
+        file.onerror = function () {
+          if (self.profAudio !== file) return;
+          self.profAudio = null;
+          if (code === 'km') {
+            self._kmAudioFailed = true;
+            self.profLang = 'en';
+            self._syncProfLang();
+            self._startProfOutput();
+            return;
+          }
+          self._speakProfLines(self._profLines(ex, 'en'), 0);
+        };
+        try { if (this.profElapsed > 0) file.currentTime = this.profElapsed / 1000; } catch (e) { /* ignore */ }
+        var played = file.play();
+        if (played && typeof played.catch === 'function') played.catch(function () {});
+      } catch (e2) {
+        if (code === 'km') {
+          this._kmAudioFailed = true;
+          this.profLang = 'en';
+          this._syncProfLang();
+          return this._startProfOutput();
+        }
+        this._speakProfLines(this._profLines(ex, 'en'), 0);
+        return 'tts';
+      }
       this._setProfStatus('');
+      this._showProfSubtitle();
       return 'file';
     }
     if (code === 'km') {
-      var gap = this._kmGap(ex);
-      if (gap) { this._setProfStatus(gap); return 'unavailable'; }
-      var voice = this._pickKhmerVoice();
-      return this._speakProf(this._subtitleAt(ex, 'km', elapsed) || (ex.text && ex.text.km) || '', 'km', voice);
+      this._kmAudioFailed = true;
+      this.profLang = 'en';
+      this._syncProfLang();
+      return this._startProfOutput();
     }
     this._setProfStatus('');
-    var en = this._subtitleAt(ex, 'en', elapsed) || (ex.text && ex.text.en) || '';
-    return this._speakProf(en, 'en-US', this._pickEnglishVoice());
+    var lines = this._profLines(ex, 'en');
+    var start = 0;
+    var cues = ex.subtitles && ex.subtitles.en;
+    var elapsed = this.profElapsed || 0;
+    if (cues && cues.length) {
+      for (var i = 0; i < cues.length; i++) if ((cues[i].atMs || 0) <= elapsed) start = i;
+    }
+    this._speakProfLines(lines, start);
+    return 'tts';
+  };
+
+  /* Each line is spoken to its own end. The subtitle clock must not cancel it. */
+  Player.prototype._speakProfLines = function (lines, index) {
+    var self = this;
+    if (!this.profPlaying) return 'silent';
+    if (!lines || index >= lines.length) {
+      this._finishProfessor();
+      return 'done';
+    }
+    var text = String(lines[index] || '').trim();
+    if (!text) return this._speakProfLines(lines, index + 1);
+    this._showProfLine(text, 'en');
+    this._profLineIndex = index;
+    this._profLineCount = lines.length;
+    if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return 'silent';
+    try {
+      var u = new global.SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      var voice = this._pickEnglishVoice();
+      if (voice) u.voice = voice;
+      u.rate = 1;
+      u.onend = function () {
+        if (self._profUtterance !== u || !self.profPlaying) return;
+        self._speakProfLines(lines, index + 1);
+      };
+      u.onerror = function () {
+        if (self._profUtterance !== u || !self.profPlaying) return;
+        self._speakProfLines(lines, index + 1);
+      };
+      this._profUtterance = u;
+      global.speechSynthesis.speak(u);
+    } catch (e) { return 'silent'; }
+    return 'tts';
   };
 
   Player.prototype._speakProf = function (text, lang, voice) {
@@ -1720,31 +1828,23 @@
     return 'tts';
   };
 
+  /* File playback only. Moves the caption. Does not stop the recording. */
   Player.prototype._scheduleProfSubtitles = function () {
     var self = this;
     var ex = this._openExplanation;
     var code = this.profLang === 'km' ? 'km' : 'en';
     var cues = (ex && ex.subtitles && ex.subtitles[code]) || [];
-    var elapsed = this._profNow();
-    var file = !!(ex && ex.audio && ex.audio[code]);
+    var elapsed = this.profElapsed || 0;
     this._profCueTimers.forEach(function (h) { clearTimeout(h); });
     this._profCueTimers = [];
+    if (!this.profAudio) return;
     cues.forEach(function (cue) {
       var at = cue.atMs || 0;
       if (at <= elapsed) return;
-      var handle = setTimeout(function () {
-        if (!self.profPlaying) return;
-        self.profElapsed = at;
-        self._profStartedAt = Date.now();
-        self._showProfSubtitleAt(at);
-        if (!file && !(code === 'km' && !self._pickKhmerVoice() && !(ex.audio && ex.audio.km))) {
-          if (code === 'km' && !self._pickKhmerVoice()) return;
-          self._stopProfSound();
-          if (code === 'km') self._speakProf(cue.text || '', 'km', self._pickKhmerVoice());
-          else self._speakProf(cue.text || '', 'en-US', self._pickEnglishVoice());
-        }
-      }, at - elapsed);
-      self._profCueTimers.push(handle);
+      self._profCueTimers.push(setTimeout(function () {
+        if (!self.profPlaying || !self.profAudio) return;
+        self._showProfLine(cue.text || '', code);
+      }, at - elapsed));
     });
   };
 
@@ -1757,21 +1857,23 @@
     this._clearProfClock();
     this.profPlaying = true;
     this._profStartedAt = Date.now();
+    this._profLineIndex = 0;
+    this._profLineCount = 0;
     this._setProfPlayIcon(true);
     if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, true);
-    this._showProfSubtitle();
-    this._startProfOutput();
-    this._scheduleProfSubtitles();
+    var mode = this._startProfOutput();
+    if (mode === 'file') this._scheduleProfSubtitles();
     this._profTick = setInterval(function () {
-      if (!self.profPlaying) return;
-      var now = self._profNow();
-      self._showProfSubtitleAt(now);
-      self._updateProfProgress();
-      if (now >= self._profDuration()) {
-        self.profElapsed = self._profDuration();
+      if (!self.root || !self.root.isConnected) {
         self._pauseProfessor();
-        self._showProfSubtitleAt(self.profElapsed);
+        self._clearTimers();
+        return;
       }
+      if (!self.profPlaying) {
+        self._clearProfClock();
+        return;
+      }
+      self._updateProfProgress();
     }, 100);
   };
 
@@ -1790,17 +1892,18 @@
 
   Player.prototype.setProfessorLang = function (code) {
     var was = this.profPlaying;
-    this.profLang = code === 'km' ? 'km' : 'en';
-    this.profElapsed = this._profNow();
+    var wantKm = code === 'km' && !!this._profKhmerFile();
+    this.profLang = wantKm ? 'km' : 'en';
+    this.profElapsed = 0;
     this._profStartedAt = 0;
     this.profPlaying = false;
     this._clearProfClock();
     this._stopProfSound();
     this._syncProfLang();
-    this._showProfSubtitleAt(this.profElapsed);
+    this._showProfSubtitleAt(0);
     this._setProfPlayIcon(false);
+    this._setProfStatus('');
     if (was) this.playProfessor();
-    else this._setProfStatus(this.profLang === 'km' ? this._kmGap(this._openExplanation) : '');
   };
 
   Player.prototype.openProfessor = function () {
@@ -1826,13 +1929,14 @@
     }
     if (this.profName) this.profName.textContent = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
     this._renderProfFace(this.profImg, this.profFallback, false);
+    this._kmAudioFailed = false;
     this._syncProfLang();
     this._showProfSubtitleAt(0);
     this._updateProfProgress();
     var prof = this.data.professor || {};
     var path = (prof.sprites && prof.sprites.idle) || prof.avatar;
     if (!path) this._setProfStatus('Picture file is not in this copy.');
-    else this._setProfStatus(this.profLang === 'km' ? this._kmGap(ex) : '');
+    else this._setProfStatus('');
     this._hideCue(true);
     this._profOpening = false;
     try { this.profPlay.focus(); } catch (e) { /* ignore */ }
