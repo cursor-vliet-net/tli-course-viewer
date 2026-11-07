@@ -9,6 +9,8 @@
   var PROF_LEAD_MS = 1200;
   var PROF_WINDOW_MS = 2800;
   var PROF_FADE_MS = 180;
+  /* Wall-clock floor. Playback speed does not shorten it. */
+  var PROF_MIN_VISIBLE_MS = 3000;
   var ASSET_BASE = (function () {
     var scripts = document.getElementsByTagName('script');
     for (var i = scripts.length - 1; i >= 0; i--) {
@@ -149,6 +151,9 @@
         if (prof.windowMs != null && !(isNum(prof.windowMs) && prof.windowMs > 0)) {
           errors.push('professor.windowMs must be a positive number of milliseconds');
         }
+        if (prof.minVisibleMs != null && !(isNum(prof.minVisibleMs) && prof.minVisibleMs >= PROF_MIN_VISIBLE_MS)) {
+          errors.push('professor.minVisibleMs must be at least ' + PROF_MIN_VISIBLE_MS + ' milliseconds of real time');
+        }
         if (prof.icon != null && typeof prof.icon !== 'string') errors.push('professor.icon must be a path');
         if (prof.avatar != null && typeof prof.avatar !== 'string') errors.push('professor.avatar must be a path');
         if (prof.sprites != null && typeof prof.sprites !== 'object') errors.push('professor.sprites must be an object');
@@ -272,8 +277,12 @@
     this._cueHideToken = 0;
     this._profOpening = false;
     this._profSyncing = false;
+    this._cueShownAt = null; /* wall clock when the icon became visible */
+    this._cueHeldEx = null; /* latest explanation the icon may still open */
+    this._spriteCache = [];
     this._build();
     this._bind();
+    this._preloadSprites();
     this.goTo(0, { auto: false });
   }
 
@@ -670,13 +679,60 @@
     return false;
   };
 
+  Player.prototype._assignImg = function (img, url) {
+    if (!img) return;
+    if (!url) {
+      img.removeAttribute('src');
+      img.removeAttribute('data-src');
+      return;
+    }
+    if (img.getAttribute('data-src') === url) return; /* same picture: do not restart an APNG */
+    img.setAttribute('data-src', url);
+    img.src = url;
+  };
+
+  /* Decode talk pictures before the line starts. Reduced motion keeps the still pose and does not fetch the loop. */
+  Player.prototype._preloadSprites = function () {
+    var self = this;
+    var urls = {};
+    function add(path, animated) {
+      if (!path) return;
+      if (animated && self._prefersReducedMotion()) return;
+      var url = resolveUrl(path);
+      if (url) urls[url] = true;
+    }
+    Object.keys(this.actors || {}).forEach(function (id) {
+      var sprites = (self.actors[id] && self.actors[id].sprites) || {};
+      add(sprites.idle, false);
+      add(sprites.speakStill, false);
+      if (self._prefersReducedMotion()) add(sprites.speakStill || sprites.idle, false);
+      else add(sprites.speak, true);
+    });
+    var prof = (this.data && this.data.professor) || {};
+    var ps = prof.sprites || {};
+    add(prof.icon, false);
+    add(ps.idle || prof.avatar, false);
+    add(ps.speakStill, false);
+    if (!this._prefersReducedMotion()) add(ps.talk, true);
+    this._spriteCache = Object.keys(urls).map(function (url) {
+      var im = new Image();
+      im.decoding = 'async';
+      im.src = url;
+      return im;
+    });
+  };
+
   Player.prototype._renderPlacements = function (sc) {
     var self = this;
     var speaker = this._activeSpeaker();
     var canReplay = this._canReplayCharacters();
     var bgPath = (sc && sc.background) || this.data.background || '';
     this.bg.style.backgroundImage = bgPath ? 'url("' + resolveUrl(bgPath).replace(/"/g, '\"') + '")' : 'none';
-    this.actorsEl.innerHTML = '';
+    var have = {};
+    Array.prototype.forEach.call(this.actorsEl.children, function (btn) {
+      have[btn.getAttribute('data-actor')] = btn;
+    });
+    var order = [];
     ((sc && sc.placements) || []).forEach(function (p) {
       var actor = self.actors[p.id];
       if (!actor) return;
@@ -687,10 +743,15 @@
       if (wantSpeak) sprite = 'speak';
       else if (sprite === 'speak') sprite = 'idle';
       var url = self._spriteUrl(p.id, sprite || (wantSpeak ? 'speak' : 'idle'));
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'tli-sp-actor' + (wantSpeak ? ' is-speaking' : '') + (clickable ? ' is-clickable' : '');
-      btn.setAttribute('data-actor', p.id);
+      var btn = have[p.id];
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('data-actor', p.id);
+      } else {
+        delete have[p.id];
+      }
+      btn.className = 'tli-sp-actor' + (wantSpeak ? ' is-speaking' : '') + (clickable ? ' is-clickable' : '') + (p.facing === 'left' ? ' face-left' : '');
       btn.setAttribute('aria-disabled', clickable ? 'false' : 'true');
       btn.tabIndex = clickable ? 0 : -1;
       var label = actor.name || p.id;
@@ -700,14 +761,24 @@
       btn.style.left = (typeof p.x === 'number' ? p.x : 50) + '%';
       btn.style.top = (typeof p.y === 'number' ? p.y : 70) + '%';
       if (typeof p.scale === 'number') btn.style.setProperty('--sp-scale', String(p.scale));
-      if (p.facing === 'left') btn.classList.add('face-left');
+      else btn.style.removeProperty('--sp-scale');
+      var img = btn.querySelector('img');
       if (url) {
-        var img = document.createElement('img');
-        img.src = url; img.alt = ''; img.draggable = false;
-        btn.appendChild(img);
-      } else btn.textContent = actor.name || p.id;
-      self.actorsEl.appendChild(btn);
+        if (!img) {
+          img = document.createElement('img');
+          img.alt = '';
+          img.draggable = false;
+          btn.textContent = '';
+          btn.appendChild(img);
+        }
+        self._assignImg(img, url);
+      } else if (!img) {
+        btn.textContent = actor.name || p.id;
+      }
+      order.push(btn);
     });
+    Object.keys(have).forEach(function (id) { have[id].remove(); });
+    order.forEach(function (btn) { self.actorsEl.appendChild(btn); });
   };
 
   Player.prototype._translation = function (ln, code) {
@@ -790,7 +861,7 @@
     if (!this.scenes.length) return;
     idx = Math.max(0, Math.min(this.scenes.length - 1, idx));
     this._cueEpoch += 1;
-    this._profArm = null;
+    this._disposeProfCue();
     this._profHold = null;
     this._dismissProfessor();
     this._clearTimers();
@@ -896,7 +967,7 @@
     this.index = 0;
     this.counter.textContent = '1 / ' + Math.max(1, this.scenes.length);
     this._showLine(this.linesOf(this.scenes[0])[0] || null);
-    this._profArm = null;
+    this._disposeProfCue();
     this._profHold = null;
     this._dismissProfessor();
     this._setPlayIcon(false);
@@ -971,7 +1042,7 @@
   Player.prototype.replayScene = function () {
     if (!this.scenes.length) return;
     this._cueEpoch += 1;
-    this._profArm = null;
+    this._disposeProfCue();
     this._profHold = null;
     this._dismissProfessor();
     this.awaitingStart = false;
@@ -1016,7 +1087,7 @@
 
   Player.prototype.seekMs = function (ms) {
     var t = 0, i;
-    this._profArm = null;
+    this._disposeProfCue();
     this._profHold = null;
     this._dismissProfessor();
     this._pauseProfessor();
@@ -1092,7 +1163,7 @@
   Player.prototype._availElapsed = function () {
     var clock = this._sceneClock();
     if (!this.playing && this._profHold && this._profHold.index === this.index) {
-      var extra = Date.now() - this._profHold.startedAt;
+      var extra = this._now() - this._profHold.startedAt;
       if (extra < 0) extra = 0;
       if (extra > this._profHold.ms) extra = this._profHold.ms;
       return this._sceneCap() + extra;
@@ -1174,6 +1245,21 @@
     if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, false);
   };
 
+  Player.prototype._now = function () { return Date.now(); };
+
+  Player.prototype._minVisibleMs = function () {
+    var p = this.data && this.data.professor;
+    if (p && isNum(p.minVisibleMs) && p.minVisibleMs >= PROF_MIN_VISIBLE_MS) return p.minVisibleMs;
+    return PROF_MIN_VISIBLE_MS;
+  };
+
+  /* Explicit navigation drops the icon. A window ending early does not. */
+  Player.prototype._disposeProfCue = function () {
+    this._cueShownAt = null;
+    this._cueHeldEx = null;
+    this._profArm = null;
+  };
+
   Player.prototype._dismissProfessor = function () {
     this._pauseProfessor();
     this._openExplanation = null;
@@ -1241,6 +1327,7 @@
     this.cueBtn.classList.add('is-available');
     this.cueBtn.classList.toggle('is-lead', !openable);
     this.cueBtn.classList.toggle('is-openable', openable);
+    this.cueBtn.dataset.explanation = ex.id;
     this.cueBtn.setAttribute('aria-label', openable ? (who + ' can explain') : (who + ' can explain when this finishes'));
     this._renderCueIcon();
   };
@@ -1271,11 +1358,13 @@
       img.hidden = true;
       if (fallback) fallback.hidden = false;
     };
-    if (path) img.src = resolveUrl(path);
-    else img.removeAttribute('src');
+    if (path) this._assignImg(img, resolveUrl(path));
+    else this._assignImg(img, '');
   };
 
-  /* Recompute from the scene clock. Seek, scene changes, and the end of a window all come through here. */
+  /* Recompute from the scene clock. Seek, scene changes, and the end of a window all come through here.
+     Once the icon is on screen it stays at least minVisibleMs of wall time, even if the story window ends sooner.
+     A newer eligible explanation replaces the words without hiding the icon or restarting that clock. */
   Player.prototype._syncProfAvail = function (opts) {
     opts = opts || {};
     if (this._profSyncing) return;
@@ -1292,13 +1381,27 @@
         var w = self._windowFor(ex);
         if (w && w.closeAt > cap && w.openAt <= cap) tail = Math.max(tail, w.closeAt - cap);
       });
-      if (tail > 0) this._profHold = { index: this.index, startedAt: Date.now(), ms: tail };
+      if (tail > 0) this._profHold = { index: this.index, startedAt: this._now(), ms: tail };
     }
     var elapsed = this._availElapsed();
+    var now = this._now();
     var panelOpen = !!(this.profPanel && !this.profPanel.hidden && !this.profPanel.classList.contains('is-closing'));
     var vis = this._visibleExplanation(elapsed);
-    if (vis && !panelOpen) this._showCue(vis, elapsed);
-    else this._hideCue(!!opts.immediate);
+    var minLeft = 0;
+    if (vis) {
+      if (this._cueShownAt == null) this._cueShownAt = now;
+      this._cueHeldEx = vis;
+      if (!panelOpen) this._showCue(vis, elapsed);
+      else this._hideCue(true);
+    } else if (this._cueShownAt != null && this._cueHeldEx && (now - this._cueShownAt) < this._minVisibleMs()) {
+      minLeft = this._minVisibleMs() - (now - this._cueShownAt);
+      if (!panelOpen) this._showCue(this._cueHeldEx, Math.max(elapsed, (this._windowFor(this._cueHeldEx) || {}).readyAt || elapsed));
+      else this._hideCue(true);
+    } else {
+      this._cueShownAt = null;
+      this._cueHeldEx = null;
+      this._hideCue(!!opts.immediate);
+    }
 
     if (this._profArm && !this._profOpening) {
       var armed = null;
@@ -1328,13 +1431,18 @@
           self._syncProfAvail();
         }, (next - elapsed) / self.speed()));
       }
-    } else if (this._profHold && this._profHold.index === this.index && !this._profHold.done) {
-      var left = this._profHold.ms - (Date.now() - this._profHold.startedAt);
+    }
+    if (minLeft > 0) {
+      this._profAvailHandles.push(setTimeout(function () {
+        self._syncProfAvail();
+      }, minLeft));
+    } else if (!this.playing && this._profHold && this._profHold.index === this.index && !this._profHold.done) {
+      var left = this._profHold.ms - (this._now() - this._profHold.startedAt);
       if (left > 0) {
         this._profAvailHandles.push(setTimeout(function () {
           if (self.playing || !self._profHold || self._profHold.index !== self.index) return;
           self._profHold.done = true;
-          self._profHold.startedAt = Date.now() - self._profHold.ms;
+          self._profHold.startedAt = self._now() - self._profHold.ms;
           self._syncProfAvail();
         }, left));
       } else {
@@ -1361,8 +1469,8 @@
       img.hidden = true;
       if (fallback) fallback.hidden = false;
     };
-    if (path) img.src = resolveUrl(path);
-    else img.removeAttribute('src');
+    if (path) this._assignImg(img, resolveUrl(path));
+    else this._assignImg(img, '');
   };
 
   Player.prototype._subtitleAt = function (ex, code, elapsed) {
@@ -1547,9 +1655,11 @@
     if (this._profOpening) return;
     var elapsed = this._availElapsed();
     var ex = this._openableExplanation(elapsed);
-    if (!ex) {
-      var vis = this._visibleExplanation(elapsed);
-      if (vis) this._profArm = vis.id;
+    if (!ex && this._cueHeldEx && this.cueBtn && !this.cueBtn.hidden) ex = this._cueHeldEx;
+    if (!ex) return;
+    var gate = this._windowFor(ex);
+    if (gate && elapsed < gate.readyAt) {
+      this._profArm = ex.id;
       return;
     }
     this._profArm = null;
@@ -1615,6 +1725,7 @@
     availability: availabilityOf,
     leadDefaultMs: PROF_LEAD_MS,
     windowDefaultMs: PROF_WINDOW_MS,
+    minVisibleMs: PROF_MIN_VISIBLE_MS,
     fadeMs: PROF_FADE_MS
   };
 
