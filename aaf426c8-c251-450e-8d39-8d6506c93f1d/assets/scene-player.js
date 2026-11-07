@@ -279,6 +279,8 @@
     this._profSyncing = false;
     this._cueShownAt = null; /* wall clock when the icon became visible */
     this._cueHeldEx = null; /* latest explanation the icon may still open */
+    this._cueHeldReady = false;
+    this._settingProgress = false;
     this._spriteCache = [];
     this._build();
     this._bind();
@@ -518,7 +520,11 @@
     });
     this.btnFs.addEventListener('click', function () { self.toggleFullscreen(); });
     this.progress.addEventListener('input', function () {
+      if (self._settingProgress) return; /* a scripted value must not count as a seek */
       self.seekMs(((+self.progress.value) / 1000) * self.totalMs());
+    });
+    window.addEventListener('resize', function () {
+      Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
     });
     this.actorsEl.addEventListener('click', function (ev) {
       var btn = ev.target.closest('[data-actor]');
@@ -758,8 +764,7 @@
       if (clickable) label += ' (click to replay line)';
       else if (wantSpeak) label += ' (speaking)';
       btn.setAttribute('aria-label', label);
-      btn.style.left = (typeof p.x === 'number' ? p.x : 50) + '%';
-      btn.style.top = (typeof p.y === 'number' ? p.y : 70) + '%';
+      btn._placement = p;
       if (typeof p.scale === 'number') btn.style.setProperty('--sp-scale', String(p.scale));
       else btn.style.removeProperty('--sp-scale');
       var img = btn.querySelector('img');
@@ -768,6 +773,7 @@
           img = document.createElement('img');
           img.alt = '';
           img.draggable = false;
+          img.addEventListener('load', function () { self._placeActor(btn); });
           btn.textContent = '';
           btn.appendChild(img);
         }
@@ -779,6 +785,27 @@
     });
     Object.keys(have).forEach(function (id) { have[id].remove(); });
     order.forEach(function (btn) { self.actorsEl.appendChild(btn); });
+    order.forEach(function (btn) { self._placeActor(btn); });
+  };
+
+  /* Feet sit on the placement point. Pixel offsets, not a CSS transform, so the talking picture is not frozen. */
+  Player.prototype._placeActor = function (btn) {
+    var p = btn && btn._placement;
+    if (!p || !btn.parentNode) return;
+    var host = this.actorsEl;
+    var pw = host.clientWidth;
+    var ph = host.clientHeight;
+    var w = btn.offsetWidth;
+    var h = btn.offsetHeight;
+    var xPct = typeof p.x === 'number' ? p.x : 50;
+    var yPct = typeof p.y === 'number' ? p.y : 70;
+    if (!pw || !ph || !w || !h) {
+      btn.style.left = xPct + '%';
+      btn.style.top = yPct + '%';
+      return;
+    }
+    btn.style.left = Math.round((xPct / 100) * pw - w / 2) + 'px';
+    btn.style.top = Math.round((yPct / 100) * ph - h) + 'px';
   };
 
   Player.prototype._translation = function (ln, code) {
@@ -831,7 +858,11 @@
     var elapsed = this.offsetOf(this.index) + this._sceneElapsed();
     var total = this.totalMs();
     var v = Math.max(0, Math.min(1000, Math.round((elapsed / total) * 1000)));
-    if (document.activeElement !== this.progress) this.progress.value = String(v);
+    if (document.activeElement !== this.progress) {
+      this._settingProgress = true;
+      this.progress.value = String(v);
+      this._settingProgress = false;
+    }
   };
 
   Player.prototype._tickProgress = function () {
@@ -861,7 +892,7 @@
     if (!this.scenes.length) return;
     idx = Math.max(0, Math.min(this.scenes.length - 1, idx));
     this._cueEpoch += 1;
-    this._disposeProfCue();
+    if (!opts.keepCue) this._disposeProfCue();
     this._profHold = null;
     this._dismissProfessor();
     this._clearTimers();
@@ -945,7 +976,8 @@
         this._resetToStart();
         return;
       }
-      this.goTo(this.index + 1, { auto: false });
+      /* Automatic advance is not a user navigation. The icon keeps its three real seconds. */
+      this.goTo(this.index + 1, { auto: false, keepCue: true });
       this.play();
       return;
     }
@@ -1257,6 +1289,7 @@
   Player.prototype._disposeProfCue = function () {
     this._cueShownAt = null;
     this._cueHeldEx = null;
+    this._cueHeldReady = false;
     this._profArm = null;
   };
 
@@ -1317,11 +1350,12 @@
     return null;
   };
 
-  Player.prototype._showCue = function (ex, elapsed) {
+  Player.prototype._showCue = function (ex, elapsed, opts) {
     if (!this.cueBtn || !ex) return;
+    opts = opts || {};
     var w = this._windowFor(ex);
     var who = (this.data.professor && this.data.professor.name) || 'Professor Mordechai';
-    var openable = !!(w && elapsed >= w.readyAt);
+    var openable = opts.forceOpenable != null ? !!opts.forceOpenable : !!(w && elapsed >= w.readyAt);
     this._cueHideToken += 1;
     this.cueBtn.hidden = false;
     this.cueBtn.classList.add('is-available');
@@ -1391,11 +1425,13 @@
     if (vis) {
       if (this._cueShownAt == null) this._cueShownAt = now;
       this._cueHeldEx = vis;
+      var heldWin = this._windowFor(vis);
+      this._cueHeldReady = !!(heldWin && elapsed >= heldWin.readyAt);
       if (!panelOpen) this._showCue(vis, elapsed);
       else this._hideCue(true);
     } else if (this._cueShownAt != null && this._cueHeldEx && (now - this._cueShownAt) < this._minVisibleMs()) {
       minLeft = this._minVisibleMs() - (now - this._cueShownAt);
-      if (!panelOpen) this._showCue(this._cueHeldEx, Math.max(elapsed, (this._windowFor(this._cueHeldEx) || {}).readyAt || elapsed));
+      if (!panelOpen) this._showCue(this._cueHeldEx, elapsed, { forceOpenable: !!this._cueHeldReady });
       else this._hideCue(true);
     } else {
       this._cueShownAt = null;
@@ -1658,7 +1694,7 @@
     if (!ex && this._cueHeldEx && this.cueBtn && !this.cueBtn.hidden) ex = this._cueHeldEx;
     if (!ex) return;
     var gate = this._windowFor(ex);
-    if (gate && elapsed < gate.readyAt) {
+    if (gate && elapsed < gate.readyAt && !this._cueHeldReady) {
       this._profArm = ex.id;
       return;
     }

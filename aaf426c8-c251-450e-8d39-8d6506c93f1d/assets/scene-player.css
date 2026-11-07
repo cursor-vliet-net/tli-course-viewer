@@ -7,11 +7,12 @@
 .tli-sp.is-fullscreen .tli-sp-stage { max-height: 100%; }
 .tli-sp-bg { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .tli-sp-actors { position: absolute; inset: 0; }
-.tli-sp-actor { position: absolute; transform: translate(-50%, -100%) scale(var(--sp-scale, 1)); border: 0; background: transparent; padding: 0; cursor: default; width: 22%; max-width: 9.5rem; min-width: 4.5rem; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+/* No CSS filter or transform on the picture. Those composite the image and Windows Chrome then holds an APNG on its first frame. Position is set in pixels after layout. */
+.tli-sp-actor { position: absolute; border: 0; background: transparent; padding: 0; cursor: default; width: calc(22% * var(--sp-scale, 1)); max-width: calc(9.5rem * var(--sp-scale, 1)); min-width: calc(4.5rem * var(--sp-scale, 1)); z-index: 2; }
 .tli-sp-actor.is-clickable { cursor: pointer; }
 .tli-sp-actor img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; }
-.tli-sp-actor.face-left img { transform: scaleX(-1); }
-.tli-sp-actor.is-speaking { z-index: 3; filter: drop-shadow(0 0 0 3px #ffd666) drop-shadow(0 2px 6px rgba(0,0,0,.4)); }
+.tli-sp-actor.face-left img { transform: none; }
+.tli-sp-actor.is-speaking { z-index: 3; }
 .tli-sp-actor:focus-visible { outline: 3px solid #ffbf47; outline-offset: 4px; border-radius: .4rem; }
 
 /* Big play overlay (YouTube-style) — only when waiting to start / replay */
@@ -49,7 +50,7 @@
 .tli-sp-err { margin: 0; }
 
 @media (max-width: 560px) {
-  .tli-sp-actor { width: 28%; min-width: 3.6rem; }
+  .tli-sp-actor { width: calc(28% * var(--sp-scale, 1)); min-width: calc(3.6rem * var(--sp-scale, 1)); }
   .tli-sp-btn { width: 2rem; height: 2rem; }
   .tli-sp-bigplay { width: 3.6rem; height: 3.6rem; font-size: 1.3rem; }
 }
