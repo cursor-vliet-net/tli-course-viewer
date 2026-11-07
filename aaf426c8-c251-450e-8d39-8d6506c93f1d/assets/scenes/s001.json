@@ -8,6 +8,7 @@
     "name": "Professor Mordechai",
     "leadMs": 1200,
     "windowMs": 2800,
+    "minVisibleMs": 7000,
     "icon": "media/characters/year-01/professor-icon.svg",
     "avatar": "media/characters/year-01/professor-closeup-neutral.png",
     "sprites": {

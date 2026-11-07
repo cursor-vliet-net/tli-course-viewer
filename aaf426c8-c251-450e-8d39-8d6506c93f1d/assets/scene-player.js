@@ -10,7 +10,7 @@
   var PROF_WINDOW_MS = 2800;
   var PROF_FADE_MS = 180;
   /* Wall-clock floor. Playback speed does not shorten it. */
-  var PROF_MIN_VISIBLE_MS = 3000;
+  var PROF_MIN_VISIBLE_MS = 7000;
   var ASSET_BASE = (function () {
     var scripts = document.getElementsByTagName('script');
     for (var i = scripts.length - 1; i >= 0; i--) {
@@ -1080,7 +1080,7 @@
         this._resetToStart();
         return;
       }
-      /* Automatic advance is not a user navigation. The icon keeps its three real seconds. */
+      /* Automatic advance is not a user navigation. The icon keeps its seven real seconds. */
       this.goTo(this.index + 1, { auto: false, keepCue: true });
       this.play();
       return;
