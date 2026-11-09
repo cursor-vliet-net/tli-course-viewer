@@ -4,7 +4,7 @@
      <div class="tli-audio-recorder"><script type="application/json">{…}</script></div>
      TLIAudioRecorder.mount(el, config)
    Schema: viewer/assets/recorders/README.md
-   UI: icon-only Play · Replay slot (person-play) · 0.5-button gap · Record/Stop. */
+   UI: icon-only Play · Replay slot (person-play) · 0.5-button gap · Record/Stop · Info. */
 (function (global) {
   'use strict';
 
@@ -13,18 +13,26 @@
       playOriginal: 'Listen',
       record: 'Record',
       stopRec: 'Stop',
-      playRec: 'Play recording'
+      playRec: 'Play recording',
+      help: 'How this works',
+      helpClose: 'Close',
+      helpBody: "Record yourself and compare with the lesson. You can try again until you're happy."
     },
     km: {
       playOriginal: 'ស្តាប់',
       record: 'ថត',
       stopRec: 'ឈប់',
-      playRec: 'ចាក់ថត'
+      playRec: 'ចាក់ថត',
+      help: 'របៀបប្រើ',
+      helpClose: 'បិទ',
+      helpBody: 'ថតសំឡេងខ្លួនឯង រួចប្រៀបធៀបជាមួយមេរៀន។ អ្នកអាចសាកថតម្តងទៀតរហូតដល់ពេញចិត្ត។'
     }
   };
 
   var bags = typeof WeakMap === 'function' ? new WeakMap() : null;
   var replayMaskSeq = 0;
+  var helpReturnBtn = null;
+  var helpDlg = null;
 
   var ASSET_BASE = (function () {
     var scripts = document.getElementsByTagName('script');
@@ -64,11 +72,19 @@
     var en = typeof model.en === 'string' ? model.en : (typeof cfg.modelEn === 'string' ? cfg.modelEn : '');
     var file = cfg.audioFile != null ? cfg.audioFile : (cfg.audio != null ? cfg.audio : null);
     if (file === '') file = null;
+    var helpRaw = cfg.help && typeof cfg.help === 'object' ? cfg.help : null;
+    var helpTitle = helpRaw && helpRaw.title && typeof helpRaw.title === 'object' ? helpRaw.title : null;
     return {
       version: cfg.version || 1,
       id: cfg.id || '',
       model: { en: en, km: typeof model.km === 'string' ? model.km : '' },
-      audioFile: file
+      audioFile: file,
+      help: {
+        en: helpRaw && typeof helpRaw.en === 'string' && helpRaw.en ? helpRaw.en : '',
+        km: helpRaw && typeof helpRaw.km === 'string' && helpRaw.km ? helpRaw.km : '',
+        titleEn: helpTitle && typeof helpTitle.en === 'string' ? helpTitle.en : '',
+        titleKm: helpTitle && typeof helpTitle.km === 'string' ? helpTitle.km : ''
+      }
     };
   }
 
@@ -234,8 +250,84 @@
     else startRecording(root);
   }
 
+
+  function helpCopy(root) {
+    var bag = bagFor(root);
+    var cfg = (bag && bag.config) || normalizeConfig({});
+    var lang = uiLang();
+    var body = (lang === 'km' ? (cfg.help.km || cfg.help.en) : (cfg.help.en || cfg.help.km)) || label('helpBody');
+    var title = (lang === 'km' ? (cfg.help.titleKm || cfg.help.titleEn) : (cfg.help.titleEn || cfg.help.titleKm)) || label('help');
+    return { title: title, body: body };
+  }
+
+  function ensureHelpDialog() {
+    if (helpDlg && helpDlg.isConnected) return helpDlg;
+    helpDlg = document.createElement('div');
+    helpDlg.id = 'tli-ar-help';
+    helpDlg.className = 'tli-ar-help';
+    helpDlg.setAttribute('role', 'dialog');
+    helpDlg.setAttribute('aria-modal', 'true');
+    helpDlg.setAttribute('aria-labelledby', 'tli-ar-help-title');
+    helpDlg.hidden = true;
+    helpDlg.innerHTML =
+      '<div class="tli-ar-help-backdrop" data-ar-help-dismiss="1"></div>' +
+      '<div class="tli-ar-help-panel">' +
+        '<div class="tli-ar-help-head">' +
+          '<h2 class="tli-ar-help-title" id="tli-ar-help-title"></h2>' +
+          '<button type="button" class="btn btn-sm btn-outline-secondary tli-ar-help-close" aria-label="' + esc(label('helpClose')) + '" title="' + esc(label('helpClose')) + '">' +
+            '<i class="fa-solid fa-xmark" aria-hidden="true"></i>' +
+          '</button>' +
+        '</div>' +
+        '<p class="tli-ar-help-body"></p>' +
+      '</div>';
+    document.body.appendChild(helpDlg);
+    return helpDlg;
+  }
+
+  function fillHelpDialog(root) {
+    var dlg = ensureHelpDialog();
+    var copy = helpCopy(root);
+    var titleEl = $('.tli-ar-help-title', dlg);
+    var bodyEl = $('.tli-ar-help-body', dlg);
+    var closeBtn = $('.tli-ar-help-close', dlg);
+    if (titleEl) titleEl.textContent = copy.title;
+    if (bodyEl) bodyEl.textContent = copy.body;
+    if (closeBtn) {
+      closeBtn.setAttribute('aria-label', label('helpClose'));
+      closeBtn.title = label('helpClose');
+    }
+    dlg.setAttribute('data-ar-help-root', root && root.getAttribute('data-recorder-id') || '');
+  }
+
+  function openHelp(root, btn) {
+    if (!root) return;
+    var dlg = ensureHelpDialog();
+    helpReturnBtn = btn || $('.tli-ar-help-btn', root);
+    fillHelpDialog(root);
+    dlg.hidden = false;
+    document.body.classList.add('tli-ar-help-open');
+    var closeBtn = $('.tli-ar-help-close', dlg);
+    try { (closeBtn || dlg).focus(); } catch (e) { /* ignore */ }
+  }
+
+  function closeHelp() {
+    var dlg = helpDlg;
+    if (!dlg || dlg.hidden) return;
+    dlg.hidden = true;
+    document.body.classList.remove('tli-ar-help-open');
+    var back = helpReturnBtn;
+    helpReturnBtn = null;
+    if (back && back.focus) {
+      try { back.focus(); } catch (e) { /* ignore */ }
+    }
+  }
+
+  function isHelpOpen() {
+    return !!(helpDlg && !helpDlg.hidden);
+  }
+
   function buildUi(root) {
-    /* Icon-only row: [Play original] [Replay slot] [0.5-button gap] [Record/Stop].
+    /* Icon-only row: [Play original] [Replay slot] [0.5-button gap] [Record/Stop] [Info].
        Replay uses assets/icons/person-play.svg (inlined; unique mask id per instance). */
     replayMaskSeq += 1;
     var maskId = 'tli-ar-rm-' + replayMaskSeq;
@@ -253,6 +345,9 @@
         '<span class="tli-ar-gap" aria-hidden="true"></span>' +
         '<button type="button" class="btn btn-sm btn-primary tli-ar-toggle" data-ar-label="record" aria-pressed="false" aria-label="' + esc(label('record')) + '" title="' + esc(label('record')) + '">' +
           '<i class="fa-solid fa-microphone tli-ar-toggle-icon" aria-hidden="true"></i>' +
+        '</button>' +
+        '<button type="button" class="btn btn-sm btn-outline-secondary tli-ar-help-btn" data-ar-label="help" aria-label="' + esc(label('help')) + '" title="' + esc(label('help')) + '">' +
+          '<i class="fa-solid fa-circle-info tli-ar-help-icon" aria-hidden="true"></i>' +
         '</button>' +
       '</div>' +
       '<p class="tli-ar-status" role="status"></p>';
@@ -331,17 +426,40 @@
       else setToggleIdle(el);
       nameButton($('.tli-ar-original', el), 'playOriginal');
       nameButton($('.tli-ar-play', el), 'playRec');
+      nameButton($('.tli-ar-help-btn', el), 'help');
     });
+    if (isHelpOpen() && helpReturnBtn) {
+      var openRoot = helpReturnBtn.closest ? helpReturnBtn.closest('.tli-audio-recorder') : null;
+      if (openRoot) fillHelpDialog(openRoot);
+    }
   }
 
   function onClick(ev) {
     var t = ev.target;
     if (!t || !t.closest) return;
+    if (isHelpOpen()) {
+      if (t.closest('.tli-ar-help-close') || t.closest('[data-ar-help-dismiss]')) {
+        closeHelp();
+        return;
+      }
+      if (t.closest('.tli-ar-help-panel')) return;
+    }
     var root = t.closest('.tli-audio-recorder');
     if (!root || root.getAttribute('data-tli-ar') !== '1') return;
     if (t.closest('.tli-ar-original')) { speakOriginal(root); return; }
     if (t.closest('.tli-ar-toggle')) { toggleRecord(root); return; }
     if (t.closest('.tli-ar-play')) { playRecording(root); return; }
+    if (t.closest('.tli-ar-help-btn')) {
+      openHelp(root, t.closest('.tli-ar-help-btn'));
+      return;
+    }
+  }
+
+  function onKeydown(ev) {
+    if (ev.key === 'Escape' && isHelpOpen()) {
+      ev.preventDefault();
+      closeHelp();
+    }
   }
 
   global.TLIAudioRecorder = {
@@ -353,6 +471,7 @@
   };
 
   document.addEventListener('click', onClick, false);
+  document.addEventListener('keydown', onKeydown, false);
 
   /* Mount now: app.js may already have rendered quiz HTML (script order).
      Also listen for DOMContentLoaded for slow/partial parses (jsdom keeps readyState=loading). */

@@ -1,4 +1,4 @@
-/* Spoken practice: [Play] [Replay slot] [0.5-button gap] [Record/Stop]. */
+/* Spoken practice: [Play] [Replay slot] [0.5-button gap] [Record/Stop] [Info]. */
 .tli-audio-recorder { margin: .35rem 0 .5rem; }
 .tli-ar-row {
   display: flex;
@@ -69,4 +69,67 @@
 }
 @media (max-width: 360px) {
   .tli-ar-row { flex-wrap: wrap; }
+}
+
+.tli-ar-help-icon { font-size: 0.95rem; }
+.tli-ar-help {
+  position: fixed;
+  inset: 0;
+  z-index: 2800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.tli-ar-help[hidden] { display: none; }
+.tli-ar-help-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 12, 16, 0.55);
+}
+.tli-ar-help-panel {
+  position: relative;
+  z-index: 1;
+  width: min(22rem, 92vw);
+  max-height: min(80vh, 28rem);
+  overflow: auto;
+  background: var(--tli-surface, #fff);
+  color: var(--tli-fg, #1a1a1a);
+  border: 1px solid var(--tli-border, #ced4da);
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .25);
+  padding: .9rem 1rem 1rem;
+}
+.tli-ar-help-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .5rem;
+  margin: 0 0 .55rem;
+}
+.tli-ar-help-title {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.tli-ar-help-close {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.tli-ar-help-body {
+  margin: 0;
+  font-size: .95rem;
+  line-height: 1.45;
+}
+body.tli-ar-help-open { overflow: hidden; }
+[data-theme="dark"] .tli-ar-help-panel {
+  background: var(--tli-surface, #1d2430);
+  color: var(--tli-fg, #eee);
+  border-color: var(--tli-border, #3a4454);
 }
