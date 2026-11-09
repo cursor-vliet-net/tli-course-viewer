@@ -764,8 +764,12 @@
     return '';
   }
 
-  var CHILD_PITCH = 1.8;
+  /* Pitch ladder when the chosen voice is not a matching gendered label (common on Android). */
   var MALE_FALLBACK_PITCH = 0.7;
+  var FEMALE_FALLBACK_PITCH = 1.25;
+  var BOY_PITCH = 1.6;
+  var GIRL_PITCH = 1.9;
+  /* CHILD_PITCH removed: boy/girl use distinct BOY_PITCH / GIRL_PITCH. */
 
   function adultHint(hint) {
     if (hint === 'boy') return 'male';
@@ -774,9 +778,24 @@
     return '';
   }
 
-  function pitchForHint(hint) {
-    if (hint === 'boy' || hint === 'girl') return CHILD_PITCH;
+  function fallbackPitchForHint(hint) {
+    if (hint === 'male') return MALE_FALLBACK_PITCH;
+    if (hint === 'female') return FEMALE_FALLBACK_PITCH;
+    if (hint === 'boy') return BOY_PITCH;
+    if (hint === 'girl') return GIRL_PITCH;
     return 1;
+  }
+
+  /* Dedicated match keeps pitch 1; otherwise use the fallback ladder (Android unlabeled voices). */
+  function pitchForVoiceHint(hint, voice) {
+    if (!hint) return 1;
+    if (voice && labeledGender(voice) === hint) return 1;
+    return fallbackPitchForHint(hint);
+  }
+
+  function utteranceLangFor(voice) {
+    if (voice && voice.lang) return String(voice.lang).replace(/_/g, '-');
+    return 'en-US';
   }
 
   Player.prototype._ensureVoiceListener = function () {
@@ -856,12 +875,8 @@
   Player.prototype._applyVoiceToUtterance = function (u, hint, speakerId) {
     var voice = this._voiceForGender(hint, speakerId || hint || 'line');
     if (voice) u.voice = voice;
-    /* Pitch only for boy/girl when using adult male/female fallback (or always for child hint). */
-    var p = pitchForHint(hint);
-    if (voice && (labeledGender(voice) === 'boy' || labeledGender(voice) === 'girl')) {
-      p = 1; /* dedicated child voice — leave natural */
-    }
-    u.pitch = p;
+    u.lang = utteranceLangFor(voice);
+    u.pitch = pitchForVoiceHint(hint, voice);
   };
 
   Player.prototype._pickEnglishVoice = function () {
@@ -890,7 +905,6 @@
     if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return;
     try {
       var u = new global.SpeechSynthesisUtterance(text);
-      u.lang = 'en-US';
       this._applyVoiceToUtterance(u, this._genderHintForSpeaker(ln.speaker), ln.speaker || 'line');
       var rate = this.speed();
       if (rate < 0.1) rate = 0.1;
@@ -1978,11 +1992,11 @@
     if (!global.speechSynthesis || typeof global.SpeechSynthesisUtterance !== 'function') return;
     try {
       var u = new global.SpeechSynthesisUtterance(text);
-      u.lang = 'en-US';
       var voice = this._pickEnglishVoice();
       if (voice) u.voice = voice;
-      /* Professor must sound male: natural pitch on a male voice; lower pitch if none. */
-      u.pitch = (voice && labeledGender(voice) === 'male') ? 1 : MALE_FALLBACK_PITCH;
+      u.lang = utteranceLangFor(voice);
+      /* Professor is male: natural pitch on a male-labeled voice; else MALE_FALLBACK_PITCH. */
+      u.pitch = pitchForVoiceHint('male', voice);
       u.rate = 1;
       u.onend = function () {
         if (self._profSpeakGen !== gen || self._profUtterance !== u || !self.profPlaying) return;
