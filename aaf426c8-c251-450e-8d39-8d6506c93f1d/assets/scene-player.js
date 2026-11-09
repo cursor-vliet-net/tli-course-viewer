@@ -764,7 +764,8 @@
     return '';
   }
 
-  var CHILD_PITCH = 1.3;
+  var CHILD_PITCH = 1.8;
+  var MALE_FALLBACK_PITCH = 0.7;
 
   function adultHint(hint) {
     if (hint === 'boy') return 'male';
@@ -1980,7 +1981,8 @@
       u.lang = 'en-US';
       var voice = this._pickEnglishVoice();
       if (voice) u.voice = voice;
-      u.pitch = 1;
+      /* Professor must sound male: natural pitch on a male voice; lower pitch if none. */
+      u.pitch = (voice && labeledGender(voice) === 'male') ? 1 : MALE_FALLBACK_PITCH;
       u.rate = 1;
       u.onend = function () {
         if (self._profSpeakGen !== gen || self._profUtterance !== u || !self.profPlaying) return;
