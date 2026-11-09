@@ -331,3 +331,30 @@ body[data-mode=student] .blk > .ref { display: none; }
 [data-theme="dark"] .cell-red { background: #3d2226 !important; color: #ffd0d4; }
 [data-theme="dark"] .skip-link { background: var(--tli-surface); color: var(--tli-ink); }
 [data-theme="dark"] .goals { border-color: var(--tli-line); }
+
+/* Student session situation: What / Where / Who */
+table.session-context {
+  width: auto;
+  max-width: 36rem;
+  margin: .35rem 0 .75rem;
+}
+table.session-context td:first-child,
+table.session-context th:first-child {
+  font-weight: 600;
+  color: var(--tli-muted, #6c757d);
+  white-space: nowrap;
+  width: 4.5rem;
+}
+.vocab-play-col {
+  width: 2.4rem;
+  text-align: center;
+  vertical-align: middle;
+}
+.vocab-play-col .q-listen {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

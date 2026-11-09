@@ -447,11 +447,12 @@
       var s = document.createElement('span'); s.className = 'ref-off'; s.textContent = a.textContent;
       s.title = 'Not shown in ' + MODE + ' mode'; a.parentNode.replaceChild(s, a);
     });
-    if (MODE === 'student') { /* learner view: no RTTI columns in tables */
+    if (MODE === 'student') { /* learner view: drop teacher-only table columns */
       $$('table', root).forEach(function (t) {
         var head = $$('tr', t)[0]; if (!head) return;
         $$('th,td', head).forEach(function (c, i) {
-          if (c.textContent.trim() !== 'RTTI') return;
+          var h = c.textContent.trim();
+          if (h !== 'RTTI' && h !== 'Picture or gesture cue') return;
           $$('tr', t).forEach(function (tr) { var cell = tr.children[i]; if (cell) cell.setAttribute('data-drop', '1'); });
         });
         $$('[data-drop]', t).forEach(function (c) { c.remove(); });

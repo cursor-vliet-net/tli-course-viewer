@@ -32,8 +32,21 @@
   width: 100%;
   height: 100%;
 }
-/* Replay always visible: disabled = 0.8, active = 1 (override Bootstrap disabled opacity). */
-.tli-ar-row .tli-ar-play:disabled { opacity: 0.8; }
+/* Disabled controls keep their blue outline/icon; only opacity dims them (not Bootstrap gray). */
+.tli-ar-row .btn:disabled,
+.tli-ar-row .btn.disabled {
+  opacity: 0.8;
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+  pointer-events: none;
+}
+.tli-ar-row .btn:disabled:hover,
+.tli-ar-row .btn.disabled:hover {
+  color: var(--bs-btn-color);
+  background-color: var(--bs-btn-bg);
+  border-color: var(--bs-btn-border-color);
+}
 .tli-ar-row .tli-ar-play:not(:disabled) { opacity: 1; }
 .tli-ar-gap {
   box-sizing: border-box;

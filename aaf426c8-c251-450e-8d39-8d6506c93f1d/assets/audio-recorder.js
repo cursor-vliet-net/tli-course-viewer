@@ -15,8 +15,9 @@
       stopRec: 'Stop',
       playRec: 'Play recording',
       help: 'How this works',
+      helpTitle: 'Record yourself',
       helpClose: 'Close',
-      helpBody: "Record yourself and compare with the lesson. You can try again until you're happy."
+      helpBody: "You can record yourself and compare with the given pronunciation in the lesson. Try again until you're satisfied."
     },
     km: {
       playOriginal: 'ស្តាប់',
@@ -24,8 +25,9 @@
       stopRec: 'ឈប់',
       playRec: 'ចាក់ថត',
       help: 'របៀបប្រើ',
+      helpTitle: 'ថតសំឡេងខ្លួនឯង',
       helpClose: 'បិទ',
-      helpBody: 'ថតសំឡេងខ្លួនឯង រួចប្រៀបធៀបជាមួយមេរៀន។ អ្នកអាចសាកថតម្តងទៀតរហូតដល់ពេញចិត្ត។'
+      helpBody: 'អ្នកអាចថតសំឡេងខ្លួនឯង រួចប្រៀបធៀបជាមួយការបញ្ចេញសំឡេងក្នុងមេរៀន។ សាកថតម្តងទៀតរហូតដល់ពេញចិត្ត។'
     }
   };
 
@@ -256,7 +258,7 @@
     var cfg = (bag && bag.config) || normalizeConfig({});
     var lang = uiLang();
     var body = (lang === 'km' ? (cfg.help.km || cfg.help.en) : (cfg.help.en || cfg.help.km)) || label('helpBody');
-    var title = (lang === 'km' ? (cfg.help.titleKm || cfg.help.titleEn) : (cfg.help.titleEn || cfg.help.titleKm)) || label('help');
+    var title = (lang === 'km' ? (cfg.help.titleKm || cfg.help.titleEn) : (cfg.help.titleEn || cfg.help.titleKm)) || label('helpTitle');
     return { title: title, body: body };
   }
 
