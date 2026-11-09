@@ -4,7 +4,7 @@
      <div class="tli-audio-recorder"><script type="application/json">{…}</script></div>
      TLIAudioRecorder.mount(el, config)
    Schema: viewer/assets/recorders/README.md
-   UI: Listen (original) · Record/Stop · Play recording (when a take exists). */
+   UI: icon-only Listen (play+volume stack) · Record/Stop · Play take (play+mic stack). */
 (function (global) {
   'use strict';
 
@@ -88,10 +88,12 @@
     if (n) n.textContent = text || '';
   }
 
-  function fillLabel(el, key) {
-    if (!el) return;
-    el.setAttribute('data-i18n-ui', key);
-    el.textContent = label(key);
+  function nameButton(btn, key) {
+    if (!btn) return;
+    var name = label(key);
+    btn.setAttribute('aria-label', name);
+    btn.title = name;
+    btn.setAttribute('data-ar-label', key);
   }
 
   function setToggleIdle(root) {
@@ -99,11 +101,9 @@
     if (!btn) return;
     btn.classList.remove('is-recording');
     btn.setAttribute('aria-pressed', 'false');
-    btn.setAttribute('aria-label', label('record'));
-    btn.title = label('record');
-    var ic = $('i', btn);
-    if (ic) ic.className = 'fa-solid fa-microphone';
-    fillLabel($('.tli-ar-toggle-label', btn), 'record');
+    nameButton(btn, 'record');
+    var ic = $('.tli-ar-toggle-icon', btn);
+    if (ic) ic.className = 'fa-solid fa-microphone tli-ar-toggle-icon';
   }
 
   function setToggleRecording(root) {
@@ -111,11 +111,9 @@
     if (!btn) return;
     btn.classList.add('is-recording');
     btn.setAttribute('aria-pressed', 'true');
-    btn.setAttribute('aria-label', label('stopRec'));
-    btn.title = label('stopRec');
-    var ic = $('i', btn);
-    if (ic) ic.className = 'fa-solid fa-stop';
-    fillLabel($('.tli-ar-toggle-label', btn), 'stopRec');
+    nameButton(btn, 'stopRec');
+    var ic = $('.tli-ar-toggle-icon', btn);
+    if (ic) ic.className = 'fa-solid fa-stop tli-ar-toggle-icon';
   }
 
   function showPlayRecording(root, on) {
@@ -234,19 +232,24 @@
   }
 
   function buildUi(root) {
+    /* Icon-only controls. Accessible names via aria-label/title (EN|KH).
+       Play buttons use fa-stack so original (play+volume) ≠ take (play+mic). */
     root.innerHTML =
       '<div class="tli-ar-row" role="group" aria-label="Speaking practice">' +
-        '<button type="button" class="btn btn-sm btn-outline-secondary tli-ar-original" aria-label="' + esc(label('playOriginal')) + '" title="' + esc(label('playOriginal')) + '">' +
-          '<i class="fa-solid fa-volume-high" aria-hidden="true"></i> ' +
-          '<span class="tli-ar-original-label" data-i18n-ui="playOriginal">' + esc(label('playOriginal')) + '</span>' +
+        '<button type="button" class="btn btn-sm btn-outline-secondary tli-ar-original" data-ar-label="playOriginal" aria-label="' + esc(label('playOriginal')) + '" title="' + esc(label('playOriginal')) + '">' +
+          '<span class="fa-stack tli-ar-stack" aria-hidden="true">' +
+            '<i class="fa-solid fa-volume-high fa-stack-2x tli-ar-stack-back"></i>' +
+            '<i class="fa-solid fa-play fa-stack-1x tli-ar-stack-front"></i>' +
+          '</span>' +
         '</button>' +
-        '<button type="button" class="btn btn-sm btn-primary tli-ar-toggle" aria-pressed="false" aria-label="' + esc(label('record')) + '" title="' + esc(label('record')) + '">' +
-          '<i class="fa-solid fa-microphone" aria-hidden="true"></i> ' +
-          '<span class="tli-ar-toggle-label" data-i18n-ui="record">' + esc(label('record')) + '</span>' +
+        '<button type="button" class="btn btn-sm btn-primary tli-ar-toggle" data-ar-label="record" aria-pressed="false" aria-label="' + esc(label('record')) + '" title="' + esc(label('record')) + '">' +
+          '<i class="fa-solid fa-microphone tli-ar-toggle-icon" aria-hidden="true"></i>' +
         '</button>' +
-        '<button type="button" class="btn btn-sm btn-outline-primary tli-ar-play" hidden aria-label="' + esc(label('playRec')) + '" title="' + esc(label('playRec')) + '">' +
-          '<i class="fa-solid fa-circle-play" aria-hidden="true"></i> ' +
-          '<span class="tli-ar-play-label" data-i18n-ui="playRec">' + esc(label('playRec')) + '</span>' +
+        '<button type="button" class="btn btn-sm btn-outline-primary tli-ar-play" data-ar-label="playRec" hidden aria-label="' + esc(label('playRec')) + '" title="' + esc(label('playRec')) + '">' +
+          '<span class="fa-stack tli-ar-stack" aria-hidden="true">' +
+            '<i class="fa-solid fa-microphone fa-stack-2x tli-ar-stack-back"></i>' +
+            '<i class="fa-solid fa-play fa-stack-1x tli-ar-stack-front"></i>' +
+          '</span>' +
         '</button>' +
       '</div>' +
       '<p class="tli-ar-status" role="status"></p>';
@@ -323,12 +326,8 @@
       var bag = bagFor(el);
       if (bag.recording) setToggleRecording(el);
       else setToggleIdle(el);
-      fillLabel($('.tli-ar-original-label', el), 'playOriginal');
-      var orig = $('.tli-ar-original', el);
-      if (orig) { orig.setAttribute('aria-label', label('playOriginal')); orig.title = label('playOriginal'); }
-      fillLabel($('.tli-ar-play-label', el), 'playRec');
-      var play = $('.tli-ar-play', el);
-      if (play) { play.setAttribute('aria-label', label('playRec')); play.title = label('playRec'); }
+      nameButton($('.tli-ar-original', el), 'playOriginal');
+      nameButton($('.tli-ar-play', el), 'playRec');
     });
   }
 
