@@ -52,6 +52,17 @@
         "speakStill": "media/characters/year-01/sreyneang-neutral.png"
       },
       "lipSync": false
+    },
+    "kru-sopheak": {
+      "name": "Kru Sopheak",
+      "gender": "female",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/year-01/kru-sopheak-neutral.png",
+        "speak": "media/characters/year-01/kru-sopheak-talking.apng",
+        "speakStill": "media/characters/year-01/kru-sopheak-neutral.png"
+      },
+      "lipSync": false
     }
   },
   "scenes": [
@@ -114,45 +125,45 @@
           "review": {
             "km": "draft",
             "cultural": "pending-khmer-native-review",
-            "note": "Child wording from process/cast/professor-mordechai.md. No palm-height rules."
+            "note": "English already said in this scene. Khmer subtitles need a native-speaker review. No gesture lecture."
           },
           "text": {
-            "en": "Yeay said the name. You can also say good morning when you do not know a name. Hello can be words. It can also be how you stand and what your hands do. A visitor might not use the same hands. That does not by itself mean they are rude. If you are not sure, wait and ask.",
-            "km": "យាយបាននិយាយឈ្មោះ។ អ្នកក៏អាចនិយាយ good morning ពេលមិនស្គាល់ឈ្មោះ។ សួស្តីអាចជាពាក្យ។ វាក៏អាចជារបៀបឈរ និងអ្វីដែលដៃធ្វើ។ ភ្ញៀវខ្លះមិនប្រើដៃដូចគ្នាទេ។ នោះមិនមានន័យថាពួកគេមិនគោរពទេ។ បើមិនប្រាកដ រង់ចាំ ហើយសួរ។"
+            "en": "Yeay said good morning, then the name. Say good morning, and then the name. You can say good morning with no name.",
+            "km": "យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។ និយាយអរុណសួស្តី រួចហើយឈ្មោះ។ អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
           },
           "subtitles": {
             "en": [
               {
                 "atMs": 0,
                 "durationMs": 4000,
-                "text": "Yeay said the name. You can also say good morning when you do not know a name."
+                "text": "Yeay said good morning, then the name."
               },
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "Hello can be words. It can also be how you stand and what your hands do."
+                "text": "Say good morning, and then the name."
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "A visitor might not use the same hands. That does not by itself mean they are rude. If you are not sure, wait and ask."
+                "text": "You can say good morning with no name."
               }
             ],
             "km": [
               {
                 "atMs": 0,
                 "durationMs": 4000,
-                "text": "យាយបាននិយាយឈ្មោះ។ អ្នកក៏អាចនិយាយ good morning ពេលមិនស្គាល់ឈ្មោះ។"
+                "text": "យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
               },
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "សួស្តីអាចជាពាក្យ។ វាក៏អាចជារបៀបឈរ និងអ្វីដែលដៃធ្វើ។"
+                "text": "និយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "ភ្ញៀវខ្លះមិនប្រើដៃដូចគ្នាទេ។ នោះមិនមានន័យថាពួកគេមិនគោរពទេ។ បើមិនប្រាកដ រង់ចាំ ហើយសួរ។"
+                "text": "អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
               }
             ]
           },
@@ -218,7 +229,7 @@
       "background": "media/backgrounds/home-morning.png",
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
           "y": 93,
@@ -241,10 +252,10 @@
       ],
       "lines": [
         {
-          "speaker": "yeay-chan",
-          "text": "What's your name?",
+          "speaker": "kru-sopheak",
+          "text": "Good morning.",
           "translations": {
-            "km": "ឈ្មោះអ្វី?"
+            "km": "អរុណសួស្តី។"
           },
           "audio": null,
           "durationMs": 3500,
@@ -258,7 +269,47 @@
       "background": "media/backgrounds/home-morning.png",
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 26,
+          "y": 93,
+          "scale": 1.25
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95,
+          "scale": 1.05
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95,
+          "scale": 1.05
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "What's your name?",
+          "translations": {
+            "km": "ឈ្មោះអ្វី?"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "5",
+      "background": "media/backgrounds/home-morning.png",
+      "placements": [
+        {
+          "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
           "y": 93,
@@ -287,58 +338,66 @@
             "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 2800,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2800
-    },
-    {
-      "id": "5",
-      "background": "media/backgrounds/home-morning.png",
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "speak",
-          "x": 26,
-          "y": 93,
-          "scale": 1.25
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95,
-          "scale": 1.05
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95,
-          "scale": 1.05
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "yeay-chan",
-          "text": "What's your name?",
-          "translations": {
-            "km": "ឈ្មោះអ្វី?"
-          },
-          "audio": null,
           "durationMs": 3500,
           "atMs": 0
         }
       ],
-      "durationMs": 3500
+      "durationMs": 3500,
+      "explanations": [
+        {
+          "id": "s001.ask-the-name",
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
+          "durationMs": 8000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Only the English question and answer already said. Khmer needs a native-speaker review."
+          },
+          "text": {
+            "en": "What's your name? is how we ask when we do not know. The answer is I am, and then the name.",
+            "km": "ឈ្មោះអ្វី? គឺរបៀបសួរពេលយើងមិនស្គាល់។ ចម្លើយគឺ I am រួចហើយឈ្មោះ។"
+          },
+          "subtitles": {
+            "en": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "What's your name? is how we ask when we do not know."
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "The answer is I am, and then the name."
+              }
+            ],
+            "km": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "ឈ្មោះអ្វី? គឺរបៀបសួរពេលយើងមិនស្គាល់។"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "ចម្លើយគឺ I am រួចហើយឈ្មោះ។"
+              }
+            ]
+          },
+          "audio": {
+            "en": null,
+            "km": null
+          }
+        }
+      ]
     },
     {
       "id": "6",
       "background": "media/backgrounds/home-morning.png",
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
           "y": 93,
