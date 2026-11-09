@@ -1,4 +1,4 @@
-/* Spoken practice: one icon-only control row. */
+/* Spoken practice: [Play] [Replay slot] [1-button gap] [Record/Stop]. */
 .tli-audio-recorder { margin: .35rem 0 .5rem; }
 .tli-ar-row {
   display: flex;
@@ -15,44 +15,40 @@
   height: 2.15rem;
   padding: 0;
   line-height: 1;
+  box-sizing: border-box;
 }
-/* Combined FA stacks: large cue icon behind a smaller play glyph. */
-.tli-ar-stack {
-  position: relative;
-  display: inline-block;
-  width: 1.35em;
-  height: 1.35em;
-  line-height: 1.35em;
-  vertical-align: middle;
-  font-size: 0.78rem;
-}
-.tli-ar-stack .fa-stack-2x,
-.tli-ar-stack .fa-stack-1x {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-.tli-ar-stack-back {
-  font-size: 1.25em;
-  opacity: 0.42;
-  top: 0.05em;
-}
-.tli-ar-stack-front {
-  font-size: 0.78em;
-  top: 0.28em;
-  left: 0.12em;
-  opacity: 1;
-}
-.tli-ar-original .tli-ar-stack-front { left: 0.14em; }
-.tli-ar-play .tli-ar-stack-front { left: 0.1em; }
+.tli-ar-play-icon,
 .tli-ar-toggle-icon { font-size: 0.95rem; }
+.tli-ar-replay-slot {
+  box-sizing: border-box;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 2.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.tli-ar-replay-slot .tli-ar-play {
+  width: 100%;
+  height: 100%;
+}
+.tli-ar-gap {
+  box-sizing: border-box;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 2.15rem;
+  display: inline-block;
+}
+.tli-ar-replay-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
+}
 .tli-ar-toggle.is-recording {
   background: #b02a37;
   border-color: #b02a37;
   color: #fff;
 }
-.tli-ar-play { border-style: dashed; }
 .tli-ar-status {
   min-height: 1.2em;
   margin: .25rem 0 0;
@@ -65,7 +61,6 @@
   border-color: #e35d6a;
   color: #1a1a1a;
 }
-[data-theme="dark"] .tli-ar-stack-back { opacity: 0.55; }
 @media (max-width: 360px) {
   .tli-ar-row { flex-wrap: wrap; }
 }

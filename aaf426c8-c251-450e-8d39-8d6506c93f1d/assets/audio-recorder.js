@@ -232,24 +232,22 @@
   }
 
   function buildUi(root) {
-    /* Icon-only controls. Accessible names via aria-label/title (EN|KH).
-       Play buttons use fa-stack so original (play+volume) ≠ take (play+mic). */
+    /* Icon-only row: [Play original] [Replay slot] [1-button gap] [Record/Stop].
+       Replay uses assets/icons/person-speaking.svg (inlined so currentColor themes). */
+    var replayIcon = '<svg class="tli-ar-replay-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3.75 10.6c0-3.7 2.85-6.7 6.35-6.7 1.85 0 3.05.55 3.95 1.4.7.65 1.15 1.5 1.3 2.45.45.1.8.5.8.95v.2c0 .4-.25.75-.6.9.05.45.1.9.1 1.25 0 1.5-.55 2.85-1.5 3.85v.65c0 .65-.4 1.2-1 1.45l-1.35.55v1.75c0 .55-.45 1-1 1H8.7c-.55 0-1-.45-1-1v-1.75l-1.15-.55c-.65-.3-1.05-.95-1.05-1.65v-.9C4.5 13.55 3.75 12.15 3.75 10.6z"/><g fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round"><path d="M16.9 8.05c1 .8 1.6 2 1.6 3.4s-.6 2.6-1.6 3.4"/><path d="M19 6.4c1.65 1.25 2.7 3.2 2.7 5.3s-1.05 4.05-2.7 5.3"/><path d="M21.05 4.8c2.15 1.65 3.5 4.2 3.5 7s-1.35 5.35-3.5 7"/></g></svg>';
     root.innerHTML =
       '<div class="tli-ar-row" role="group" aria-label="Speaking practice">' +
         '<button type="button" class="btn btn-sm btn-outline-secondary tli-ar-original" data-ar-label="playOriginal" aria-label="' + esc(label('playOriginal')) + '" title="' + esc(label('playOriginal')) + '">' +
-          '<span class="fa-stack tli-ar-stack" aria-hidden="true">' +
-            '<i class="fa-solid fa-volume-high fa-stack-2x tli-ar-stack-back"></i>' +
-            '<i class="fa-solid fa-play fa-stack-1x tli-ar-stack-front"></i>' +
-          '</span>' +
+          '<i class="fa-solid fa-play tli-ar-play-icon" aria-hidden="true"></i>' +
         '</button>' +
+        '<div class="tli-ar-replay-slot">' +
+          '<button type="button" class="btn btn-sm btn-outline-primary tli-ar-play" data-ar-label="playRec" hidden aria-label="' + esc(label('playRec')) + '" title="' + esc(label('playRec')) + '">' +
+            replayIcon +
+          '</button>' +
+        '</div>' +
+        '<span class="tli-ar-gap" aria-hidden="true"></span>' +
         '<button type="button" class="btn btn-sm btn-primary tli-ar-toggle" data-ar-label="record" aria-pressed="false" aria-label="' + esc(label('record')) + '" title="' + esc(label('record')) + '">' +
           '<i class="fa-solid fa-microphone tli-ar-toggle-icon" aria-hidden="true"></i>' +
-        '</button>' +
-        '<button type="button" class="btn btn-sm btn-outline-primary tli-ar-play" data-ar-label="playRec" hidden aria-label="' + esc(label('playRec')) + '" title="' + esc(label('playRec')) + '">' +
-          '<span class="fa-stack tli-ar-stack" aria-hidden="true">' +
-            '<i class="fa-solid fa-microphone fa-stack-2x tli-ar-stack-back"></i>' +
-            '<i class="fa-solid fa-play fa-stack-1x tli-ar-stack-front"></i>' +
-          '</span>' +
         '</button>' +
       '</div>' +
       '<p class="tli-ar-status" role="status"></p>';
