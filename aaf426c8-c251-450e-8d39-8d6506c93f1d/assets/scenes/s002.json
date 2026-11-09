@@ -17,7 +17,7 @@
     },
     "bora": {
       "name": "Bora",
-      "gender": "male",
+      "gender": "boy",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/bora-neutral.png",
@@ -28,7 +28,7 @@
     },
     "sreyneang": {
       "name": "Sreyneang",
-      "gender": "female",
+      "gender": "girl",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/sreyneang-neutral.png",

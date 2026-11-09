@@ -303,8 +303,9 @@
       Object.keys(actors).forEach(function (aid) {
         var actor = actors[aid];
         if (!actor || typeof actor !== 'object') return;
-        if (actor.gender != null && actor.gender !== 'female' && actor.gender !== 'male') {
-          errors.push('actor ' + aid + ' gender must be female or male');
+        if (actor.gender != null && actor.gender !== 'female' && actor.gender !== 'male'
+            && actor.gender !== 'girl' && actor.gender !== 'boy') {
+          errors.push('actor ' + aid + ' gender must be female, male, girl, or boy');
         }
       });
     }
@@ -747,6 +748,10 @@
 
   function labeledGender(voice) {
     var name = String((voice && voice.name) || '');
+    if (/\bgirl\b/i.test(name)) return 'girl';
+    if (/\bboy\b/i.test(name)) return 'boy';
+    if (/\bchild\b/i.test(name) && /\bfemale\b/i.test(name)) return 'girl';
+    if (/\bchild\b/i.test(name) && /\bmale\b/i.test(name)) return 'boy';
     if (/\bfemale\b/i.test(name)) return 'female';
     if (/\bmale\b/i.test(name)) return 'male';
     var parts = name.split(/[^A-Za-z]+/);
@@ -759,6 +764,20 @@
     return '';
   }
 
+  var CHILD_PITCH = 1.3;
+
+  function adultHint(hint) {
+    if (hint === 'boy') return 'male';
+    if (hint === 'girl') return 'female';
+    if (hint === 'male' || hint === 'female') return hint;
+    return '';
+  }
+
+  function pitchForHint(hint) {
+    if (hint === 'boy' || hint === 'girl') return CHILD_PITCH;
+    return 1;
+  }
+
   Player.prototype._ensureVoiceListener = function () {
     var synth = global.speechSynthesis;
     if (this._voiceListen || !synth) return;
@@ -769,7 +788,7 @@
     else synth.onvoiceschanged = note;
   };
 
-  /* hint is female, male, or empty. Empty and a missing match both use an English voice, not a pitch change. */
+  /* hint is female, male, girl, boy, or empty. Boy/girl prefer a child-labeled voice, else adult male/female. */
   Player.prototype._voiceForGender = function (hint, key) {
     this._ensureVoiceListener();
     if (!global.speechSynthesis || !global.speechSynthesis.getVoices) return null;
@@ -785,8 +804,9 @@
       if (d) return d;
       return String(a.name || '').localeCompare(String(b.name || ''));
     });
-    var want = hint === 'female' || hint === 'male' ? hint : '';
-    var cacheKey = key || want || 'english';
+    var child = hint === 'boy' || hint === 'girl' ? hint : '';
+    var want = adultHint(hint);
+    var cacheKey = key || hint || 'english';
     var cached = this._voiceChoice[cacheKey];
     if (cached) {
       for (i = 0; i < english.length; i++) {
@@ -794,7 +814,20 @@
       }
     }
     var pool = english;
-    if (want) {
+    if (child) {
+      var childMatched = [];
+      for (i = 0; i < english.length; i++) {
+        if (labeledGender(english[i]) === child) childMatched.push(english[i]);
+      }
+      if (childMatched.length) pool = childMatched;
+      else if (want) {
+        var adultMatched = [];
+        for (i = 0; i < english.length; i++) {
+          if (labeledGender(english[i]) === want) adultMatched.push(english[i]);
+        }
+        if (adultMatched.length) pool = adultMatched;
+      }
+    } else if (want) {
       var matched = [];
       for (i = 0; i < english.length; i++) {
         if (labeledGender(english[i]) === want) matched.push(english[i]);
@@ -806,10 +839,28 @@
     return chosen || null;
   };
 
-  Player.prototype._voiceForSpeaker = function (speakerId) {
+  Player.prototype._genderHintForSpeaker = function (speakerId) {
     var actor = speakerId && this.actors[speakerId];
-    var hint = actor && (actor.gender === 'female' || actor.gender === 'male') ? actor.gender : '';
+    if (!actor) return '';
+    var g = actor.gender;
+    if (g === 'female' || g === 'male' || g === 'girl' || g === 'boy') return g;
+    return '';
+  };
+
+  Player.prototype._voiceForSpeaker = function (speakerId) {
+    var hint = this._genderHintForSpeaker(speakerId);
     return this._voiceForGender(hint, speakerId || 'line');
+  };
+
+  Player.prototype._applyVoiceToUtterance = function (u, hint, speakerId) {
+    var voice = this._voiceForGender(hint, speakerId || hint || 'line');
+    if (voice) u.voice = voice;
+    /* Pitch only for boy/girl when using adult male/female fallback (or always for child hint). */
+    var p = pitchForHint(hint);
+    if (voice && (labeledGender(voice) === 'boy' || labeledGender(voice) === 'girl')) {
+      p = 1; /* dedicated child voice — leave natural */
+    }
+    u.pitch = p;
   };
 
   Player.prototype._pickEnglishVoice = function () {
@@ -839,8 +890,7 @@
     try {
       var u = new global.SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
-      var voice = this._voiceForSpeaker(ln.speaker);
-      if (voice) u.voice = voice;
+      this._applyVoiceToUtterance(u, this._genderHintForSpeaker(ln.speaker), ln.speaker || 'line');
       var rate = this.speed();
       if (rate < 0.1) rate = 0.1;
       if (rate > 2) rate = 2;
@@ -1930,6 +1980,7 @@
       u.lang = 'en-US';
       var voice = this._pickEnglishVoice();
       if (voice) u.voice = voice;
+      u.pitch = 1;
       u.rate = 1;
       u.onend = function () {
         if (self._profSpeakGen !== gen || self._profUtterance !== u || !self.profPlaying) return;
