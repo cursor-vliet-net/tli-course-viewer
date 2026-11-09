@@ -139,7 +139,18 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
 }
 .quiz-stem .i18n-alt, .quiz-expl .i18n-alt, .quiz-name .i18n-alt { line-height: 1.7; }
 .quiz-opt label { align-items: center; }
-.q-listen { margin-left: .4rem; vertical-align: middle; }
+.q-listen {
+  margin-left: .35rem;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
 .quiz-scenario { margin: 0 0 .35rem; font-size: .95rem; }
 .quiz-help { font-weight: 700; }
 .quiz-picture-img { width: 7.5rem; height: auto; border: 1px solid var(--tli-line); border-radius: .35rem; background: transparent; }

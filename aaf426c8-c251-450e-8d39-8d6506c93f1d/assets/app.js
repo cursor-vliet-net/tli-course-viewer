@@ -125,6 +125,14 @@
       link.setAttribute('aria-label', name);
       link.title = name;
     });
+    /* Stem Listen buttons are icon-only; name them like header Read/Help (no fillBilingual). */
+    if (pack.listen != null) {
+      var listenName = String(pack.listen).trim();
+      $$('.q-listen').forEach(function (btn) {
+        btn.setAttribute('aria-label', listenName);
+        btn.title = listenName;
+      });
+    }
     document.documentElement.lang = lang === 'km' ? 'km' : 'en';
     var banner = $('#kmDraft');
     if (banner) { banner.hidden = lang !== 'km'; banner.textContent = pack.draft || ''; }
