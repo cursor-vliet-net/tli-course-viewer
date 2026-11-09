@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+  <defs>
+    <mask id="tli-ar-replay-halo">
+      <rect width="400" height="400" fill="#fff"/>
+      <path fill="#000" d="M 186.00 136.00 A 32.00 32.00 0 0 1 233.10 107.79 L 375.10 183.79 A 32.00 32.00 0 0 1 375.10 240.21 L 233.10 316.21 A 32.00 32.00 0 0 1 186.00 288.00 Z"/>
+    </mask>
+  </defs>
+  <g mask="url(#tli-ar-replay-halo)" fill="currentColor">
+    <circle cx="148" cy="137" r="67.5"/>
+    <path d="M 31.13 344 A 118 94 0 1 1 264.87 344 Q 264.87 357 251.87 357 L 44.13 357 Q 31.13 357 31.13 344 Z"/>
+  </g>
+  <path fill="currentColor" d="M 206.00 136.00 A 12.00 12.00 0 0 1 223.66 125.42 L 365.66 201.42 A 12.00 12.00 0 0 1 365.66 222.58 L 223.66 298.58 A 12.00 12.00 0 0 1 206.00 288.00 Z"/>
+</svg>

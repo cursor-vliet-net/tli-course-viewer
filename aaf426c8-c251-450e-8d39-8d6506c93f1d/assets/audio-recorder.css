@@ -1,4 +1,4 @@
-/* Spoken practice: [Play] [Replay slot] [1-button gap] [Record/Stop]. */
+/* Spoken practice: [Play] [Replay slot] [0.5-button gap] [Record/Stop]. */
 .tli-audio-recorder { margin: .35rem 0 .5rem; }
 .tli-ar-row {
   display: flex;
@@ -32,11 +32,14 @@
   width: 100%;
   height: 100%;
 }
+/* Replay always visible: disabled = 0.8, active = 1 (override Bootstrap disabled opacity). */
+.tli-ar-row .tli-ar-play:disabled { opacity: 0.8; }
+.tli-ar-row .tli-ar-play:not(:disabled) { opacity: 1; }
 .tli-ar-gap {
   box-sizing: border-box;
-  width: 2.15rem;
+  width: calc(2.15rem * 0.5);
   height: 2.15rem;
-  flex: 0 0 2.15rem;
+  flex: 0 0 calc(2.15rem * 0.5);
   display: inline-block;
 }
 .tli-ar-replay-icon {

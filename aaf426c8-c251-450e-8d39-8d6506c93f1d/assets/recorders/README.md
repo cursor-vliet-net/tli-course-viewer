@@ -2,8 +2,8 @@
 
 These configs power the in-page audio recorder. A spoken-practice mount points at a JSON
 document (file, inline blob, or object passed to the mount API). The component always
-renders the same one-line **icon-only** UI from that JSON: play original · replay slot ·
-one-button gap · record/stop (replay appears in the slot after a take). Buttons have no visible text captions; accessible
+renders the same one-line **icon-only** UI from that JSON: play original · replay (disabled until a take) ·
+half-button gap · record/stop. Buttons have no visible text captions; accessible
 names use `aria-label` / `title` in the EN|KH UI language. Takes stay in the browser; they
 are not uploaded and not scored. There are no confirm/discard/self-mark buttons.
 
@@ -71,10 +71,8 @@ One horizontal **icon-only** row:
 
 1. **Play original** — Font Awesome `fa-play`. Plays `audioFile` if present, else English
    TTS of `model.en`. Accessible name: Listen / ស្តាប់.
-2. **Replay slot** — always reserved (same size as a button). Empty until a take exists;
-   then shows the replay control with `assets/icons/person-speaking.svg` (profile + speech
-   arcs). Accessible name: Play recording / ចាក់ថត.
-3. **Gap** — empty space one button wide.
+2. **Replay slot** — always shows the replay control with `assets/icons/person-play.svg` (person silhouette + play triangle). Starts disabled at 0.8 opacity; after a take it is enabled at full opacity. Accessible name: Play recording / ចាក់ថត.
+3. **Gap** — empty space half a button wide.
 4. **Record / Stop** — `fa-microphone` when idle, `fa-stop` while recording. A new take
    replaces the previous take. Accessible names: Record / ថត and Stop / ឈប់.
 

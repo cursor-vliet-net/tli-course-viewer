@@ -4,7 +4,7 @@
      <div class="tli-audio-recorder"><script type="application/json">{…}</script></div>
      TLIAudioRecorder.mount(el, config)
    Schema: viewer/assets/recorders/README.md
-   UI: icon-only Listen (play+volume stack) · Record/Stop · Play take (play+mic stack). */
+   UI: icon-only Play · Replay slot (person-play) · 0.5-button gap · Record/Stop. */
 (function (global) {
   'use strict';
 
@@ -24,6 +24,7 @@
   };
 
   var bags = typeof WeakMap === 'function' ? new WeakMap() : null;
+  var replayMaskSeq = 0;
 
   var ASSET_BASE = (function () {
     var scripts = document.getElementsByTagName('script');
@@ -118,7 +119,9 @@
 
   function showPlayRecording(root, on) {
     var play = $('.tli-ar-play', root);
-    if (play) play.hidden = !on;
+    if (!play) return;
+    play.hidden = false;
+    play.disabled = !on;
   }
 
   function speakOriginal(root) {
@@ -232,16 +235,18 @@
   }
 
   function buildUi(root) {
-    /* Icon-only row: [Play original] [Replay slot] [1-button gap] [Record/Stop].
-       Replay uses assets/icons/person-speaking.svg (inlined so currentColor themes). */
-    var replayIcon = '<svg class="tli-ar-replay-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 148 164" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M98.98 56.20A37.31 37.31 0 1 198.71 40.07L106.20 50.20Z M85.50 63.70H108V69H85.50Z"/><path fill="currentColor" d="M15.2 146.2C11.2 145.4 10.2 142 10.3 138C10.6 120 18 105.5 32.5 97.6C38.5 94.4 43.5 92 48.2 92C54.4 97.8 70.6 97.8 76.8 92C81.5 92 86.5 94.4 92.5 97.6C107 105.5 114.4 120 114.7 138C114.8 142 113.8 145.4 109.8 146.2Z"/><g fill="none" stroke="currentColor" stroke-width="7.6" stroke-linecap="round"><path d="M116.2 50.4L133.4 41.2"/><path d="M116 60L135.2 60"/><path d="M116.2 70.2L133.4 79.4"/></g></svg>';
+    /* Icon-only row: [Play original] [Replay slot] [0.5-button gap] [Record/Stop].
+       Replay uses assets/icons/person-play.svg (inlined; unique mask id per instance). */
+    replayMaskSeq += 1;
+    var maskId = 'tli-ar-rm-' + replayMaskSeq;
+    var replayIcon = '<svg class="tli-ar-replay-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true"><defs><mask id="__MASK__"><rect width="400" height="400" fill="#fff"/><path fill="#000" d="M 186.00 136.00 A 32.00 32.00 0 0 1 233.10 107.79 L 375.10 183.79 A 32.00 32.00 0 0 1 375.10 240.21 L 233.10 316.21 A 32.00 32.00 0 0 1 186.00 288.00 Z"/></mask></defs><g mask="url(#__MASK__)" fill="currentColor"><circle cx="148" cy="137" r="67.5"/><path d="M 31.13 344 A 118 94 0 1 1 264.87 344 Q 264.87 357 251.87 357 L 44.13 357 Q 31.13 357 31.13 344 Z"/></g><path fill="currentColor" d="M 206.00 136.00 A 12.00 12.00 0 0 1 223.66 125.42 L 365.66 201.42 A 12.00 12.00 0 0 1 365.66 222.58 L 223.66 298.58 A 12.00 12.00 0 0 1 206.00 288.00 Z"/></svg>'.replace(/__MASK__/g, maskId);
     root.innerHTML =
       '<div class="tli-ar-row" role="group" aria-label="Speaking practice">' +
         '<button type="button" class="btn btn-sm btn-outline-secondary tli-ar-original" data-ar-label="playOriginal" aria-label="' + esc(label('playOriginal')) + '" title="' + esc(label('playOriginal')) + '">' +
           '<i class="fa-solid fa-play tli-ar-play-icon" aria-hidden="true"></i>' +
         '</button>' +
         '<div class="tli-ar-replay-slot">' +
-          '<button type="button" class="btn btn-sm btn-outline-primary tli-ar-play" data-ar-label="playRec" hidden aria-label="' + esc(label('playRec')) + '" title="' + esc(label('playRec')) + '">' +
+          '<button type="button" class="btn btn-sm btn-outline-primary tli-ar-play" data-ar-label="playRec" disabled aria-label="' + esc(label('playRec')) + '" title="' + esc(label('playRec')) + '">' +
             replayIcon +
           '</button>' +
         '</div>' +
