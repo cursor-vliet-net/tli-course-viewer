@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "id": "s001.say-good-morning",
+  "model": {
+    "en": "Good morning."
+  },
+  "audioFile": null
+}

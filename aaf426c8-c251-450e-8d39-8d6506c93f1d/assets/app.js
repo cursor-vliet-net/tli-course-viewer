@@ -52,20 +52,20 @@
       goals: 'Goals', editingOn: ' Editing on', editingOff: ' Editing off', viewMode: 'View mode',
       interfaceLanguage: 'Interface language', themeDark: 'Dark mode', themeLight: 'Light mode',
       draft: 'Khmer in this reader is an unreviewed draft, including question-bank prompts and feedback. It has not been checked by a native speaker. Any line without Khmer stays in English. Dialogue subtitles are a separate control, on the story player.',
-      listen: 'Listen', moveUp: 'Up', moveDown: 'Down', useTile: 'Use', record: 'Record', stopRec: 'Stop', playRec: 'Play',
+      listen: 'Listen', playOriginal: 'Listen', moveUp: 'Up', moveDown: 'Down', useTile: 'Use', record: 'Record', stopRec: 'Stop', playRec: 'Play recording',
       discardRec: 'Discard', iSaid: 'I said it', notYet: 'Not yet', met: 'Met',
       teacherListens: 'Your teacher listens. The computer does not score this.',
-      sttNote: 'Speech-to-text is not used. The recording stays in this browser until you discard it or leave the page. It is not uploaded and it is not scored.'
+      sttNote: 'Speech-to-text is not used. The recording stays in this browser. It is not uploaded and it is not scored.'
     },
     km: {
       read: ' អាន', feedback: ' មតិរបស់ខ្ញុំ', plan: ' ផែនការ', help: ' ជំនួយ', parts: 'ផ្នែក', notes: 'កំណត់ចំណាំ',
       goals: 'គោលដៅ', editingOn: ' កំពុងកែ', editingOff: ' បិទការកែ', viewMode: 'របៀបមើល',
       interfaceLanguage: 'ភាសាអេក្រង់', themeDark: 'ងងឹត', themeLight: 'ភ្លឺ',
       draft: 'អក្សរខ្មែរនៅទីនេះជាសេចក្តីព្រាង រួមទាំងសំណួរ និងមតិក្នុងធនាគារសំណួរ។ មិនទាន់មានអ្នកនិយាយភាសាខ្មែរពិនិត្យ។ ឃ្លាដែលមិនទាន់មានខ្មែរ នៅជាភាសាអង់គ្លេស។ ប៊ូតុងអក្សររត់លើរឿង គឺការកំណត់ផ្សេង។',
-      listen: 'ស្តាប់', moveUp: 'ឡើង', moveDown: 'ចុះ', useTile: 'ប្រើ', record: 'ថត', stopRec: 'ឈប់', playRec: 'ចាក់',
+      listen: 'ស្តាប់', playOriginal: 'ស្តាប់', moveUp: 'ឡើង', moveDown: 'ចុះ', useTile: 'ប្រើ', record: 'ថត', stopRec: 'ឈប់', playRec: 'ចាក់ថត',
       discardRec: 'បោះចោល', iSaid: 'ខ្ញុំបាននិយាយ', notYet: 'មិនទាន់', met: 'បាន',
       teacherListens: 'គ្រូស្តាប់។ កុំព្យូទ័រមិនដាក់ពិន្ទុទេ។',
-      sttNote: 'មិនប្រើការបំប្លែងសំឡេងទៅជាអក្សរ។ សំឡេងនៅក្នុងកម្មវិធីរុករកនេះ រហូតដល់អ្នកបោះចោល ឬចាកចេញ។ មិនផ្ញើចេញ និងមិនដាក់ពិន្ទុ។'
+      sttNote: 'មិនប្រើការបំប្លែងសំឡេងទៅជាអក្សរ។ សំឡេងនៅក្នុងកម្មវិធីរុករកនេះ។ មិនផ្ញើចេញ និងមិនដាក់ពិន្ទុ។'
     }
   };
   function uiLang() { return S.settings.uiLang === 'km' ? 'km' : 'en'; }
@@ -196,6 +196,7 @@
   function setUiLang(lang) {
     S.settings.uiLang = lang === 'km' ? 'km' : 'en';
     save(); applyUiLang(); applyTheme(); applyContentLang(document);
+    if (window.TLIAudioRecorder && window.TLIAudioRecorder.refreshLabels) window.TLIAudioRecorder.refreshLabels(document);
   }
   function setTheme(theme) {
     S.settings.theme = theme === 'dark' ? 'dark' : 'light';
@@ -511,6 +512,9 @@
     if (target) { flash(target); if (target.scrollIntoView) target.scrollIntoView({ block: 'center' }); }
     else if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) { /* jsdom */ } }
     if (window.TLIScenePlayer && window.TLIScenePlayer.mountAll) window.TLIScenePlayer.mountAll(article);
+    if (window.TLIAudioRecorder && window.TLIAudioRecorder.mountAll) window.TLIAudioRecorder.mountAll(article);
+    applyUiLang();
+    if (window.TLIAudioRecorder && window.TLIAudioRecorder.refreshLabels) window.TLIAudioRecorder.refreshLabels(article);
   }
   function flash(el) { el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1800); }
   function bodyOf(blk) { return $('[data-body]', blk); }
@@ -700,22 +704,11 @@
   function deleteItem(type, key) { delete S[type][key]; save(); }
 
   /* ---------------- quiz ---------------- */
-  var recordings = typeof WeakMap === 'function' ? new WeakMap() : null;
-  function recBag(f) {
-    if (!recordings || !f) return { url: '', stream: null, recorder: null, chunks: [] };
-    var bag = recordings.get(f);
-    if (!bag) { bag = { url: '', stream: null, recorder: null, chunks: [] }; recordings.set(f, bag); }
-    return bag;
-  }
-  function recNote(f, text) { var n = f && $('.q-rec-note', f); if (n) n.textContent = text || ''; }
   function speakEnglish(btn) {
     var text = btn.getAttribute('data-speak') || '';
     var file = btn.getAttribute('data-audio') || '';
     function tts() {
-      if (!text || !window.speechSynthesis || !window.SpeechSynthesisUtterance) {
-        recNote(btn.closest('.quiz-q'), 'English listening is not available in this browser.');
-        return;
-      }
+      if (!text || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
@@ -737,75 +730,7 @@
     if (btn.classList.contains('q-up') && li.previousElementSibling) list.insertBefore(li, li.previousElementSibling);
     if (btn.classList.contains('q-down') && li.nextElementSibling) list.insertBefore(li.nextElementSibling, li);
   }
-  function startRecording(f) {
-    if (!f) return;
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
-      recNote(f, 'Recording is not available in this browser. You can still say it aloud and mark I said it, or ask your teacher.');
-      return;
-    }
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
-      discardRecording(f, true);
-      var bag = recBag(f);
-      bag.stream = stream;
-      bag.chunks = [];
-      var rec;
-      try { rec = new MediaRecorder(stream); }
-      catch (err) {
-        stream.getTracks().forEach(function (track) { track.stop(); });
-        recNote(f, 'Recording is not available in this browser.');
-        return;
-      }
-      bag.recorder = rec;
-      rec.ondataavailable = function (ev) { if (ev.data && ev.data.size) bag.chunks.push(ev.data); };
-      rec.onstop = function () {
-        if (bag.url) URL.revokeObjectURL(bag.url);
-        bag.url = URL.createObjectURL(new Blob(bag.chunks, { type: rec.mimeType || 'audio/webm' }));
-        var play = $('.q-play', f), discard = $('.q-discard', f), stop = $('.q-stop', f), start = $('.q-rec', f);
-        if (play) play.hidden = false;
-        if (discard) discard.hidden = false;
-        if (stop) stop.hidden = true;
-        if (start) start.hidden = false;
-        recNote(f, 'Recording ready. It stays on this page only.');
-      };
-      rec.start();
-      var startBtn = $('.q-rec', f), stopBtn = $('.q-stop', f);
-      if (startBtn) startBtn.hidden = true;
-      if (stopBtn) stopBtn.hidden = false;
-      recNote(f, 'Recording…');
-    }).catch(function () {
-      recNote(f, 'The browser did not allow the microphone. Nothing was saved. You can still practise out loud.');
-    });
-  }
-  function stopRecording(f) {
-    var bag = recBag(f);
-    if (bag.recorder && bag.recorder.state === 'recording') bag.recorder.stop();
-    if (bag.stream) { bag.stream.getTracks().forEach(function (track) { track.stop(); }); bag.stream = null; }
-  }
-  function playRecording(f) {
-    var bag = recBag(f);
-    if (bag.url) new Audio(bag.url).play();
-  }
-  function discardRecording(f, silent) {
-    var bag = recBag(f);
-    if (bag.recorder && bag.recorder.state === 'recording') { try { bag.recorder.stop(); } catch (e) { /* already stopped */ } }
-    if (bag.stream) { bag.stream.getTracks().forEach(function (track) { track.stop(); }); bag.stream = null; }
-    if (bag.url) { URL.revokeObjectURL(bag.url); bag.url = ''; }
-    bag.chunks = [];
-    var play = f && $('.q-play', f), discard = f && $('.q-discard', f), stop = f && $('.q-stop', f), start = f && $('.q-rec', f);
-    if (play) play.hidden = true;
-    if (discard) discard.hidden = true;
-    if (stop) stop.hidden = true;
-    if (start) start.hidden = false;
-    if (!silent) recNote(f, 'Recording discarded. Nothing was kept.');
-  }
-  function markSelf(f, ok) {
-    if (!f) return;
-    f.classList.remove('q-right', 'q-wrong');
-    f.classList.add(ok ? 'q-right' : 'q-wrong');
-    var res = $('.quiz-result', f);
-    if (res) res.textContent = ok ? 'You marked: I said it. This is not a score from the computer.' : 'Not yet. Say the model again. This is not a score.';
-  }
-  function markObserved(f, met) {
+    function markObserved(f, met) {
     if (!f) return;
     f.classList.remove('q-right', 'q-wrong');
     f.classList.add(met ? 'q-right' : 'q-wrong');
@@ -979,7 +904,7 @@
     box.hidden = false;
   }
   function resetQuiz(q) {
-    $$('.quiz-speak', q).forEach(function (box) { discardRecording(box.closest('.quiz-q'), true); });
+    if (window.TLIAudioRecorder && window.TLIAudioRecorder.resetAll) window.TLIAudioRecorder.resetAll(q);
     var rb = $('.quiz-rtti', q); if (rb) { rb.hidden = true; rb.innerHTML = ''; }
     $$('.quiz-q', q).forEach(function (f) { f.classList.remove('q-right', 'q-wrong', 'q-none'); $('.quiz-result', f).innerHTML = ''; });
     $$('.quiz-mark', q).forEach(function (m) { m.innerHTML = ''; });
@@ -1217,12 +1142,6 @@
     if (t.closest('.quiz-retry')) { resetQuiz(t.closest('.quiz')); return; }
     if (t.closest('.q-listen')) { speakEnglish(t.closest('.q-listen')); return; }
     if (t.closest('.q-up, .q-down')) { moveTile(t.closest('.q-up, .q-down')); return; }
-    if (t.closest('.q-rec')) { startRecording(t.closest('.quiz-q')); return; }
-    if (t.closest('.q-stop')) { stopRecording(t.closest('.quiz-q')); return; }
-    if (t.closest('.q-play')) { playRecording(t.closest('.quiz-q')); return; }
-    if (t.closest('.q-discard')) { discardRecording(t.closest('.quiz-q')); return; }
-    if (t.closest('.q-said')) { markSelf(t.closest('.quiz-q'), true); return; }
-    if (t.closest('.q-notyet') && t.closest('.quiz-speak')) { markSelf(t.closest('.quiz-q'), false); return; }
     if (t.closest('.q-met')) { markObserved(t.closest('.quiz-q'), true); return; }
     if (t.closest('.q-notyet') && t.closest('.quiz-observe')) { markObserved(t.closest('.quiz-q'), false); return; }
     if (t.closest('#copyMd')) { copyText(exportMarkdown()); return; }

@@ -1,0 +1,36 @@
+/* Spoken practice: one control row (listen · record/stop · play take). */
+.tli-audio-recorder { margin: .35rem 0 .5rem; }
+.tli-ar-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: .4rem;
+  margin: 0;
+}
+.tli-ar-row .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  white-space: nowrap;
+}
+.tli-ar-toggle.is-recording {
+  background: #b02a37;
+  border-color: #b02a37;
+  color: #fff;
+}
+.tli-ar-play { border-style: dashed; }
+.tli-ar-status {
+  min-height: 1.2em;
+  margin: .25rem 0 0;
+  font-size: .9rem;
+  color: var(--tli-muted);
+}
+[data-theme="dark"] .tli-ar-status { color: var(--tli-alt); }
+[data-theme="dark"] .tli-ar-toggle.is-recording {
+  background: #e35d6a;
+  border-color: #e35d6a;
+  color: #1a1a1a;
+}
+@media (max-width: 360px) {
+  .tli-ar-row { flex-wrap: wrap; }
+}
