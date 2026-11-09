@@ -1,9 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-  <!-- Original spoken-practice icon: solid right-facing head silhouette + three speech arcs. -->
-  <path fill="currentColor" d="M3.75 10.6c0-3.7 2.85-6.7 6.35-6.7 1.85 0 3.05.55 3.95 1.4.7.65 1.15 1.5 1.3 2.45.45.1.8.5.8.95v.2c0 .4-.25.75-.6.9.05.45.1.9.1 1.25 0 1.5-.55 2.85-1.5 3.85v.65c0 .65-.4 1.2-1 1.45l-1.35.55v1.75c0 .55-.45 1-1 1H8.7c-.55 0-1-.45-1-1v-1.75l-1.15-.55c-.65-.3-1.05-.95-1.05-1.65v-.9C4.5 13.55 3.75 12.15 3.75 10.6z"/>
-  <g fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round">
-    <path d="M16.9 8.05c1 .8 1.6 2 1.6 3.4s-.6 2.6-1.6 3.4"/>
-    <path d="M19 6.4c1.65 1.25 2.7 3.2 2.7 5.3s-1.05 4.05-2.7 5.3"/>
-    <path d="M21.05 4.8c2.15 1.65 3.5 4.2 3.5 7s-1.35 5.35-3.5 7"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+  <path fill="currentColor" d="M8 30.8
+    C8.15 26.8 8.6 23.4 9.15 21.4
+    C4.4 19.6 2.55 15.8 2.7 11.6
+    C2.9 5.8 7.5 2.15 13.5 2.15
+    C18.8 2.15 21.15 5.6 20.55 12.15
+    L24.15 14.95
+    L20.7 15.55
+    L22.05 16.2
+    L20.55 16.75
+    L21.95 17.45
+    C21.15 19.15 19.95 21.05 19.05 22.45
+    C18.75 25.2 18.95 27.8 19.45 30.8
+    Z"/>
+  <g fill="none" stroke="currentColor" stroke-width="2.05" stroke-linecap="round">
+    <path d="M23.35 12.5c1.05.85 1.7 2 1.7 3.35s-.65 2.5-1.7 3.35"/>
+    <path d="M25.7 10.8c1.7 1.35 2.7 3.2 2.7 5.3s-1 3.95-2.7 5.3"/>
+    <path d="M28.05 9.15c2.25 1.75 3.55 4.25 3.55 7.05s-1.3 5.3-3.55 7.05"/>
   </g>
 </svg>

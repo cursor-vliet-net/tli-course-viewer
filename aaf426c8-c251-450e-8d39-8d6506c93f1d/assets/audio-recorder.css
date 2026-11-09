@@ -40,9 +40,10 @@
   display: inline-block;
 }
 .tli-ar-replay-icon {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.2rem;
+  height: 1.2rem;
   display: block;
+  overflow: visible;
 }
 .tli-ar-toggle.is-recording {
   background: #b02a37;
