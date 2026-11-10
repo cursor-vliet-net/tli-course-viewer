@@ -117,6 +117,7 @@
   /* Hold catalog-wide media until the first beat has been requested, so Slow 4G
      does not spend its bandwidth on later poses before the opening scene can decode. */
   var catalogMediaDeferred = true;
+  var deferredMediaPaths = [];
 
   function preloadUrl(url, opts) {
     if (!url || imageCache[url]) return imageCache[url] || null;
@@ -153,8 +154,31 @@
     }
   }
 
+  function currentSceneRel() {
+    try {
+      var h = (global.location && location.hash) || '';
+      var m = /(?:^|#|&)d-S\.(\d+)/i.exec(h);
+      if (m) return 'scenes/s00' + m[1] + '.json';
+    } catch (e) { /* no location */ }
+    return '';
+  }
+
+  function collectFirstBeatStills(data, out) {
+    if (!data) return out;
+    var sc = (data.scenes && data.scenes[0]) || null;
+    var bg = (sc && sc.background) || data.background || '';
+    if (bg && !isAnimatedUrl(bg)) out[bg] = true;
+    if (sc) collectFromStoryboard(sc, out);
+    Object.keys(out).forEach(function (rel) {
+      if (isAnimatedUrl(rel)) delete out[rel];
+    });
+    return out;
+  }
+
   function flushCatalogImagePreload() {
     catalogMediaDeferred = false;
+    deferredMediaPaths.forEach(function (rel) { preloadPath(rel, { priority: 'low' }); });
+    deferredMediaPaths = [];
     if (_castCatalog) preloadCatalogImages(_castCatalog);
   }
 
@@ -169,9 +193,15 @@
       return r.json();
     }).then(function (data) {
       if (data) {
-        var paths = {};
-        collectFromStoryboard(data, paths);
-        Object.keys(paths).forEach(preloadPath);
+        var all = {};
+        var first = {};
+        collectFromStoryboard(data, all);
+        collectFirstBeatStills(data, first);
+        var isCurrent = rel === currentSceneRel();
+        Object.keys(all).forEach(function (src) {
+          if (isCurrent && first[src] && !isAnimatedUrl(src)) preloadPath(src, { priority: 'high' });
+          else deferredMediaPaths.push(src);
+        });
       }
       return data;
     }).catch(function () { return null; });
