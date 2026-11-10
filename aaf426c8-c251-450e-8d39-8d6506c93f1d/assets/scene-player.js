@@ -129,6 +129,23 @@
     return preloadUrl(resolveUrl(rel));
   }
 
+  function isCatalogRuntimeSrc(src) {
+    if (!isRuntimeImagePath(src)) return false;
+    if (/^exports\//i.test(src)) return false;
+    return /^(?:media|assets)\//i.test(src) || !/^(?:https?:|data:|blob:)/i.test(src);
+  }
+
+  function preloadCatalogImages(catalog) {
+    var imgs = catalogImages(catalog);
+    var i, src;
+    for (i = 0; i < imgs.length; i++) {
+      src = imgs[i] && imgs[i].src;
+      if (!isCatalogRuntimeSrc(src)) continue;
+      if (imgs[i].bundle && imgs[i].bundle !== 'runtime') continue;
+      preloadPath(src);
+    }
+  }
+
   function preloadStoryboard(rel) {
     if (!rel || storyboardLoads[rel]) return storyboardLoads[rel];
     if (typeof global.fetch !== 'function') {
@@ -154,6 +171,8 @@
       collectFromStoryboard(data, own);
       Object.keys(own).forEach(preloadPath);
     }
+    if (_castCatalog && catalogImages(_castCatalog).length) preloadCatalogImages(_castCatalog);
+    else loadCastCatalog();
     var found = collectRuntimeRefs(global.TLI_DATA);
     Object.keys(found.images).forEach(preloadPath);
     var scenes = found.scenes;
@@ -273,6 +292,7 @@
       return r.json();
     }).then(function (data) {
       _castCatalog = data;
+      preloadCatalogImages(data);
       return data;
     }).catch(function () {
       _castCatalog = _castCatalog || emptyCatalog();
@@ -314,6 +334,56 @@
     if (cm == null) return null;
     var factor = typeof postureFactor === 'number' ? postureFactor : 1;
     return (cm * factor) / HEIGHT_REF_CM * HEIGHT_REF_SCALE;
+  }
+
+  function imageCanvasWidth(image) {
+    if (image && typeof image.width === 'number' && image.width > 0) return image.width;
+    return null;
+  }
+
+  function imageVisibleHeight(image) {
+    if (image && typeof image.visibleHeight === 'number' && image.visibleHeight > 0) return image.visibleHeight;
+    if (image && image.bbox && typeof image.bbox.h === 'number' && image.bbox.h > 0) return image.bbox.h;
+    return null;
+  }
+
+  function visibleHeightRatio(image) {
+    var visH = imageVisibleHeight(image);
+    var width = imageCanvasWidth(image);
+    if (!visH || !width) return null;
+    return visH / width;
+  }
+
+  function referenceVisibleRatio(catalog) {
+    var ref = catalog && catalog.height && catalog.height.visibleReference;
+    if (ref && typeof ref.visibleHeight === 'number' && typeof ref.width === 'number' && ref.visibleHeight > 0 && ref.width > 0) {
+      return ref.visibleHeight / ref.width;
+    }
+    var imgs = catalogImages(catalog);
+    var i;
+    for (i = 0; i < imgs.length; i++) {
+      if (imgs[i].id === 'bora-neutral') return visibleHeightRatio(imgs[i]);
+    }
+    return null;
+  }
+
+  /* Scale CSS width so the opaque figure height, not the padded canvas, follows heightCm. */
+  function placementScaleFor(catalog, character, image, postureFactor) {
+    var heightScale = heightScaleFor(catalog, character, postureFactor);
+    if (heightScale == null) return null;
+    var ratio = visibleHeightRatio(image);
+    var ref = referenceVisibleRatio(catalog);
+    if (!ratio || !ref) return heightScale;
+    return heightScale * ref / ratio;
+  }
+
+  function footFraction(image) {
+    if (!image || !image.bbox || typeof image.height !== 'number' || image.height <= 0) return 1;
+    var y = image.bbox.y || 0;
+    var h = image.bbox.h || 0;
+    var foot = (y + h) / image.height;
+    if (foot <= 0 || foot > 1) return 1;
+    return foot;
   }
 
   function setupOf(scene) {
@@ -597,7 +667,7 @@
     });
     var placement = opts.placement || {};
     var catalog = opts.catalog || _castCatalog;
-    var scale = (typeof placement.scale === 'number') ? placement.scale : heightScaleFor(catalog, opts.personId, pick.image && pick.image.postureFactor);
+    var scale = (typeof placement.scale === 'number') ? placement.scale : placementScaleFor(catalog, opts.personId, pick.image, pick.image && pick.image.postureFactor);
     var mirrored = !!pick.mirrored;
     if (placement.facing === 'left') mirrored = true;
     if (placement.facing === 'right') mirrored = false;
@@ -1508,8 +1578,10 @@
       btn.style.top = yPct + '%';
       return;
     }
+    var image = btn._resolved && btn._resolved.image;
+    var foot = footFraction(image);
     btn.style.left = Math.round((xPct / 100) * pw - w / 2) + 'px';
-    btn.style.top = Math.round((yPct / 100) * ph - h) + 'px';
+    btn.style.top = Math.round((yPct / 100) * ph - h * foot) + 'px';
   };
 
   Player.prototype._translation = function (ln, code) {
@@ -2596,6 +2668,15 @@
     Array.prototype.forEach.call(nodes, mount);
   }
 
+  function startEarlyPreload() {
+    loadCastCatalog();
+    preloadRuntime(null, '');
+  }
+  if (global.document) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startEarlyPreload);
+    else startEarlyPreload();
+  }
+
   global.TLIScenePlayer = {
     mount: mount,
     mountAll: mountAll,
@@ -2612,6 +2693,9 @@
     pickCastImage: pickCastImage,
     gazeToward: gazeToward,
     heightScaleFor: heightScaleFor,
+    placementScaleFor: placementScaleFor,
+    visibleHeightRatio: visibleHeightRatio,
+    footFraction: footFraction,
     heightRefCm: HEIGHT_REF_CM,
     heightRefScale: HEIGHT_REF_SCALE,
     availability: availabilityOf,

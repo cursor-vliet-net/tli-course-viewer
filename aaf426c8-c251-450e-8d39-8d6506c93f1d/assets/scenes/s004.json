@@ -68,7 +68,7 @@
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -126,7 +126,7 @@
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -174,7 +174,7 @@
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -222,7 +222,7 @@
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -270,7 +270,7 @@
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -318,7 +318,7 @@
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -366,7 +366,7 @@
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",

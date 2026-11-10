@@ -79,6 +79,13 @@
         "relativeScale": 0.96,
         "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
       }
+    },
+    "visibleReference": {
+      "character": "bora",
+      "id": "bora-neutral",
+      "width": 960,
+      "visibleHeight": 869,
+      "note": "Standing Bora's opaque height and canvas width. Placement scale uses visibleHeight / width so head-to-toe height follows heightCm and Bora stays the same on-stage size."
     }
   },
   "postureFactors": {
@@ -141,6 +148,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 254,
+        "y": 223,
+        "w": 396,
+        "h": 1168
+      },
+      "visibleWidth": 396,
+      "visibleHeight": 1168,
       "mirrorable": true
     },
     {
@@ -161,6 +178,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 183,
+        "y": 219,
+        "w": 466,
+        "h": 1171
+      },
+      "visibleWidth": 466,
+      "visibleHeight": 1171,
       "mirrorable": true
     },
     {
@@ -181,6 +208,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 178,
+        "y": 218,
+        "w": 456,
+        "h": 1172
+      },
+      "visibleWidth": 456,
+      "visibleHeight": 1172,
       "mirrorable": true
     },
     {
@@ -201,6 +238,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 249,
+        "y": 221,
+        "w": 382,
+        "h": 1169
+      },
+      "visibleWidth": 382,
+      "visibleHeight": 1169,
       "mirrorable": true
     },
     {
@@ -222,6 +269,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 253,
+        "y": 222,
+        "w": 397,
+        "h": 1169
+      },
+      "visibleWidth": 397,
+      "visibleHeight": 1169,
       "mirrorable": true
     },
     {
@@ -242,6 +299,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 291,
+        "y": 148,
+        "w": 383,
+        "h": 1241
+      },
+      "visibleWidth": 383,
+      "visibleHeight": 1241,
       "mirrorable": true
     },
     {
@@ -262,6 +329,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 190,
+        "y": 149,
+        "w": 481,
+        "h": 1241
+      },
+      "visibleWidth": 481,
+      "visibleHeight": 1241,
       "mirrorable": true
     },
     {
@@ -282,6 +359,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 280,
+        "y": 143,
+        "w": 379,
+        "h": 1248
+      },
+      "visibleWidth": 379,
+      "visibleHeight": 1248,
       "mirrorable": true
     },
     {
@@ -302,6 +389,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 301,
+        "y": 140,
+        "w": 359,
+        "h": 1250
+      },
+      "visibleWidth": 359,
+      "visibleHeight": 1250,
       "mirrorable": true
     },
     {
@@ -323,6 +420,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 291,
+        "y": 148,
+        "w": 383,
+        "h": 1241
+      },
+      "visibleWidth": 383,
+      "visibleHeight": 1241,
       "mirrorable": true
     },
     {
@@ -343,6 +450,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 322,
+        "y": 521,
+        "w": 315,
+        "h": 869
+      },
+      "visibleWidth": 315,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -363,6 +480,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 241,
+        "y": 522,
+        "w": 396,
+        "h": 868
+      },
+      "visibleWidth": 396,
+      "visibleHeight": 868,
       "mirrorable": true
     },
     {
@@ -384,6 +511,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 309,
+        "y": 517,
+        "w": 379,
+        "h": 873
+      },
+      "visibleWidth": 379,
+      "visibleHeight": 873,
       "mirrorable": true
     },
     {
@@ -404,6 +541,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 326,
+        "y": 522,
+        "w": 289,
+        "h": 868
+      },
+      "visibleWidth": 289,
+      "visibleHeight": 868,
       "mirrorable": true
     },
     {
@@ -425,6 +572,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 322,
+        "y": 521,
+        "w": 315,
+        "h": 869
+      },
+      "visibleWidth": 315,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -445,6 +602,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 269,
+        "y": 521,
+        "w": 419,
+        "h": 869
+      },
+      "visibleWidth": 419,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -465,6 +632,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 260,
+        "y": 517,
+        "w": 427,
+        "h": 873
+      },
+      "visibleWidth": 427,
+      "visibleHeight": 873,
       "mirrorable": true
     },
     {
@@ -485,6 +662,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 253,
+        "y": 515,
+        "w": 448,
+        "h": 875
+      },
+      "visibleWidth": 448,
+      "visibleHeight": 875,
       "mirrorable": true
     },
     {
@@ -505,6 +692,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 268,
+        "y": 520,
+        "w": 415,
+        "h": 870
+      },
+      "visibleWidth": 415,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -526,6 +723,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 268,
+        "y": 520,
+        "w": 422,
+        "h": 870
+      },
+      "visibleWidth": 422,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -546,6 +753,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 336,
+        "y": 620,
+        "w": 294,
+        "h": 770
+      },
+      "visibleWidth": 294,
+      "visibleHeight": 770,
       "mirrorable": true
     },
     {
@@ -566,6 +783,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 309,
+        "y": 611,
+        "w": 333,
+        "h": 779
+      },
+      "visibleWidth": 333,
+      "visibleHeight": 779,
       "mirrorable": true
     },
     {
@@ -586,6 +813,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 274,
+        "y": 619,
+        "w": 415,
+        "h": 771
+      },
+      "visibleWidth": 415,
+      "visibleHeight": 771,
       "mirrorable": true
     },
     {
@@ -606,6 +843,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 337,
+        "y": 616,
+        "w": 292,
+        "h": 774
+      },
+      "visibleWidth": 292,
+      "visibleHeight": 774,
       "mirrorable": true
     },
     {
@@ -627,6 +874,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 336,
+        "y": 620,
+        "w": 295,
+        "h": 770
+      },
+      "visibleWidth": 295,
+      "visibleHeight": 770,
       "mirrorable": true
     },
     {
@@ -647,6 +904,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 307,
+        "y": 348,
+        "w": 346,
+        "h": 1042
+      },
+      "visibleWidth": 346,
+      "visibleHeight": 1042,
       "mirrorable": true
     },
     {
@@ -667,6 +934,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 210,
+        "y": 347,
+        "w": 474,
+        "h": 1043
+      },
+      "visibleWidth": 474,
+      "visibleHeight": 1043,
       "mirrorable": true
     },
     {
@@ -687,6 +964,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 207,
+        "y": 350,
+        "w": 483,
+        "h": 1040
+      },
+      "visibleWidth": 483,
+      "visibleHeight": 1040,
       "mirrorable": true
     },
     {
@@ -707,6 +994,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 309,
+        "y": 346,
+        "w": 344,
+        "h": 1044
+      },
+      "visibleWidth": 344,
+      "visibleHeight": 1044,
       "mirrorable": true
     },
     {
@@ -728,6 +1025,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 307,
+        "y": 347,
+        "w": 346,
+        "h": 1043
+      },
+      "visibleWidth": 346,
+      "visibleHeight": 1043,
       "mirrorable": true
     },
     {
@@ -748,6 +1055,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 276,
+        "y": 174,
+        "w": 411,
+        "h": 1216
+      },
+      "visibleWidth": 411,
+      "visibleHeight": 1216,
       "mirrorable": true
     },
     {
@@ -768,6 +1085,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 182,
+        "y": 170,
+        "w": 534,
+        "h": 1220
+      },
+      "visibleWidth": 534,
+      "visibleHeight": 1220,
       "mirrorable": true
     },
     {
@@ -788,6 +1115,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 280,
+        "y": 161,
+        "w": 520,
+        "h": 1228
+      },
+      "visibleWidth": 520,
+      "visibleHeight": 1228,
       "mirrorable": true
     },
     {
@@ -808,6 +1145,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 295,
+        "y": 172,
+        "w": 435,
+        "h": 1219
+      },
+      "visibleWidth": 435,
+      "visibleHeight": 1219,
       "mirrorable": true
     },
     {
@@ -829,6 +1176,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 276,
+        "y": 173,
+        "w": 411,
+        "h": 1217
+      },
+      "visibleWidth": 411,
+      "visibleHeight": 1217,
       "mirrorable": true
     },
     {
@@ -849,6 +1206,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 290,
+        "y": 223,
+        "w": 366,
+        "h": 1166
+      },
+      "visibleWidth": 366,
+      "visibleHeight": 1166,
       "mirrorable": false
     },
     {
@@ -869,6 +1236,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 221,
+        "y": 223,
+        "w": 435,
+        "h": 1167
+      },
+      "visibleWidth": 435,
+      "visibleHeight": 1167,
       "mirrorable": false
     },
     {
@@ -889,6 +1266,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 297,
+        "y": 223,
+        "w": 487,
+        "h": 1166
+      },
+      "visibleWidth": 487,
+      "visibleHeight": 1166,
       "mirrorable": false
     },
     {
@@ -909,6 +1296,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 304,
+        "y": 221,
+        "w": 330,
+        "h": 1169
+      },
+      "visibleWidth": 330,
+      "visibleHeight": 1169,
       "mirrorable": false
     },
     {
@@ -930,6 +1327,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 290,
+        "y": 223,
+        "w": 366,
+        "h": 1166
+      },
+      "visibleWidth": 366,
+      "visibleHeight": 1166,
       "mirrorable": false
     },
     {
@@ -950,6 +1357,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 288,
+        "y": 298,
+        "w": 373,
+        "h": 1093
+      },
+      "visibleWidth": 373,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -970,6 +1387,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 229,
+        "y": 292,
+        "w": 439,
+        "h": 1098
+      },
+      "visibleWidth": 439,
+      "visibleHeight": 1098,
       "mirrorable": false
     },
     {
@@ -990,6 +1417,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 193,
+        "y": 290,
+        "w": 468,
+        "h": 1100
+      },
+      "visibleWidth": 468,
+      "visibleHeight": 1100,
       "mirrorable": false
     },
     {
@@ -1010,6 +1447,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 309,
+        "y": 282,
+        "w": 358,
+        "h": 1109
+      },
+      "visibleWidth": 358,
+      "visibleHeight": 1109,
       "mirrorable": false
     },
     {
@@ -1031,6 +1478,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 288,
+        "y": 298,
+        "w": 373,
+        "h": 1093
+      },
+      "visibleWidth": 373,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -1052,6 +1509,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 289,
+        "y": 149,
+        "w": 437,
+        "h": 1241
+      },
+      "visibleWidth": 437,
+      "visibleHeight": 1241,
       "mirrorable": true
     },
     {
@@ -1073,6 +1540,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 172,
+        "y": 140,
+        "w": 555,
+        "h": 1251
+      },
+      "visibleWidth": 555,
+      "visibleHeight": 1251,
       "mirrorable": true
     },
     {
@@ -1095,6 +1572,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 197,
+        "y": 120,
+        "w": 530,
+        "h": 1270
+      },
+      "visibleWidth": 530,
+      "visibleHeight": 1270,
       "mirrorable": true
     },
     {
@@ -1116,6 +1603,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 286,
+        "y": 141,
+        "w": 434,
+        "h": 1249
+      },
+      "visibleWidth": 434,
+      "visibleHeight": 1249,
       "mirrorable": true
     },
     {
@@ -1138,6 +1635,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 289,
+        "y": 148,
+        "w": 437,
+        "h": 1242
+      },
+      "visibleWidth": 437,
+      "visibleHeight": 1242,
       "mirrorable": true
     },
     {
@@ -1159,6 +1666,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 214,
+        "y": 235,
+        "w": 477,
+        "h": 1156
+      },
+      "visibleWidth": 477,
+      "visibleHeight": 1156,
       "mirrorable": false
     },
     {
@@ -1180,6 +1697,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 216,
+        "y": 229,
+        "w": 476,
+        "h": 1162
+      },
+      "visibleWidth": 476,
+      "visibleHeight": 1162,
       "mirrorable": false
     },
     {
@@ -1202,6 +1729,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 208,
+        "y": 221,
+        "w": 484,
+        "h": 1169
+      },
+      "visibleWidth": 484,
+      "visibleHeight": 1169,
       "mirrorable": false
     },
     {
@@ -1223,6 +1760,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 214,
+        "y": 234,
+        "w": 477,
+        "h": 1156
+      },
+      "visibleWidth": 477,
+      "visibleHeight": 1156,
       "mirrorable": false
     },
     {
@@ -1245,6 +1792,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 214,
+        "y": 235,
+        "w": 477,
+        "h": 1156
+      },
+      "visibleWidth": 477,
+      "visibleHeight": 1156,
       "mirrorable": false
     },
     {
@@ -1265,6 +1822,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 301,
+        "y": 199,
+        "w": 429,
+        "h": 1192
+      },
+      "visibleWidth": 429,
+      "visibleHeight": 1192,
       "mirrorable": true
     },
     {
@@ -1285,6 +1852,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 302,
+        "y": 207,
+        "w": 389,
+        "h": 1184
+      },
+      "visibleWidth": 389,
+      "visibleHeight": 1184,
       "mirrorable": true
     },
     {
@@ -1306,6 +1883,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 225,
+        "y": 197,
+        "w": 505,
+        "h": 1194
+      },
+      "visibleWidth": 505,
+      "visibleHeight": 1194,
       "mirrorable": true
     },
     {
@@ -1326,6 +1913,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 306,
+        "y": 195,
+        "w": 375,
+        "h": 1196
+      },
+      "visibleWidth": 375,
+      "visibleHeight": 1196,
       "mirrorable": true
     },
     {
@@ -1347,6 +1944,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 301,
+        "y": 199,
+        "w": 429,
+        "h": 1192
+      },
+      "visibleWidth": 429,
+      "visibleHeight": 1192,
       "mirrorable": true
     },
     {
@@ -1618,6 +2225,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 430,
+      "height": 407,
+      "bbox": {
+        "x": 12,
+        "y": 1,
+        "w": 418,
+        "h": 406
+      },
+      "visibleWidth": 418,
+      "visibleHeight": 406,
       "mirrorable": true
     },
     {
@@ -1638,6 +2255,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 430,
+      "height": 407,
+      "bbox": {
+        "x": 12,
+        "y": 1,
+        "w": 418,
+        "h": 406
+      },
+      "visibleWidth": 418,
+      "visibleHeight": 406,
       "mirrorable": true
     },
     {
@@ -1675,6 +2302,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 306,
+        "y": 298,
+        "w": 347,
+        "h": 1093
+      },
+      "visibleWidth": 347,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -1694,6 +2331,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 314,
+        "y": 298,
+        "w": 357,
+        "h": 1092
+      },
+      "visibleWidth": 357,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -1713,6 +2360,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 294,
+        "y": 298,
+        "w": 358,
+        "h": 1093
+      },
+      "visibleWidth": 358,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -1732,6 +2389,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "sitting",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 213,
+        "y": 284,
+        "w": 480,
+        "h": 1107
+      },
+      "visibleWidth": 480,
+      "visibleHeight": 1107,
       "mirrorable": false
     },
     {
@@ -1751,6 +2418,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "sitting",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 281,
+        "y": 284,
+        "w": 470,
+        "h": 1106
+      },
+      "visibleWidth": 470,
+      "visibleHeight": 1106,
       "mirrorable": false
     },
     {
@@ -1769,6 +2446,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "walking",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 258,
+        "y": 298,
+        "w": 496,
+        "h": 1092
+      },
+      "visibleWidth": 496,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -1787,6 +2474,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "walking",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 229,
+        "y": 298,
+        "w": 496,
+        "h": 1093
+      },
+      "visibleWidth": 496,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -1806,6 +2503,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 308,
+        "y": 298,
+        "w": 488,
+        "h": 1092
+      },
+      "visibleWidth": 488,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -1825,6 +2532,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 298,
+        "y": 298,
+        "w": 531,
+        "h": 1093
+      },
+      "visibleWidth": 531,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -1845,6 +2562,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 305,
+        "y": 296,
+        "w": 349,
+        "h": 1095
+      },
+      "visibleWidth": 349,
+      "visibleHeight": 1095,
       "mirrorable": false
     },
     {
@@ -1865,6 +2592,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 294,
+        "y": 297,
+        "w": 359,
+        "h": 1094
+      },
+      "visibleWidth": 359,
+      "visibleHeight": 1094,
       "mirrorable": false
     },
     {
@@ -1884,6 +2621,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "sitting",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 307,
+        "y": 531,
+        "w": 339,
+        "h": 859
+      },
+      "visibleWidth": 339,
+      "visibleHeight": 859,
       "mirrorable": true
     },
     {
@@ -1902,6 +2649,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "walking",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 301,
+        "y": 520,
+        "w": 364,
+        "h": 871
+      },
+      "visibleWidth": 364,
+      "visibleHeight": 871,
       "mirrorable": true
     },
     {
@@ -1921,6 +2678,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 338,
+        "y": 521,
+        "w": 400,
+        "h": 869
+      },
+      "visibleWidth": 400,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -1940,6 +2707,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 339,
+        "y": 521,
+        "w": 396,
+        "h": 869
+      },
+      "visibleWidth": 396,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -1959,6 +2736,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 337,
+        "y": 520,
+        "w": 266,
+        "h": 870
+      },
+      "visibleWidth": 266,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -1979,6 +2766,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 337,
+        "y": 519,
+        "w": 266,
+        "h": 871
+      },
+      "visibleWidth": 266,
+      "visibleHeight": 871,
       "mirrorable": true
     },
     {
@@ -1998,6 +2795,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "sitting",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 263,
+        "y": 561,
+        "w": 404,
+        "h": 829
+      },
+      "visibleWidth": 404,
+      "visibleHeight": 829,
       "mirrorable": true
     },
     {
@@ -2016,6 +2823,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "walking",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 271,
+        "y": 521,
+        "w": 408,
+        "h": 869
+      },
+      "visibleWidth": 408,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -2035,6 +2852,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 264,
+        "y": 520,
+        "w": 469,
+        "h": 870
+      },
+      "visibleWidth": 469,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -2054,6 +2881,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 273,
+        "y": 521,
+        "w": 373,
+        "h": 870
+      },
+      "visibleWidth": 373,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -2074,6 +2911,16 @@
       "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 273,
+        "y": 520,
+        "w": 373,
+        "h": 871
+      },
+      "visibleWidth": 373,
+      "visibleHeight": 871,
       "mirrorable": true
     },
     {
@@ -2094,6 +2941,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "sitting",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 235,
+        "y": 197,
+        "w": 669,
+        "h": 1194
+      },
+      "visibleWidth": 669,
+      "visibleHeight": 1194,
       "mirrorable": true
     },
     {
@@ -2113,6 +2970,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "walking",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 226,
+        "y": 148,
+        "w": 519,
+        "h": 1242
+      },
+      "visibleWidth": 519,
+      "visibleHeight": 1242,
       "mirrorable": true
     },
     {
@@ -2133,6 +3000,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 24,
+        "y": 149,
+        "w": 628,
+        "h": 1242
+      },
+      "visibleWidth": 628,
+      "visibleHeight": 1242,
       "mirrorable": true
     },
     {
@@ -2153,6 +3030,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 289,
+        "y": 148,
+        "w": 438,
+        "h": 1242
+      },
+      "visibleWidth": 438,
+      "visibleHeight": 1242,
       "mirrorable": true
     },
     {
@@ -2174,6 +3061,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 289,
+        "y": 146,
+        "w": 440,
+        "h": 1244
+      },
+      "visibleWidth": 440,
+      "visibleHeight": 1244,
       "mirrorable": true
     },
     {
@@ -2192,6 +3089,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "walking",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 215,
+        "y": 198,
+        "w": 546,
+        "h": 1193
+      },
+      "visibleWidth": 546,
+      "visibleHeight": 1193,
       "mirrorable": true
     },
     {
@@ -2211,6 +3118,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 301,
+        "y": 198,
+        "w": 424,
+        "h": 1191
+      },
+      "visibleWidth": 424,
+      "visibleHeight": 1191,
       "mirrorable": true
     },
     {
@@ -2231,6 +3148,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 301,
+        "y": 197,
+        "w": 424,
+        "h": 1192
+      },
+      "visibleWidth": 424,
+      "visibleHeight": 1192,
       "mirrorable": true
     },
     {
@@ -2250,6 +3177,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 355,
+        "y": 223,
+        "w": 304,
+        "h": 1167
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 1167,
       "mirrorable": false
     },
     {
@@ -2269,6 +3206,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 332,
+        "y": 223,
+        "w": 337,
+        "h": 1167
+      },
+      "visibleWidth": 337,
+      "visibleHeight": 1167,
       "mirrorable": false
     },
     {
@@ -2289,6 +3236,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 215,
+        "y": 234,
+        "w": 475,
+        "h": 1156
+      },
+      "visibleWidth": 475,
+      "visibleHeight": 1156,
       "mirrorable": false
     },
     {
@@ -2309,6 +3266,16 @@
       "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
       "posture": "standing",
       "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 222,
+        "y": 233,
+        "w": 465,
+        "h": 1157
+      },
+      "visibleWidth": 465,
+      "visibleHeight": 1157,
       "mirrorable": false
     }
   ]

@@ -85,7 +85,7 @@
           "id": "yeay-chan",
           "sprite": "speak",
           "x": 26,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -201,7 +201,7 @@
           "id": "yeay-chan",
           "sprite": "speak",
           "x": 26,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -259,7 +259,7 @@
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -307,7 +307,7 @@
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -355,7 +355,7 @@
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
@@ -451,7 +451,7 @@
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
-          "y": 93
+          "y": 95
         },
         {
           "id": "bora",
