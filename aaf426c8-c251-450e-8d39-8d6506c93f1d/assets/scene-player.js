@@ -417,6 +417,8 @@
     this._spriteCache = [];
     this._voiceChoice = {};
     this._profTick = null;
+    this._profStartTimer = null;
+    this._profSpeakGen = 0;
     this._build();
     this._bind();
     this._preloadSprites();
@@ -764,12 +766,14 @@
     return '';
   }
 
-  /* Pitch ladder when the chosen voice is not a matching gendered label (common on Android). */
-  var MALE_FALLBACK_PITCH = 0.7;
-  var FEMALE_FALLBACK_PITCH = 1.25;
-  var BOY_PITCH = 1.6;
-  var GIRL_PITCH = 1.9;
+  /* Extreme TTS pitch ladder by character gender hint (SpeechSynthesis range is 0–2).
+     Always applied, including when a matching labeled voice is found. Recorded files are not shifted. */
+  var MALE_FALLBACK_PITCH = 0.1;
+  var FEMALE_FALLBACK_PITCH = 1.5;
+  var BOY_PITCH = 1.8;
+  var GIRL_PITCH = 2.0;
   /* CHILD_PITCH removed: boy/girl use distinct BOY_PITCH / GIRL_PITCH. */
+  var PROF_START_DELAY_MS = 1000;
 
   function adultHint(hint) {
     if (hint === 'boy') return 'male';
@@ -786,10 +790,9 @@
     return 1;
   }
 
-  /* Dedicated match keeps pitch 1; otherwise use the fallback ladder (Android unlabeled voices). */
-  function pitchForVoiceHint(hint, voice) {
+  /* Always apply the ladder for the character hint. A matching labeled voice does not reset pitch to 1. */
+  function pitchForVoiceHint(hint) {
     if (!hint) return 1;
-    if (voice && labeledGender(voice) === hint) return 1;
     return fallbackPitchForHint(hint);
   }
 
@@ -876,7 +879,7 @@
     var voice = this._voiceForGender(hint, speakerId || hint || 'line');
     if (voice) u.voice = voice;
     u.lang = utteranceLangFor(voice);
-    u.pitch = pitchForVoiceHint(hint, voice);
+    u.pitch = pitchForVoiceHint(hint);
   };
 
   Player.prototype._pickEnglishVoice = function () {
@@ -1532,6 +1535,10 @@
 
   Player.prototype._stopProfSound = function () {
     this._profSpeakGen = (this._profSpeakGen || 0) + 1;
+    if (this._profStartTimer) {
+      clearTimeout(this._profStartTimer);
+      this._profStartTimer = null;
+    }
     if (this.profAudio) {
       try { this.profAudio.pause(); this.profAudio.removeAttribute('src'); this.profAudio.load(); } catch (e) { /* ignore */ }
       this.profAudio = null;
@@ -1924,10 +1931,30 @@
     if (!this.profPlaying) return;
     var seg = segs[this._profLineIndex];
     if (!seg) { this._finishProfessor(); return; }
+    var gen = this._profSpeakGen;
+    /* Idle face during the lead-in; talking animation starts with the speech. */
+    if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, false);
+    if (this._profStartTimer) {
+      clearTimeout(this._profStartTimer);
+      this._profStartTimer = null;
+    }
+    this._profStartTimer = setTimeout(function () {
+      self._profStartTimer = null;
+      if (self._profSpeakGen !== gen || !self.profPlaying) return;
+      self._beginCurrentSegment(gen);
+    }, PROF_START_DELAY_MS);
+  };
+
+  Player.prototype._beginCurrentSegment = function (gen) {
+    var self = this;
+    if (!this.profPlaying || this._profSpeakGen !== gen) return;
+    var segs = this._profSegments();
+    var seg = segs[this._profLineIndex];
+    if (!seg) { this._finishProfessor(); return; }
     var ex = this._openExplanation;
     var code = this._profCode();
     var filePath = ex && ex.audio && ex.audio[code];
-    var gen = this._profSpeakGen;
+    if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, true);
     if (filePath) {
       var next = segs[this._profLineIndex + 1];
       var endAt = next ? next.atMs / 1000 : null;
@@ -1955,7 +1982,7 @@
             self._kmAudioFailed = true;
             self.profLang = 'en';
             self._syncProfLang();
-            self._speakCurrentSegment();
+            self._beginCurrentSegment(gen);
             return;
           }
           self._speakOneLine(seg.text, gen);
@@ -1967,7 +1994,7 @@
           this._kmAudioFailed = true;
           this.profLang = 'en';
           this._syncProfLang();
-          this._speakCurrentSegment();
+          this._beginCurrentSegment(gen);
           return;
         }
         this._speakOneLine(seg.text, gen);
@@ -1978,7 +2005,7 @@
       this._kmAudioFailed = true;
       this.profLang = 'en';
       this._syncProfLang();
-      this._speakCurrentSegment();
+      this._beginCurrentSegment(gen);
       return;
     }
     this._speakOneLine(seg.text, gen);
@@ -1995,8 +2022,8 @@
       var voice = this._pickEnglishVoice();
       if (voice) u.voice = voice;
       u.lang = utteranceLangFor(voice);
-      /* Professor is male: natural pitch on a male-labeled voice; else MALE_FALLBACK_PITCH. */
-      u.pitch = pitchForVoiceHint('male', voice);
+      /* Professor always uses the male pitch, even on a male-labeled voice. */
+      u.pitch = pitchForVoiceHint('male');
       u.rate = 1;
       u.onend = function () {
         if (self._profSpeakGen !== gen || self._profUtterance !== u || !self.profPlaying) return;
@@ -2033,7 +2060,7 @@
     this._stopProfSound();
     this.profPlaying = true;
     this._setProfPlayIcon(true);
-    if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, true);
+    if (this.profImg) this._renderProfFace(this.profImg, this.profFallback, false);
     this._setProfStatus('');
     this._speakCurrentSegment();
   };
@@ -2143,6 +2170,7 @@
     windowDefaultMs: PROF_WINDOW_MS,
     minVisibleMs: PROF_MIN_VISIBLE_MS,
     fadeMs: PROF_FADE_MS,
+    profStartDelayMs: PROF_START_DELAY_MS,
     collectRuntimeRefs: collectRuntimeRefs,
     collectFromStoryboard: function (data) {
       var out = {};
