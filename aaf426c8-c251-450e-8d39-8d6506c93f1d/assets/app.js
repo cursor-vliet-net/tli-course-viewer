@@ -182,14 +182,20 @@
     return '<span class="q-letter-forms">' + html + '</span>';
   }
   var STEM_TRAIL_PUNCT = /^(\s*[?!.…,;:¿¡។៕？！．、]+)([\s\S]*)$/;
-  function slotLetterStem(template, sample, printFamily, cursiveFamily) {
-    var printForms = '<span class="q-letter-forms">' + letterPrintSpan(sample, printFamily, 'q-letter-sample') + '</span>';
-    var cursive = cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily);
+  function sampleGlyphHtml(sample, family, form) {
+    var handwritten = form === 'handwritten';
+    var generic = handwritten ? 'cursive, sans-serif' : 'sans-serif';
+    var cls = handwritten ? 'q-letter-sample q-letter-cursive' : 'q-letter-sample';
+    return '<span class="q-letter-forms"><span class="' + cls + '" lang="en" style="font-family:' +
+      safeFontFamily(family, generic) + '">' + esc(sample) + '</span></span>';
+  }
+  function slotLetterStem(template, sample, family, form) {
+    var glyph = sampleGlyphHtml(sample, family, form);
     var parts = String(template || '').split('{sample}');
     var before = parts[0], after = parts.length > 1 ? parts.slice(1).join('{sample}') : '';
     var m = after.match(STEM_TRAIL_PUNCT);
-    if (m) return esc(before) + printForms + esc(m[1]) + cursive + esc(m[2]);
-    return esc(before) + printForms + cursive + esc(after);
+    if (m) return esc(before) + glyph + esc(m[1]) + esc(m[2]);
+    return esc(before) + glyph + esc(after);
   }
   function applyCursiveLabels(root) {
     $$('[data-cursive-letter]', root || document).forEach(function (el) {
@@ -211,14 +217,14 @@
   function renderLetterPrompt(el) {
     var sample = el.getAttribute('data-sample') || '';
     var printFamily = el.getAttribute('data-font-sample');
-    var cursiveFamily = el.getAttribute('data-font-cursive');
+    var form = el.getAttribute('data-letter-form') || '';
     var en = el.getAttribute('data-en') || '';
     var kmPrompt = el.getAttribute('data-km') || '';
     var useKm = uiLang() === 'km' && kmPrompt && kmPrompt !== en;
-    var primary = slotLetterStem(useKm ? kmPrompt : en, sample, printFamily, cursiveFamily);
+    var primary = slotLetterStem(useKm ? kmPrompt : en, sample, printFamily, form);
     var altTpl = useKm ? en : kmPrompt;
     var alt = altTpl && altTpl !== (useKm ? kmPrompt : en)
-      ? slotLetterStem(altTpl, sample, printFamily, cursiveFamily) : '';
+      ? slotLetterStem(altTpl, sample, printFamily, form) : '';
     if (!alt || plainFromHtml(alt) === plainFromHtml(primary)) el.innerHTML = primary;
     else el.innerHTML = '<span class="i18n-primary" lang="' + (useKm ? 'km' : 'en') + '">' + primary + '</span>' +
       '<span class="i18n-alt" lang="' + (useKm ? 'en' : 'km') + '">' + alt + '</span>';

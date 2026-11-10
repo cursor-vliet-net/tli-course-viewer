@@ -151,9 +151,11 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
   line-height: 1.35; font-size: 2.6em; color: inherit; vertical-align: middle;
 }
 .q-letter-card .q-letter-cursive { margin: 0; padding: 0; line-height: 1.2; }
+.quiz-stem-text .q-letter-sample,
 .quiz-stem-text .q-letter-cursive {
-  margin-inline-start: .2em; margin-inline-end: .45em; padding-inline-end: .15em; line-height: 1.4;
+  margin-inline-start: .15em; margin-inline-end: .45em; padding-inline-end: .15em;
 }
+.quiz-stem-text .q-letter-cursive { line-height: 1.4; }
 .quiz-opt .q-letter-forms { min-height: 4.15em; padding-block: .1em; }
 .letter-intro { margin: .35rem 0 1rem; max-width: 36rem; }
 .letter-intro-forms {
