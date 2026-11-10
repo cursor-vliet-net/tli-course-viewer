@@ -7,6 +7,9 @@
 .tli-sp.is-fullscreen .tli-sp-stage { max-height: 100%; }
 .tli-sp-bg { position: absolute; inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .tli-sp-actors { position: absolute; inset: 0; }
+/* Reserved 16:9 box stays up; first-beat art is held until img.decode() finishes. */
+.tli-sp-decoding .tli-sp-bg,
+.tli-sp-decoding .tli-sp-actors { opacity: 0; }
 /* No CSS filter or transform on the picture. Those composite the image and Windows Chrome then holds an APNG on its first frame. Position is set in pixels after layout. */
 .tli-sp-actor { position: absolute; border: 0; background: transparent; padding: 0; cursor: default; width: calc(22% * var(--sp-scale, 1)); max-width: calc(9.5rem * var(--sp-scale, 1)); min-width: calc(4.5rem * var(--sp-scale, 1)); z-index: 2; }
 .tli-sp-actor.is-clickable { cursor: pointer; }

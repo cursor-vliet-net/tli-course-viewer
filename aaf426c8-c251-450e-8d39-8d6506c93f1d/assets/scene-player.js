@@ -149,19 +149,62 @@
   function preloadStoryboard(rel) {
     if (!rel || storyboardLoads[rel]) return storyboardLoads[rel];
     if (typeof global.fetch !== 'function') {
-      storyboardLoads[rel] = Promise.resolve();
+      storyboardLoads[rel] = Promise.resolve(null);
       return storyboardLoads[rel];
     }
     storyboardLoads[rel] = global.fetch(resolveUrl(rel)).then(function (r) {
       if (!r || !r.ok) return null;
       return r.json();
     }).then(function (data) {
-      if (!data) return;
-      var paths = {};
-      collectFromStoryboard(data, paths);
-      Object.keys(paths).forEach(preloadPath);
-    }).catch(function () { /* one missing storyboard does not block the rest */ });
+      if (data) {
+        var paths = {};
+        collectFromStoryboard(data, paths);
+        Object.keys(paths).forEach(preloadPath);
+      }
+      return data;
+    }).catch(function () { return null; });
     return storyboardLoads[rel];
+  }
+
+  function isAnimatedUrl(url) {
+    return /\.(?:apng|gif)(?:\?|$)/i.test(url || '');
+  }
+
+  function whenLoaded(img) {
+    return new Promise(function (resolve) {
+      if (!img) { resolve(); return; }
+      if (img.complete) { resolve(); return; }
+      var done = function () {
+        img.removeEventListener('load', done);
+        img.removeEventListener('error', done);
+        resolve();
+      };
+      img.addEventListener('load', done);
+      img.addEventListener('error', done);
+    });
+  }
+
+  /* decode() on the displayed still (or a still background) so the first beat
+     is painted only when the bitmap is ready. Never decode() a detached APNG
+     preload Image — that can pin the loop on frame 1. */
+  function whenDisplayedImageReady(img) {
+    if (!img || !img.getAttribute('src')) return Promise.resolve();
+    var src = img.getAttribute('src') || img.src || '';
+    if (typeof img.decode === 'function' && !isAnimatedUrl(src)) {
+      return img.decode().catch(function () { return whenLoaded(img); });
+    }
+    return whenLoaded(img);
+  }
+
+  function whenBackgroundReady(url) {
+    if (!url) return Promise.resolve();
+    var im;
+    try { im = new global.Image(); } catch (e) { return Promise.resolve(); }
+    try { im.src = url; } catch (e2) { return Promise.resolve(); }
+    if (typeof im.decode === 'function' && !isAnimatedUrl(url)) {
+      return im.decode().catch(function () { return whenLoaded(im); });
+    }
+    return whenLoaded(im);
   }
 
   function preloadRuntime(data, rel) {
@@ -904,12 +947,33 @@
     this._profSpeakGen = 0;
     this._build();
     this._bind();
+    this.root.classList.add('tli-sp-decoding');
     this._preloadSprites();
     this.goTo(0, { auto: false });
     var self = this;
-    loadCastCatalog().then(function () {
+    this._firstReveal = loadCastCatalog().then(function () {
       if (!self.root || !self.scenes) return;
       self._renderPlacements(self.scenes[self.index]);
+      return self._revealWhenDecoded();
+    }).catch(function () {
+      if (self.root) self.root.classList.remove('tli-sp-decoding');
+    });
+  }
+
+  /* Hold the stage until catalog-resolved first-beat stills have decoded. */
+  Player.prototype._revealWhenDecoded = function () {
+    var self = this;
+    var imgs = this.actorsEl ? this.actorsEl.querySelectorAll('img[src]') : [];
+    var sc = this.scenes && this.scenes[this.index];
+    var bgPath = (sc && sc.background) || this.data.background || '';
+    var tasks = [];
+    Array.prototype.forEach.call(imgs, function (img) { tasks.push(whenDisplayedImageReady(img)); });
+    if (bgPath) tasks.push(whenBackgroundReady(resolveUrl(bgPath)));
+    var timeout = new Promise(function (resolve) { setTimeout(resolve, 8000); });
+    return Promise.race([Promise.all(tasks), timeout]).then(function () {
+      if (!self.root) return;
+      Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
+      self.root.classList.remove('tli-sp-decoding');
     });
   }
 
@@ -1802,6 +1866,16 @@
 
   Player.prototype.play = function (opts) {
     opts = opts || {};
+    var selfPlay = this;
+    if (this.root && this.root.classList.contains('tli-sp-decoding') && this._firstReveal) {
+      if (this._playAfterReveal) return;
+      this._playAfterReveal = true;
+      this._firstReveal.then(function () {
+        selfPlay._playAfterReveal = false;
+        selfPlay.play(opts);
+      });
+      return;
+    }
     if (!this.scenes.length) return;
     this._lineReplayActor = null;
     this._profHold = null;
@@ -2644,16 +2718,13 @@
     var rel = el.getAttribute('data-scene');
     if (!rel) return;
     el.setAttribute('data-tli-sp', '1');
-    var doFetch = global.fetch;
-    if (typeof doFetch !== 'function') {
+    if (typeof global.fetch !== 'function') {
       el.classList.add('tli-sp', 'tli-sp-error');
       el.innerHTML = '<p class="tli-sp-err">Could not load storyboard <code>' + esc(rel) + '</code>.</p>';
       return;
     }
-    doFetch(resolveUrl(rel)).then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    }).then(function (data) {
+    preloadStoryboard(rel).then(function (data) {
+      if (!data) throw new Error('empty storyboard');
       new Player(el, data);
     }).catch(function (err) {
       el.classList.add('tli-sp', 'tli-sp-error');
@@ -2673,8 +2744,9 @@
     preloadRuntime(null, '');
   }
   if (global.document) {
+    /* Start as soon as this file runs — do not wait for layout, mode, or DOMContentLoaded. */
+    startEarlyPreload();
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startEarlyPreload);
-    else startEarlyPreload();
   }
 
   global.TLIScenePlayer = {
