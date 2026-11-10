@@ -162,6 +162,16 @@
             "x": 36,
             "y": 78
           }
+        ],
+        "people": [
+          {
+            "id": "kru-sopheak",
+            "pose": "giving"
+          },
+          {
+            "id": "bora",
+            "pose": "receiving"
+          }
         ]
       },
       "placements": [
@@ -224,6 +234,16 @@
             "label": "a book",
             "x": 36,
             "y": 78
+          }
+        ],
+        "people": [
+          {
+            "id": "kru-sopheak",
+            "pose": "giving"
+          },
+          {
+            "id": "bora",
+            "pose": "receiving"
           }
         ]
       },
@@ -288,6 +308,16 @@
             "x": 36,
             "y": 78
           }
+        ],
+        "people": [
+          {
+            "id": "kru-sopheak",
+            "pose": "giving"
+          },
+          {
+            "id": "bora",
+            "pose": "receiving"
+          }
         ]
       },
       "placements": [
@@ -350,6 +380,16 @@
             "label": "a book",
             "x": 36,
             "y": 78
+          }
+        ],
+        "people": [
+          {
+            "id": "bora",
+            "pose": "giving"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "receiving"
           }
         ]
       },
@@ -414,6 +454,16 @@
             "x": 36,
             "y": 78
           }
+        ],
+        "people": [
+          {
+            "id": "bora",
+            "pose": "giving"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "receiving"
+          }
         ]
       },
       "placements": [
@@ -476,6 +526,16 @@
             "label": "a book",
             "x": 36,
             "y": 78
+          }
+        ],
+        "people": [
+          {
+            "id": "bora",
+            "pose": "giving"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "receiving"
           }
         ]
       },

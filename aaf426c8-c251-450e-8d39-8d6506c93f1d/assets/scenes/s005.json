@@ -51,7 +51,17 @@
           "sreyneang"
         ],
         "focus": "kru-sopheak",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -99,7 +109,17 @@
           "sreyneang"
         ],
         "focus": "bora",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -147,7 +167,17 @@
           "sreyneang"
         ],
         "focus": "sreyneang",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -195,7 +225,17 @@
           "sreyneang"
         ],
         "focus": "bora",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -243,7 +283,17 @@
           "sreyneang"
         ],
         "focus": "bora",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -291,7 +341,17 @@
           "sreyneang"
         ],
         "focus": "bora",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -339,7 +399,17 @@
           "sreyneang"
         ],
         "focus": "sreyneang",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -387,7 +457,17 @@
           "sreyneang"
         ],
         "focus": "sreyneang",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {
@@ -435,7 +515,17 @@
           "sreyneang"
         ],
         "focus": "kru-sopheak",
-        "gaze": "focus"
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
       },
       "placements": [
         {

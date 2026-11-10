@@ -513,6 +513,8 @@
     else score -= 20;
     if (pose && hasPose(image, pose)) score += 40;
     if (image.bundle === 'runtime') score += 5;
+    /* Prefer a talking loop over a still that also carries a talking tag (e.g. explain). */
+    if (pose === 'talking' && image.src && /\.(apng|gif|webp)$/i.test(image.src)) score += 15;
     if (mirrored) score -= 1; /* prefer a native match over a flip */
     return score;
   }

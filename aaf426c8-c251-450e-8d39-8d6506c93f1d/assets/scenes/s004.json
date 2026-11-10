@@ -51,7 +51,17 @@
           "sreyneang"
         ],
         "focus": "kru-sopheak",
-        "gaze": "rules"
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "walking"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "walking"
+          }
+        ]
       },
       "placements": [
         {
@@ -99,7 +109,17 @@
           "sreyneang"
         ],
         "focus": "kru-sopheak",
-        "gaze": "rules"
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "walking"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "walking"
+          }
+        ]
       },
       "placements": [
         {
