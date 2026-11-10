@@ -172,9 +172,14 @@
     return '<span class="' + printClass + '" lang="en"' + (hiddenPrint ? ' aria-hidden="true"' : '') +
       ' style="font-family:' + safeFontFamily(printFamily) + '">' + esc(sample) + '</span>';
   }
-  function letterFormsHtml(sample, printFamily, cursiveFamily, printClass, hiddenPrint) {
-    return '<span class="q-letter-forms">' + letterPrintSpan(sample, printFamily, printClass, hiddenPrint) +
-      cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily) + '</span>';
+  function letterFormsHtml(sample, printFamily, cursiveFamily, printClass, hiddenPrint, asCard) {
+    var cls = printClass || '';
+    var card = asCard || /\bq-letter-card\b/.test(cls);
+    if (card) cls = cls.replace(/\bq-letter-card\b/g, 'q-letter-print').replace(/\s+/g, ' ').trim() || 'q-letter-print';
+    var html = letterPrintSpan(sample, printFamily, cls, hiddenPrint) +
+      cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily);
+    if (card) html = '<span class="q-letter-card">' + html + '</span>';
+    return '<span class="q-letter-forms">' + html + '</span>';
   }
   var STEM_TRAIL_PUNCT = /^(\s*[?!.…,;:¿¡។៕？！．、]+)([\s\S]*)$/;
   function slotLetterStem(template, sample, printFamily, cursiveFamily) {

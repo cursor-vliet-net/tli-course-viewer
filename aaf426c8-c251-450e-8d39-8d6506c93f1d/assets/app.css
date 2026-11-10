@@ -131,7 +131,7 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
 .quiz-q legend { font-size: 1rem; font-weight: 600; float: none; margin-bottom: .4rem; line-height: 2.75; }
 .quiz-stem-text { display: inline-block; max-width: 100%; vertical-align: top; line-height: 2.75; }
 .quiz-stem-text .i18n-primary, .quiz-stem-text .i18n-alt { display: block; line-height: 2.75; padding-block: .25em; }
-.q-letter-sample, .q-letter-card {
+.q-letter-sample, .q-letter-print {
   font-weight: 400; font-style: normal; font-synthesis: none; font-size: 1.35em; line-height: 1.15;
 }
 .quiz-q legend .q-letter-sample { font-weight: 400; }
@@ -141,18 +141,20 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
 }
 .q-letter-card {
   display: inline-flex; align-items: center; justify-content: center;
-  min-width: 2.8rem; min-height: 1.7em; text-align: center; padding: .15rem .45rem;
+  gap: .4rem .5rem; min-width: 6.6em; min-height: 4.15em;
+  padding: .5rem .7rem 1.25rem; text-align: center;
   border: 1px solid var(--tli-line); border-radius: .3rem; background: transparent; color: inherit;
-  box-sizing: border-box;
+  box-sizing: border-box; vertical-align: middle; line-height: 1;
 }
 .q-letter-cursive, .letter-cursive {
   display: inline-block; font-weight: 400; font-style: normal; font-synthesis: none;
   line-height: 1.35; font-size: 2.05em; color: inherit; vertical-align: middle;
 }
+.q-letter-card .q-letter-cursive { margin: 0; padding: 0; line-height: 1.2; }
 .quiz-stem-text .q-letter-cursive {
   margin-inline-start: .2em; margin-inline-end: .45em; padding-inline-end: .1em; line-height: 1.4;
 }
-.quiz-opt .q-letter-forms { min-height: 2.7em; padding-block: .15em; }
+.quiz-opt .q-letter-forms { min-height: 4.15em; padding-block: .1em; }
 .letter-intro { margin: .35rem 0 1rem; max-width: 36rem; }
 .letter-intro-forms {
   display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; gap: 1.25rem 1.6rem;
@@ -256,7 +258,8 @@ body.lb-open { overflow: hidden; }
   .tab { padding: .3rem .5rem; }
   .edit-toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .reading { padding: .6rem .5rem 1rem; }
-  .q-letter-sample, .q-letter-card { font-size: 1.25em; }
+  .q-letter-sample, .q-letter-print { font-size: 1.25em; }
+  .q-letter-card { min-width: 6.2em; min-height: 3.9em; padding: .4rem .55rem 1.1rem; }
   .q-letter-cursive { font-size: 1.85em; }
   .letter-print { font-size: 3.4rem; }
   .letter-intro .letter-cursive { font-size: 3.2rem; }
