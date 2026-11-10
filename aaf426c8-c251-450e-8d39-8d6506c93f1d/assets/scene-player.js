@@ -5,6 +5,8 @@
   'use strict';
 
   var SPEEDS = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+  /* Do not flash the loading indicator when first-beat images are already warm. */
+  var LOADING_SHOW_MS = 150;
   /* Icon may fade in this long before a scene or line ends. The panel opens only at the end. */
   var PROF_LEAD_MS = 1200;
   var PROF_WINDOW_MS = 2800;
@@ -25,6 +27,17 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  function uiLang() {
+    try {
+      if (global.document && document.documentElement && document.documentElement.lang === 'km') return 'km';
+    } catch (e) { /* ignore */ }
+    try {
+      var R = global.TLIReader;
+      if (R && R.settings && R.settings.uiLang === 'km') return 'km';
+    } catch (e2) { /* ignore */ }
+    return 'en';
   }
 
   function settings() {
@@ -1006,12 +1019,16 @@
     this.root.classList.add('tli-sp-decoding');
     this._preloadSprites();
     this.goTo(0, { auto: false });
+    this._armLoadingIndicator();
     loadCastCatalog().then(function () {
       if (!self.root || !self.scenes) return;
       self._renderPlacements(self.scenes[self.index]);
       return self._revealWhenDecoded();
     }).catch(function () {
-      if (self.root) self.root.classList.remove('tli-sp-decoding');
+      if (self.root) {
+        self._hideLoadingIndicator();
+        self.root.classList.remove('tli-sp-decoding');
+      }
       flushCatalogImagePreload();
     }).then(function () { finishReveal(); });
   }
@@ -1047,6 +1064,7 @@
           if (done || !self.root) return;
           done = true;
           Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
+          self._hideLoadingIndicator();
           self.root.classList.remove('tli-sp-decoding');
           flushCatalogImagePreload();
           resolve();
@@ -1060,6 +1078,107 @@
       });
     });
   }
+
+  function imageIsReady(img) {
+    return !!(img && (img.complete || img._tliLoaded) && (img.naturalWidth || img._tliLoaded));
+  }
+
+  Player.prototype._loadingLabelText = function () {
+    return uiLang() === 'km' ? 'កំពុងផ្ទុក…' : 'Loading…';
+  };
+
+  Player.prototype._firstBeatStats = function () {
+    var loaded = 0;
+    var total = 0;
+    var seen = {};
+    var mark = function (url, img) {
+      if (!url || seen[url]) return;
+      seen[url] = true;
+      total += 1;
+      if (imageIsReady(img) || imageIsReady(imageCache[url])) loaded += 1;
+    };
+    if (this.actorsEl) {
+      Array.prototype.forEach.call(this.actorsEl.querySelectorAll('img[src]'), function (img) {
+        mark(img.getAttribute('src') || img.src, img);
+      });
+    }
+    var sc = this.scenes && this.scenes[this.index];
+    var bgPath = (sc && sc.background) || (this.data && this.data.background) || '';
+    if (bgPath) mark(resolveUrl(bgPath), imageCache[resolveUrl(bgPath)]);
+    return { loaded: loaded, total: total };
+  };
+
+  Player.prototype._preloadStats = function () {
+    var urls = Object.keys(imageCache);
+    var loaded = 0;
+    var i;
+    for (i = 0; i < urls.length; i++) {
+      if (imageIsReady(imageCache[urls[i]])) loaded += 1;
+    }
+    return { loaded: loaded, total: urls.length };
+  };
+
+  Player.prototype._syncLoadingLang = function () {
+    if (!this.loadingLabel) return;
+    var km = uiLang() === 'km';
+    this.loadingLabel.textContent = this._loadingLabelText();
+    this.loadingLabel.lang = km ? 'km' : 'en';
+    this._syncLoadingProgress();
+  };
+
+  Player.prototype._syncLoadingProgress = function () {
+    if (!this.loadingEl) return;
+    var beat = this._firstBeatStats();
+    var all = this._preloadStats();
+    var frac = beat.total ? (beat.loaded / beat.total) : 0;
+    if (this.loadingBar) {
+      this.loadingBar.setAttribute('stroke-dashoffset', String(Math.max(0, 100 - Math.round(frac * 100))));
+    }
+    if (this.loadingBeat) this.loadingBeat.textContent = beat.loaded + ' / ' + beat.total;
+    if (this.loadingAll) {
+      this.loadingAll.textContent = String(all.loaded);
+      this.loadingAll.hidden = all.total < 1;
+    }
+    var label = this._loadingLabelText();
+    if (beat.total) label += ' ' + beat.loaded + ' / ' + beat.total;
+    this.loadingEl.setAttribute('aria-label', label);
+  };
+
+  Player.prototype._armLoadingIndicator = function () {
+    var self = this;
+    this._hideLoadingIndicator();
+    if (!this.root || !this.root.classList.contains('tli-sp-decoding')) return;
+    this._loadingShowTimer = setTimeout(function () {
+      self._loadingShowTimer = null;
+      self._showLoadingIndicator();
+    }, LOADING_SHOW_MS);
+  };
+
+  Player.prototype._showLoadingIndicator = function () {
+    var self = this;
+    if (!this.root || !this.loadingEl) return;
+    if (!this.root.classList.contains('tli-sp-decoding')) return;
+    this.loadingEl.hidden = false;
+    this.root.classList.add('tli-sp-loading-on');
+    if (this.stage) this.stage.setAttribute('aria-busy', 'true');
+    this._syncLoadingLang();
+    if (this._loadingTick) clearInterval(this._loadingTick);
+    this._loadingTick = setInterval(function () { self._syncLoadingProgress(); }, 100);
+  };
+
+  Player.prototype._hideLoadingIndicator = function () {
+    if (this._loadingShowTimer) {
+      clearTimeout(this._loadingShowTimer);
+      this._loadingShowTimer = null;
+    }
+    if (this._loadingTick) {
+      clearInterval(this._loadingTick);
+      this._loadingTick = null;
+    }
+    if (this.loadingEl) this.loadingEl.hidden = true;
+    if (this.root) this.root.classList.remove('tli-sp-loading-on');
+    if (this.stage) this.stage.setAttribute('aria-busy', 'false');
+  };
 
   Player.prototype.defaultDur = function () {
     return typeof this.data.defaultDurationMs === 'number' ? this.data.defaultDurationMs : 3500;
@@ -1135,6 +1254,20 @@
         '<div class="tli-sp-stage" tabindex="0">' +
           '<div class="tli-sp-bg" aria-hidden="true"></div>' +
           '<div class="tli-sp-actors" aria-live="off"></div>' +
+          '<div class="tli-sp-loading" hidden role="status" aria-live="polite" aria-atomic="true">' +
+            '<div class="tli-sp-loading-mark" aria-hidden="true">' +
+              '<svg class="tli-sp-loading-ring" viewBox="0 0 48 48" focusable="false">' +
+                '<circle class="tli-sp-loading-track" cx="24" cy="24" r="18" fill="none" stroke-width="3.5"></circle>' +
+                '<circle class="tli-sp-loading-bar" cx="24" cy="24" r="18" fill="none" stroke-width="3.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>' +
+              '</svg>' +
+              '<span class="tli-sp-loading-dots"><span></span><span></span><span></span></span>' +
+            '</div>' +
+            '<p class="tli-sp-loading-label" lang="en">Loading…</p>' +
+            '<p class="tli-sp-loading-frac" aria-hidden="true">' +
+              '<span class="tli-sp-loading-beat">0 / 0</span>' +
+              '<span class="tli-sp-loading-all" hidden>0</span>' +
+            '</p>' +
+          '</div>' +
           '<button type="button" class="tli-sp-bigplay" aria-label="Play story">' +
             '<i class="fa-solid fa-play" aria-hidden="true"></i><span class="visually-hidden">Play</span>' +
           '</button>' +
@@ -1189,7 +1322,13 @@
     this.stage = this.root.querySelector('.tli-sp-stage');
     this.bg = this.root.querySelector('.tli-sp-bg');
     this.actorsEl = this.root.querySelector('.tli-sp-actors');
+    this.loadingEl = this.root.querySelector('.tli-sp-loading');
+    this.loadingLabel = this.root.querySelector('.tli-sp-loading-label');
+    this.loadingBar = this.root.querySelector('.tli-sp-loading-bar');
+    this.loadingBeat = this.root.querySelector('.tli-sp-loading-beat');
+    this.loadingAll = this.root.querySelector('.tli-sp-loading-all');
     this.bigPlay = this.root.querySelector('.tli-sp-bigplay');
+    if (this.stage) this.stage.setAttribute('aria-busy', 'false');
     this.subs = this.root.querySelector('.tli-sp-subs');
     this.subEn = this.root.querySelector('.tli-sp-sub-en');
     this.subKm = this.root.querySelector('.tli-sp-sub-km');
@@ -1334,6 +1473,11 @@
       self._clearTimers();
     };
     window.addEventListener('pagehide', this._onPageHide);
+    this._onUiLang = function (ev) {
+      var t = ev && ev.target;
+      if (t && t.name === 'uiLang') self._syncLoadingLang();
+    };
+    document.addEventListener('change', this._onUiLang);
   };
 
   Player.prototype._fsElement = function () {
@@ -2867,6 +3011,7 @@
       return Object.keys(out);
     },
     flushCatalogImagePreload: flushCatalogImagePreload,
+    loadingShowMs: LOADING_SHOW_MS,
     preloadRuntime: preloadRuntime,
     preloadPaths: function (paths) {
       (paths || []).forEach(preloadPath);

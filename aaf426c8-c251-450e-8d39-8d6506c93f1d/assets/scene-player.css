@@ -10,6 +10,53 @@
 /* Reserved 16:9 box stays up; first-beat art is held until img.decode() finishes. */
 .tli-sp-decoding .tli-sp-bg,
 .tli-sp-decoding .tli-sp-actors { opacity: 0; }
+.tli-sp-loading-on .tli-sp-bigplay { visibility: hidden; pointer-events: none; }
+.tli-sp-loading {
+  position: absolute; inset: 0; z-index: 7;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .4rem; color: #fff; pointer-events: none; text-align: center;
+  padding: .75rem;
+}
+.tli-sp-loading[hidden] { display: none !important; }
+.tli-sp-loading-mark { position: relative; width: 4.4rem; height: 4.4rem; }
+.tli-sp-loading-ring { width: 100%; height: 100%; display: block; }
+.tli-sp-loading-track { stroke: rgba(255,255,255,.22); }
+.tli-sp-loading-bar {
+  stroke: #ffbf47; stroke-linecap: round;
+  transform: rotate(-90deg); transform-origin: 24px 24px;
+  transition: stroke-dashoffset 200ms linear;
+}
+.tli-sp-loading-dots {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: .28rem;
+}
+.tli-sp-loading-dots span {
+  width: .4rem; height: .4rem; border-radius: 50%; background: #ffe9a8;
+  animation: tli-sp-dot 1s ease-in-out infinite;
+}
+.tli-sp-loading-dots span:nth-child(2) { animation-delay: .15s; }
+.tli-sp-loading-dots span:nth-child(3) { animation-delay: .3s; }
+@keyframes tli-sp-dot {
+  0%, 80%, 100% { opacity: .35; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+.tli-sp-loading-label {
+  margin: 0; font-size: clamp(.9rem, 2.4vw, 1.15rem); font-weight: 700; line-height: 1.2;
+}
+.tli-sp-loading-label[lang="km"] { font-family: "Noto Sans Khmer", system-ui, sans-serif; font-weight: 600; }
+.tli-sp-loading-frac {
+  margin: 0; display: flex; align-items: baseline; justify-content: center; gap: .55rem;
+  font-variant-numeric: tabular-nums; font-weight: 700; font-size: .95rem; color: #ffe9a8;
+}
+.tli-sp-loading-all { font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.72); }
+.tli-sp-loading-all[hidden] { display: none !important; }
+@media (max-width: 560px) {
+  .tli-sp-loading-mark { width: 3.6rem; height: 3.6rem; }
+  .tli-sp-loading-label { font-size: clamp(.85rem, 3.2vw, 1.05rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tli-sp-loading-dots span { animation: none; opacity: .85; transform: none; }
+  .tli-sp-loading-bar { transition: none; }
+}
 /* No CSS filter or transform on the picture. Those composite the image and Windows Chrome then holds an APNG on its first frame. Position is set in pixels after layout. */
 .tli-sp-actor { position: absolute; border: 0; background: transparent; padding: 0; cursor: default; width: calc(22% * var(--sp-scale, 1)); max-width: calc(9.5rem * var(--sp-scale, 1)); min-width: calc(4.5rem * var(--sp-scale, 1)); z-index: 2; }
 .tli-sp-actor.is-clickable { cursor: pointer; }
