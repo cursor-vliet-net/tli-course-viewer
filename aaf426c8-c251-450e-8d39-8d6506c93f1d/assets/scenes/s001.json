@@ -55,7 +55,7 @@
     },
     "kru-sopheak": {
       "name": "Kru Sopheak",
-      "gender": "female",
+      "gender": "male",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/kru-sopheak-neutral.png",

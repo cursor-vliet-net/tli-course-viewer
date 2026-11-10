@@ -6,7 +6,7 @@
   "actors": {
     "kru-sopheak": {
       "name": "Kru Sopheak",
-      "gender": "female",
+      "gender": "male",
       "kind": "character",
       "sprites": {
         "idle": "media/characters/year-01/kru-sopheak-neutral.png",
@@ -550,9 +550,9 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "She is Kru Sopheak.",
+          "text": "He is Kru Sopheak.",
           "translations": {
-            "km": "នាងឈ្មោះគ្រូសុភ័ក្ត្រ។"
+            "km": "គេឈ្មោះគ្រូសុភ័ក្ត្រ។"
           },
           "audio": null,
           "durationMs": 3200,
