@@ -269,6 +269,7 @@
     S.settings.uiLang = lang === 'km' ? 'km' : 'en';
     save(); applyUiLang(); applyTheme(); applyContentLang(document);
     if (window.TLIAudioRecorder && window.TLIAudioRecorder.refreshLabels) window.TLIAudioRecorder.refreshLabels(document);
+    applyStudentView(document);
   }
   function setTheme(theme) {
     S.settings.theme = theme === 'dark' ? 'dark' : 'light';
@@ -464,6 +465,7 @@
         '<span class="badge text-bg-warning part-count" data-count="' + esc(p.id) + '"></span></a></li>';
     }).join('');
     applyContentLang($('#partList'));
+    applyStudentTitles(document);
   }
   function updateCounts() {
     var per = {}, total = 0;
@@ -502,6 +504,119 @@
   var editing = null;   // {blk, dirty}
   var original = {};    // anchor -> original body HTML (from the build)
 
+
+  var SESSION_TITLE_EN = /^Session\s+S\d+:\s*/i;
+  var SESSION_TITLE_KM = /^មេរៀន\s+[០-៩0-9]+\s*៖\s*/;
+  var SAY_PREFIX = /^(និយាយ៖|Say:)\s*/;
+  var STUDENT_ROLE_RANK = {
+    title: 10, aim: 20, story: 30, hook: 40, 'try-it': 50,
+    'scene-quiz': 60, 'moved-quiz': 70, 'say-it': 80,
+    vocabulary: 90, 'letter-intro': 100, 'letter-check': 110
+  };
+
+  function studentFacingTitle(text, lang) {
+    var t = String(text || '').trim();
+    return lang === 'km' ? t.replace(SESSION_TITLE_KM, '') : t.replace(SESSION_TITLE_EN, '');
+  }
+
+  function applyStudentTitles(root) {
+    if (MODE !== 'student') return;
+    var nodes = $$('.blk[data-student-role="title"] [data-i18n]', root || document);
+    $$('#partList .part-title').forEach(function (el) { nodes.push(el); });
+    nodes.forEach(function (el) {
+      var pri = el.querySelector('.i18n-primary');
+      var alt = el.querySelector('.i18n-alt');
+      if (pri) pri.textContent = studentFacingTitle(pri.textContent, pri.getAttribute('lang') || (uiLang() === 'km' ? 'km' : 'en'));
+      if (alt) alt.textContent = studentFacingTitle(alt.textContent, alt.getAttribute('lang') || (uiLang() === 'km' ? 'en' : 'km'));
+      if (!pri && !alt) el.textContent = studentFacingTitle(el.textContent, uiLang());
+    });
+  }
+
+  function simplifyStudentLetterChecks(root) {
+    if (MODE !== 'student') return;
+    $$('[data-letter-prompt="1"]', root).forEach(function (el) {
+      var sample = el.getAttribute('data-sample') || '';
+      var en = el.getAttribute('data-en') || '';
+      var kmPrompt = el.getAttribute('data-km') || '';
+      var fullEn = en.replace('{sample}', sample);
+      var fullKm = kmPrompt.replace('{sample}', sample);
+      var family = el.getAttribute('data-font-sample');
+      var form = el.getAttribute('data-letter-form') || '';
+      var glyph = sampleGlyphHtml(sample, family, form);
+      el.innerHTML = glyph;
+      var legend = el.closest('legend, .quiz-stem');
+      if (legend) {
+        var label = (uiLang() === 'km' && fullKm) ? fullKm : (fullEn || fullKm);
+        if (label) legend.setAttribute('aria-label', label);
+      }
+    });
+  }
+
+  function stripStudentOptionPrefixes(root) {
+    if (MODE !== 'student') return;
+    var optionPrefix = /(^|[។.·:៖]|\s)(និយាយ៖|Say:)\s+(?=[A-Za-z“"'])/g;
+    $$('.quiz-opt .quiz-txt, .quiz-opt .i18n-primary, .quiz-opt .i18n-alt, .quiz-opt .quiz-name, .quiz-expl, .ff-line, .quiz-expl-text', root).forEach(function (el) {
+      var html = el.innerHTML;
+      var next = html.replace(SAY_PREFIX, '').replace(optionPrefix, '$1');
+      if (next !== html) el.innerHTML = next;
+    });
+  }
+
+  function reorderStudentBlocks(root) {
+    if (MODE !== 'student') return;
+    var host = (root && root.querySelector) ? (root.querySelector('.part-html') || root) : null;
+    if (!host) return;
+    var blks = $$(':scope > .blk', host);
+    if (!blks.length) blks = $$('.blk', host).filter(function (b) { return b.parentNode === host; });
+    blks.sort(function (a, b) {
+      var ra = STUDENT_ROLE_RANK[a.getAttribute('data-student-role')] || 200;
+      var rb = STUDENT_ROLE_RANK[b.getAttribute('data-student-role')] || 200;
+      return ra - rb;
+    });
+    blks.forEach(function (b) { host.appendChild(b); });
+  }
+
+  function makeSpeakButton(speak, aria) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'q-listen q-listen-student btn btn-sm btn-outline-secondary';
+    btn.setAttribute('aria-label', aria || 'Listen');
+    btn.title = aria || 'Listen';
+    btn.setAttribute('data-speak', speak);
+    btn.innerHTML = '<i class="fa-solid fa-volume-high" aria-hidden="true"></i>';
+    return btn;
+  }
+
+  function addStudentSpeakIcons(root) {
+    if (MODE !== 'student') return;
+    $$('[data-letter-prompt="1"]', root).forEach(function (el) {
+      var stem = el.closest('.quiz-stem, legend');
+      if (!stem || stem.querySelector('.q-listen')) return;
+      var sample = el.getAttribute('data-sample') || '';
+      var speak = ('Find the same letter. ' + sample).trim();
+      stem.appendChild(makeSpeakButton(speak, 'Find the same letter.'));
+    });
+    $$('.blk[data-student-role="say-it"] .quiz-stem', root).forEach(function (stem) {
+      if (stem.querySelector('.q-listen')) return;
+      var phrase = stem.querySelector('.quiz-stem-text');
+      if (!phrase) return;
+      var speak = (phrase.getAttribute('data-en') || phrase.getAttribute('data-en-html') || phrase.textContent || '')
+        .replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+      if (!speak) return;
+      phrase.parentNode.insertBefore(makeSpeakButton(speak, speak), phrase.nextSibling);
+    });
+  }
+
+  function applyStudentView(root) {
+    if (MODE !== 'student') return;
+    var scope = root || document;
+    applyStudentTitles(scope);
+    simplifyStudentLetterChecks(scope);
+    addStudentSpeakIcons(scope);
+    stripStudentOptionPrefixes(scope);
+    reorderStudentBlocks(scope);
+  }
+
   /* Drop blocks that are not for this mode; links to dropped blocks become plain text. */
   function applyMode(root) {
     $$('.blk', root).forEach(function (b) { if (!inMode(b.id)) b.remove(); });
@@ -520,6 +635,23 @@
           $$('tr', t).forEach(function (tr) { var cell = tr.children[i]; if (cell) cell.setAttribute('data-drop', '1'); });
         });
         $$('[data-drop]', t).forEach(function (c) { c.remove(); });
+      });
+      var aim = $('.blk[data-student-role="aim"]', root);
+      var review = $('[data-review-lesson]', root);
+      if (aim && review) aim.setAttribute('data-review-lesson', review.getAttribute('data-review-lesson') || '1');
+      $$('[data-goal]', root).forEach(function (row) {
+        var gid = row.getAttribute('data-goal');
+        if (!gid || !aim) return;
+        var marker = document.createElement('span');
+        marker.setAttribute('data-goal', gid);
+        marker.hidden = true;
+        marker.setAttribute('aria-hidden', 'true');
+        aim.appendChild(marker);
+      });
+      $$('.blk', root).forEach(function (b) {
+        var role = b.getAttribute('data-student-role') || '';
+        if (role === 'situation' || role === 'learning-goal' || role === 'success-criteria'
+            || role === 'say-it-heading' || role === 'try-it-extra') b.remove();
       });
     }
   }
@@ -588,6 +720,8 @@
     if (window.TLIAudioRecorder && window.TLIAudioRecorder.mountAll) window.TLIAudioRecorder.mountAll(article);
     applyUiLang();
     if (window.TLIAudioRecorder && window.TLIAudioRecorder.refreshLabels) window.TLIAudioRecorder.refreshLabels(article);
+    applyStudentView(article);
+    if (MODE === 'student') document.title = p.id + ' ' + studentFacingTitle(p.title, 'en') + ' · ' + D.project;
   }
   function flash(el) { el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1800); }
   function bodyOf(blk) { return $('[data-body]', blk); }

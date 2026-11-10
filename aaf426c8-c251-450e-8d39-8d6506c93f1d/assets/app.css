@@ -400,3 +400,37 @@ table.session-context th:first-child {
   align-items: center;
   justify-content: center;
 }
+
+/* Student mode: child-facing aim, hidden teacher chrome, letter-check glyph. */
+.student-aim {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .4rem .6rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: .15rem 0 1rem;
+}
+.student-aim .q-listen {
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+body[data-mode="designer"] .q-listen-student,
+body[data-mode="teacher"] .q-listen-student {
+  display: none !important;
+}
+body[data-mode="student"] .tli-sp-speed-wrap {
+  display: none !important;
+}
+body[data-mode="student"] .quiz-stem[data-letter-prompt],
+body[data-mode="student"] legend.quiz-stem:has([data-letter-prompt]) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .35rem .6rem;
+}
+

@@ -90,3 +90,5 @@
 @media (max-width: 560px) {
   .tli-sp-prof { position: relative; top: auto; right: auto; width: 100%; max-height: none; border-radius: 0; border-left: 0; border-right: 0; }
 }
+
+body[data-mode="student"] .tli-sp-speed-wrap { display: none !important; }
