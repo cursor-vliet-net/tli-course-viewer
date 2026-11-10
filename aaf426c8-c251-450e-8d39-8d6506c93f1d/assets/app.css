@@ -2,7 +2,7 @@
 @font-face { font-family: "Noto Sans Khmer"; src: url("fonts/NotoSansKhmer.ttf") format("truetype"); font-weight: 100 900; font-display: swap; unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC; }
 @font-face { font-family: "Andika"; src: url("fonts/Andika-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Liberation Serif"; src: url("fonts/LiberationSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Playwrite NO"; src: url("fonts/PlaywriteNO-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Great Vibes"; src: url("fonts/GreatVibes-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 :root {
   --tli-ink: #1d2430; --tli-muted: #5b6472; --tli-accent: #0b5d7a; --tli-accent-2: #e8f3f7;
   --tli-bar: #0b3d52; --tli-line: #d8dee6; --tli-edit: #fff6d6; --tli-focus: #ffbf47;
@@ -148,24 +148,24 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
 }
 .q-letter-cursive, .letter-cursive {
   display: inline-block; font-weight: 400; font-style: normal; font-synthesis: none;
-  line-height: 1.35; font-size: 2.05em; color: inherit; vertical-align: middle;
+  line-height: 1.35; font-size: 2.6em; color: inherit; vertical-align: middle;
 }
 .q-letter-card .q-letter-cursive { margin: 0; padding: 0; line-height: 1.2; }
 .quiz-stem-text .q-letter-cursive {
-  margin-inline-start: .2em; margin-inline-end: .45em; padding-inline-end: .1em; line-height: 1.4;
+  margin-inline-start: .2em; margin-inline-end: .45em; padding-inline-end: .15em; line-height: 1.4;
 }
 .quiz-opt .q-letter-forms { min-height: 4.15em; padding-block: .1em; }
 .letter-intro { margin: .35rem 0 1rem; max-width: 36rem; }
 .letter-intro-forms {
-  display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; gap: 1.25rem 1.6rem;
-  padding: 1rem 1.2rem .85rem; border: 3px solid #d98b2b; border-radius: 1rem;
+  display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 1.25rem 1.6rem;
+  padding: 1.5rem 1.5rem 2rem; border: 3px solid #d98b2b; border-radius: 1rem;
   background: #fff8e7; color: #2b4d8c;
 }
 .letter-print {
   font-weight: 400; font-style: normal; font-synthesis: none; font-size: 4.4rem; line-height: 1;
   color: inherit;
 }
-.letter-intro .letter-cursive { font-size: 4.1rem; line-height: 1.15; color: inherit; }
+.letter-intro .letter-cursive { font-size: 7.8rem; line-height: 1.15; color: inherit; }
 .quiz-expl .i18n-alt, .quiz-name .i18n-alt { line-height: 1.7; }
 .quiz-opt label { align-items: center; }
 .q-listen {
@@ -260,10 +260,10 @@ body.lb-open { overflow: hidden; }
   .reading { padding: .6rem .5rem 1rem; }
   .q-letter-sample, .q-letter-print { font-size: 1.25em; }
   .q-letter-card { min-width: 6.2em; min-height: 3.9em; padding: .4rem .55rem 1.1rem; }
-  .q-letter-cursive { font-size: 1.85em; }
+  .q-letter-cursive { font-size: 2.5em; }
   .letter-print { font-size: 3.4rem; }
-  .letter-intro .letter-cursive { font-size: 3.2rem; }
-  .letter-intro-forms { gap: .85rem 1.1rem; padding: .75rem .85rem .7rem; }
+  .letter-intro .letter-cursive { font-size: 6.2rem; }
+  .letter-intro-forms { gap: .85rem 1.1rem; padding: 1.1rem 1rem 1.5rem; }
   .quiz-q legend, .quiz-stem-text,
   .quiz-stem-text .i18n-primary, .quiz-stem-text .i18n-alt { line-height: 2.85; }
   .quiz-stem .i18n-alt, .quiz-expl .i18n-alt { font-size: .92em; }
