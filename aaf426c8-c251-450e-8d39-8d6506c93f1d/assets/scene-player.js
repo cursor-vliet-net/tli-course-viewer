@@ -175,6 +175,19 @@
     return out;
   }
 
+  function enqueueStoryboardImages(data, rel) {
+    if (!data) return;
+    var all = {};
+    var first = {};
+    collectFromStoryboard(data, all);
+    collectFirstBeatStills(data, first);
+    var isCurrent = !rel || rel === currentSceneRel();
+    Object.keys(all).forEach(function (src) {
+      if (isCurrent && first[src] && !isAnimatedUrl(src)) preloadPath(src, { priority: 'high' });
+      else deferredMediaPaths.push(src);
+    });
+  }
+
   function flushCatalogImagePreload() {
     catalogMediaDeferred = false;
     deferredMediaPaths.forEach(function (rel) { preloadPath(rel, { priority: 'low' }); });
@@ -192,17 +205,7 @@
       if (!r || !r.ok) return null;
       return r.json();
     }).then(function (data) {
-      if (data) {
-        var all = {};
-        var first = {};
-        collectFromStoryboard(data, all);
-        collectFirstBeatStills(data, first);
-        var isCurrent = rel === currentSceneRel();
-        Object.keys(all).forEach(function (src) {
-          if (isCurrent && first[src] && !isAnimatedUrl(src)) preloadPath(src, { priority: 'high' });
-          else deferredMediaPaths.push(src);
-        });
-      }
+      if (data) enqueueStoryboardImages(data, rel);
       return data;
     }).catch(function () { return null; });
     return storyboardLoads[rel];
@@ -261,10 +264,8 @@
 
   function preloadRuntime(data, rel) {
     if (data) {
-      if (rel) storyboardLoads[rel] = Promise.resolve();
-      var own = {};
-      collectFromStoryboard(data, own);
-      Object.keys(own).forEach(preloadPath);
+      if (rel) storyboardLoads[rel] = Promise.resolve(data);
+      enqueueStoryboardImages(data, rel);
     }
     if (_castCatalog && catalogImages(_castCatalog).length) preloadCatalogImages(_castCatalog);
     else loadCastCatalog();
