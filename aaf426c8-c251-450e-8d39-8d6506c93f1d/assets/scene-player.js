@@ -114,6 +114,9 @@
   /* Detached Image objects. Do not call decode() or createImageBitmap: that can pin an APNG on frame 1. */
   var imageCache = {};
   var storyboardLoads = {};
+  /* Hold catalog-wide media until the first beat has been requested, so Slow 4G
+     does not spend its bandwidth on later poses before the opening scene can decode. */
+  var catalogMediaDeferred = true;
 
   function preloadUrl(url, opts) {
     if (!url || imageCache[url]) return imageCache[url] || null;
@@ -139,6 +142,7 @@
   }
 
   function preloadCatalogImages(catalog) {
+    if (catalogMediaDeferred) return;
     var imgs = catalogImages(catalog);
     var i, src;
     for (i = 0; i < imgs.length; i++) {
@@ -147,6 +151,11 @@
       if (imgs[i].bundle && imgs[i].bundle !== 'runtime') continue;
       preloadPath(src, { priority: 'low' });
     }
+  }
+
+  function flushCatalogImagePreload() {
+    catalogMediaDeferred = false;
+    if (_castCatalog) preloadCatalogImages(_castCatalog);
   }
 
   function preloadStoryboard(rel) {
@@ -972,6 +981,7 @@
       return self._revealWhenDecoded();
     }).catch(function () {
       if (self.root) self.root.classList.remove('tli-sp-decoding');
+      flushCatalogImagePreload();
     }).then(function () { finishReveal(); });
   }
 
@@ -1007,6 +1017,7 @@
           done = true;
           Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
           self.root.classList.remove('tli-sp-decoding');
+          flushCatalogImagePreload();
           resolve();
         };
         if (self.actorsEl && self.actorsEl.firstChild && self.actorsEl.firstChild.offsetHeight) {
@@ -2824,6 +2835,7 @@
       collectFromStoryboard(data, out);
       return Object.keys(out);
     },
+    flushCatalogImagePreload: flushCatalogImagePreload,
     preloadRuntime: preloadRuntime,
     preloadPaths: function (paths) {
       (paths || []).forEach(preloadPath);
