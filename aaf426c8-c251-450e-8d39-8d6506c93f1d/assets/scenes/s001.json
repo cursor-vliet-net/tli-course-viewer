@@ -69,27 +69,35 @@
     {
       "id": "1",
       "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "A grandmother greets her grandchildren",
+        "where": "Home, early morning",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "yeay-chan",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "yeay-chan",
           "sprite": "speak",
           "x": 26,
-          "y": 93,
-          "scale": 1.25
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -177,27 +185,35 @@
     {
       "id": "2",
       "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "A grandmother greets her grandchildren",
+        "where": "Home, early morning",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "yeay-chan",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "yeay-chan",
           "sprite": "speak",
           "x": 26,
-          "y": 93,
-          "scale": 1.25
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -227,27 +243,35 @@
     {
       "id": "3",
       "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "The teacher greets the children and asks their names",
+        "where": "Home, early morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
-          "y": 93,
-          "scale": 1.25
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -267,27 +291,35 @@
     {
       "id": "4",
       "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "The teacher asks their names",
+        "where": "Home, early morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
-          "y": 93,
-          "scale": 1.25
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -307,27 +339,35 @@
     {
       "id": "5",
       "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "Bora says his name",
+        "where": "Home, early morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "bora",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
-          "y": 93,
-          "scale": 1.25
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -395,27 +435,35 @@
     {
       "id": "6",
       "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "Sreyneang says her name",
+        "where": "Home, early morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "sreyneang",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
-          "y": 93,
-          "scale": 1.25
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [

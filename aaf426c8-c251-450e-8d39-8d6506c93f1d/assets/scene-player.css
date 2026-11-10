@@ -11,7 +11,7 @@
 .tli-sp-actor { position: absolute; border: 0; background: transparent; padding: 0; cursor: default; width: calc(22% * var(--sp-scale, 1)); max-width: calc(9.5rem * var(--sp-scale, 1)); min-width: calc(4.5rem * var(--sp-scale, 1)); z-index: 2; }
 .tli-sp-actor.is-clickable { cursor: pointer; }
 .tli-sp-actor img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; }
-.tli-sp-actor.face-left img { transform: none; }
+.tli-sp-actor.face-left { transform: scaleX(-1); }
 .tli-sp-actor.is-speaking { z-index: 3; }
 .tli-sp-actor:focus-visible { outline: 3px solid #ffbf47; outline-offset: 4px; border-radius: .4rem; }
 

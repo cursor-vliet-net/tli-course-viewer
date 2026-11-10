@@ -1,0 +1,1662 @@
+{
+  "schema": "tli-cast-images/v1",
+  "storyYear": 1,
+  "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance.",
+  "height": {
+    "courseAge": "Grade 1 / story year 0 (the current year-01 art).",
+    "twins": "Bora and Sreyneang have baselineAge 6 in process/cast/cast.json. Heights use WHO Child Growth Standards (2006/2007) height-for-age medians at 6.0 years: 116 cm (boys), 115 cm (girls). Marked estimated: true because the baseline is \"about 6\" at official entrance, not a birthday.",
+    "others": "No baseline age is recorded for anyone else. Height is estimated from the year-01 relative_scale in exports/cast-year-01/tools/chars.json (also in manifest.json), anchored to Bora: heightCm = round(116 × scale / 0.7).",
+    "people": {
+      "bora": {
+        "heightCm": 116,
+        "estimated": true,
+        "relativeScale": 0.7,
+        "source": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0)."
+      },
+      "sreyneang": {
+        "heightCm": 115,
+        "estimated": true,
+        "relativeScale": 0.7,
+        "source": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0)."
+      },
+      "bopha": {
+        "heightCm": 103,
+        "estimated": true,
+        "relativeScale": 0.62,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "dara": {
+        "heightCm": 139,
+        "estimated": true,
+        "relativeScale": 0.84,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "sopha": {
+        "heightCm": 156,
+        "estimated": true,
+        "relativeScale": 0.94,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "vuthy": {
+        "heightCm": 166,
+        "estimated": true,
+        "relativeScale": 1.0,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "visal": {
+        "heightCm": 162,
+        "estimated": true,
+        "relativeScale": 0.98,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "malis": {
+        "heightCm": 156,
+        "estimated": true,
+        "relativeScale": 0.94,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "yeay-chan": {
+        "heightCm": 146,
+        "estimated": true,
+        "relativeScale": 0.88,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "kru-sopheak": {
+        "heightCm": 166,
+        "estimated": true,
+        "relativeScale": 1.0,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "srey-mom": {
+        "heightCm": 154,
+        "estimated": true,
+        "relativeScale": 0.93,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      },
+      "professor-mordechai": {
+        "heightCm": 159,
+        "estimated": true,
+        "relativeScale": 0.96,
+        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+      }
+    }
+  },
+  "postureFactors": {
+    "standing": 1.0,
+    "sitting": 0.7,
+    "walking": 1.0,
+    "sampeah": 1.0,
+    "waving": 1.0,
+    "pointing": 1.0,
+    "holding-book": 1.0,
+    "giving": 1.0,
+    "receiving": 1.0,
+    "talking": 1.0,
+    "listening": 1.0,
+    "neutral": 1.0
+  },
+  "lookingAtVocabulary": [
+    "left",
+    "right",
+    "front",
+    "down",
+    "up"
+  ],
+  "poseVocabulary": [
+    "standing",
+    "sitting",
+    "walking",
+    "sampeah",
+    "waving",
+    "pointing",
+    "holding-book",
+    "holding-basket",
+    "giving",
+    "receiving",
+    "talking",
+    "listening",
+    "neutral"
+  ],
+  "mirrorable": "true unless mirroring would move text or an asymmetric cultural detail (here: a krama worn over one shoulder on yeay-chan, malis, and srey-mom).",
+  "bundles": {
+    "runtime": "Files the viewer ships under media/characters/year-01/. The player resolves only these unless an export bundle is present.",
+    "export": "Full year-01 pose export under exports/cast-year-01/. Not copied into the public Pages site."
+  },
+  "images": [
+    {
+      "id": "sopha-neutral",
+      "character": "sopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sopha/poses/sopha_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sopha-wave",
+      "character": "sopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sopha/poses/sopha_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_wave.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sopha-explain",
+      "character": "sopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sopha/poses/sopha_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_explain.png",
+      "lookingAt": "right",
+      "facing": "right",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sopha-listen",
+      "character": "sopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sopha/poses/sopha_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_listen.png",
+      "lookingAt": "up",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sopha-talking",
+      "character": "sopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sopha/talking/sopha_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/sopha/talking/sopha_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "vuthy-neutral",
+      "character": "vuthy",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/vuthy/poses/vuthy_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "vuthy-wave",
+      "character": "vuthy",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/vuthy/poses/vuthy_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "vuthy-explain",
+      "character": "vuthy",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/vuthy/poses/vuthy_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_explain.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "vuthy-listen",
+      "character": "vuthy",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/vuthy/poses/vuthy_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "vuthy-talking",
+      "character": "vuthy",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/vuthy/talking/vuthy_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/vuthy/talking/vuthy_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bora-neutral",
+      "character": "bora",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/bora-neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 116,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bora-wave",
+      "character": "bora",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bora/poses/bora_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 116,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bora-explain",
+      "character": "bora",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bora/poses/bora_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_explain.png",
+      "lookingAt": "up",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "pointing",
+        "talking"
+      ],
+      "heightCm": 116,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bora-listen",
+      "character": "bora",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bora/poses/bora_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 116,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bora-talking",
+      "character": "bora",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/bora-talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/bora/talking/bora_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 116,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, boys, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sreyneang-neutral",
+      "character": "sreyneang",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/sreyneang-neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 115,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sreyneang-wave",
+      "character": "sreyneang",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 115,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sreyneang-explain",
+      "character": "sreyneang",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_explain.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 115,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sreyneang-listen",
+      "character": "sreyneang",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 115,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "sreyneang-talking",
+      "character": "sreyneang",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/sreyneang-talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/sreyneang/talking/sreyneang_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 115,
+      "estimated": true,
+      "heightSource": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bopha-neutral",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bopha/poses/bopha_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bopha-wave",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bopha/poses/bopha_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bopha-explain",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bopha/poses/bopha_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_explain.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bopha-listen",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bopha/poses/bopha_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "bopha-talking",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/bopha/talking/bopha_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/bopha/talking/bopha_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-neutral",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/dara/poses/dara_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-wave",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/dara/poses/dara_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-explain",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/dara/poses/dara_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_explain.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-listen",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/dara/poses/dara_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-talking",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/dara/talking/dara_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/dara/talking/dara_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "visal-neutral",
+      "character": "visal",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/visal/poses/visal_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 162,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "visal-wave",
+      "character": "visal",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/visal/poses/visal_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 162,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "visal-explain",
+      "character": "visal",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/visal/poses/visal_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_explain.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 162,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "visal-listen",
+      "character": "visal",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/visal/poses/visal_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_listen.png",
+      "lookingAt": "up",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 162,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "visal-talking",
+      "character": "visal",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/visal/talking/visal_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/visal/talking/visal_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 162,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.98 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "malis-neutral",
+      "character": "malis",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/malis/poses/malis_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "malis-wave",
+      "character": "malis",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/malis/poses/malis_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "malis-explain",
+      "character": "malis",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/malis/poses/malis_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_explain.png",
+      "lookingAt": "right",
+      "facing": "right",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "malis-listen",
+      "character": "malis",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/malis/poses/malis_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "malis-talking",
+      "character": "malis",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/malis/talking/malis_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/malis/talking/malis_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 156,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.94 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "yeay-chan-neutral",
+      "character": "yeay-chan",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/yeay-chan-neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 146,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "yeay-chan-wave",
+      "character": "yeay-chan",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving"
+      ],
+      "heightCm": 146,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "yeay-chan-explain",
+      "character": "yeay-chan",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_explain.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking"
+      ],
+      "heightCm": 146,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "yeay-chan-listen",
+      "character": "yeay-chan",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 146,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "yeay-chan-talking",
+      "character": "yeay-chan",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/yeay-chan-talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/yeay-chan/talking/yeay-chan_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 146,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.88 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "kru-sopheak-neutral",
+      "character": "kru-sopheak",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/kru-sopheak-neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral",
+        "holding-book"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "kru-sopheak-wave",
+      "character": "kru-sopheak",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving",
+        "holding-book"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "kru-sopheak-explain",
+      "character": "kru-sopheak",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_explain.png",
+      "lookingAt": "up",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "pointing",
+        "talking",
+        "holding-book"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "kru-sopheak-listen",
+      "character": "kru-sopheak",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening",
+        "holding-book"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "kru-sopheak-talking",
+      "character": "kru-sopheak",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/kru-sopheak-talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/kru-sopheak/talking/kru-sopheak_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral",
+        "holding-book"
+      ],
+      "heightCm": 166,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 1.0 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "srey-mom-neutral",
+      "character": "srey-mom",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral",
+        "holding-basket"
+      ],
+      "heightCm": 154,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "srey-mom-wave",
+      "character": "srey-mom",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "waving",
+        "holding-basket"
+      ],
+      "heightCm": 154,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "srey-mom-explain",
+      "character": "srey-mom",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_explain.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "giving",
+        "holding-basket"
+      ],
+      "heightCm": 154,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "srey-mom-listen",
+      "character": "srey-mom",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening",
+        "holding-basket"
+      ],
+      "heightCm": 154,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "srey-mom-talking",
+      "character": "srey-mom",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/srey-mom/talking/srey-mom_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/srey-mom/talking/srey-mom_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral",
+        "holding-basket"
+      ],
+      "heightCm": 154,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.93 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": false
+    },
+    {
+      "id": "professor-mordechai-neutral",
+      "character": "professor-mordechai",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-wave",
+      "character": "professor-mordechai",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_wave.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_wave.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "sampeah"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-explain",
+      "character": "professor-mordechai",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_explain.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_explain.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "pointing",
+        "talking"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-listen",
+      "character": "professor-mordechai",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_listen.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_listen.png",
+      "lookingAt": "right",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "listening"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-talking",
+      "character": "professor-mordechai",
+      "kind": "full-body",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/talking/professor-mordechai_talking.apng",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/talking/professor-mordechai_talking.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-neutral",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-neutral-speaking",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral_speaking.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral_speaking.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-open-palm",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_open_palm.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_open_palm.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-open-palm-mid",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_open_palm_mid.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_open_palm_mid.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-point",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_point.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_point.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "pointing",
+        "talking"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-point-mid",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_point_mid.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_point_mid.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "pointing",
+        "talking"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-sampeah",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah.png",
+      "lookingAt": "down",
+      "facing": "front",
+      "pose": [
+        "sampeah"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-sampeah-approach",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah_approach.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah_approach.png",
+      "lookingAt": "down",
+      "facing": "front",
+      "pose": [
+        "sampeah"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-sampeah-rise-low",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah_rise_low.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah_rise_low.png",
+      "lookingAt": "down",
+      "facing": "front",
+      "pose": [
+        "sampeah"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-greet-sampeah",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_greet_sampeah.apng",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_greet_sampeah.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "sampeah"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-talk-neutral",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_neutral.apng",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_neutral.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-talk-open-palm",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_open_palm.apng",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_open_palm.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-talk-point",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "export",
+      "src": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_point.apng",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_point.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking",
+        "pointing"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-runtime-neutral",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/professor-closeup-neutral.png",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral.png",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-closeup-runtime-talk",
+      "character": "professor-mordechai",
+      "kind": "closeup",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/professor-closeup-talk.apng",
+      "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_neutral.apng",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    },
+    {
+      "id": "professor-mordechai-icon",
+      "character": "professor-mordechai",
+      "kind": "icon",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/professor-icon.svg",
+      "lookingAt": "front",
+      "facing": "front",
+      "pose": [
+        "neutral"
+      ],
+      "heightCm": 159,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.96 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "mirrorable": true
+    }
+  ]
+}

@@ -159,6 +159,7 @@ Opening or playing the professor pauses the story and stops its audio. Playing o
 - `sprites` maps keys (`idle`, `speak`, …) to image paths. Paths may be `.gif`, `.svg`, `.webp`, `.png`, or `.apng` — the player uses a plain `<img src>`; the browser plays animated formats natively. There is no extension filter in the player.
 - Typical cast: `idle` is a still PNG; `speak` is a short looping talking GIF (idle mouth + open mouth). Keep the matching `*-speak.png` next to the GIF for `prefers-reduced-motion` (the player swaps `.gif`/`.webp`/`.apng` → `.png` when reduced motion is set). Optional `speakStill` overrides that still path.
 - Placements: `id`, `sprite`, `x`/`y` (percent; bottom-centre anchor), optional `scale` / `facing`.
+- Optional scene `setup` describes the main subject (`focus`) and optional `objects` / per-person gaze and pose. The catalog and the full schema live in `viewer/assets/cast/`. When `scale` is omitted, the player sizes people from catalog height so adults and children stay in proportion.
 - While a line plays (or that character is the current speaker while paused), that speaker uses the speak sprite; others use idle. Do not CSS-animate the `img` in a way that fights `.face-left img { transform: scaleX(-1) }`.
 - Year-01 people use `media/characters/year-01/<id>-neutral.png` for idle and `<id>-talking.apng` while speaking. The APNG loops. It is not matched to the audio. `speakStill` is the neutral pose for reduced motion. `lipSync` is false.
 

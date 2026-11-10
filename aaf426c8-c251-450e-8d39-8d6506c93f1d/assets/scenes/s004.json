@@ -42,27 +42,35 @@
     {
       "id": "1",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -82,27 +90,35 @@
     {
       "id": "2",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -122,27 +138,35 @@
     {
       "id": "3",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -162,27 +186,35 @@
     {
       "id": "4",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -202,27 +234,35 @@
     {
       "id": "5",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -242,27 +282,35 @@
     {
       "id": "6",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -282,27 +330,35 @@
     {
       "id": "7",
       "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "Greeting the teacher at the classroom door",
+        "where": "School, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 32,
-          "y": 93,
-          "scale": 1.4
+          "y": 93
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 58,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 78,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [

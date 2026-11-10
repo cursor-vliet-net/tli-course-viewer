@@ -243,12 +243,423 @@
 
   /* Optional professor explanations. Missing professor/explanations is valid.
      The checker accepts a scope and a clock. It does not judge the sentences. */
+
+  /* ---- Cast image catalog, scene setup, and gaze resolver ---- */
+  var LOOKING_AT = { left: 1, right: 1, front: 1, down: 1, up: 1 };
+  var HEIGHT_REF_CM = 116; /* Bora, Grade 1 */
+  var HEIGHT_REF_SCALE = 1.05; /* his current on-stage size */
+  var GAZE_X_GAP = 8; /* percent: smaller difference stays front */
+  var _castCatalog = null;
+  var _castCatalogPromise = null;
+
+  function emptyCatalog() { return { images: [], height: { people: {} } }; }
+
+  function setCastCatalog(catalog) {
+    _castCatalog = catalog && typeof catalog === 'object' ? catalog : emptyCatalog();
+    return _castCatalog;
+  }
+
+  function getCastCatalog() { return _castCatalog; }
+
+  function loadCastCatalog() {
+    if (_castCatalogPromise) return _castCatalogPromise;
+    if (typeof global.fetch !== 'function') {
+      _castCatalog = _castCatalog || emptyCatalog();
+      _castCatalogPromise = Promise.resolve(_castCatalog);
+      return _castCatalogPromise;
+    }
+    _castCatalogPromise = global.fetch(resolveUrl('cast/images.json')).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function (data) {
+      _castCatalog = data;
+      return data;
+    }).catch(function () {
+      _castCatalog = _castCatalog || emptyCatalog();
+      return _castCatalog;
+    });
+    return _castCatalogPromise;
+  }
+
+  function catalogImages(catalog) {
+    catalog = catalog || _castCatalog;
+    return (catalog && catalog.images) || [];
+  }
+
+  function isAdultActor(actor) {
+    var g = actor && actor.gender;
+    return g === 'male' || g === 'female';
+  }
+
+  function isChildActor(actor) {
+    var g = actor && actor.gender;
+    return g === 'boy' || g === 'girl';
+  }
+
+  function heightCmFor(catalog, character) {
+    var people = catalog && catalog.height && catalog.height.people;
+    if (people && people[character] && typeof people[character].heightCm === 'number') {
+      return people[character].heightCm;
+    }
+    var imgs = catalogImages(catalog);
+    var i;
+    for (i = 0; i < imgs.length; i++) {
+      if (imgs[i].character === character && typeof imgs[i].heightCm === 'number') return imgs[i].heightCm;
+    }
+    return null;
+  }
+
+  function heightScaleFor(catalog, character, postureFactor) {
+    var cm = heightCmFor(catalog, character);
+    if (cm == null) return null;
+    var factor = typeof postureFactor === 'number' ? postureFactor : 1;
+    return (cm * factor) / HEIGHT_REF_CM * HEIGHT_REF_SCALE;
+  }
+
+  function setupOf(scene) {
+    return (scene && scene.setup && typeof scene.setup === 'object') ? scene.setup : null;
+  }
+
+  function placementX(placements, id) {
+    var i, p;
+    for (i = 0; i < (placements || []).length; i++) {
+      p = placements[i];
+      if (p && p.id === id && typeof p.x === 'number') return p.x;
+    }
+    return null;
+  }
+
+  function objectX(setup, id) {
+    var list = setup && setup.objects;
+    var i, o;
+    for (i = 0; i < (list || []).length; i++) {
+      o = list[i];
+      if (o && o.id === id && typeof o.x === 'number') return o.x;
+    }
+    return null;
+  }
+
+  function focusIds(focus) {
+    if (focus == null || focus === '') return [];
+    if (typeof focus === 'string') return [focus];
+    if (Array.isArray(focus)) return focus.filter(function (id) { return !!id; });
+    if (typeof focus === 'object' && Array.isArray(focus.ids)) return focus.ids.filter(function (id) { return !!id; });
+    return [];
+  }
+
+  function locateTarget(id, placements, setup, actors) {
+    if (!id) return null;
+    if (LOOKING_AT[id]) return { id: id, kind: 'direction', x: null, direction: id };
+    var x = placementX(placements, id);
+    if (x != null) return { id: id, kind: (actors && actors[id]) ? 'person' : 'object', x: x };
+    x = objectX(setup, id);
+    if (x != null) return { id: id, kind: 'object', x: x };
+    return { id: id, kind: 'unknown', x: null };
+  }
+
+  function groupCenter(ids, placements, setup, actors) {
+    var xs = [];
+    var i, loc;
+    for (i = 0; i < ids.length; i++) {
+      loc = locateTarget(ids[i], placements, setup, actors);
+      if (loc && loc.x != null) xs.push(loc.x);
+    }
+    if (!xs.length) return null;
+    var sum = 0;
+    for (i = 0; i < xs.length; i++) sum += xs[i];
+    return { id: ids.join(','), kind: 'group', x: sum / xs.length, ids: ids };
+  }
+
+  function nearestOf(fromX, ids, placements, setup, actors) {
+    var best = null, bestD = Infinity, i, loc, d;
+    for (i = 0; i < ids.length; i++) {
+      loc = locateTarget(ids[i], placements, setup, actors);
+      if (!loc || loc.x == null) continue;
+      d = Math.abs(loc.x - fromX);
+      if (d < bestD) { bestD = d; best = loc; }
+    }
+    return best;
+  }
+
+  function personOverride(setup, personId) {
+    var list = setup && setup.people;
+    var i;
+    for (i = 0; i < (list || []).length; i++) {
+      if (list[i] && list[i].id === personId) return list[i];
+    }
+    return null;
+  }
+
+  /* Direction this person should look: left | right | front | down | up, plus the target record. */
+  function resolveLookTarget(opts) {
+    opts = opts || {};
+    var personId = opts.personId;
+    var scene = opts.scene || {};
+    var actors = opts.actors || {};
+    var line = opts.line || null;
+    var placements = scene.placements || [];
+    var setup = setupOf(scene);
+    var fromX = placementX(placements, personId);
+    var log = opts.log || [];
+    var over = personOverride(setup, personId);
+    var explicit = null;
+    if (line && line.speaker === personId && line.lookingAt) explicit = line.lookingAt;
+    else if (over && over.lookingAt) explicit = over.lookingAt;
+    var target = null;
+    if (explicit) {
+      if (LOOKING_AT[explicit]) {
+        return { target: { id: explicit, kind: 'direction', direction: explicit, x: null }, direction: explicit, reason: 'override' };
+      }
+      target = locateTarget(explicit, placements, setup, actors);
+      if (!target || target.x == null && target.kind !== 'direction') {
+        log.push({ level: 'warn', code: 'unknown-lookingAt', person: personId, lookingAt: explicit });
+      }
+    } else {
+      var adultIds = [];
+      var childIds = [];
+      var i, p, act;
+      for (i = 0; i < placements.length; i++) {
+        p = placements[i];
+        act = actors[p.id];
+        if (isAdultActor(act)) adultIds.push(p.id);
+        else if (isChildActor(act)) childIds.push(p.id);
+      }
+      var useRules = !setup || setup.gaze == null || setup.gaze === 'rules';
+      if (useRules && adultIds.length >= 1 && childIds.length >= 2) {
+        if (isChildActor(actors[personId])) {
+          target = nearestOf(fromX, adultIds, placements, setup, actors);
+        } else if (isAdultActor(actors[personId])) {
+          target = groupCenter(childIds, placements, setup, actors);
+        }
+        if (target) target.reason = 'adult-kids';
+      }
+      if (!target && setup && setup.focus != null) {
+        var ids = focusIds(setup.focus);
+        if (ids.length === 1 && ids[0] === personId) {
+          /* Focus person looks at the speaker, or front. */
+          if (line && line.speaker && line.speaker !== personId) {
+            target = locateTarget(line.speaker, placements, setup, actors);
+            if (target) target.reason = 'focus-self-speaker';
+          } else {
+            return { target: { id: 'front', kind: 'direction', direction: 'front', x: null, reason: 'focus-self' }, direction: 'front', reason: 'focus-self' };
+          }
+        } else if (ids.length) {
+          target = ids.length === 1
+            ? locateTarget(ids[0], placements, setup, actors)
+            : groupCenter(ids, placements, setup, actors);
+          if (target) target.reason = 'focus';
+        }
+      }
+    }
+    if (!target) {
+      return { target: { id: 'front', kind: 'direction', direction: 'front', x: null, reason: 'default' }, direction: 'front', reason: 'default' };
+    }
+    var direction = target.direction || gazeToward(fromX, target.x);
+    return { target: target, direction: direction, reason: target.reason || (explicit ? 'override' : 'focus') };
+  }
+
+  function gazeToward(fromX, toX) {
+    if (fromX == null || toX == null) return 'front';
+    var dx = toX - fromX;
+    if (Math.abs(dx) < GAZE_X_GAP) return 'front';
+    return dx < 0 ? 'left' : 'right';
+  }
+
+  function flipLR(dir) {
+    if (dir === 'left') return 'right';
+    if (dir === 'right') return 'left';
+    return dir;
+  }
+
+  function effectiveGaze(image, mirrored) {
+    var look = image && image.lookingAt;
+    return mirrored ? flipLR(look) : look;
+  }
+
+  function imageAvailable(image, bundles) {
+    if (!image) return false;
+    bundles = bundles || ['runtime'];
+    return bundles.indexOf(image.bundle) !== -1;
+  }
+
+  function hasPose(image, pose) {
+    if (!pose) return true;
+    var tags = (image && image.pose) || [];
+    var i;
+    if (Array.isArray(pose)) {
+      for (i = 0; i < pose.length; i++) if (hasPose(image, pose[i])) return true;
+      return false;
+    }
+    for (i = 0; i < tags.length; i++) if (tags[i] === pose) return true;
+    return false;
+  }
+
+  function requestedPose(opts) {
+    var line = opts.line;
+    var personId = opts.personId;
+    var over = personOverride(setupOf(opts.scene), personId);
+    if (line && line.speaker === personId && line.pose) return line.pose;
+    if (over && over.pose) return over.pose;
+    if (opts.speaking && !opts.reducedMotion) return 'talking';
+    return 'neutral';
+  }
+
+  function scoreImage(image, desired, pose, mirrored) {
+    var score = 0;
+    var look = effectiveGaze(image, mirrored);
+    if (look === desired) score += 100;
+    else if (desired === 'front' && look === 'front') score += 100;
+    else if (look === 'front' && (desired === 'left' || desired === 'right')) score += 10;
+    else score -= 20;
+    if (pose && hasPose(image, pose)) score += 40;
+    if (image.bundle === 'runtime') score += 5;
+    if (mirrored) score -= 1; /* prefer a native match over a flip */
+    return score;
+  }
+
+  function pickCastImage(opts) {
+    opts = opts || {};
+    var catalog = opts.catalog || _castCatalog;
+    var personId = opts.personId;
+    var desired = opts.direction || 'front';
+    var pose = opts.pose;
+    var bundles = opts.bundles || ['runtime'];
+    var log = opts.log || [];
+    var pool = catalogImages(catalog).filter(function (im) {
+      return im.character === personId && imageAvailable(im, bundles) && im.kind !== 'icon' && im.kind !== 'closeup';
+    });
+    if (opts.reducedMotion) {
+      pool = pool.filter(function (im) { return !/\.(apng|gif|webp)$/i.test(im.src || ''); });
+    }
+    /* If this is a close-up-only character in this call, allow closeups. */
+    if (!pool.length) {
+      pool = catalogImages(catalog).filter(function (im) {
+        return im.character === personId && imageAvailable(im, bundles) && im.kind !== 'icon';
+      });
+    }
+    var posed = pose ? pool.filter(function (im) { return hasPose(im, pose); }) : pool.slice();
+    if (pose && !posed.length) {
+      log.push({ level: 'warn', code: 'missing-pose', person: personId, pose: pose, direction: desired });
+      posed = pool.slice();
+    }
+    var best = null, bestScore = -Infinity, i, im, variant, score;
+    function consider(image, mirrored) {
+      if (mirrored && image.mirrorable === false) return;
+      var s = scoreImage(image, desired, pose, mirrored);
+      if (s > bestScore) {
+        bestScore = s;
+        best = { image: image, mirrored: !!mirrored, direction: effectiveGaze(image, mirrored), score: s };
+      }
+    }
+    for (i = 0; i < posed.length; i++) {
+      consider(posed[i], false);
+      consider(posed[i], true);
+    }
+    if (!best || best.direction !== desired) {
+      /* Try the rest of the pool (other poses) for a gaze match. */
+      for (i = 0; i < pool.length; i++) {
+        consider(pool[i], false);
+        consider(pool[i], true);
+      }
+    }
+    if (!best) {
+      log.push({ level: 'warn', code: 'no-image', person: personId, direction: desired, pose: pose });
+      return { image: null, mirrored: false, direction: 'front', fallback: true, log: log };
+    }
+    if (best.direction !== desired) {
+      log.push({ level: 'warn', code: 'missing-direction', person: personId, wanted: desired, used: best.direction, src: best.image && best.image.src, mirrored: best.mirrored, pose: pose });
+    }
+    best.fallback = best.direction !== desired;
+    best.log = log;
+    return best;
+  }
+
+  function resolvePersonPlacement(opts) {
+    opts = opts || {};
+    var log = opts.log || [];
+    var look = resolveLookTarget({
+      personId: opts.personId,
+      scene: opts.scene,
+      actors: opts.actors,
+      line: opts.line,
+      log: log
+    });
+    var pose = requestedPose(opts);
+    var pick = pickCastImage({
+      catalog: opts.catalog || _castCatalog,
+      personId: opts.personId,
+      direction: look.direction,
+      pose: pose,
+      bundles: opts.bundles,
+      log: log
+    });
+    var placement = opts.placement || {};
+    var catalog = opts.catalog || _castCatalog;
+    var scale = (typeof placement.scale === 'number') ? placement.scale : heightScaleFor(catalog, opts.personId, pick.image && pick.image.postureFactor);
+    var mirrored = !!pick.mirrored;
+    if (placement.facing === 'left') mirrored = true;
+    if (placement.facing === 'right') mirrored = false;
+    return {
+      personId: opts.personId,
+      target: look.target,
+      wanted: look.direction,
+      reason: look.reason,
+      pose: pose,
+      image: pick.image || null,
+      src: (pick.image && pick.image.src) || '',
+      mirrored: mirrored,
+      usedDirection: pick.direction || 'front',
+      scale: scale,
+      fallback: !!pick.fallback,
+      log: log
+    };
+  }
+
+  function validateSetup(data) {
+    var errors = [];
+    if (!data || typeof data !== 'object' || !Array.isArray(data.scenes)) return errors;
+    data.scenes.forEach(function (sc, si) {
+      var label = (sc && sc.id) || si;
+      var setup = sc && sc.setup;
+      if (setup == null) return;
+      if (typeof setup !== 'object' || Array.isArray(setup)) {
+        errors.push('scene ' + label + ' setup must be an object');
+        return;
+      }
+      if (setup.gaze != null && setup.gaze !== 'rules' && setup.gaze !== 'focus') {
+        errors.push('scene ' + label + ' setup.gaze must be rules or focus');
+      }
+      if (setup.objects != null) {
+        if (!Array.isArray(setup.objects)) errors.push('scene ' + label + ' setup.objects must be an array');
+        else setup.objects.forEach(function (o, i) {
+          if (!o || typeof o !== 'object' || !o.id) errors.push('scene ' + label + ' setup.objects[' + i + '] needs an id');
+          if (o && o.x != null && !isNum(o.x)) errors.push('scene ' + label + ' setup.objects[' + i + '] x must be a number');
+        });
+      }
+      if (setup.people != null) {
+        if (!Array.isArray(setup.people)) errors.push('scene ' + label + ' setup.people must be an array');
+        else setup.people.forEach(function (p, i) {
+          if (!p || typeof p !== 'object' || !p.id) errors.push('scene ' + label + ' setup.people[' + i + '] needs an id');
+        });
+      }
+      if (setup.focus != null) {
+        var ok = typeof setup.focus === 'string'
+          || Array.isArray(setup.focus)
+          || (typeof setup.focus === 'object' && (setup.focus.kind === 'objects-with-people') && Array.isArray(setup.focus.ids));
+        if (!ok) errors.push('scene ' + label + ' setup.focus must be an id, a list, or objects-with-people');
+      }
+    });
+    return errors;
+  }
+
+
   function validateStory(data) {
     var errors = [];
     if (!data || typeof data !== 'object' || !Array.isArray(data.scenes)) {
       errors.push('scenes must be an array');
       return errors;
     }
+    validateSetup(data).forEach(function (msg) { errors.push(msg); });
     var hasExplanations = data.scenes.some(function (sc) {
       return sc && sc.explanations != null && sc.explanations.length !== 0;
     });
@@ -423,6 +834,11 @@
     this._bind();
     this._preloadSprites();
     this.goTo(0, { auto: false });
+    var self = this;
+    loadCastCatalog().then(function () {
+      if (!self.root || !self.scenes) return;
+      self._renderPlacements(self.scenes[self.index]);
+    });
   }
 
   Player.prototype.defaultDur = function () {
@@ -1014,7 +1430,24 @@
       var sprite = p.sprite;
       if (wantSpeak) sprite = 'speak';
       else if (sprite === 'speak') sprite = 'idle';
-      var url = self._spriteUrl(p.id, sprite || (wantSpeak ? 'speak' : 'idle'));
+      var resolveLog = [];
+      var resolved = resolvePersonPlacement({
+        catalog: getCastCatalog(),
+        personId: p.id,
+        scene: sc,
+        actors: self.actors,
+        placement: p,
+        line: self._currentLine(),
+        speaking: wantSpeak,
+        reducedMotion: self._prefersReducedMotion(),
+        bundles: ['runtime'],
+        log: resolveLog
+      });
+      var url = resolved.src ? resolveUrl(resolved.src) : self._spriteUrl(p.id, sprite || (wantSpeak ? 'speak' : 'idle'));
+      if (!url) url = self._spriteUrl(p.id, sprite || (wantSpeak ? 'speak' : 'idle'));
+      if (resolveLog.length && global.console && console.warn) {
+        resolveLog.forEach(function (item) { console.warn('tli cast', item.code, item); });
+      }
       var btn = have[p.id];
       if (!btn) {
         btn = document.createElement('button');
@@ -1023,7 +1456,9 @@
       } else {
         delete have[p.id];
       }
-      btn.className = 'tli-sp-actor' + (wantSpeak ? ' is-speaking' : '') + (clickable ? ' is-clickable' : '') + (p.facing === 'left' ? ' face-left' : '');
+      var faceLeft = resolved.mirrored || p.facing === 'left';
+      btn.className = 'tli-sp-actor' + (wantSpeak ? ' is-speaking' : '') + (clickable ? ' is-clickable' : '') + (faceLeft ? ' face-left' : '');
+      btn._resolved = resolved;
       btn.setAttribute('aria-disabled', clickable ? 'false' : 'true');
       btn.tabIndex = clickable ? 0 : -1;
       var label = actor.name || p.id;
@@ -1031,7 +1466,8 @@
       else if (wantSpeak) label += ' (speaking)';
       btn.setAttribute('aria-label', label);
       btn._placement = p;
-      if (typeof p.scale === 'number') btn.style.setProperty('--sp-scale', String(p.scale));
+      if (typeof resolved.scale === 'number') btn.style.setProperty('--sp-scale', String(resolved.scale));
+      else if (typeof p.scale === 'number') btn.style.setProperty('--sp-scale', String(p.scale));
       else btn.style.removeProperty('--sp-scale');
       var img = btn.querySelector('img');
       if (url) {
@@ -2165,6 +2601,17 @@
     speeds: SPEEDS.slice(),
     assetBase: function () { return ASSET_BASE; },
     validateStory: validateStory,
+    validateSetup: validateSetup,
+    setCastCatalog: setCastCatalog,
+    getCastCatalog: getCastCatalog,
+    loadCastCatalog: loadCastCatalog,
+    resolveLookTarget: resolveLookTarget,
+    resolvePersonPlacement: resolvePersonPlacement,
+    pickCastImage: pickCastImage,
+    gazeToward: gazeToward,
+    heightScaleFor: heightScaleFor,
+    heightRefCm: HEIGHT_REF_CM,
+    heightRefScale: HEIGHT_REF_SCALE,
     availability: availabilityOf,
     leadDefaultMs: PROF_LEAD_MS,
     windowDefaultMs: PROF_WINDOW_MS,

@@ -42,27 +42,35 @@
     {
       "id": "1",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -82,27 +90,35 @@
     {
       "id": "2",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "kru-sopheak",
+        "gaze": "rules"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -122,27 +138,50 @@
     {
       "id": "3",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": {
+          "kind": "objects-with-people",
+          "ids": [
+            "book",
+            "kru-sopheak",
+            "bora"
+          ]
+        },
+        "gaze": "focus",
+        "objects": [
+          {
+            "id": "book",
+            "label": "a book",
+            "x": 36,
+            "y": 78
+          }
+        ]
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -162,27 +201,50 @@
     {
       "id": "4",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": {
+          "kind": "objects-with-people",
+          "ids": [
+            "book",
+            "kru-sopheak",
+            "bora"
+          ]
+        },
+        "gaze": "focus",
+        "objects": [
+          {
+            "id": "book",
+            "label": "a book",
+            "x": 36,
+            "y": 78
+          }
+        ]
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -202,27 +264,50 @@
     {
       "id": "5",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": {
+          "kind": "objects-with-people",
+          "ids": [
+            "book",
+            "kru-sopheak",
+            "bora"
+          ]
+        },
+        "gaze": "focus",
+        "objects": [
+          {
+            "id": "book",
+            "label": "a book",
+            "x": 36,
+            "y": 78
+          }
+        ]
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -242,27 +327,50 @@
     {
       "id": "6",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": {
+          "kind": "objects-with-people",
+          "ids": [
+            "book",
+            "kru-sopheak",
+            "sreyneang"
+          ]
+        },
+        "gaze": "focus",
+        "objects": [
+          {
+            "id": "book",
+            "label": "a book",
+            "x": 36,
+            "y": 78
+          }
+        ]
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -282,27 +390,50 @@
     {
       "id": "7",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": {
+          "kind": "objects-with-people",
+          "ids": [
+            "book",
+            "bora",
+            "sreyneang"
+          ]
+        },
+        "gaze": "focus",
+        "objects": [
+          {
+            "id": "book",
+            "label": "a book",
+            "x": 36,
+            "y": 78
+          }
+        ]
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "speak",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -322,27 +453,50 @@
     {
       "id": "8",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Asking for a book and saying thank you",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": {
+          "kind": "objects-with-people",
+          "ids": [
+            "book",
+            "bora",
+            "sreyneang"
+          ]
+        },
+        "gaze": "focus",
+        "objects": [
+          {
+            "id": "book",
+            "label": "a book",
+            "x": 36,
+            "y": 78
+          }
+        ]
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
@@ -362,27 +516,38 @@
     {
       "id": "9",
       "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Saying who a classmate is",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": [
+          "sreyneang",
+          "bora"
+        ],
+        "gaze": "focus"
+      },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
           "x": 28,
-          "y": 92,
-          "scale": 1.4
+          "y": 92
         },
         {
           "id": "bora",
           "sprite": "idle",
           "x": 55,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
           "x": 76,
-          "y": 95,
-          "scale": 1.05
+          "y": 95
         }
       ],
       "lines": [
