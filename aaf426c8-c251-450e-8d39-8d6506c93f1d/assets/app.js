@@ -168,10 +168,23 @@
       ' aria-label="' + esc(cursiveLabel(letter)) + '" style="font-family:' +
       safeFontFamily(family, 'cursive, sans-serif') + '">' + esc(letter) + '</span>';
   }
-  function letterFormsHtml(sample, printFamily, cursiveFamily, printClass, hiddenPrint) {
-    var print = '<span class="' + printClass + '" lang="en"' + (hiddenPrint ? ' aria-hidden="true"' : '') +
+  function letterPrintSpan(sample, printFamily, printClass, hiddenPrint) {
+    return '<span class="' + printClass + '" lang="en"' + (hiddenPrint ? ' aria-hidden="true"' : '') +
       ' style="font-family:' + safeFontFamily(printFamily) + '">' + esc(sample) + '</span>';
-    return '<span class="q-letter-forms">' + print + cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily) + '</span>';
+  }
+  function letterFormsHtml(sample, printFamily, cursiveFamily, printClass, hiddenPrint) {
+    return '<span class="q-letter-forms">' + letterPrintSpan(sample, printFamily, printClass, hiddenPrint) +
+      cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily) + '</span>';
+  }
+  var STEM_TRAIL_PUNCT = /^(\s*[?!.…,;:¿¡។៕？！．、]+)([\s\S]*)$/;
+  function slotLetterStem(template, sample, printFamily, cursiveFamily) {
+    var printForms = '<span class="q-letter-forms">' + letterPrintSpan(sample, printFamily, 'q-letter-sample') + '</span>';
+    var cursive = cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily);
+    var parts = String(template || '').split('{sample}');
+    var before = parts[0], after = parts.length > 1 ? parts.slice(1).join('{sample}') : '';
+    var m = after.match(STEM_TRAIL_PUNCT);
+    if (m) return esc(before) + printForms + esc(m[1]) + cursive + esc(m[2]);
+    return esc(before) + printForms + cursive + esc(after);
   }
   function applyCursiveLabels(root) {
     $$('[data-cursive-letter]', root || document).forEach(function (el) {
@@ -192,18 +205,15 @@
   }
   function renderLetterPrompt(el) {
     var sample = el.getAttribute('data-sample') || '';
-    var span = letterFormsHtml(
-      sample,
-      el.getAttribute('data-font-sample'),
-      el.getAttribute('data-font-cursive'),
-      'q-letter-sample'
-    );
+    var printFamily = el.getAttribute('data-font-sample');
+    var cursiveFamily = el.getAttribute('data-font-cursive');
     var en = el.getAttribute('data-en') || '';
     var kmPrompt = el.getAttribute('data-km') || '';
     var useKm = uiLang() === 'km' && kmPrompt && kmPrompt !== en;
-    var primary = slotHtml(useKm ? kmPrompt : en, '{sample}', span);
+    var primary = slotLetterStem(useKm ? kmPrompt : en, sample, printFamily, cursiveFamily);
     var altTpl = useKm ? en : kmPrompt;
-    var alt = altTpl && altTpl !== (useKm ? kmPrompt : en) ? slotHtml(altTpl, '{sample}', span) : '';
+    var alt = altTpl && altTpl !== (useKm ? kmPrompt : en)
+      ? slotLetterStem(altTpl, sample, printFamily, cursiveFamily) : '';
     if (!alt || plainFromHtml(alt) === plainFromHtml(primary)) el.innerHTML = primary;
     else el.innerHTML = '<span class="i18n-primary" lang="' + (useKm ? 'km' : 'en') + '">' + primary + '</span>' +
       '<span class="i18n-alt" lang="' + (useKm ? 'en' : 'km') + '">' + alt + '</span>';

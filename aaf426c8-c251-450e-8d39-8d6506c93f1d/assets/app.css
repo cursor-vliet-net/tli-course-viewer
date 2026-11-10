@@ -128,23 +128,31 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
 .quiz { border: 1px solid var(--tli-line); border-radius: .5rem; padding: 1rem 1.2rem; background: var(--tli-quiz); color: var(--tli-ink); }
 .quiz-opt:hover { background: var(--tli-hover); }
 .quiz-q { border: 0; margin: 0 0 1rem; padding: 0; }
-.quiz-q legend { font-size: 1rem; font-weight: 600; float: none; margin-bottom: .4rem; }
-.quiz-stem-text { display: inline-block; max-width: 100%; vertical-align: top; }
+.quiz-q legend { font-size: 1rem; font-weight: 600; float: none; margin-bottom: .4rem; line-height: 2.75; }
+.quiz-stem-text { display: inline-block; max-width: 100%; vertical-align: top; line-height: 2.75; }
+.quiz-stem-text .i18n-primary, .quiz-stem-text .i18n-alt { display: block; line-height: 2.75; padding-block: .25em; }
 .q-letter-sample, .q-letter-card {
   font-weight: 400; font-style: normal; font-synthesis: none; font-size: 1.35em; line-height: 1.15;
 }
 .quiz-q legend .q-letter-sample { font-weight: 400; }
 .q-letter-forms {
-  display: inline-flex; align-items: flex-end; gap: .45rem; vertical-align: middle; flex-wrap: wrap;
+  display: inline-flex; align-items: center; justify-content: flex-start;
+  gap: .45rem; vertical-align: middle; flex-wrap: nowrap; line-height: 1;
 }
 .q-letter-card {
-  display: inline-block; min-width: 2.8rem; text-align: center; padding: .02rem .45rem .08rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 2.8rem; min-height: 1.7em; text-align: center; padding: .15rem .45rem;
   border: 1px solid var(--tli-line); border-radius: .3rem; background: transparent; color: inherit;
+  box-sizing: border-box;
 }
 .q-letter-cursive, .letter-cursive {
-  font-weight: 400; font-style: normal; font-synthesis: none; line-height: 1.25;
-  font-size: 2.05em; color: inherit;
+  display: inline-block; font-weight: 400; font-style: normal; font-synthesis: none;
+  line-height: 1.35; font-size: 2.05em; color: inherit; vertical-align: middle;
 }
+.quiz-stem-text .q-letter-cursive {
+  margin-inline-start: .2em; margin-inline-end: .45em; padding-inline-end: .1em; line-height: 1.4;
+}
+.quiz-opt .q-letter-forms { min-height: 2.7em; padding-block: .15em; }
 .letter-intro { margin: .35rem 0 1rem; max-width: 36rem; }
 .letter-intro-forms {
   display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; gap: 1.25rem 1.6rem;
@@ -156,7 +164,7 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
   color: inherit;
 }
 .letter-intro .letter-cursive { font-size: 4.1rem; line-height: 1.15; color: inherit; }
-.quiz-stem .i18n-alt, .quiz-expl .i18n-alt, .quiz-name .i18n-alt { line-height: 1.7; }
+.quiz-expl .i18n-alt, .quiz-name .i18n-alt { line-height: 1.7; }
 .quiz-opt label { align-items: center; }
 .q-listen {
   margin-left: .35rem;
@@ -185,7 +193,7 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
 [data-theme="dark"] .quiz-picture-img { border-color: var(--tli-line); background: transparent; }
 [data-theme="dark"] .q-stt-note, [data-theme="dark"] .q-observe-note { color: var(--tli-alt); }
 .quiz-opt { padding: .25rem .4rem; border-radius: .3rem; }
-.quiz-opt label { display: flex; gap: .5rem; align-items: baseline; cursor: pointer; width: 100%; }
+.quiz-opt label { display: flex; gap: .5rem; align-items: center; cursor: pointer; width: 100%; }
 .quiz-mark .mark-right, .mark-right { color: #146c2e; font-weight: 600; }
 .quiz-mark .mark-wrong, .mark-wrong { color: #b02a37; font-weight: 600; }
 .quiz-expl { margin: .2rem 0 .3rem 1.7rem; font-size: .9rem; background: #fdf0f1; border-left: 3px solid #b02a37; padding: .25rem .5rem; }
@@ -253,7 +261,11 @@ body.lb-open { overflow: hidden; }
   .letter-print { font-size: 3.4rem; }
   .letter-intro .letter-cursive { font-size: 3.2rem; }
   .letter-intro-forms { gap: .85rem 1.1rem; padding: .75rem .85rem .7rem; }
-  .quiz-stem .i18n-alt, .quiz-expl .i18n-alt { font-size: .92em; line-height: 1.75; }
+  .quiz-q legend, .quiz-stem-text,
+  .quiz-stem-text .i18n-primary, .quiz-stem-text .i18n-alt { line-height: 2.85; }
+  .quiz-stem .i18n-alt, .quiz-expl .i18n-alt { font-size: .92em; }
+  .quiz-stem-text .i18n-alt { line-height: 2.85; }
+  .quiz-expl .i18n-alt { line-height: 1.75; }
   .ref { font-size: .6rem; }
   .blk-figure, .blk-figure.fl-right, .blk-figure.fl-left { float: none !important; max-width: 100% !important; margin: .3rem 0 1rem !important; }
   .blk-tools { display: flex; position: static; box-shadow: none; border: 0; justify-content: flex-end; background: transparent; }
