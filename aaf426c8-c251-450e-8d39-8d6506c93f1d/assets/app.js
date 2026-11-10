@@ -136,6 +136,7 @@
     document.documentElement.lang = lang === 'km' ? 'km' : 'en';
     var banner = $('#kmDraft');
     if (banner) { banner.hidden = lang !== 'km'; banner.textContent = pack.draft || ''; }
+    applyCursiveLabels(document);
   }
   function restoreAuthored(root) {
     i18nNodes(root).forEach(function (el) {
@@ -143,10 +144,47 @@
       if (en != null) el.innerHTML = en;
     });
   }
-  function safeFontFamily(family) {
+  function safeFontFamily(family, generic) {
+    var fallback = generic || 'sans-serif';
     var f = String(family || '');
-    if (!/^[A-Za-z0-9 ]{1,40}$/.test(f)) return 'sans-serif';
-    return "'" + f + "',sans-serif";
+    if (!/^[A-Za-z0-9 ]{1,40}$/.test(f)) return fallback;
+    return "'" + f + "'," + fallback;
+  }
+  function lowercaseOfCard(sample) {
+    var m = String(sample || '').trim().match(/([a-z])\s*$/);
+    return m ? m[1] : '';
+  }
+  function cursiveLabel(letter) {
+    var en = 'cursive ' + letter;
+    var km = kmText(en);
+    return (uiLang() === 'km' && km) ? km : en;
+  }
+  function cursiveSpanHtml(letter, family) {
+    if (!letter) return '';
+    var en = 'cursive ' + letter;
+    var km = kmText(en);
+    return '<span class="q-letter-cursive" lang="en" data-cursive-letter="' + esc(letter) +
+      '" data-en-label="' + esc(en) + '"' + (km ? ' data-km-label="' + esc(km) + '"' : '') +
+      ' aria-label="' + esc(cursiveLabel(letter)) + '" style="font-family:' +
+      safeFontFamily(family, 'cursive, sans-serif') + '">' + esc(letter) + '</span>';
+  }
+  function letterFormsHtml(sample, printFamily, cursiveFamily, printClass, hiddenPrint) {
+    var print = '<span class="' + printClass + '" lang="en"' + (hiddenPrint ? ' aria-hidden="true"' : '') +
+      ' style="font-family:' + safeFontFamily(printFamily) + '">' + esc(sample) + '</span>';
+    return '<span class="q-letter-forms">' + print + cursiveSpanHtml(lowercaseOfCard(sample), cursiveFamily) + '</span>';
+  }
+  function applyCursiveLabels(root) {
+    $$('[data-cursive-letter]', root || document).forEach(function (el) {
+      var letter = el.getAttribute('data-cursive-letter') || '';
+      var en = el.getAttribute('data-en-label') || ('cursive ' + letter);
+      var km = el.getAttribute('data-km-label') || kmText(en);
+      el.setAttribute('aria-label', (uiLang() === 'km' && km) ? km : en);
+    });
+    $$('figure.letter-intro[data-alt-en]', root || document).forEach(function (fig) {
+      var en = fig.getAttribute('data-alt-en') || '';
+      var km = fig.getAttribute('data-alt-km') || '';
+      fig.setAttribute('aria-label', (uiLang() === 'km' && km) ? km : en);
+    });
   }
   /* Split plain text on a placeholder. Translated text is escaped; the sample span is ours. */
   function slotHtml(template, token, html) {
@@ -154,14 +192,18 @@
   }
   function renderLetterPrompt(el) {
     var sample = el.getAttribute('data-sample') || '';
-    var span = '<span class="q-letter-sample" lang="en" style="font-family:' +
-      safeFontFamily(el.getAttribute('data-font-sample')) + '">' + esc(sample) + '</span>';
+    var span = letterFormsHtml(
+      sample,
+      el.getAttribute('data-font-sample'),
+      el.getAttribute('data-font-cursive'),
+      'q-letter-sample'
+    );
     var en = el.getAttribute('data-en') || '';
-    var kmText = el.getAttribute('data-km') || '';
-    var useKm = uiLang() === 'km' && kmText && kmText !== en;
-    var primary = slotHtml(useKm ? kmText : en, '{sample}', span);
-    var altTpl = useKm ? en : kmText;
-    var alt = altTpl && altTpl !== (useKm ? kmText : en) ? slotHtml(altTpl, '{sample}', span) : '';
+    var kmPrompt = el.getAttribute('data-km') || '';
+    var useKm = uiLang() === 'km' && kmPrompt && kmPrompt !== en;
+    var primary = slotHtml(useKm ? kmPrompt : en, '{sample}', span);
+    var altTpl = useKm ? en : kmPrompt;
+    var alt = altTpl && altTpl !== (useKm ? kmPrompt : en) ? slotHtml(altTpl, '{sample}', span) : '';
     if (!alt || plainFromHtml(alt) === plainFromHtml(primary)) el.innerHTML = primary;
     else el.innerHTML = '<span class="i18n-primary" lang="' + (useKm ? 'km' : 'en') + '">' + primary + '</span>' +
       '<span class="i18n-alt" lang="' + (useKm ? 'en' : 'km') + '">' + alt + '</span>';
@@ -183,6 +225,7 @@
       var kmAlt = img.getAttribute('data-alt-km') || '';
       img.alt = (km && kmAlt) ? kmAlt : enAlt;
     });
+    applyCursiveLabels(root);
   }
   function systemTheme() {
     try { return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
@@ -780,8 +823,6 @@
         var x = $('.quiz-expl', o); if (x) x.hidden = false;
       });
       $$('.quiz-order-feedback, .ff-wrong, .ff-right', q).forEach(function (x) { x.hidden = false; });
-      $$('input[type=radio], input[type=checkbox]', q).forEach(function (r) { r.disabled = true; });
-      $$('.q-up, .q-down, .q-use', q).forEach(function (b) { b.disabled = true; });
       $('.quiz-actions', q).hidden = true;
     } else if (MODE === 'student') { /* learner quiz: feedback right after each answer, no tags */
       $$('.quiz-tag', q).forEach(function (x) { x.remove(); });
@@ -791,21 +832,46 @@
       if (openEnded) $('.quiz-actions', q).hidden = true;
     }
   }
+  function revealChoice(opt) {
+    if (!opt) return;
+    var right = opt.getAttribute('data-correct') === '1';
+    var mark = $('.quiz-mark', opt);
+    if (mark) {
+      mark.innerHTML = '<span class="' + (right ? 'mark-right' : 'mark-wrong') + '">' +
+        icon(right ? 'fa-circle-check' : 'fa-circle-xmark') +
+        '<span class="visually-hidden">' + (right ? ' correct' : ' not yet') + '</span></span>';
+    }
+    var ex = $('.quiz-expl', opt);
+    if (ex) ex.hidden = false;
+  }
+  function scorableQuestions(q) {
+    return $$('.quiz-q', q).filter(function (f) {
+      var response = f.getAttribute('data-response');
+      return response !== 'spoken' && response !== 'observed';
+    });
+  }
   function answerStudent(f) {
     var q = f.closest('.quiz'), chosen = $('input[type=radio]:checked', f);
     if (!chosen) return;
     var opt = chosen.closest('.quiz-opt'), ok = opt.getAttribute('data-correct') === '1';
-    f.classList.add(ok ? 'q-right' : 'q-wrong');
-    $('.quiz-mark', opt).innerHTML = '<span class="' + (ok ? 'mark-right' : 'mark-wrong') + '">' + icon(ok ? 'fa-circle-check' : 'fa-circle-xmark') + '<span class="visually-hidden">' + (ok ? ' correct' : ' not yet') + '</span></span>';
-    var ex = $('.quiz-expl', opt); if (ex) ex.hidden = false;
+    var first = !f.hasAttribute('data-attempted');
+    revealChoice(opt);
     if (f.getAttribute('data-response') === 'picture-choice') showResultLine(f, ok);
-    $('.quiz-result', f).innerHTML = ok ? '<span class="mark-right">' + icon('fa-star') + ' Well done!</span>' : '<span class="mark-wrong">' + icon('fa-lightbulb') + ' Not yet. Read the tip.</span>';
-    $$('input[type=radio]', f).forEach(function (r) { r.disabled = true; });
-    var qs = $$('.quiz-q', q), done = qs.filter(function (x) { return x.classList.contains('q-right') || x.classList.contains('q-wrong'); });
-    if (done.length < qs.length) return;
-    var right = qs.filter(function (x) { return x.classList.contains('q-right'); }).length, n = qs.length;
+    if (first) {
+      f.setAttribute('data-attempted', '1');
+      f.setAttribute('data-first-correct', ok ? '1' : '0');
+      f.classList.add(ok ? 'q-right' : 'q-wrong');
+      $('.quiz-result', f).innerHTML = ok
+        ? '<span class="mark-right">' + icon('fa-star') + ' Well done!</span>'
+        : '<span class="mark-wrong">' + icon('fa-lightbulb') + ' Not yet. Read the tip.</span>';
+    }
+    var qs = scorableQuestions(q);
+    var done = qs.filter(function (x) { return x.hasAttribute('data-attempted') || x.classList.contains('q-right') || x.classList.contains('q-wrong'); });
+    if (!first || done.length < qs.length) return;
+    var right = qs.filter(function (x) { return x.getAttribute('data-first-correct') === '1' || x.classList.contains('q-right'); }).length, n = qs.length;
     var msg = right === n ? 'Great job! You got all ' + n + ' right.' : right * 2 >= n ? 'Good work! You got ' + right + ' of ' + n + '. Try again to get them all.' : 'Good try! You got ' + right + ' of ' + n + '. Let us practise and try again.';
     var sc = $('.quiz-score', q); sc.textContent = msg; sc.classList.add('quiz-gentle');
+    q.setAttribute('data-scored', '1');
     $('.quiz-retry', q).hidden = false;
   }
   function choiceCorrect(f) {
@@ -855,6 +921,7 @@
     });
   }
   function checkQuiz(q) {
+    if (q.getAttribute('data-scored') === '1') return;
     var qs = $$('.quiz-q', q), right = 0, unanswered = 0;
     qs.forEach(function (f) {
       var res = $('.quiz-result', f);
@@ -877,13 +944,18 @@
       if (response === 'ordering' || response === 'picture-choice') showResultLine(f, ok);
       else showChoiceMarks(f, ok);
     });
-    $$('input[type=radio], input[type=checkbox], .q-up, .q-down, .q-use', q).forEach(function (r) { r.disabled = true; });
-    var scored = qs.filter(function (f) {
+    qs.forEach(function (f) {
       var response = f.getAttribute('data-response');
-      return response !== 'spoken' && response !== 'observed';
+      if (response === 'spoken' || response === 'observed') return;
+      if (!f.hasAttribute('data-attempted')) {
+        f.setAttribute('data-attempted', '1');
+        f.setAttribute('data-first-correct', f.classList.contains('q-right') ? '1' : '0');
+      }
     });
+    var scored = scorableQuestions(q);
     $('.quiz-score', q).textContent = right + ' of ' + scored.length + ' correct' + (unanswered ? ' · ' + unanswered + ' not answered' : '');
     rttiSummary(q);
+    q.setAttribute('data-scored', '1');
     $('.quiz-check', q).hidden = true;
     var retry = $('.quiz-retry', q); retry.hidden = false; try { retry.focus(); } catch (e) { /* ignore */ }
   }
@@ -915,7 +987,13 @@
   function resetQuiz(q) {
     if (window.TLIAudioRecorder && window.TLIAudioRecorder.resetAll) window.TLIAudioRecorder.resetAll(q);
     var rb = $('.quiz-rtti', q); if (rb) { rb.hidden = true; rb.innerHTML = ''; }
-    $$('.quiz-q', q).forEach(function (f) { f.classList.remove('q-right', 'q-wrong', 'q-none'); $('.quiz-result', f).innerHTML = ''; });
+    q.removeAttribute('data-scored');
+    $$('.quiz-q', q).forEach(function (f) {
+      f.classList.remove('q-right', 'q-wrong', 'q-none');
+      f.removeAttribute('data-attempted');
+      f.removeAttribute('data-first-correct');
+      $('.quiz-result', f).innerHTML = '';
+    });
     $$('.quiz-mark', q).forEach(function (m) { m.innerHTML = ''; });
     $$('.quiz-expl', q).forEach(function (x) { x.hidden = true; });
     $$('input[type=radio], input[type=checkbox]', q).forEach(function (r) { r.checked = false; r.disabled = false; });
@@ -1200,7 +1278,15 @@
     var t = ev.target;
     if (t.id === 'modeSelect') { setMode(t.value); return; }
     if (t.name === 'uiLang') { setUiLang(t.value); return; }
-    if (MODE === 'student' && t.type === 'radio' && t.closest('.quiz-q')) answerStudent(t.closest('.quiz-q'));
+    var qEl = t.closest && t.closest('.quiz-q');
+    if (qEl && (t.type === 'radio' || t.type === 'checkbox')) {
+      var quiz = qEl.closest('.quiz');
+      if (MODE === 'student' && t.type === 'radio' && !qEl.querySelector('input[type=checkbox], .quiz-order')) {
+        answerStudent(qEl);
+      } else if (MODE !== 'teacher' && quiz && quiz.getAttribute('data-scored') === '1' && t.closest('.quiz-opt')) {
+        revealChoice(t.closest('.quiz-opt'));
+      }
+    }
   });
   document.addEventListener('input', function (ev) { if (editing && editing.blk.contains(ev.target)) editing.dirty = true; });
   document.addEventListener('paste', function (ev) {

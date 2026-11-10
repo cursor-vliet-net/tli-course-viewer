@@ -2,6 +2,7 @@
 @font-face { font-family: "Noto Sans Khmer"; src: url("fonts/NotoSansKhmer.ttf") format("truetype"); font-weight: 100 900; font-display: swap; unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC; }
 @font-face { font-family: "Andika"; src: url("fonts/Andika-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Liberation Serif"; src: url("fonts/LiberationSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Playwrite NO"; src: url("fonts/PlaywriteNO-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 :root {
   --tli-ink: #1d2430; --tli-muted: #5b6472; --tli-accent: #0b5d7a; --tli-accent-2: #e8f3f7;
   --tli-bar: #0b3d52; --tli-line: #d8dee6; --tli-edit: #fff6d6; --tli-focus: #ffbf47;
@@ -133,10 +134,28 @@ body:not(.editing-off) .blk[data-editable] > [data-body], body:not(.editing-off)
   font-weight: 400; font-style: normal; font-synthesis: none; font-size: 1.35em; line-height: 1.15;
 }
 .quiz-q legend .q-letter-sample { font-weight: 400; }
+.q-letter-forms {
+  display: inline-flex; align-items: flex-end; gap: .45rem; vertical-align: middle; flex-wrap: wrap;
+}
 .q-letter-card {
   display: inline-block; min-width: 2.8rem; text-align: center; padding: .02rem .45rem .08rem;
   border: 1px solid var(--tli-line); border-radius: .3rem; background: transparent; color: inherit;
 }
+.q-letter-cursive, .letter-cursive {
+  font-weight: 400; font-style: normal; font-synthesis: none; line-height: 1.25;
+  font-size: 2.05em; color: inherit;
+}
+.letter-intro { margin: .35rem 0 1rem; max-width: 36rem; }
+.letter-intro-forms {
+  display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; gap: 1.25rem 1.6rem;
+  padding: 1rem 1.2rem .85rem; border: 3px solid #d98b2b; border-radius: 1rem;
+  background: #fff8e7; color: #2b4d8c;
+}
+.letter-print {
+  font-weight: 400; font-style: normal; font-synthesis: none; font-size: 4.4rem; line-height: 1;
+  color: inherit;
+}
+.letter-intro .letter-cursive { font-size: 4.1rem; line-height: 1.15; color: inherit; }
 .quiz-stem .i18n-alt, .quiz-expl .i18n-alt, .quiz-name .i18n-alt { line-height: 1.7; }
 .quiz-opt label { align-items: center; }
 .q-listen {
@@ -230,6 +249,10 @@ body.lb-open { overflow: hidden; }
   .edit-toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .reading { padding: .6rem .5rem 1rem; }
   .q-letter-sample, .q-letter-card { font-size: 1.25em; }
+  .q-letter-cursive { font-size: 1.85em; }
+  .letter-print { font-size: 3.4rem; }
+  .letter-intro .letter-cursive { font-size: 3.2rem; }
+  .letter-intro-forms { gap: .85rem 1.1rem; padding: .75rem .85rem .7rem; }
   .quiz-stem .i18n-alt, .quiz-expl .i18n-alt { font-size: .92em; line-height: 1.75; }
   .ref { font-size: .6rem; }
   .blk-figure, .blk-figure.fl-right, .blk-figure.fl-left { float: none !important; max-width: 100% !important; margin: .3rem 0 1rem !important; }
@@ -312,6 +335,8 @@ body[data-mode=student] .blk > .ref { display: none; }
 [data-theme="dark"] .part-list a.active .i18n-alt { color: #d7e8ea; }
 [data-theme="dark"] .quiz, [data-theme="dark"] .quiz-q { background: var(--tli-quiz); color: var(--tli-ink); border-color: var(--tli-line); }
 [data-theme="dark"] .q-letter-sample, [data-theme="dark"] .q-letter-card { color: inherit; background: transparent; border-color: var(--tli-line); }
+[data-theme="dark"] .q-letter-cursive, [data-theme="dark"] .letter-cursive, [data-theme="dark"] .letter-print { color: inherit; }
+[data-theme="dark"] .letter-intro-forms { background: #243140; border-color: var(--tli-line); color: var(--tli-ink); }
 [data-theme="dark"] .quiz-opt:hover, [data-theme="dark"] .quiz-key .quiz-opt[data-correct="1"] { background: var(--tli-hover); }
 [data-theme="dark"] .quiz-expl { background: #3a2428; color: #f6d5d8; border-left-color: #e07a86; }
 [data-theme="dark"] .mark-right, [data-theme="dark"] .quiz-mark .mark-right { color: #8fd9a8; }
