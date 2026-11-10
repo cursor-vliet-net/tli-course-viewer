@@ -115,18 +115,21 @@
   var imageCache = {};
   var storyboardLoads = {};
 
-  function preloadUrl(url) {
+  function preloadUrl(url, opts) {
     if (!url || imageCache[url]) return imageCache[url] || null;
     var im;
     try { im = new global.Image(); } catch (e) { return null; }
     im.onerror = function () { /* a missing file must not stop the player */ };
+    if (opts && opts.priority) {
+      try { im.fetchPriority = opts.priority; } catch (e3) { /* older browsers */ }
+    }
     try { im.src = url; } catch (e2) { return null; }
     imageCache[url] = im;
     return im;
   }
 
-  function preloadPath(rel) {
-    return preloadUrl(resolveUrl(rel));
+  function preloadPath(rel, opts) {
+    return preloadUrl(resolveUrl(rel), opts);
   }
 
   function isCatalogRuntimeSrc(src) {
@@ -142,7 +145,7 @@
       src = imgs[i] && imgs[i].src;
       if (!isCatalogRuntimeSrc(src)) continue;
       if (imgs[i].bundle && imgs[i].bundle !== 'runtime') continue;
-      preloadPath(src);
+      preloadPath(src, { priority: 'low' });
     }
   }
 
@@ -173,8 +176,9 @@
   function whenLoaded(img) {
     return new Promise(function (resolve) {
       if (!img) { resolve(); return; }
-      if (img.complete) { resolve(); return; }
+      if (img.complete || img._tliLoaded) { resolve(); return; }
       var done = function () {
+        img._tliLoaded = true;
         img.removeEventListener('load', done);
         img.removeEventListener('error', done);
         resolve();
@@ -190,21 +194,30 @@
   function whenDisplayedImageReady(img) {
     if (!img || !img.getAttribute('src')) return Promise.resolve();
     var src = img.getAttribute('src') || img.src || '';
+    try { img.fetchPriority = 'high'; } catch (e) { /* older browsers */ }
+    var loaded = whenLoaded(img);
     if (typeof img.decode === 'function' && !isAnimatedUrl(src)) {
-      return img.decode().catch(function () { return whenLoaded(img); });
+      /* load + decode: do not reveal a non-interlaced PNG after only the first rows. */
+      return Promise.all([loaded, img.decode().catch(function () { return loaded; })]);
     }
-    return whenLoaded(img);
+    return loaded;
   }
 
   function whenBackgroundReady(url) {
     if (!url) return Promise.resolve();
-    var im;
-    try { im = new global.Image(); } catch (e) { return Promise.resolve(); }
-    try { im.src = url; } catch (e2) { return Promise.resolve(); }
-    if (typeof im.decode === 'function' && !isAnimatedUrl(url)) {
-      return im.decode().catch(function () { return whenLoaded(im); });
+    var im = imageCache[url];
+    if (!im) {
+      try { im = new global.Image(); } catch (e) { return Promise.resolve(); }
+      try { im.fetchPriority = 'high'; } catch (e3) { /* older browsers */ }
+      try { im.src = url; } catch (e2) { return Promise.resolve(); }
+    } else {
+      try { im.fetchPriority = 'high'; } catch (e4) { /* older browsers */ }
     }
-    return whenLoaded(im);
+    var loaded = whenLoaded(im);
+    if (typeof im.decode === 'function' && !isAnimatedUrl(url)) {
+      return Promise.all([loaded, im.decode().catch(function () { return loaded; })]);
+    }
+    return loaded;
   }
 
   function preloadRuntime(data, rel) {
@@ -945,19 +958,21 @@
     this._profTick = null;
     this._profStartTimer = null;
     this._profSpeakGen = 0;
+    var self = this;
+    var finishReveal;
+    this._firstReveal = new Promise(function (resolve) { finishReveal = resolve; });
     this._build();
     this._bind();
     this.root.classList.add('tli-sp-decoding');
     this._preloadSprites();
     this.goTo(0, { auto: false });
-    var self = this;
-    this._firstReveal = loadCastCatalog().then(function () {
+    loadCastCatalog().then(function () {
       if (!self.root || !self.scenes) return;
       self._renderPlacements(self.scenes[self.index]);
       return self._revealWhenDecoded();
     }).catch(function () {
       if (self.root) self.root.classList.remove('tli-sp-decoding');
-    });
+    }).then(function () { finishReveal(); });
   }
 
   /* Hold the stage until catalog-resolved first-beat stills have decoded. */
@@ -969,11 +984,38 @@
     var tasks = [];
     Array.prototype.forEach.call(imgs, function (img) { tasks.push(whenDisplayedImageReady(img)); });
     if (bgPath) tasks.push(whenBackgroundReady(resolveUrl(bgPath)));
-    var timeout = new Promise(function (resolve) { setTimeout(resolve, 8000); });
-    return Promise.race([Promise.all(tasks), timeout]).then(function () {
+    var hangTimer = null;
+    var hung = new Promise(function (resolve) {
+      hangTimer = setTimeout(function () {
+        hangTimer = null;
+        if (global.console && console.warn) console.warn('tli scene player: giving up wait for first-beat decode');
+        resolve();
+      }, 60000);
+    });
+    return Promise.race([
+      Promise.all(tasks).then(function (v) {
+        if (hangTimer) { clearTimeout(hangTimer); hangTimer = null; }
+        return v;
+      }),
+      hung
+    ]).then(function () {
       if (!self.root) return;
-      Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
-      self.root.classList.remove('tli-sp-decoding');
+      return new Promise(function (resolve) {
+        var done = false;
+        var finish = function () {
+          if (done || !self.root) return;
+          done = true;
+          Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
+          self.root.classList.remove('tli-sp-decoding');
+          resolve();
+        };
+        if (self.actorsEl && self.actorsEl.firstChild && self.actorsEl.firstChild.offsetHeight) {
+          finish();
+          return;
+        }
+        if (typeof global.requestAnimationFrame === 'function') global.requestAnimationFrame(finish);
+        setTimeout(finish, 0);
+      });
     });
   }
 
