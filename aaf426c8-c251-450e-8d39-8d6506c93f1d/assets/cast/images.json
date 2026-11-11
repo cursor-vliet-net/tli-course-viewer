@@ -2,7 +2,7 @@
   "schema": "tli-cast-images/v1",
   "storyYear": 1,
   "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance. bodyFacing is the body direction and must equal facing. The feet are checked separately in feetFacing (see feetAudit), because a body can turn while the feet still point the other way.",
-  "feetAudit": "feetFacing is the direction the toes point (left/right = the viewer's screen left/right; front = straight at the viewer or splayed). Every full-body picture was opened and its feet checked by eye on 2026-11-11 (t228). Rules, enforced by viewer/tests/cast-images.test.js and check_course.py: (1) the feet never point away from the face: if facing, or else lookingAt, is left or right, feetFacing is that side or front; (2) a side-facing walking picture has feetFacing equal to facing; (3) feetMeasured (written by viewer/tools/measure_cast_bboxes.py from the pixels) must agree with feetFacing whenever its offset is clear (|offset| >= 0.15), except for sitting pictures, where chair legs confuse the measurement. The stage also avoids a picture whose feet would point away from the person it looks at, mirroring it when allowed.",
+  "feetAudit": "feetFacing is the direction the toes point (left/right = the viewer's screen left/right; front = straight at the viewer or splayed). Every full-body picture was opened and its feet checked by eye on 2026-11-11 (t228). Rules, enforced by viewer/tests/cast-images.test.js and check_course.py: (1) the feet never point away from the face: if facing, or else lookingAt, is left or right, feetFacing is that side or front; (2) a side-facing walking picture has feetFacing equal to facing; (3) feetMeasured (written by viewer/tools/measure_cast_bboxes.py from the pixels) must agree with feetFacing whenever its offset is clear (|offset| >= 0.15), except for sitting pictures, where chair legs confuse the measurement. The stage also avoids a picture whose feet would point away from the person it looks at, mirroring it when allowed. (4) v1.13.3 (t231u): feetMeasured.perShoe measures each shoe on its own (reach past the leg to screen right minus to screen left, in leg widths); a picture turned to a side (facing or lookingAt) whose feetFacing is that side must have every shoe at least 0.2 that way, so one side-view shoe plus one shoe pointing at the viewer is caught. feetPerShoeException marks a checked exception.",
   "height": {
     "courseAge": "Grade 1 / story year 0 (the current year-01 art).",
     "twins": "Bora and Sreyneang have baselineAge 6 in process/cast/cast.json. Heights use WHO Child Growth Standards (2006/2007) height-for-age medians at 6.0 years: 116 cm (boys), 115 cm (girls). Marked estimated: true because the baseline is \"about 6\" at official entrance, not a birthday.",
@@ -164,7 +164,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.22
+        "offset": 0.22,
+        "perShoe": [
+          0.03,
+          0.85
+        ]
       }
     },
     {
@@ -200,8 +204,13 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.22
-      }
+        "offset": 0.22,
+        "perShoe": [
+          0.0,
+          0.89
+        ]
+      },
+      "feetPerShoeException": "Front-facing stance with one sandal turned out to the right and the other at the viewer (checked by eye 2026-11-11, t231u). Not used in S1-S6; redraw before using it turned."
     },
     {
       "id": "sopha-explain",
@@ -236,8 +245,13 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.2
-      }
+        "offset": 0.2,
+        "perShoe": [
+          0.03,
+          0.9
+        ]
+      },
+      "feetPerShoeException": "Front-facing stance with one sandal turned out to the right and the other at the viewer (checked by eye 2026-11-11, t231u). Not used in S1-S6; redraw before using it turned."
     },
     {
       "id": "sopha-listen",
@@ -272,7 +286,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.19
+        "offset": 0.19,
+        "perShoe": [
+          0.02,
+          0.76
+        ]
       }
     },
     {
@@ -309,7 +327,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.22
+        "offset": 0.22,
+        "perShoe": [
+          0.03,
+          0.85
+        ]
       }
     },
     {
@@ -345,7 +367,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.44,
+          0.45
+        ]
       }
     },
     {
@@ -381,7 +407,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.01
+        "offset": 0.01,
+        "perShoe": [
+          -0.43,
+          0.46
+        ]
       }
     },
     {
@@ -417,7 +447,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.1
+        "offset": 0.1,
+        "perShoe": [
+          -0.28,
+          0.71
+        ]
       }
     },
     {
@@ -453,7 +487,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.44,
+          0.46
+        ]
       }
     },
     {
@@ -490,7 +528,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.44,
+          0.45
+        ]
       }
     },
     {
@@ -526,7 +568,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.01
+        "offset": 0.01,
+        "perShoe": [
+          -0.57,
+          0.66
+        ]
       }
     },
     {
@@ -562,7 +608,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.01
+        "offset": 0.01,
+        "perShoe": [
+          -0.56,
+          0.71
+        ]
       }
     },
     {
@@ -599,7 +649,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.01
+        "offset": 0.01,
+        "perShoe": [
+          -0.57,
+          0.59
+        ]
       }
     },
     {
@@ -635,7 +689,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.01
+        "offset": 0.01,
+        "perShoe": [
+          -0.58,
+          0.71
+        ]
       }
     },
     {
@@ -672,7 +730,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.01
+        "offset": 0.01,
+        "perShoe": [
+          -0.57,
+          0.66
+        ]
       }
     },
     {
@@ -708,7 +770,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.7,
+          0.65
+        ]
       }
     },
     {
@@ -744,7 +810,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.01
+        "offset": -0.01,
+        "perShoe": [
+          -0.67,
+          0.67
+        ]
       }
     },
     {
@@ -780,7 +850,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.19
+        "offset": 0.19,
+        "perShoe": [
+          0.0,
+          0.8
+        ]
       }
     },
     {
@@ -816,7 +890,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.0
+        "offset": -0.0,
+        "perShoe": [
+          -0.67,
+          0.71
+        ]
       }
     },
     {
@@ -853,7 +931,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.7,
+          0.65
+        ]
       }
     },
     {
@@ -889,7 +971,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.52,
+          0.45
+        ]
       }
     },
     {
@@ -925,7 +1011,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.56,
+          0.47
+        ]
       }
     },
     {
@@ -961,7 +1051,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.56,
+          0.47
+        ]
       }
     },
     {
@@ -997,7 +1091,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.01
+        "offset": -0.01,
+        "perShoe": [
+          -0.6,
+          0.45
+        ]
       }
     },
     {
@@ -1034,7 +1132,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.52,
+          0.45
+        ]
       }
     },
     {
@@ -1069,7 +1171,10 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.09
+        "offset": 0.09,
+        "perShoe": [
+          0.27
+        ]
       }
     },
     {
@@ -1105,7 +1210,10 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.09
+        "offset": 0.09,
+        "perShoe": [
+          0.27
+        ]
       }
     },
     {
@@ -1141,7 +1249,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.88,
+          0.73
+        ]
       }
     },
     {
@@ -1177,7 +1289,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.03
+        "offset": -0.03,
+        "perShoe": [
+          -0.83,
+          0.69
+        ]
       }
     },
     {
@@ -1213,7 +1329,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.04
+        "offset": -0.04,
+        "perShoe": [
+          -0.82,
+          0.53
+        ]
       }
     },
     {
@@ -1249,7 +1369,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.85,
+          0.68
+        ]
       }
     },
     {
@@ -1286,7 +1410,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.02
+        "offset": -0.02,
+        "perShoe": [
+          -0.88,
+          0.73
+        ]
       }
     },
     {
@@ -1321,7 +1449,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.19
+        "offset": 0.19,
+        "perShoe": [
+          0.37,
+          0.31
+        ]
       }
     },
     {
@@ -1357,7 +1489,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.19
+        "offset": 0.19,
+        "perShoe": [
+          0.37,
+          0.31
+        ]
       }
     },
     {
@@ -1393,7 +1529,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.0
+        "offset": -0.0,
+        "perShoe": [
+          -0.46,
+          0.48
+        ]
       }
     },
     {
@@ -1429,7 +1569,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.46,
+          0.46
+        ]
       }
     },
     {
@@ -1465,7 +1609,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.08
+        "offset": 0.08,
+        "perShoe": [
+          -0.26,
+          0.58
+        ]
       }
     },
     {
@@ -1501,7 +1649,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.0
+        "offset": 0.0,
+        "perShoe": [
+          -0.45,
+          0.47
+        ]
       }
     },
     {
@@ -1538,7 +1690,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.0
+        "offset": -0.0,
+        "perShoe": [
+          -0.46,
+          0.48
+        ]
       }
     },
     {
@@ -1574,7 +1730,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.05
+        "offset": -0.05,
+        "perShoe": [
+          -0.72,
+          1.0
+        ]
       }
     },
     {
@@ -1610,7 +1770,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.04
+        "offset": -0.04,
+        "perShoe": [
+          -0.72,
+          0.99
+        ]
       }
     },
     {
@@ -1646,7 +1810,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.04
+        "offset": -0.04,
+        "perShoe": [
+          -0.72,
+          1.01
+        ]
       }
     },
     {
@@ -1682,7 +1850,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.05
+        "offset": -0.05,
+        "perShoe": [
+          -0.72,
+          1.01
+        ]
       }
     },
     {
@@ -1719,7 +1891,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.05
+        "offset": -0.05,
+        "perShoe": [
+          -0.72,
+          1.0
+        ]
       }
     },
     {
@@ -1755,7 +1931,10 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.01
+        "offset": -0.01,
+        "perShoe": [
+          0.89
+        ]
       }
     },
     {
@@ -1791,7 +1970,10 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.11
+        "offset": -0.11,
+        "perShoe": [
+          0.91
+        ]
       }
     },
     {
@@ -1827,7 +2009,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.25
+        "offset": 0.25,
+        "perShoe": [
+          0.24,
+          0.71
+        ]
       }
     },
     {
@@ -1863,7 +2049,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.11
+        "offset": -0.11,
+        "perShoe": [
+          -0.77,
+          0.88
+        ]
       }
     },
     {
@@ -1900,7 +2090,10 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.01
+        "offset": -0.01,
+        "perShoe": [
+          0.89
+        ]
       }
     },
     {
@@ -1937,7 +2130,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.16
+        "offset": -0.16,
+        "perShoe": [
+          -0.69,
+          0.13
+        ]
       }
     },
     {
@@ -1974,7 +2171,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.16
+        "offset": -0.16,
+        "perShoe": [
+          -0.68,
+          0.14
+        ]
       }
     },
     {
@@ -2012,7 +2213,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.15
+        "offset": -0.15,
+        "perShoe": [
+          -0.65,
+          0.15
+        ]
       }
     },
     {
@@ -2041,15 +2246,19 @@
       "bbox": {
         "x": 286,
         "y": 141,
-        "w": 434,
+        "w": 452,
         "h": 1249
       },
-      "visibleWidth": 434,
+      "visibleWidth": 452,
       "visibleHeight": 1249,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": 0.31
+        "shoes": 2,
+        "offset": 0.34,
+        "perShoe": [
+          0.39,
+          0.64
+        ]
       }
     },
     {
@@ -2087,7 +2296,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.16
+        "offset": -0.16,
+        "perShoe": [
+          -0.69,
+          0.13
+        ]
       }
     },
     {
@@ -2124,7 +2337,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.33
+        "offset": -0.33,
+        "perShoe": [
+          -1.07,
+          -0.45
+        ]
       }
     },
     {
@@ -2161,7 +2378,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.34
+        "offset": -0.34,
+        "perShoe": [
+          -1.07,
+          -0.42
+        ]
       }
     },
     {
@@ -2199,7 +2420,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.34
+        "offset": -0.34,
+        "perShoe": [
+          -1.05,
+          -0.42
+        ]
       }
     },
     {
@@ -2236,7 +2461,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.33
+        "offset": -0.12,
+        "perShoe": [
+          1.22,
+          1.18
+        ]
       }
     },
     {
@@ -2274,7 +2503,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.33
+        "offset": -0.33,
+        "perShoe": [
+          -1.07,
+          -0.45
+        ]
       }
     },
     {
@@ -2310,7 +2543,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.2
+        "offset": -0.2,
+        "perShoe": [
+          -0.67,
+          0.03
+        ]
       }
     },
     {
@@ -2346,7 +2583,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.2
+        "offset": -0.2,
+        "perShoe": [
+          -0.67,
+          0.02
+        ]
       }
     },
     {
@@ -2383,7 +2624,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.2
+        "offset": -0.2,
+        "perShoe": [
+          -0.68,
+          0.02
+        ]
       }
     },
     {
@@ -2411,15 +2656,19 @@
       "bbox": {
         "x": 306,
         "y": 195,
-        "w": 375,
+        "w": 423,
         "h": 1196
       },
-      "visibleWidth": 375,
+      "visibleWidth": 423,
       "visibleHeight": 1196,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": 0.29
+        "shoes": 2,
+        "offset": 0.31,
+        "perShoe": [
+          0.41,
+          0.53
+        ]
       }
     },
     {
@@ -2456,7 +2705,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.2
+        "offset": -0.2,
+        "perShoe": [
+          -0.67,
+          0.03
+        ]
       }
     },
     {
@@ -2836,7 +3089,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.04
+        "offset": 0.04,
+        "perShoe": [
+          -0.96,
+          -0.89
+        ]
       }
     },
     {
@@ -2871,7 +3128,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.1
+        "offset": 0.1,
+        "perShoe": [
+          -0.94,
+          -0.55
+        ]
       }
     },
     {
@@ -2906,7 +3167,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.27
+        "offset": 0.27,
+        "perShoe": [
+          0.28,
+          0.75
+        ]
       }
     },
     {
@@ -2941,7 +3206,12 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 3,
-        "offset": 0.25
+        "offset": 0.25,
+        "perShoe": [
+          0.45,
+          -0.62,
+          -1.78
+        ]
       }
     },
     {
@@ -2976,7 +3246,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.17
+        "offset": 0.17,
+        "perShoe": [
+          -0.58,
+          -0.52
+        ]
       }
     },
     {
@@ -3010,7 +3284,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.93
+        "offset": 0.93,
+        "perShoe": [
+          0.71,
+          1.27
+        ]
       }
     },
     {
@@ -3044,7 +3322,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -1.03
+        "offset": -1.03,
+        "perShoe": [
+          -1.31,
+          -0.77
+        ]
       }
     },
     {
@@ -3079,7 +3361,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.27
+        "offset": 0.27,
+        "perShoe": [
+          0.28,
+          0.77
+        ]
       }
     },
     {
@@ -3114,7 +3400,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.1
+        "offset": 0.1,
+        "perShoe": [
+          -0.59,
+          0.99
+        ]
       }
     },
     {
@@ -3150,7 +3440,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.04
+        "offset": 0.04,
+        "perShoe": [
+          -0.96,
+          -0.89
+        ]
       }
     },
     {
@@ -3186,7 +3480,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.27
+        "offset": 0.27,
+        "perShoe": [
+          0.28,
+          0.75
+        ]
       }
     },
     {
@@ -3221,7 +3519,12 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.08
+        "offset": 0.08,
+        "perShoe": [
+          -0.03,
+          0.47,
+          0.05
+        ]
       }
     },
     {
@@ -3255,7 +3558,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.54
+        "offset": 0.54,
+        "perShoe": [
+          0.6,
+          1.78
+        ]
       }
     },
     {
@@ -3290,7 +3597,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.2
+        "offset": 0.2,
+        "perShoe": [
+          0.38,
+          0.31
+        ]
       }
     },
     {
@@ -3325,7 +3636,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.21
+        "offset": 0.21,
+        "perShoe": [
+          0.47,
+          0.31
+        ]
       }
     },
     {
@@ -3360,7 +3675,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.24
+        "offset": 0.24,
+        "perShoe": [
+          0.5,
+          0.44
+        ]
       }
     },
     {
@@ -3396,7 +3715,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.24
+        "offset": 0.24,
+        "perShoe": [
+          0.5,
+          0.44
+        ]
       }
     },
     {
@@ -3431,7 +3754,12 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 1,
-        "offset": -0.21
+        "offset": -0.21,
+        "perShoe": [
+          0.0,
+          0.64,
+          0.34
+        ]
       }
     },
     {
@@ -3465,7 +3793,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.82
+        "offset": 0.82,
+        "perShoe": [
+          0.49,
+          2.07
+        ]
       }
     },
     {
@@ -3500,7 +3832,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 3,
-        "offset": 0.46
+        "offset": 0.46,
+        "perShoe": [
+          0.37,
+          0.64
+        ]
       }
     },
     {
@@ -3535,7 +3871,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.86
+        "offset": 0.86,
+        "perShoe": [
+          0.38,
+          0.65
+        ]
       }
     },
     {
@@ -3571,7 +3911,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.86
+        "offset": 0.86,
+        "perShoe": [
+          0.38,
+          0.65
+        ]
       }
     },
     {
@@ -3607,7 +3951,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.18
+        "offset": 0.18,
+        "perShoe": [
+          -0.54,
+          -1.18
+        ]
       }
     },
     {
@@ -3642,7 +3990,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.43
+        "offset": 0.43,
+        "perShoe": [
+          0.47,
+          0.99
+        ]
       }
     },
     {
@@ -3678,7 +4030,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.27
+        "offset": -0.27,
+        "perShoe": [
+          -0.58,
+          -0.23
+        ]
       }
     },
     {
@@ -3706,15 +4062,19 @@
       "bbox": {
         "x": 299,
         "y": 149,
-        "w": 413,
+        "w": 439,
         "h": 1242
       },
-      "visibleWidth": 413,
+      "visibleWidth": 439,
       "visibleHeight": 1242,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": 0.31
+        "shoes": 2,
+        "offset": 0.34,
+        "perShoe": [
+          0.39,
+          0.65
+        ]
       }
     },
     {
@@ -3743,15 +4103,19 @@
       "bbox": {
         "x": 299,
         "y": 149,
-        "w": 413,
+        "w": 439,
         "h": 1242
       },
-      "visibleWidth": 413,
+      "visibleWidth": 439,
       "visibleHeight": 1242,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": 0.31
+        "shoes": 2,
+        "offset": 0.34,
+        "perShoe": [
+          0.39,
+          0.65
+        ]
       }
     },
     {
@@ -3785,7 +4149,11 @@
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.47
+        "offset": 0.47,
+        "perShoe": [
+          0.67,
+          0.76
+        ]
       }
     },
     {
@@ -3812,15 +4180,19 @@
       "bbox": {
         "x": 302,
         "y": 198,
-        "w": 423,
+        "w": 426,
         "h": 1193
       },
-      "visibleWidth": 423,
+      "visibleWidth": 426,
       "visibleHeight": 1193,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": 0.29
+        "shoes": 2,
+        "offset": 0.3,
+        "perShoe": [
+          0.4,
+          0.52
+        ]
       }
     },
     {
@@ -3848,15 +4220,19 @@
       "bbox": {
         "x": 302,
         "y": 198,
-        "w": 423,
+        "w": 426,
         "h": 1193
       },
-      "visibleWidth": 423,
+      "visibleWidth": 426,
       "visibleHeight": 1193,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": 0.29
+        "shoes": 2,
+        "offset": 0.3,
+        "perShoe": [
+          0.4,
+          0.52
+        ]
       }
     },
     {
@@ -3891,7 +4267,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.09
+        "offset": 0.09,
+        "perShoe": [
+          -1.12,
+          -0.57
+        ]
       }
     },
     {
@@ -3926,7 +4306,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 1,
-        "offset": 0.08
+        "offset": 0.08,
+        "perShoe": [
+          -1.13,
+          -0.58
+        ]
       }
     },
     {
@@ -3962,7 +4346,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.39
+        "offset": -0.39,
+        "perShoe": [
+          -1.15,
+          -0.76
+        ]
       }
     },
     {
@@ -3998,7 +4386,11 @@
       "mirrorable": false,
       "feetMeasured": {
         "shoes": 2,
-        "offset": -0.38
+        "offset": -0.38,
+        "perShoe": [
+          -1.15,
+          -0.73
+        ]
       }
     }
   ]
