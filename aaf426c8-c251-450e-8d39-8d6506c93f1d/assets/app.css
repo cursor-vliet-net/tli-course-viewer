@@ -473,3 +473,37 @@ body[data-mode="student"] .quiz-result, body[data-mode="student"] .quiz-score { 
 .letter-basic { display: inline-flex; align-items: center; gap: .35rem; }
 .letter-basic .q-listen-basic { margin-left: .15rem; }
 body[data-mode="student"] .letter-basic-text { display: none; }
+
+/* v1.9 (t224): hello / goodbye routine, unit song verse, letter chant, listen and point */
+.tli-song, .tli-chant { border: 1px solid var(--tli-line, #d7dce3); border-left: 4px solid #7a5af8; border-radius: .5rem;
+  padding: .6rem .85rem; margin: .5rem 0 .75rem; background: var(--bs-body-bg, #fff); }
+.tli-chant { border-left-color: #d98b2b; }
+.song-head, .chant-head { font-weight: 700; margin: 0 0 .3rem; }
+.song-head .fa-music, .chant-head .fa-hands-clapping { color: #7a5af8; margin-right: .25rem; }
+.chant-head .fa-hands-clapping { color: #d98b2b; }
+.song-tune { font-weight: 400; font-size: .85rem; color: var(--bs-secondary-color, #5c6672); margin-left: .35rem; }
+.song-note { font-size: .88rem; margin: 0 0 .35rem; color: var(--bs-secondary-color, #5c6672); }
+body[data-mode="student"] .song-note-teacher, body:not([data-mode="student"]) .song-note-student { display: none; }
+body[data-mode="student"] .song-teacher-tip { display: none; }
+.song-part + .song-part { margin-top: .6rem; border-top: 1px dashed var(--tli-line, #d7dce3); padding-top: .5rem; }
+.song-part-title { font-weight: 600; margin: 0 0 .2rem; }
+.song-picture { display: block; max-width: min(100%, 22rem); height: auto; border-radius: .35rem; margin: .2rem 0 .4rem; }
+.song-lines { list-style: none; margin: 0 0 .3rem; padding-left: 0; }
+.chant-lines { margin: 0 0 .3rem; padding-left: 1.6rem; }
+.song-line { display: flex; align-items: flex-start; gap: .5rem; margin: .25rem 0; min-height: 1.6rem; }
+.song-line-text { flex: 0 1 auto; }
+.song-repeat { font-size: .85rem; font-weight: 600; color: #5b3fd6; white-space: nowrap; padding-top: .1rem; }
+[data-theme="dark"] .song-repeat { color: #cbbcff; }
+.chant-line { margin: .1rem 0; }
+.song-action { display: inline-flex; align-items: center; justify-content: center; width: 1.6rem; height: 1.6rem; flex: 0 0 1.6rem;
+  border-radius: 50%; background: #efeafe; color: #5b3fd6; font-size: .85rem; vertical-align: middle; }
+[data-theme="dark"] .song-action { background: #2e2556; color: #cbbcff; }
+.song-action.song-action-none, [data-theme="dark"] .song-action.song-action-none { background: transparent; }
+.song-teacher-tip { font-size: .85rem; font-style: italic; margin: .2rem 0 0; }
+.chant-line .q-listen, .chant-word .q-listen { margin-left: .4rem; vertical-align: middle; }
+.chant-depth-head { font-weight: 600; margin: .4rem 0 .2rem; }
+.chant-words { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .75rem; }
+.chant-word { display: flex; flex-direction: column; align-items: center; gap: .2rem; }
+.chant-word img { width: 6rem; height: 6rem; object-fit: contain; }
+.quiz-heard { font-size: .88rem; color: var(--bs-secondary-color, #5c6672); margin-left: .3rem; }
+body[data-mode="student"] .quiz-heard { display: none; }

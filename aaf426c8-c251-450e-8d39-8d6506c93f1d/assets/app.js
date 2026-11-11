@@ -564,9 +564,10 @@
   var SESSION_TITLE_KM = /^មេរៀន\s+[០-៩0-9]+\s*៖\s*/;
   var SAY_PREFIX = /^(និយាយ៖|Say:)\s*/;
   var STUDENT_ROLE_RANK = {
-    title: 10, aim: 20, story: 30, hook: 40, 'try-it': 50,
-    'scene-quiz': 60, 'moved-quiz': 70, 'say-it': 80,
-    vocabulary: 90, letters: 95, 'letter-intro': 100, 'letter-check': 110
+    title: 10, aim: 20, hello: 25, story: 30, hook: 40, 'try-it': 50,
+    'scene-quiz': 60, 'moved-quiz': 70, song: 75, 'say-it': 80,
+    vocabulary: 90, letters: 95, 'letter-intro': 100, 'letter-chant': 105, 'letter-check': 110,
+    goodbye: 120 /* v1.9 (t224): hello routine, unit song verse, letter chant, goodbye routine */
   };
 
   function studentFacingTitle(text, lang) {
