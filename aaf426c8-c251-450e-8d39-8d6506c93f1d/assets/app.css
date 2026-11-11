@@ -476,7 +476,7 @@ body[data-mode="student"] .letter-basic-text { display: none; }
 
 /* v1.9 (t224): hello / goodbye routine, unit song verse, letter chant, listen and point */
 .tli-song, .tli-chant { border: 1px solid var(--tli-line, #d7dce3); border-left: 4px solid #7a5af8; border-radius: .5rem;
-  padding: .6rem .85rem; margin: .5rem 0 .75rem; background: var(--bs-body-bg, #fff); }
+  padding: .6rem .85rem; margin: .5rem 0 .75rem; background: var(--tli-surface, #fff); color: var(--tli-ink, inherit); }
 .tli-chant { border-left-color: #d98b2b; }
 .song-head, .chant-head { font-weight: 700; margin: 0 0 .3rem; }
 .song-head .fa-music, .chant-head .fa-hands-clapping { color: #7a5af8; margin-right: .25rem; }
@@ -494,6 +494,16 @@ body[data-mode="student"] .song-teacher-tip { display: none; }
 .song-line-text { flex: 0 1 auto; }
 .song-repeat { font-size: .85rem; font-weight: 600; color: #5b3fd6; white-space: nowrap; padding-top: .1rem; }
 [data-theme="dark"] .song-repeat { color: #cbbcff; }
+/* v1.12.2 (t225): song, routine and chant cards follow the dark theme (system preference or the theme toggle both set data-theme) */
+[data-theme="dark"] .tli-song, [data-theme="dark"] .tli-chant { background: var(--tli-quiz); color: var(--tli-ink); border-color: var(--tli-line); }
+[data-theme="dark"] .tli-song { border-left-color: #9d85ff; }
+[data-theme="dark"] .tli-chant { border-left-color: #e0a14e; }
+[data-theme="dark"] .song-head .fa-music { color: #b9a6ff; }
+[data-theme="dark"] .chant-head .fa-hands-clapping { color: #e0a14e; }
+[data-theme="dark"] .song-tune, [data-theme="dark"] .song-note, [data-theme="dark"] .song-teacher-tip { color: var(--tli-muted); }
+[data-theme="dark"] .song-part + .song-part { border-top-color: var(--tli-line); }
+[data-theme="dark"] .song-picture { border: 1px solid var(--tli-line); filter: brightness(.88); }
+[data-theme="dark"] .chant-word img { background: #e9edf1; border-radius: .4rem; padding: .2rem; }
 .chant-line { margin: .1rem 0; }
 .song-action { display: inline-flex; align-items: center; justify-content: center; width: 1.6rem; height: 1.6rem; flex: 0 0 1.6rem;
   border-radius: 50%; background: #efeafe; color: #5b3fd6; font-size: .85rem; vertical-align: middle; }
