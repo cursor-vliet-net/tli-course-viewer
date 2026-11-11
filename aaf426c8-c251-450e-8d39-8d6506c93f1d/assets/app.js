@@ -198,6 +198,11 @@
     return esc(before) + glyph + esc(after);
   }
   function applyCursiveLabels(root) {
+    $$('[data-label-en]', root || document).forEach(function (el) {
+      var en = el.getAttribute('data-label-en') || '', km = el.getAttribute('data-label-km') || '';
+      var lab = (uiLang() === 'km' && km) ? km : en;
+      el.setAttribute('aria-label', lab); el.title = lab;
+    });
     $$('[data-cursive-letter]', root || document).forEach(function (el) {
       var letter = el.getAttribute('data-cursive-letter') || '';
       var en = el.getAttribute('data-en-label') || ('cursive ' + letter);
@@ -511,7 +516,7 @@
   var STUDENT_ROLE_RANK = {
     title: 10, aim: 20, story: 30, hook: 40, 'try-it': 50,
     'scene-quiz': 60, 'moved-quiz': 70, 'say-it': 80,
-    vocabulary: 90, 'letter-intro': 100, 'letter-check': 110
+    vocabulary: 90, letters: 95, 'letter-intro': 100, 'letter-check': 110
   };
 
   function studentFacingTitle(text, lang) {
@@ -594,7 +599,8 @@
       if (!stem || stem.querySelector('.q-listen')) return;
       var sample = el.getAttribute('data-sample') || '';
       var speak = ('Find the same letter. ' + sample).trim();
-      stem.appendChild(makeSpeakButton(speak, 'Find the same letter.'));
+      var goalBtn = stem.querySelector('.q-goal-ref');
+      stem.insertBefore(makeSpeakButton(speak, 'Find the same letter.'), goalBtn || null);
     });
     $$('.blk[data-student-role="say-it"] .quiz-stem', root).forEach(function (stem) {
       if (stem.querySelector('.q-listen')) return;
@@ -1018,6 +1024,23 @@
     var ex = $('.quiz-expl', opt);
     if (ex) ex.hidden = false;
   }
+  /* v1.8.1 (t218): pupils see only the explainer of the answer they picked; picking another swaps it. */
+  function onlyThisExplainer(f, opt) {
+    $$('.quiz-opt .quiz-expl', f).forEach(function (x) { if (!opt || !opt.contains(x)) x.hidden = true; });
+  }
+  /* v1.8.1 (t218): the learning-goal button scrolls to the rubric row (Nr + Goal for pupils) and highlights it. Speaks nothing. */
+  function showGoalRow(btn) {
+    var n = btn.getAttribute('data-rubric') || '';
+    var article = btn.closest('.reading') || document;
+    var row = article.querySelector('table.rubric-table tr[data-rubric-row="' + n.replace(/"/g, '') + '"]');
+    if (!row) return;
+    try { row.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { row.scrollIntoView(); }
+    $$('.goal-flash', article).forEach(function (x) { x.classList.remove('goal-flash'); });
+    row.classList.add('goal-flash');
+    row.setAttribute('tabindex', '-1');
+    try { row.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
+    setTimeout(function () { row.classList.remove('goal-flash'); }, 2500);
+  }
   function scorableQuestions(q) {
     return $$('.quiz-q', q).filter(function (f) {
       var response = f.getAttribute('data-response');
@@ -1029,6 +1052,7 @@
     if (!chosen) return;
     var opt = chosen.closest('.quiz-opt'), ok = opt.getAttribute('data-correct') === '1';
     var first = !f.hasAttribute('data-attempted');
+    if (MODE === 'student') onlyThisExplainer(f, opt);
     revealChoice(opt);
     if (f.getAttribute('data-response') === 'picture-choice') showResultLine(f, ok);
     if (first) {
@@ -1043,10 +1067,10 @@
     var done = qs.filter(function (x) { return x.hasAttribute('data-attempted') || x.classList.contains('q-right') || x.classList.contains('q-wrong'); });
     if (!first || done.length < qs.length) return;
     var right = qs.filter(function (x) { return x.getAttribute('data-first-correct') === '1' || x.classList.contains('q-right'); }).length, n = qs.length;
-    var msg = right === n ? 'Great job! You got all ' + n + ' right.' : right * 2 >= n ? 'Good work! You got ' + right + ' of ' + n + '. Try again to get them all.' : 'Good try! You got ' + right + ' of ' + n + '. Let us practise and try again.';
+    var msg = right === n ? 'Great job! You got all ' + n + ' right.' : right * 2 >= n ? 'Good work! You got ' + right + ' of ' + n + '.' + (MODE === 'student' ? ' Look at the other answers too.' : ' Try again to get them all.') : 'Good try! You got ' + right + ' of ' + n + '.' + (MODE === 'student' ? ' Look at the other answers too.' : ' Let us practise and try again.');
     var sc = $('.quiz-score', q); sc.textContent = msg; sc.classList.add('quiz-gentle');
     q.setAttribute('data-scored', '1');
-    $('.quiz-retry', q).hidden = false;
+    $('.quiz-retry', q).hidden = MODE === 'student'; /* t218: no Try again for pupils; options stay explorable */
   }
   function choiceCorrect(f) {
     var boxes = $$('input[type=checkbox]', f);
@@ -1131,7 +1155,7 @@
     rttiSummary(q);
     q.setAttribute('data-scored', '1');
     $('.quiz-check', q).hidden = true;
-    var retry = $('.quiz-retry', q); retry.hidden = false; try { retry.focus(); } catch (e) { /* ignore */ }
+    var retry = $('.quiz-retry', q); retry.hidden = MODE === 'student'; if (!retry.hidden) { try { retry.focus(); } catch (e) { /* ignore */ } }
   }
   /* Feed up / RTTI: a level counts as reached when every question tagged with it is right. */
   var RTTI = ['R', 'T1', 'T2', 'I'];
@@ -1402,6 +1426,7 @@
     if (t.closest('.quiz-check')) { checkQuiz(t.closest('.quiz')); return; }
     if (t.closest('.quiz-retry')) { resetQuiz(t.closest('.quiz')); return; }
     if (t.closest('.q-listen')) { speakEnglish(t.closest('.q-listen')); return; }
+    if (t.closest('.q-goal-ref')) { showGoalRow(t.closest('.q-goal-ref')); return; }
     if (t.closest('.q-up, .q-down')) { moveTile(t.closest('.q-up, .q-down')); return; }
     if (t.closest('.q-met')) { markObserved(t.closest('.quiz-q'), true); return; }
     if (t.closest('.q-notyet') && t.closest('.quiz-observe')) { markObserved(t.closest('.quiz-q'), false); return; }
@@ -1458,6 +1483,7 @@
       if ((MODE === 'student' || (quiz && quiz.classList.contains('quiz-talk'))) && t.type === 'radio' && !qEl.querySelector('input[type=checkbox], .quiz-order')) {
         answerStudent(qEl);
       } else if (MODE !== 'teacher' && quiz && quiz.getAttribute('data-scored') === '1' && t.closest('.quiz-opt')) {
+        if (MODE === 'student' && t.type === 'radio') onlyThisExplainer(qEl, t.closest('.quiz-opt'));
         revealChoice(t.closest('.quiz-opt'));
       }
     }

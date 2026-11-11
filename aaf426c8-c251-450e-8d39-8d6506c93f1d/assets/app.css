@@ -450,3 +450,7 @@ body[data-mode="student"] legend.quiz-stem:has([data-letter-prompt]) {
 .rubric-help { font-weight: 600; text-decoration: none; }
 .rubric-help:hover, .rubric-help:focus { text-decoration: underline; }
 .rubric-help .rubric-help-label { display: inline-block; vertical-align: top; }
+/* v1.8.1 learning-goal button: same size and shape as the speak button */
+.q-goal-ref { margin-left: .35rem; vertical-align: middle; display: inline-flex; align-items: center; justify-content: center;
+  width: 2.15rem; height: 2.15rem; padding: 0; line-height: 1; box-sizing: border-box; font-weight: 700; }
+tr.goal-flash > td, tr.goal-flash > th { background: var(--bs-warning-bg-subtle, #fff3cd) !important; transition: background .3s; outline: 2px solid #d98b2b; }
