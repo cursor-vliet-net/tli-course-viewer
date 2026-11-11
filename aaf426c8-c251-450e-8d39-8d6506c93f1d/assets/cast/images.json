@@ -1,7 +1,7 @@
 {
   "schema": "tli-cast-images/v1",
   "storyYear": 1,
-  "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance.",
+  "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance. bodyFacing is the body and feet direction and must equal facing.",
   "height": {
     "courseAge": "Grade 1 / story year 0 (the current year-01 art).",
     "twins": "Bora and Sreyneang have baselineAge 6 in process/cast/cast.json. Heights use WHO Child Growth Standards (2006/2007) height-for-age medians at 6.0 years: 116 cm (boys), 115 cm (girls). Marked estimated: true because the baseline is \"about 6\" at official entrance, not a birthday.",
@@ -139,6 +139,7 @@
       "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -169,6 +170,7 @@
       "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_wave.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -199,6 +201,7 @@
       "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_explain.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking"
@@ -229,6 +232,7 @@
       "exportSrc": "exports/cast-year-01/cast/sopha/poses/sopha_listen.png",
       "lookingAt": "up",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -259,6 +263,7 @@
       "exportSrc": "exports/cast-year-01/cast/sopha/talking/sopha_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -290,6 +295,7 @@
       "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -320,6 +326,7 @@
       "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -350,6 +357,7 @@
       "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_explain.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -380,6 +388,7 @@
       "exportSrc": "exports/cast-year-01/cast/vuthy/poses/vuthy_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -410,6 +419,7 @@
       "exportSrc": "exports/cast-year-01/cast/vuthy/talking/vuthy_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -441,6 +451,7 @@
       "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -471,6 +482,7 @@
       "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -501,6 +513,7 @@
       "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_explain.png",
       "lookingAt": "up",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "pointing",
@@ -532,6 +545,7 @@
       "exportSrc": "exports/cast-year-01/cast/bora/poses/bora_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -562,6 +576,7 @@
       "exportSrc": "exports/cast-year-01/cast/bora/talking/bora_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -593,6 +608,7 @@
       "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -623,6 +639,7 @@
       "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -653,6 +670,7 @@
       "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_explain.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -683,6 +701,7 @@
       "exportSrc": "exports/cast-year-01/cast/sreyneang/poses/sreyneang_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -713,6 +732,7 @@
       "exportSrc": "exports/cast-year-01/cast/sreyneang/talking/sreyneang_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -744,6 +764,7 @@
       "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -774,6 +795,7 @@
       "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -804,6 +826,7 @@
       "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_explain.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -834,6 +857,7 @@
       "exportSrc": "exports/cast-year-01/cast/bopha/poses/bopha_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -864,6 +888,7 @@
       "exportSrc": "exports/cast-year-01/cast/bopha/talking/bopha_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -895,6 +920,7 @@
       "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -925,6 +951,7 @@
       "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -955,6 +982,7 @@
       "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_explain.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -985,6 +1013,7 @@
       "exportSrc": "exports/cast-year-01/cast/dara/poses/dara_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1015,6 +1044,7 @@
       "exportSrc": "exports/cast-year-01/cast/dara/talking/dara_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1046,6 +1076,7 @@
       "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1076,6 +1107,7 @@
       "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1106,6 +1138,7 @@
       "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_explain.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -1136,6 +1169,7 @@
       "exportSrc": "exports/cast-year-01/cast/visal/poses/visal_listen.png",
       "lookingAt": "up",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1166,6 +1200,7 @@
       "exportSrc": "exports/cast-year-01/cast/visal/talking/visal_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1197,6 +1232,7 @@
       "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1227,6 +1263,7 @@
       "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1257,6 +1294,7 @@
       "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_explain.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking"
@@ -1287,6 +1325,7 @@
       "exportSrc": "exports/cast-year-01/cast/malis/poses/malis_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1317,6 +1356,7 @@
       "exportSrc": "exports/cast-year-01/cast/malis/talking/malis_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1348,6 +1388,7 @@
       "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1378,6 +1419,7 @@
       "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1408,6 +1450,7 @@
       "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_explain.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -1438,6 +1481,7 @@
       "exportSrc": "exports/cast-year-01/cast/yeay-chan/poses/yeay-chan_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1468,6 +1512,7 @@
       "exportSrc": "exports/cast-year-01/cast/yeay-chan/talking/yeay-chan_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1499,6 +1544,7 @@
       "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral",
@@ -1530,6 +1576,7 @@
       "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving",
@@ -1561,6 +1608,7 @@
       "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_explain.png",
       "lookingAt": "up",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "pointing",
@@ -1593,6 +1641,7 @@
       "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening",
@@ -1624,6 +1673,7 @@
       "exportSrc": "exports/cast-year-01/cast/kru-sopheak/talking/kru-sopheak_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1656,6 +1706,7 @@
       "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral",
@@ -1687,6 +1738,7 @@
       "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "waving",
@@ -1718,6 +1770,7 @@
       "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_explain.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1750,6 +1803,7 @@
       "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening",
@@ -1781,6 +1835,7 @@
       "exportSrc": "exports/cast-year-01/cast/srey-mom/talking/srey-mom_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1813,6 +1868,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1843,6 +1899,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_wave.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "sampeah"
@@ -1873,6 +1930,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_explain.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "pointing",
@@ -1904,6 +1962,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_listen.png",
       "lookingAt": "right",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1934,6 +1993,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/talking/professor-mordechai_talking.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1965,6 +2025,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "neutral"
       ],
@@ -1984,6 +2045,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral_speaking.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking",
         "neutral"
@@ -2004,6 +2066,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_open_palm.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking"
       ],
@@ -2023,6 +2086,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_open_palm_mid.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking"
       ],
@@ -2042,6 +2106,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_point.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "pointing",
         "talking"
@@ -2062,6 +2127,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_point_mid.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "pointing",
         "talking"
@@ -2082,6 +2148,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah.png",
       "lookingAt": "down",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sampeah"
       ],
@@ -2101,6 +2168,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah_approach.png",
       "lookingAt": "down",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sampeah"
       ],
@@ -2120,6 +2188,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_sampeah_rise_low.png",
       "lookingAt": "down",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sampeah"
       ],
@@ -2139,6 +2208,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_greet_sampeah.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sampeah"
       ],
@@ -2158,6 +2228,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_neutral.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking",
         "neutral"
@@ -2178,6 +2249,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_open_palm.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking"
       ],
@@ -2197,6 +2269,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_point.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking",
         "pointing"
@@ -2217,6 +2290,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/poses/professor-mordechai_closeup_neutral.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "neutral"
       ],
@@ -2246,6 +2320,7 @@
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/closeup/professor-mordechai_closeup_talk_neutral.apng",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "talking",
         "neutral"
@@ -2275,6 +2350,7 @@
       "src": "media/characters/year-01/professor-icon.svg",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "neutral"
       ],
@@ -2293,6 +2369,7 @@
       "src": "media/characters/year-01/yeay-chan-neutral-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "neutral"
@@ -2305,13 +2382,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 306,
+        "x": 352,
         "y": 298,
-        "w": 347,
-        "h": 1093
+        "w": 338,
+        "h": 1092
       },
-      "visibleWidth": 347,
-      "visibleHeight": 1093,
+      "visibleWidth": 338,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -2322,6 +2399,7 @@
       "src": "media/characters/year-01/yeay-chan-listen-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "listening"
@@ -2334,7 +2412,7 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 314,
+        "x": 332,
         "y": 298,
         "w": 357,
         "h": 1092
@@ -2351,6 +2429,7 @@
       "src": "media/characters/year-01/yeay-chan-neutral-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -2363,13 +2442,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 294,
+        "x": 295,
         "y": 298,
-        "w": 358,
-        "h": 1093
+        "w": 354,
+        "h": 1092
       },
-      "visibleWidth": 358,
-      "visibleHeight": 1093,
+      "visibleWidth": 354,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -2380,6 +2459,7 @@
       "src": "media/characters/year-01/yeay-chan-sitting-right.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -2409,6 +2489,7 @@
       "src": "media/characters/year-01/yeay-chan-sitting-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "sitting",
         "neutral"
@@ -2438,6 +2519,7 @@
       "src": "media/characters/year-01/yeay-chan-walking-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "walking"
       ],
@@ -2466,6 +2548,7 @@
       "src": "media/characters/year-01/yeay-chan-walking-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "walking"
       ],
@@ -2494,6 +2577,7 @@
       "src": "media/characters/year-01/yeay-chan-receiving-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "receiving"
@@ -2506,13 +2590,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 308,
+        "x": 299,
         "y": 298,
-        "w": 488,
-        "h": 1092
+        "w": 558,
+        "h": 1093
       },
-      "visibleWidth": 488,
-      "visibleHeight": 1092,
+      "visibleWidth": 558,
+      "visibleHeight": 1093,
       "mirrorable": false
     },
     {
@@ -2523,6 +2607,7 @@
       "src": "media/characters/year-01/yeay-chan-giving-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "giving"
@@ -2535,13 +2620,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 298,
+        "x": 300,
         "y": 298,
-        "w": 531,
-        "h": 1093
+        "w": 555,
+        "h": 1092
       },
-      "visibleWidth": 531,
-      "visibleHeight": 1093,
+      "visibleWidth": 555,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -2552,6 +2637,7 @@
       "src": "media/characters/year-01/yeay-chan-talking-left.apng",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "talking",
@@ -2565,13 +2651,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 305,
-        "y": 296,
-        "w": 349,
-        "h": 1095
+        "x": 352,
+        "y": 298,
+        "w": 338,
+        "h": 1092
       },
-      "visibleWidth": 349,
-      "visibleHeight": 1095,
+      "visibleWidth": 338,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -2582,6 +2668,7 @@
       "src": "media/characters/year-01/yeay-chan-talking-right.apng",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -2595,13 +2682,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 294,
-        "y": 297,
-        "w": 359,
-        "h": 1094
+        "x": 295,
+        "y": 298,
+        "w": 354,
+        "h": 1092
       },
-      "visibleWidth": 359,
-      "visibleHeight": 1094,
+      "visibleWidth": 354,
+      "visibleHeight": 1092,
       "mirrorable": false
     },
     {
@@ -2612,6 +2699,7 @@
       "src": "media/characters/year-01/bora-sitting-right.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -2641,6 +2729,7 @@
       "src": "media/characters/year-01/bora-walking-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "walking"
       ],
@@ -2669,6 +2758,7 @@
       "src": "media/characters/year-01/bora-receiving-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "receiving"
@@ -2681,13 +2771,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 338,
-        "y": 521,
-        "w": 400,
-        "h": 869
+        "x": 332,
+        "y": 520,
+        "w": 390,
+        "h": 870
       },
-      "visibleWidth": 400,
-      "visibleHeight": 869,
+      "visibleWidth": 390,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -2698,6 +2788,7 @@
       "src": "media/characters/year-01/bora-giving-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "giving"
@@ -2710,13 +2801,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 339,
-        "y": 521,
-        "w": 396,
-        "h": 869
+        "x": 332,
+        "y": 520,
+        "w": 384,
+        "h": 870
       },
-      "visibleWidth": 396,
-      "visibleHeight": 869,
+      "visibleWidth": 384,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -2727,6 +2818,7 @@
       "src": "media/characters/year-01/bora-neutral-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -2739,12 +2831,12 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 337,
+        "x": 345,
         "y": 520,
-        "w": 266,
+        "w": 241,
         "h": 870
       },
-      "visibleWidth": 266,
+      "visibleWidth": 241,
       "visibleHeight": 870,
       "mirrorable": true
     },
@@ -2756,6 +2848,7 @@
       "src": "media/characters/year-01/bora-talking-right.apng",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -2769,13 +2862,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 337,
-        "y": 519,
-        "w": 266,
-        "h": 871
+        "x": 345,
+        "y": 520,
+        "w": 241,
+        "h": 870
       },
-      "visibleWidth": 266,
-      "visibleHeight": 871,
+      "visibleWidth": 241,
+      "visibleHeight": 870,
       "mirrorable": true
     },
     {
@@ -2786,6 +2879,7 @@
       "src": "media/characters/year-01/sreyneang-sitting-right.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -2815,6 +2909,7 @@
       "src": "media/characters/year-01/sreyneang-walking-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "walking"
       ],
@@ -2843,6 +2938,7 @@
       "src": "media/characters/year-01/sreyneang-receiving-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "receiving"
@@ -2855,13 +2951,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 264,
-        "y": 520,
-        "w": 469,
-        "h": 870
+        "x": 268,
+        "y": 521,
+        "w": 474,
+        "h": 869
       },
-      "visibleWidth": 469,
-      "visibleHeight": 870,
+      "visibleWidth": 474,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -2872,6 +2968,7 @@
       "src": "media/characters/year-01/sreyneang-neutral-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -2884,13 +2981,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 273,
+        "x": 265,
         "y": 521,
-        "w": 373,
-        "h": 870
+        "w": 353,
+        "h": 869
       },
-      "visibleWidth": 373,
-      "visibleHeight": 870,
+      "visibleWidth": 353,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -2901,6 +2998,7 @@
       "src": "media/characters/year-01/sreyneang-talking-right.apng",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -2914,13 +3012,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 273,
-        "y": 520,
-        "w": 373,
-        "h": 871
+        "x": 264,
+        "y": 521,
+        "w": 354,
+        "h": 869
       },
-      "visibleWidth": 373,
-      "visibleHeight": 871,
+      "visibleWidth": 354,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -2931,6 +3029,7 @@
       "src": "media/characters/year-01/kru-sopheak-sitting-right.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "sitting",
         "neutral",
@@ -2961,6 +3060,7 @@
       "src": "media/characters/year-01/kru-sopheak-walking-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "walking",
         "holding-book"
@@ -2990,6 +3090,7 @@
       "src": "media/characters/year-01/kru-sopheak-giving-left.png",
       "lookingAt": "front",
       "facing": "front",
+      "bodyFacing": "front",
       "pose": [
         "standing",
         "giving",
@@ -3020,6 +3121,7 @@
       "src": "media/characters/year-01/kru-sopheak-neutral-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "neutral",
@@ -3033,12 +3135,12 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 289,
-        "y": 148,
-        "w": 438,
+        "x": 299,
+        "y": 149,
+        "w": 413,
         "h": 1242
       },
-      "visibleWidth": 438,
+      "visibleWidth": 413,
       "visibleHeight": 1242,
       "mirrorable": true
     },
@@ -3050,6 +3152,7 @@
       "src": "media/characters/year-01/kru-sopheak-talking-right.apng",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -3064,13 +3167,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 289,
-        "y": 146,
-        "w": 440,
-        "h": 1244
+        "x": 299,
+        "y": 149,
+        "w": 413,
+        "h": 1242
       },
-      "visibleWidth": 440,
-      "visibleHeight": 1244,
+      "visibleWidth": 413,
+      "visibleHeight": 1242,
       "mirrorable": true
     },
     {
@@ -3081,6 +3184,7 @@
       "src": "media/characters/year-01/professor-mordechai-walking-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "walking"
       ],
@@ -3109,6 +3213,7 @@
       "src": "media/characters/year-01/professor-mordechai-neutral-right.png",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -3121,13 +3226,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 301,
+        "x": 302,
         "y": 198,
-        "w": 424,
-        "h": 1191
+        "w": 423,
+        "h": 1193
       },
-      "visibleWidth": 424,
-      "visibleHeight": 1191,
+      "visibleWidth": 423,
+      "visibleHeight": 1193,
       "mirrorable": true
     },
     {
@@ -3138,6 +3243,7 @@
       "src": "media/characters/year-01/professor-mordechai-talking-right.apng",
       "lookingAt": "right",
       "facing": "right",
+      "bodyFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -3151,13 +3257,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 301,
-        "y": 197,
-        "w": 424,
-        "h": 1192
+        "x": 302,
+        "y": 198,
+        "w": 423,
+        "h": 1193
       },
-      "visibleWidth": 424,
-      "visibleHeight": 1192,
+      "visibleWidth": 423,
+      "visibleHeight": 1193,
       "mirrorable": true
     },
     {
@@ -3168,6 +3274,7 @@
       "src": "media/characters/year-01/malis-neutral-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "neutral"
@@ -3180,12 +3287,12 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 355,
+        "x": 353,
         "y": 223,
-        "w": 304,
+        "w": 294,
         "h": 1167
       },
-      "visibleWidth": 304,
+      "visibleWidth": 294,
       "visibleHeight": 1167,
       "mirrorable": false
     },
@@ -3197,6 +3304,7 @@
       "src": "media/characters/year-01/malis-listen-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "listening"
@@ -3209,13 +3317,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 332,
+        "x": 334,
         "y": 223,
-        "w": 337,
-        "h": 1167
+        "w": 322,
+        "h": 1168
       },
-      "visibleWidth": 337,
-      "visibleHeight": 1167,
+      "visibleWidth": 322,
+      "visibleHeight": 1168,
       "mirrorable": false
     },
     {
@@ -3226,6 +3334,7 @@
       "src": "media/characters/year-01/srey-mom-neutral-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "neutral",
@@ -3239,13 +3348,13 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 215,
+        "x": 217,
         "y": 234,
-        "w": 475,
-        "h": 1156
+        "w": 468,
+        "h": 1157
       },
-      "visibleWidth": 475,
-      "visibleHeight": 1156,
+      "visibleWidth": 468,
+      "visibleHeight": 1157,
       "mirrorable": false
     },
     {
@@ -3256,6 +3365,7 @@
       "src": "media/characters/year-01/srey-mom-listen-left.png",
       "lookingAt": "left",
       "facing": "left",
+      "bodyFacing": "left",
       "pose": [
         "standing",
         "listening",
@@ -3269,12 +3379,12 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 222,
+        "x": 217,
         "y": 233,
-        "w": 465,
+        "w": 466,
         "h": 1157
       },
-      "visibleWidth": 465,
+      "visibleWidth": 466,
       "visibleHeight": 1157,
       "mirrorable": false
     }
