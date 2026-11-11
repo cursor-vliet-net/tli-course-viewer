@@ -43,7 +43,7 @@
       "id": "1",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -91,7 +91,7 @@
       "id": "2",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -139,7 +139,7 @@
       "id": "3",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -187,7 +187,7 @@
       "id": "4",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -235,7 +235,7 @@
       "id": "5",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -283,7 +283,7 @@
       "id": "6",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -316,9 +316,9 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "Yes. I am Bora. You are Yeay.",
+          "text": "I am Bora!",
           "translations": {
-            "km": "បាទ។ ខ្ញុំឈ្មោះបូរ៉ា។ អ្នកឈ្មោះយាយ។"
+            "km": "ខ្ញុំឈ្មោះបូរ៉ា!"
           },
           "audio": null,
           "durationMs": 4000,
@@ -331,7 +331,7 @@
       "id": "7",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -379,7 +379,7 @@
       "id": "8",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are and who the other person is",
+        "what": "Saying who you are; hearing who the other person is",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -412,9 +412,9 @@
       "lines": [
         {
           "speaker": "sreyneang",
-          "text": "Yes. I am Sreyneang. You are Yeay.",
+          "text": "I am Sreyneang!",
           "translations": {
-            "km": "ចាស។ ខ្ញុំឈ្មោះស្រីណាង។ អ្នកឈ្មោះយាយ។"
+            "km": "ខ្ញុំឈ្មោះស្រីណាង!"
           },
           "audio": null,
           "durationMs": 4200,

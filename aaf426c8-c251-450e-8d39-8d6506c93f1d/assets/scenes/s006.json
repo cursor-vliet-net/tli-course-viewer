@@ -577,18 +577,93 @@
       "id": "9",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Saying goodbye to the teacher",
         "where": "Classroom, sharing a book",
         "who": [
           "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": [
-          "sreyneang",
-          "bora"
+        "focus": "kru-sopheak",
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "waving",
+            "lookingAt": "front"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "waving",
+            "lookingAt": "front"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 28,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 76,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Goodbye, teacher!",
+          "translations": {
+            "km": "លាហើយ លោកគ្រូ!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "pose": "waving"
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "10",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Saying goodbye to the teacher",
+        "where": "Classroom, sharing a book",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
         ],
-        "gaze": "focus"
+        "focus": "bora",
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "kru-sopheak",
+            "pose": "waving",
+            "lookingAt": "front"
+          },
+          {
+            "id": "bora",
+            "pose": "waving",
+            "lookingAt": "front"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "waving",
+            "lookingAt": "front"
+          }
+        ]
       },
       "placements": [
         {
@@ -613,16 +688,17 @@
       "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "She is Sreyneang. He is Bora.",
+          "text": "Goodbye, Bora! Goodbye, Sreyneang!",
           "translations": {
-            "km": "នាងឈ្មោះស្រីណាង។ គេឈ្មោះបូរ៉ា។"
+            "km": "លាហើយ បូរ៉ា! លាហើយ ស្រីណាង!"
           },
           "audio": null,
-          "durationMs": 4200,
-          "atMs": 0
+          "durationMs": 3600,
+          "atMs": 0,
+          "pose": "waving"
         }
       ],
-      "durationMs": 4200
+      "durationMs": 3600
     }
   ]
 }

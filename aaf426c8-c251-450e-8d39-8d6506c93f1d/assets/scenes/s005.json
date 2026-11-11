@@ -1,6 +1,6 @@
 {
   "id": "S005",
-  "title": "He is / she is",
+  "title": "Review: a new classmate",
   "defaultDurationMs": 3000,
   "background": "media/backgrounds/classroom.png",
   "actors": {
@@ -36,6 +36,17 @@
         "speakStill": "media/characters/year-01/sreyneang-neutral.png"
       },
       "lipSync": false
+    },
+    "bopha": {
+      "name": "Bopha",
+      "gender": "girl",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/year-01/bopha-neutral.png",
+        "speak": "media/characters/year-01/bopha-talking.apng",
+        "speakStill": "media/characters/year-01/bopha-neutral.png"
+      },
+      "lipSync": false
     }
   },
   "scenes": [
@@ -43,7 +54,7 @@
       "id": "1",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Saying your name in class",
         "where": "Classroom",
         "who": [
           "kru-sopheak",
@@ -67,19 +78,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 28,
+          "x": 24,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 46,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 64,
           "y": 95
         }
       ],
@@ -88,7 +99,7 @@
           "speaker": "kru-sopheak",
           "text": "I am Kru Sopheak.",
           "translations": {
-            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រ។"
+            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រា។"
           },
           "audio": null,
           "durationMs": 3000,
@@ -101,7 +112,7 @@
       "id": "2",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Saying your name in class",
         "where": "Classroom",
         "who": [
           "kru-sopheak",
@@ -125,19 +136,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 24,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 46,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 64,
           "y": 95
         }
       ],
@@ -159,7 +170,7 @@
       "id": "3",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Saying your name in class",
         "where": "Classroom",
         "who": [
           "kru-sopheak",
@@ -183,19 +194,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 24,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 46,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
-          "x": 76,
+          "x": 64,
           "y": 95
         }
       ],
@@ -217,7 +228,7 @@
       "id": "4",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Saying your name in class",
         "where": "Classroom",
         "who": [
           "kru-sopheak",
@@ -241,19 +252,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 28,
+          "x": 24,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 46,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 64,
           "y": 95
         }
       ],
@@ -275,14 +286,15 @@
       "id": "5",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Greeting a new classmate and saying your name",
         "where": "Classroom",
         "who": [
           "kru-sopheak",
           "bora",
-          "sreyneang"
+          "sreyneang",
+          "bopha"
         ],
-        "focus": "bora",
+        "focus": "bopha",
         "gaze": "focus",
         "people": [
           {
@@ -299,220 +311,53 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 28,
+          "x": 24,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 46,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "idle",
+          "x": 84,
           "y": 95
         }
       ],
       "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "He is Bora.",
+          "text": "Hello. What's your name?",
           "translations": {
-            "km": "គេឈ្មោះបូរ៉ា។"
+            "km": "សួស្តី។ តើអ្នកឈ្មោះអ្វី?"
           },
           "audio": null,
-          "durationMs": 2800,
+          "durationMs": 3200,
           "atMs": 0
         }
       ],
-      "durationMs": 2800
+      "durationMs": 3200
     },
     {
       "id": "6",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying who a classmate is",
+        "what": "Greeting a new classmate and saying your name",
         "where": "Classroom",
         "who": [
           "kru-sopheak",
           "bora",
-          "sreyneang"
-        ],
-        "focus": "bora",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 28,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "speak",
-          "x": 76,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "sreyneang",
-          "text": "He is Bora.",
-          "translations": {
-            "km": "គេឈ្មោះបូរ៉ា។"
-          },
-          "audio": null,
-          "durationMs": 2800,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2800
-    },
-    {
-      "id": "7",
-      "background": "media/backgrounds/classroom.png",
-      "setup": {
-        "what": "Saying who a classmate is",
-        "where": "Classroom",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "sreyneang",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "speak",
-          "x": 28,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 76,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "kru-sopheak",
-          "text": "She is Sreyneang.",
-          "translations": {
-            "km": "នាងឈ្មោះស្រីណាង។"
-          },
-          "audio": null,
-          "durationMs": 3000,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 3000
-    },
-    {
-      "id": "8",
-      "background": "media/backgrounds/classroom.png",
-      "setup": {
-        "what": "Saying who a classmate is",
-        "where": "Classroom",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "sreyneang",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 28,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "speak",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 76,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "bora",
-          "text": "She is Sreyneang.",
-          "translations": {
-            "km": "នាងឈ្មោះស្រីណាង។"
-          },
-          "audio": null,
-          "durationMs": 3000,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 3000
-    },
-    {
-      "id": "9",
-      "background": "media/backgrounds/classroom.png",
-      "setup": {
-        "what": "Saying who a classmate is",
-        "where": "Classroom",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
+          "sreyneang",
+          "bopha"
         ],
         "focus": "kru-sopheak",
         "gaze": "focus",
@@ -531,35 +376,236 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 24,
           "y": 95
         },
         {
           "id": "bora",
-          "sprite": "speak",
-          "x": 55,
+          "sprite": "idle",
+          "x": 46,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "speak",
+          "x": 84,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bopha",
+          "text": "I am Bopha.",
+          "translations": {
+            "km": "ខ្ញុំឈ្មោះបុប្ផា។"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "7",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Greeting a new classmate and saying your name",
+        "where": "Classroom",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang",
+          "bopha"
+        ],
+        "focus": "bopha",
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 24,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 46,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "idle",
+          "x": 84,
           "y": 95
         }
       ],
       "lines": [
         {
           "speaker": "bora",
-          "text": "He is Kru Sopheak.",
+          "text": "Hello, Bopha! I am Bora.",
           "translations": {
-            "km": "គេឈ្មោះគ្រូសុភ័ក្ត្រ។"
+            "km": "សួស្តី បុប្ផា! ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 3200,
+          "durationMs": 3400,
           "atMs": 0
         }
       ],
-      "durationMs": 3200
+      "durationMs": 3400
+    },
+    {
+      "id": "8",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Greeting a new classmate and saying your name",
+        "where": "Classroom",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang",
+          "bopha"
+        ],
+        "focus": "bopha",
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 24,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 46,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "speak",
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "idle",
+          "x": 84,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "Hello, Bopha! I am Sreyneang.",
+          "translations": {
+            "km": "សួស្តី បុប្ផា! ខ្ញុំឈ្មោះស្រីណាង។"
+          },
+          "audio": null,
+          "durationMs": 3600,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3600
+    },
+    {
+      "id": "9",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "Greeting a new classmate and saying your name",
+        "where": "Classroom",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang",
+          "bopha"
+        ],
+        "focus": "bora",
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "sitting"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "sitting"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 24,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 46,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "speak",
+          "x": 84,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bopha",
+          "text": "Hello, Bora! Hello, Sreyneang!",
+          "translations": {
+            "km": "សួស្តី បូរ៉ា! សួស្តី ស្រីណាង!"
+          },
+          "audio": null,
+          "durationMs": 3400,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3400
     }
   ]
 }

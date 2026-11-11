@@ -1,6 +1,6 @@
 {
   "id": "S003",
-  "title": "Hello later",
+  "title": "Hello and goodbye",
   "defaultDurationMs": 3000,
   "background": "media/backgrounds/home-later.png",
   "actors": {
@@ -43,7 +43,7 @@
       "id": "1",
       "background": "media/backgrounds/home-later.png",
       "setup": {
-        "what": "A greeting later in the morning",
+        "what": "Saying hello at home",
         "where": "Home, later in the morning",
         "who": [
           "yeay-chan",
@@ -91,7 +91,7 @@
       "id": "2",
       "background": "media/backgrounds/home-later.png",
       "setup": {
-        "what": "A greeting later in the morning",
+        "what": "Saying hello at home",
         "where": "Home, later in the morning",
         "who": [
           "yeay-chan",
@@ -139,7 +139,7 @@
       "id": "3",
       "background": "media/backgrounds/home-later.png",
       "setup": {
-        "what": "A greeting later in the morning",
+        "what": "Saying hello at home",
         "where": "Home, later in the morning",
         "who": [
           "yeay-chan",
@@ -187,7 +187,7 @@
       "id": "4",
       "background": "media/backgrounds/home-later.png",
       "setup": {
-        "what": "A greeting later in the morning",
+        "what": "Saying hello at home",
         "where": "Home, later in the morning",
         "who": [
           "yeay-chan",
@@ -235,7 +235,7 @@
       "id": "5",
       "background": "media/backgrounds/home-later.png",
       "setup": {
-        "what": "A greeting later in the morning",
+        "what": "Saying goodbye when leaving home for school",
         "where": "Home, later in the morning",
         "who": [
           "yeay-chan",
@@ -243,55 +243,14 @@
           "sreyneang"
         ],
         "focus": "yeay-chan",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "speak",
-          "x": 26,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "yeay-chan",
-          "text": "I am Yeay Chan. You are Bora.",
-          "translations": {
-            "km": "ខ្ញុំឈ្មោះយាយចាន់។ អ្នកឈ្មោះបូរ៉ា។"
-          },
-          "audio": null,
-          "durationMs": 4000,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 4000
-    },
-    {
-      "id": "6",
-      "background": "media/backgrounds/home-later.png",
-      "setup": {
-        "what": "A greeting later in the morning",
-        "where": "Home, later in the morning",
-        "who": [
-          "yeay-chan",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "yeay-chan",
-        "gaze": "rules"
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "bora",
+            "pose": "waving",
+            "lookingAt": "front"
+          }
+        ]
       },
       "placements": [
         {
@@ -316,22 +275,84 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "I am Bora. You are Yeay.",
+          "text": "Goodbye, Yeay!",
           "translations": {
-            "km": "ខ្ញុំឈ្មោះបូរ៉ា។ អ្នកឈ្មោះយាយ។"
+            "km": "លាហើយ យាយ!"
           },
           "audio": null,
-          "durationMs": 3600,
-          "atMs": 0
+          "durationMs": 2800,
+          "atMs": 0,
+          "pose": "waving"
         }
       ],
-      "durationMs": 3600
+      "durationMs": 2800
+    },
+    {
+      "id": "6",
+      "background": "media/backgrounds/home-later.png",
+      "setup": {
+        "what": "Saying goodbye when leaving home for school",
+        "where": "Home, later in the morning",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "bora",
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "yeay-chan",
+            "pose": "waving",
+            "lookingAt": "front"
+          },
+          {
+            "id": "bora",
+            "pose": "waving",
+            "lookingAt": "front"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "speak",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Goodbye, Bora!",
+          "translations": {
+            "km": "លាហើយ បូរ៉ា!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "pose": "waving"
+        }
+      ],
+      "durationMs": 2800
     },
     {
       "id": "7",
       "background": "media/backgrounds/home-later.png",
       "setup": {
-        "what": "A greeting later in the morning",
+        "what": "Saying goodbye when leaving home for school",
         "where": "Home, later in the morning",
         "who": [
           "yeay-chan",
@@ -339,7 +360,14 @@
           "sreyneang"
         ],
         "focus": "yeay-chan",
-        "gaze": "rules"
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "sreyneang",
+            "pose": "waving",
+            "lookingAt": "front"
+          }
+        ]
       },
       "placements": [
         {
@@ -364,16 +392,78 @@
       "lines": [
         {
           "speaker": "sreyneang",
-          "text": "Hello. I am Sreyneang. You are Yeay.",
+          "text": "Goodbye, Yeay!",
           "translations": {
-            "km": "សួស្តី។ ខ្ញុំឈ្មោះស្រីណាង។ អ្នកឈ្មោះយាយ។"
+            "km": "លាហើយ យាយ!"
           },
           "audio": null,
-          "durationMs": 4200,
-          "atMs": 0
+          "durationMs": 2800,
+          "atMs": 0,
+          "pose": "waving"
         }
       ],
-      "durationMs": 4200
+      "durationMs": 2800
+    },
+    {
+      "id": "8",
+      "background": "media/backgrounds/home-later.png",
+      "setup": {
+        "what": "Saying goodbye when leaving home for school",
+        "where": "Home, later in the morning",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "sreyneang",
+        "gaze": "rules",
+        "people": [
+          {
+            "id": "yeay-chan",
+            "pose": "waving",
+            "lookingAt": "front"
+          },
+          {
+            "id": "sreyneang",
+            "pose": "waving",
+            "lookingAt": "front"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "speak",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Goodbye, Sreyneang!",
+          "translations": {
+            "km": "លាហើយ ស្រីណាង!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "pose": "waving"
+        }
+      ],
+      "durationMs": 2800
     }
   ]
 }
