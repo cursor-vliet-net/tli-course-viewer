@@ -129,30 +129,35 @@
           "scope": "scene",
           "leadMs": 1200,
           "windowMs": 2800,
-          "durationMs": 12000,
+          "durationMs": 20000,
           "review": {
             "km": "draft",
             "cultural": "pending-khmer-native-review",
-            "note": "English already said in this scene. Khmer subtitles need a native-speaker review. No gesture lecture."
+            "note": "English already said in this scene. Khmer subtitles need a native-speaker review. No gesture lecture. The first part is the professor's self-introduction (Herbert, 2026-11-11): English, then in KH the same English followed by a Khmer draft. Khmer name spelling ម៉ាដេកាយ (as in the Khmer Bible for Mordecai) and the address ប្អូនៗ need native review."
           },
           "text": {
-            "en": "Yeay said good morning, then the name. Say good morning, and then the name. You can say good morning with no name.",
-            "km": "យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។ និយាយអរុណសួស្តី រួចហើយឈ្មោះ។ អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
+            "en": "Hello. My name is Mordechai. I will help you. Yeay said good morning, then the name. Say good morning, and then the name. You can say good morning with no name.",
+            "km": "Hello. My name is Mordechai. I will help you. សួស្តី។ ខ្ញុំឈ្មោះ ម៉ាដេកាយ។ ខ្ញុំនឹងជួយប្អូនៗ។ យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។ និយាយអរុណសួស្តី រួចហើយឈ្មោះ។ អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
           },
           "subtitles": {
             "en": [
               {
                 "atMs": 0,
                 "durationMs": 4000,
-                "text": "Yeay said good morning, then the name."
+                "text": "Hello. My name is Mordechai. I will help you."
               },
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "Say good morning, and then the name."
+                "text": "Yeay said good morning, then the name."
               },
               {
                 "atMs": 8000,
+                "durationMs": 4000,
+                "text": "Say good morning, and then the name."
+              },
+              {
+                "atMs": 12000,
                 "durationMs": 4000,
                 "text": "You can say good morning with no name."
               }
@@ -161,15 +166,25 @@
               {
                 "atMs": 0,
                 "durationMs": 4000,
-                "text": "យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
+                "text": "Hello. My name is Mordechai. I will help you."
               },
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "និយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
+                "text": "សួស្តី។ ខ្ញុំឈ្មោះ ម៉ាដេកាយ។ ខ្ញុំនឹងជួយប្អូនៗ។"
               },
               {
                 "atMs": 8000,
+                "durationMs": 4000,
+                "text": "យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
+              },
+              {
+                "atMs": 12000,
+                "durationMs": 4000,
+                "text": "និយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
+              },
+              {
+                "atMs": 16000,
                 "durationMs": 4000,
                 "text": "អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
               }
@@ -178,6 +193,11 @@
           "audio": {
             "en": null,
             "km": null
+          },
+          "intro": {
+            "en": "Hello. My name is Mordechai. I will help you.",
+            "km": "សួស្តី។ ខ្ញុំឈ្មោះ ម៉ាដេកាយ។ ខ្ញុំនឹងជួយប្អូនៗ។",
+            "first": true
           }
         }
       ]

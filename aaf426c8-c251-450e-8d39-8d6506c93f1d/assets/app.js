@@ -292,6 +292,8 @@
       var en = el.getAttribute('data-en-html');
       if (en == null) return;
       var kmText = el.getAttribute('data-km') || '';
+      /* t227: song lyrics are sung in English in both language versions; KH adds the Khmer under each line. */
+      if (el.getAttribute('data-i18n-en-first') === '1') { el.innerHTML = kmText && kmText !== plainFromHtml(en) ? bilingualHtml(en, kmText, 'km') : en; return; }
       if (km && kmText && kmText !== plainFromHtml(en)) el.innerHTML = bilingualHtml(esc(kmText), plainFromHtml(en), 'en');
       else if (!km && kmText && kmText !== plainFromHtml(en)) el.innerHTML = bilingualHtml(en, kmText, 'km');
       else el.innerHTML = en;

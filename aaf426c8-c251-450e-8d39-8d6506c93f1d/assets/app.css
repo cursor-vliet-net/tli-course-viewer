@@ -517,3 +517,9 @@ body[data-mode="student"] .song-teacher-tip { display: none; }
 .chant-word img { width: 6rem; height: 6rem; object-fit: contain; }
 .quiz-heard { font-size: .88rem; color: var(--bs-secondary-color, #5c6672); margin-left: .3rem; }
 body[data-mode="student"] .quiz-heard { display: none; }
+/* t227: class song = chorus (same all year) + one-line verse per session; lyrics stay English in KH */
+.song-verse { background: rgba(122, 90, 248, .06); border-radius: .35rem; padding: .35rem .5rem; }
+[data-theme="dark"] .song-verse { background: rgba(157, 133, 255, .10); }
+.song-again { font-size: .88rem; font-style: italic; margin: .4rem 0 0; color: var(--bs-secondary-color, #5c6672); }
+[data-theme="dark"] .song-again { color: var(--tli-muted); }
+.song-text .i18n-alt { display: block; font-size: .82em; }

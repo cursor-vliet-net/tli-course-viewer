@@ -738,9 +738,17 @@
     return 'neutral';
   }
 
+  function effectiveFeet(image, mirrored) {
+    var feet = image && image.feetFacing;
+    return mirrored ? flipLR(feet) : feet;
+  }
+
   function scoreImage(image, desired, pose, mirrored) {
     var score = 0;
     var look = effectiveGaze(image, mirrored);
+    /* t228: never pick a picture whose feet point away from the person it looks at. */
+    var feet = effectiveFeet(image, mirrored);
+    if ((desired === 'left' || desired === 'right') && feet === flipLR(desired)) score -= 60;
     if (look === desired) score += 100;
     else if (desired === 'front' && look === 'front') score += 100;
     else if (look === 'front' && (desired === 'left' || desired === 'right')) score += 10;

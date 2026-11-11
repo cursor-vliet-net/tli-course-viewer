@@ -1,7 +1,8 @@
 {
   "schema": "tli-cast-images/v1",
   "storyYear": 1,
-  "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance. bodyFacing is the body and feet direction and must equal facing.",
+  "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance. bodyFacing is the body direction and must equal facing. The feet are checked separately in feetFacing (see feetAudit), because a body can turn while the feet still point the other way.",
+  "feetAudit": "feetFacing is the direction the toes point (left/right = the viewer's screen left/right; front = straight at the viewer or splayed). Every full-body picture was opened and its feet checked by eye on 2026-11-11 (t228). Rules, enforced by viewer/tests/cast-images.test.js and check_course.py: (1) the feet never point away from the face: if facing, or else lookingAt, is left or right, feetFacing is that side or front; (2) a side-facing walking picture has feetFacing equal to facing; (3) feetMeasured (written by viewer/tools/measure_cast_bboxes.py from the pixels) must agree with feetFacing whenever its offset is clear (|offset| >= 0.15), except for sitting pictures, where chair legs confuse the measurement. The stage also avoids a picture whose feet would point away from the person it looks at, mirroring it when allowed.",
   "height": {
     "courseAge": "Grade 1 / story year 0 (the current year-01 art).",
     "twins": "Bora and Sreyneang have baselineAge 6 in process/cast/cast.json. Heights use WHO Child Growth Standards (2006/2007) height-for-age medians at 6.0 years: 116 cm (boys), 115 cm (girls). Marked estimated: true because the baseline is \"about 6\" at official entrance, not a birthday.",
@@ -140,6 +141,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -159,7 +161,11 @@
       },
       "visibleWidth": 396,
       "visibleHeight": 1168,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.22
+      }
     },
     {
       "id": "sopha-wave",
@@ -171,6 +177,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "waving"
@@ -190,7 +197,11 @@
       },
       "visibleWidth": 466,
       "visibleHeight": 1171,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.22
+      }
     },
     {
       "id": "sopha-explain",
@@ -202,6 +213,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking"
@@ -221,7 +233,11 @@
       },
       "visibleWidth": 456,
       "visibleHeight": 1172,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.2
+      }
     },
     {
       "id": "sopha-listen",
@@ -233,6 +249,7 @@
       "lookingAt": "up",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "listening"
@@ -252,7 +269,11 @@
       },
       "visibleWidth": 382,
       "visibleHeight": 1169,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.19
+      }
     },
     {
       "id": "sopha-talking",
@@ -264,6 +285,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -284,7 +306,11 @@
       },
       "visibleWidth": 397,
       "visibleHeight": 1169,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.22
+      }
     },
     {
       "id": "vuthy-neutral",
@@ -296,6 +322,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -315,7 +342,11 @@
       },
       "visibleWidth": 383,
       "visibleHeight": 1241,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "vuthy-wave",
@@ -327,6 +358,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -346,7 +378,11 @@
       },
       "visibleWidth": 481,
       "visibleHeight": 1241,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.01
+      }
     },
     {
       "id": "vuthy-explain",
@@ -358,6 +394,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -377,7 +414,11 @@
       },
       "visibleWidth": 379,
       "visibleHeight": 1248,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.1
+      }
     },
     {
       "id": "vuthy-listen",
@@ -389,6 +430,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -408,7 +450,11 @@
       },
       "visibleWidth": 359,
       "visibleHeight": 1250,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "vuthy-talking",
@@ -420,6 +466,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -440,7 +487,11 @@
       },
       "visibleWidth": 383,
       "visibleHeight": 1241,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "bora-neutral",
@@ -452,6 +503,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -471,7 +523,11 @@
       },
       "visibleWidth": 315,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.01
+      }
     },
     {
       "id": "bora-wave",
@@ -483,6 +539,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -502,7 +559,11 @@
       },
       "visibleWidth": 396,
       "visibleHeight": 868,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.01
+      }
     },
     {
       "id": "bora-explain",
@@ -514,6 +575,7 @@
       "lookingAt": "up",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "pointing",
@@ -534,7 +596,11 @@
       },
       "visibleWidth": 379,
       "visibleHeight": 873,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.01
+      }
     },
     {
       "id": "bora-listen",
@@ -546,6 +612,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -565,7 +632,11 @@
       },
       "visibleWidth": 289,
       "visibleHeight": 868,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.01
+      }
     },
     {
       "id": "bora-talking",
@@ -577,6 +648,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -597,7 +669,11 @@
       },
       "visibleWidth": 315,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.01
+      }
     },
     {
       "id": "sreyneang-neutral",
@@ -609,6 +685,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -628,7 +705,11 @@
       },
       "visibleWidth": 419,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "sreyneang-wave",
@@ -640,6 +721,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -659,7 +741,11 @@
       },
       "visibleWidth": 427,
       "visibleHeight": 873,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.01
+      }
     },
     {
       "id": "sreyneang-explain",
@@ -671,6 +757,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking"
@@ -690,7 +777,11 @@
       },
       "visibleWidth": 448,
       "visibleHeight": 875,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.19
+      }
     },
     {
       "id": "sreyneang-listen",
@@ -702,6 +793,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -721,7 +813,11 @@
       },
       "visibleWidth": 415,
       "visibleHeight": 870,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.0
+      }
     },
     {
       "id": "sreyneang-talking",
@@ -733,6 +829,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -753,7 +850,11 @@
       },
       "visibleWidth": 422,
       "visibleHeight": 870,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "bopha-neutral",
@@ -765,6 +866,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -784,7 +886,11 @@
       },
       "visibleWidth": 332,
       "visibleHeight": 868,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "bopha-wave",
@@ -796,6 +902,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -815,7 +922,11 @@
       },
       "visibleWidth": 376,
       "visibleHeight": 879,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "bopha-explain",
@@ -827,6 +938,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -846,7 +958,11 @@
       },
       "visibleWidth": 468,
       "visibleHeight": 871,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "bopha-listen",
@@ -858,6 +974,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -877,7 +994,11 @@
       },
       "visibleWidth": 330,
       "visibleHeight": 874,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.01
+      }
     },
     {
       "id": "bopha-talking",
@@ -889,6 +1010,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -909,7 +1031,11 @@
       },
       "visibleWidth": 333,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "bopha-neutral-right",
@@ -920,6 +1046,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -939,7 +1066,11 @@
       },
       "visibleWidth": 297,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.09
+      }
     },
     {
       "id": "bopha-talking-right",
@@ -950,6 +1081,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -970,7 +1102,11 @@
       },
       "visibleWidth": 297,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.09
+      }
     },
     {
       "id": "dara-neutral",
@@ -982,6 +1118,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1001,7 +1138,11 @@
       },
       "visibleWidth": 346,
       "visibleHeight": 1042,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "dara-wave",
@@ -1013,6 +1154,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1032,7 +1174,11 @@
       },
       "visibleWidth": 474,
       "visibleHeight": 1043,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.03
+      }
     },
     {
       "id": "dara-explain",
@@ -1044,6 +1190,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -1063,7 +1210,11 @@
       },
       "visibleWidth": 483,
       "visibleHeight": 1040,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.04
+      }
     },
     {
       "id": "dara-listen",
@@ -1075,6 +1226,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1094,7 +1246,11 @@
       },
       "visibleWidth": 344,
       "visibleHeight": 1044,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "dara-talking",
@@ -1106,6 +1262,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1126,7 +1283,11 @@
       },
       "visibleWidth": 346,
       "visibleHeight": 1043,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.02
+      }
     },
     {
       "id": "dara-neutral-right",
@@ -1137,6 +1298,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -1156,7 +1318,11 @@
       },
       "visibleWidth": 306,
       "visibleHeight": 1042,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.19
+      }
     },
     {
       "id": "dara-talking-right",
@@ -1167,6 +1333,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -1187,7 +1354,11 @@
       },
       "visibleWidth": 306,
       "visibleHeight": 1042,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.19
+      }
     },
     {
       "id": "visal-neutral",
@@ -1199,6 +1370,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1218,7 +1390,11 @@
       },
       "visibleWidth": 411,
       "visibleHeight": 1216,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.0
+      }
     },
     {
       "id": "visal-wave",
@@ -1230,6 +1406,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1249,7 +1426,11 @@
       },
       "visibleWidth": 534,
       "visibleHeight": 1220,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "visal-explain",
@@ -1261,6 +1442,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -1280,7 +1462,11 @@
       },
       "visibleWidth": 520,
       "visibleHeight": 1228,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.08
+      }
     },
     {
       "id": "visal-listen",
@@ -1292,6 +1478,7 @@
       "lookingAt": "up",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1311,7 +1498,11 @@
       },
       "visibleWidth": 435,
       "visibleHeight": 1219,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.0
+      }
     },
     {
       "id": "visal-talking",
@@ -1323,6 +1514,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1343,7 +1535,11 @@
       },
       "visibleWidth": 411,
       "visibleHeight": 1217,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.0
+      }
     },
     {
       "id": "malis-neutral",
@@ -1355,6 +1551,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1374,7 +1571,11 @@
       },
       "visibleWidth": 366,
       "visibleHeight": 1166,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.05
+      }
     },
     {
       "id": "malis-wave",
@@ -1386,6 +1587,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1405,7 +1607,11 @@
       },
       "visibleWidth": 435,
       "visibleHeight": 1167,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.04
+      }
     },
     {
       "id": "malis-explain",
@@ -1417,6 +1623,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking"
@@ -1436,7 +1643,11 @@
       },
       "visibleWidth": 487,
       "visibleHeight": 1166,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.04
+      }
     },
     {
       "id": "malis-listen",
@@ -1448,6 +1659,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1467,7 +1679,11 @@
       },
       "visibleWidth": 330,
       "visibleHeight": 1169,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.05
+      }
     },
     {
       "id": "malis-talking",
@@ -1479,6 +1695,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1499,7 +1716,11 @@
       },
       "visibleWidth": 366,
       "visibleHeight": 1166,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.05
+      }
     },
     {
       "id": "yeay-chan-neutral",
@@ -1511,6 +1732,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -1530,7 +1752,11 @@
       },
       "visibleWidth": 373,
       "visibleHeight": 1093,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.01
+      }
     },
     {
       "id": "yeay-chan-wave",
@@ -1542,6 +1768,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "waving"
@@ -1561,7 +1788,11 @@
       },
       "visibleWidth": 439,
       "visibleHeight": 1098,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.11
+      }
     },
     {
       "id": "yeay-chan-explain",
@@ -1573,6 +1804,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking"
@@ -1592,7 +1824,11 @@
       },
       "visibleWidth": 468,
       "visibleHeight": 1100,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.25
+      }
     },
     {
       "id": "yeay-chan-listen",
@@ -1604,6 +1840,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -1623,7 +1860,11 @@
       },
       "visibleWidth": 358,
       "visibleHeight": 1109,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.11
+      }
     },
     {
       "id": "yeay-chan-talking",
@@ -1635,6 +1876,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -1655,7 +1897,11 @@
       },
       "visibleWidth": 373,
       "visibleHeight": 1093,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.01
+      }
     },
     {
       "id": "kru-sopheak-neutral",
@@ -1667,6 +1913,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "neutral",
@@ -1687,7 +1934,11 @@
       },
       "visibleWidth": 437,
       "visibleHeight": 1241,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.16
+      }
     },
     {
       "id": "kru-sopheak-wave",
@@ -1699,6 +1950,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "waving",
@@ -1719,7 +1971,11 @@
       },
       "visibleWidth": 555,
       "visibleHeight": 1251,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.16
+      }
     },
     {
       "id": "kru-sopheak-explain",
@@ -1731,6 +1987,7 @@
       "lookingAt": "up",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "pointing",
@@ -1752,7 +2009,11 @@
       },
       "visibleWidth": 530,
       "visibleHeight": 1270,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.15
+      }
     },
     {
       "id": "kru-sopheak-listen",
@@ -1764,6 +2025,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "listening",
@@ -1784,7 +2046,11 @@
       },
       "visibleWidth": 434,
       "visibleHeight": 1249,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.31
+      }
     },
     {
       "id": "kru-sopheak-talking",
@@ -1796,6 +2062,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "talking",
@@ -1817,7 +2084,11 @@
       },
       "visibleWidth": 437,
       "visibleHeight": 1242,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.16
+      }
     },
     {
       "id": "srey-mom-neutral",
@@ -1829,6 +2100,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "neutral",
@@ -1849,7 +2121,11 @@
       },
       "visibleWidth": 477,
       "visibleHeight": 1156,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.33
+      }
     },
     {
       "id": "srey-mom-wave",
@@ -1861,6 +2137,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "waving",
@@ -1881,7 +2158,11 @@
       },
       "visibleWidth": 476,
       "visibleHeight": 1162,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.34
+      }
     },
     {
       "id": "srey-mom-explain",
@@ -1893,6 +2174,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "talking",
@@ -1914,7 +2196,11 @@
       },
       "visibleWidth": 484,
       "visibleHeight": 1169,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.34
+      }
     },
     {
       "id": "srey-mom-listen",
@@ -1926,6 +2212,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "listening",
@@ -1946,7 +2233,11 @@
       },
       "visibleWidth": 477,
       "visibleHeight": 1156,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.31
+      }
     },
     {
       "id": "srey-mom-talking",
@@ -1958,6 +2249,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "talking",
@@ -1979,7 +2271,11 @@
       },
       "visibleWidth": 477,
       "visibleHeight": 1156,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.33
+      }
     },
     {
       "id": "professor-mordechai-neutral",
@@ -1991,6 +2287,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "neutral"
@@ -2010,7 +2307,11 @@
       },
       "visibleWidth": 429,
       "visibleHeight": 1192,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.2
+      }
     },
     {
       "id": "professor-mordechai-wave",
@@ -2022,6 +2323,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "sampeah"
@@ -2041,7 +2343,11 @@
       },
       "visibleWidth": 389,
       "visibleHeight": 1184,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.2
+      }
     },
     {
       "id": "professor-mordechai-explain",
@@ -2053,6 +2359,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "pointing",
@@ -2073,7 +2380,11 @@
       },
       "visibleWidth": 505,
       "visibleHeight": 1194,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.2
+      }
     },
     {
       "id": "professor-mordechai-listen",
@@ -2085,6 +2396,7 @@
       "lookingAt": "right",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "listening"
@@ -2104,7 +2416,11 @@
       },
       "visibleWidth": 375,
       "visibleHeight": 1196,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.29
+      }
     },
     {
       "id": "professor-mordechai-talking",
@@ -2116,6 +2432,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "talking",
@@ -2136,7 +2453,11 @@
       },
       "visibleWidth": 429,
       "visibleHeight": 1192,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.2
+      }
     },
     {
       "id": "professor-mordechai-closeup-neutral",
@@ -2492,6 +2813,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -2511,7 +2833,11 @@
       },
       "visibleWidth": 338,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.04
+      }
     },
     {
       "id": "yeay-chan-listen-left",
@@ -2522,6 +2848,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -2541,7 +2868,11 @@
       },
       "visibleWidth": 357,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.1
+      }
     },
     {
       "id": "yeay-chan-neutral-right",
@@ -2552,6 +2883,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -2571,7 +2903,11 @@
       },
       "visibleWidth": 354,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.27
+      }
     },
     {
       "id": "yeay-chan-sitting-right",
@@ -2582,6 +2918,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -2601,7 +2938,11 @@
       },
       "visibleWidth": 480,
       "visibleHeight": 1107,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 3,
+        "offset": 0.25
+      }
     },
     {
       "id": "yeay-chan-sitting-left",
@@ -2612,6 +2953,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -2631,7 +2973,11 @@
       },
       "visibleWidth": 470,
       "visibleHeight": 1106,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.17
+      }
     },
     {
       "id": "yeay-chan-walking-right",
@@ -2642,6 +2988,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "walking"
       ],
@@ -2660,7 +3007,11 @@
       },
       "visibleWidth": 496,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.93
+      }
     },
     {
       "id": "yeay-chan-walking-left",
@@ -2671,6 +3022,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "left",
       "pose": [
         "walking"
       ],
@@ -2689,7 +3041,11 @@
       },
       "visibleWidth": 496,
       "visibleHeight": 1093,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -1.03
+      }
     },
     {
       "id": "yeay-chan-receiving-right",
@@ -2700,6 +3056,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "receiving"
@@ -2719,7 +3076,11 @@
       },
       "visibleWidth": 558,
       "visibleHeight": 1093,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.27
+      }
     },
     {
       "id": "yeay-chan-giving-right",
@@ -2730,6 +3091,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "giving"
@@ -2749,7 +3111,11 @@
       },
       "visibleWidth": 555,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.1
+      }
     },
     {
       "id": "yeay-chan-talking-left",
@@ -2760,6 +3126,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "talking",
@@ -2780,7 +3147,11 @@
       },
       "visibleWidth": 338,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.04
+      }
     },
     {
       "id": "yeay-chan-talking-right",
@@ -2791,6 +3162,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -2811,7 +3183,11 @@
       },
       "visibleWidth": 354,
       "visibleHeight": 1092,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.27
+      }
     },
     {
       "id": "bora-sitting-right",
@@ -2822,6 +3198,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -2841,7 +3218,11 @@
       },
       "visibleWidth": 339,
       "visibleHeight": 859,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.08
+      }
     },
     {
       "id": "bora-walking-right",
@@ -2852,6 +3233,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "walking"
       ],
@@ -2870,7 +3252,11 @@
       },
       "visibleWidth": 364,
       "visibleHeight": 871,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.54
+      }
     },
     {
       "id": "bora-receiving-right",
@@ -2881,6 +3267,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "receiving"
@@ -2900,7 +3287,11 @@
       },
       "visibleWidth": 390,
       "visibleHeight": 870,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.2
+      }
     },
     {
       "id": "bora-giving-right",
@@ -2911,6 +3302,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "giving"
@@ -2930,7 +3322,11 @@
       },
       "visibleWidth": 384,
       "visibleHeight": 870,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.21
+      }
     },
     {
       "id": "bora-neutral-right",
@@ -2941,6 +3337,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -2960,7 +3357,11 @@
       },
       "visibleWidth": 241,
       "visibleHeight": 870,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.24
+      }
     },
     {
       "id": "bora-talking-right",
@@ -2971,6 +3372,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -2991,7 +3393,11 @@
       },
       "visibleWidth": 241,
       "visibleHeight": 870,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.24
+      }
     },
     {
       "id": "sreyneang-sitting-right",
@@ -3002,6 +3408,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "front",
       "pose": [
         "sitting",
         "neutral"
@@ -3021,7 +3428,11 @@
       },
       "visibleWidth": 404,
       "visibleHeight": 829,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": -0.21
+      }
     },
     {
       "id": "sreyneang-walking-right",
@@ -3032,6 +3443,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "walking"
       ],
@@ -3050,7 +3462,11 @@
       },
       "visibleWidth": 408,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.82
+      }
     },
     {
       "id": "sreyneang-receiving-right",
@@ -3061,6 +3477,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "receiving"
@@ -3080,7 +3497,11 @@
       },
       "visibleWidth": 474,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 3,
+        "offset": 0.46
+      }
     },
     {
       "id": "sreyneang-neutral-right",
@@ -3091,6 +3512,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -3110,7 +3532,11 @@
       },
       "visibleWidth": 353,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.86
+      }
     },
     {
       "id": "sreyneang-talking-right",
@@ -3121,6 +3547,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -3141,7 +3568,11 @@
       },
       "visibleWidth": 354,
       "visibleHeight": 869,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.86
+      }
     },
     {
       "id": "kru-sopheak-sitting-right",
@@ -3152,6 +3583,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "sitting",
         "neutral",
@@ -3172,7 +3604,11 @@
       },
       "visibleWidth": 669,
       "visibleHeight": 1194,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.18
+      }
     },
     {
       "id": "kru-sopheak-walking-right",
@@ -3183,6 +3619,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "walking",
         "holding-book"
@@ -3195,14 +3632,18 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 226,
-        "y": 148,
-        "w": 519,
-        "h": 1242
+        "x": 197,
+        "y": 147,
+        "w": 576,
+        "h": 1244
       },
-      "visibleWidth": 519,
-      "visibleHeight": 1242,
-      "mirrorable": true
+      "visibleWidth": 576,
+      "visibleHeight": 1244,
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.43
+      }
     },
     {
       "id": "kru-sopheak-giving-left",
@@ -3213,6 +3654,7 @@
       "lookingAt": "front",
       "facing": "front",
       "bodyFacing": "front",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "giving",
@@ -3233,7 +3675,11 @@
       },
       "visibleWidth": 628,
       "visibleHeight": 1242,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.27
+      }
     },
     {
       "id": "kru-sopheak-neutral-right",
@@ -3244,6 +3690,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral",
@@ -3264,7 +3711,11 @@
       },
       "visibleWidth": 413,
       "visibleHeight": 1242,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.31
+      }
     },
     {
       "id": "kru-sopheak-talking-right",
@@ -3275,6 +3726,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -3296,7 +3748,11 @@
       },
       "visibleWidth": 413,
       "visibleHeight": 1242,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.31
+      }
     },
     {
       "id": "professor-mordechai-walking-right",
@@ -3307,6 +3763,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "walking"
       ],
@@ -3325,7 +3782,11 @@
       },
       "visibleWidth": 546,
       "visibleHeight": 1193,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": 0.47
+      }
     },
     {
       "id": "professor-mordechai-neutral-right",
@@ -3336,6 +3797,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "neutral"
@@ -3355,7 +3817,11 @@
       },
       "visibleWidth": 423,
       "visibleHeight": 1193,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.29
+      }
     },
     {
       "id": "professor-mordechai-talking-right",
@@ -3366,6 +3832,7 @@
       "lookingAt": "right",
       "facing": "right",
       "bodyFacing": "right",
+      "feetFacing": "right",
       "pose": [
         "standing",
         "talking",
@@ -3386,7 +3853,11 @@
       },
       "visibleWidth": 423,
       "visibleHeight": 1193,
-      "mirrorable": true
+      "mirrorable": true,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.29
+      }
     },
     {
       "id": "malis-neutral-left",
@@ -3397,6 +3868,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "neutral"
@@ -3416,7 +3888,11 @@
       },
       "visibleWidth": 294,
       "visibleHeight": 1167,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.09
+      }
     },
     {
       "id": "malis-listen-left",
@@ -3427,6 +3903,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "front",
       "pose": [
         "standing",
         "listening"
@@ -3446,7 +3923,11 @@
       },
       "visibleWidth": 322,
       "visibleHeight": 1168,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 1,
+        "offset": 0.08
+      }
     },
     {
       "id": "srey-mom-neutral-left",
@@ -3457,6 +3938,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "neutral",
@@ -3477,7 +3959,11 @@
       },
       "visibleWidth": 468,
       "visibleHeight": 1157,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.39
+      }
     },
     {
       "id": "srey-mom-listen-left",
@@ -3488,6 +3974,7 @@
       "lookingAt": "left",
       "facing": "left",
       "bodyFacing": "left",
+      "feetFacing": "left",
       "pose": [
         "standing",
         "listening",
@@ -3508,7 +3995,11 @@
       },
       "visibleWidth": 466,
       "visibleHeight": 1157,
-      "mirrorable": false
+      "mirrorable": false,
+      "feetMeasured": {
+        "shoes": 2,
+        "offset": -0.38
+      }
     }
   ]
 }
