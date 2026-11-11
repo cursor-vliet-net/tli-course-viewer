@@ -188,12 +188,57 @@
     return out;
   }
 
+  /* The stills the first beat will actually show once the catalog has chosen
+     a facing (paused: neutral stills, not talking APNGs). No-op until the
+     catalog is loaded. */
+  function collectResolvedFirstBeatStills(data, out) {
+    out = out || {};
+    if (!data) return out;
+    var catalog = getCastCatalog();
+    if (!catalog || !catalogImages(catalog).length) return out;
+    var sc = (data.scenes && data.scenes[0]) || null;
+    var bg = (sc && sc.background) || data.background || '';
+    if (bg && !isAnimatedUrl(bg)) out[bg] = true;
+    var actors = data.actors || {};
+    var line = (sc && sc.lines && sc.lines[0]) || null;
+    ((sc && sc.placements) || []).forEach(function (p) {
+      if (!p || !p.id) return;
+      var resolved = resolvePersonPlacement({
+        catalog: catalog,
+        personId: p.id,
+        scene: sc,
+        actors: actors,
+        placement: p,
+        line: line,
+        speaking: false,
+        bundles: ['runtime']
+      });
+      var src = resolved && resolved.src;
+      if (src && !isAnimatedUrl(src)) out[src] = true;
+      var actor = actors[p.id];
+      var idle = actor && actor.sprites && (actor.sprites.idle || actor.sprites.speakStill);
+      if (idle && !isAnimatedUrl(idle)) out[idle] = true;
+    });
+    return out;
+  }
+
+  function preloadResolvedFirstBeatStills(data) {
+    var first = collectResolvedFirstBeatStills(data, {});
+    Object.keys(first).forEach(function (src) { preloadPath(src, { priority: 'high' }); });
+    return first;
+  }
+
   function enqueueStoryboardImages(data, rel) {
     if (!data) return;
     var all = {};
     var first = {};
     collectFromStoryboard(data, all);
     collectFirstBeatStills(data, first);
+    /* Catalog-resolved first-beat stills (e.g. yeay-chan-neutral-right.png) are
+       what the player actually displays. Storyboard strings are only the front
+       neutrals; without this, those directional stills stay deferred and an
+       unsized actor can be parked off-stage at top: 95%. */
+    collectResolvedFirstBeatStills(data, first);
     var isCurrent = !rel || rel === currentSceneRel();
     Object.keys(all).forEach(function (src) {
       if (isCurrent && first[src] && !isAnimatedUrl(src)) preloadPath(src, { priority: 'high' });
@@ -401,6 +446,16 @@
       return r.json();
     }).then(function (data) {
       _castCatalog = data;
+      /* Storyboards may already be queued: promote their resolved first-beat
+         stills now, while the rest of the catalog is still deferred. */
+      Object.keys(storyboardLoads).forEach(function (rel) {
+        var pending = storyboardLoads[rel];
+        if (pending && typeof pending.then === 'function') {
+          pending.then(function (sb) {
+            if (sb && (!rel || rel === currentSceneRel())) preloadResolvedFirstBeatStills(sb);
+          });
+        }
+      });
       preloadCatalogImages(data);
       return data;
     }).catch(function () {
@@ -1022,6 +1077,7 @@
     this._armLoadingIndicator();
     loadCastCatalog().then(function () {
       if (!self.root || !self.scenes) return;
+      preloadResolvedFirstBeatStills(self.data);
       self._renderPlacements(self.scenes[self.index]);
       return self._revealWhenDecoded();
     }).catch(function () {
@@ -1047,7 +1103,7 @@
       hangTimer = setTimeout(function () {
         hangTimer = null;
         if (global.console && console.warn) console.warn('tli scene player: giving up wait for first-beat decode');
-        resolve();
+        resolve('hang');
       }, 60000);
     });
     return Promise.race([
@@ -1056,25 +1112,40 @@
         return v;
       }),
       hung
-    ]).then(function () {
+    ]).then(function (winner) {
       if (!self.root) return;
+      var hungOut = winner === 'hang';
       return new Promise(function (resolve) {
         var done = false;
-        var finish = function () {
+        var finish = function (force) {
           if (done || !self.root) return;
-          done = true;
           Array.prototype.forEach.call(self.actorsEl.children, function (btn) { self._placeActor(btn); });
+          var host = self.actorsEl;
+          var staged = !!(host && host.clientWidth > 0 && host.clientHeight > 0);
+          var unready = false;
+          if (staged && !force && !hungOut) {
+            Array.prototype.forEach.call(host.children, function (btn) {
+              var img = btn.querySelector('img');
+              if (img && (!(img.naturalWidth > 0) || !btn.offsetHeight || btn.style.visibility === 'hidden')) unready = true;
+            });
+          }
+          if (unready) {
+            if (typeof global.requestAnimationFrame === 'function') global.requestAnimationFrame(function () { finish(false); });
+            else setTimeout(function () { finish(false); }, 16);
+            return;
+          }
+          done = true;
           self._hideLoadingIndicator();
           self.root.classList.remove('tli-sp-decoding');
           flushCatalogImagePreload();
           resolve();
         };
         if (self.actorsEl && self.actorsEl.firstChild && self.actorsEl.firstChild.offsetHeight) {
-          finish();
+          finish(false);
           return;
         }
-        if (typeof global.requestAnimationFrame === 'function') global.requestAnimationFrame(finish);
-        setTimeout(finish, 0);
+        if (typeof global.requestAnimationFrame === 'function') global.requestAnimationFrame(function () { finish(false); });
+        setTimeout(function () { finish(false); }, 0);
       });
     });
   }
@@ -1858,6 +1929,15 @@
   Player.prototype._placeActor = function (btn) {
     var p = btn && btn._placement;
     if (!p || !btn.parentNode) return;
+    var img = btn.querySelector('img');
+    /* An unsized <img> must not be parked at top: 95% — that clips the person
+       off the bottom of the reserved 16:9 stage, so they vanish (often the
+       adult on the left, whose catalog still arrives after the kids). */
+    if (img && !(img.naturalWidth > 0)) {
+      btn.style.visibility = 'hidden';
+      return;
+    }
+    if (btn.style.visibility === 'hidden') btn.style.visibility = '';
     var host = this.actorsEl;
     var pw = host.clientWidth;
     var ph = host.clientHeight;
@@ -3011,6 +3091,9 @@
       return Object.keys(out);
     },
     flushCatalogImagePreload: flushCatalogImagePreload,
+    collectResolvedFirstBeatStills: function (data) {
+      return Object.keys(collectResolvedFirstBeatStills(data, {}));
+    },
     loadingShowMs: LOADING_SHOW_MS,
     preloadRuntime: preloadRuntime,
     preloadPaths: function (paths) {

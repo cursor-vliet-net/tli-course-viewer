@@ -643,6 +643,12 @@
         $$('[data-drop]', t).forEach(function (c) { c.remove(); });
       });
       $$('.rubric-ref', root).forEach(function (x) { x.remove(); });
+      /* Rubric guide link: teachers only, unless a student URL is configured (content/help-links.json). */
+      $$('a.rubric-help', root).forEach(function (a) {
+        var u = a.getAttribute('data-student-href') || '';
+        var cap = a.closest('caption') || a;
+        if (!u) cap.remove(); else a.setAttribute('href', u);
+      });
       var aim = $('.blk[data-student-role="aim"]', root);
       var review = $('[data-review-lesson]', root);
       if (aim && review) aim.setAttribute('data-review-lesson', review.getAttribute('data-review-lesson') || '1');

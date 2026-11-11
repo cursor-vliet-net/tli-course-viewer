@@ -446,3 +446,7 @@ body[data-mode="student"] legend.quiz-stem:has([data-letter-prompt]) {
 .quiz-opt:has(> .q-listen) > label { display: inline-flex; width: auto; vertical-align: middle; }
 .quiz-opt > .q-listen { margin-left: .5rem; vertical-align: middle; }
 .quiz-talk { border-left: 4px solid var(--bs-info-border-subtle, #9eeaf9); padding-left: .75rem; }
+.rubric-help-cap { caption-side: top; text-align: right; padding: 0 0 .35rem; }
+.rubric-help { font-weight: 600; text-decoration: none; }
+.rubric-help:hover, .rubric-help:focus { text-decoration: underline; }
+.rubric-help .rubric-help-label { display: inline-block; vertical-align: top; }
