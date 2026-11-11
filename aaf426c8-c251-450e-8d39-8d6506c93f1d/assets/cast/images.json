@@ -912,6 +912,67 @@
       "mirrorable": true
     },
     {
+      "id": "bopha-neutral-right",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/bopha-neutral-right.png",
+      "lookingAt": "right",
+      "facing": "right",
+      "bodyFacing": "right",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 352,
+        "y": 620,
+        "w": 263,
+        "h": 770
+      },
+      "visibleWidth": 263,
+      "visibleHeight": 770,
+      "mirrorable": true
+    },
+    {
+      "id": "bopha-talking-right",
+      "character": "bopha",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/bopha-talking-right.apng",
+      "lookingAt": "right",
+      "facing": "right",
+      "bodyFacing": "right",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 103,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 352,
+        "y": 620,
+        "w": 263,
+        "h": 770
+      },
+      "visibleWidth": 263,
+      "visibleHeight": 770,
+      "mirrorable": true
+    },
+    {
       "id": "dara-neutral",
       "character": "dara",
       "kind": "full-body",
@@ -1065,6 +1126,67 @@
       },
       "visibleWidth": 346,
       "visibleHeight": 1043,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-neutral-right",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/dara-neutral-right.png",
+      "lookingAt": "right",
+      "facing": "right",
+      "bodyFacing": "right",
+      "pose": [
+        "standing",
+        "neutral"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 327,
+        "y": 348,
+        "w": 306,
+        "h": 1042
+      },
+      "visibleWidth": 306,
+      "visibleHeight": 1042,
+      "mirrorable": true
+    },
+    {
+      "id": "dara-talking-right",
+      "character": "dara",
+      "kind": "full-body",
+      "bundle": "runtime",
+      "src": "media/characters/year-01/dara-talking-right.apng",
+      "lookingAt": "right",
+      "facing": "right",
+      "bodyFacing": "right",
+      "pose": [
+        "standing",
+        "talking",
+        "neutral"
+      ],
+      "heightCm": 139,
+      "estimated": true,
+      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.84 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "posture": "standing",
+      "postureFactor": 1.0,
+      "width": 960,
+      "height": 1440,
+      "bbox": {
+        "x": 327,
+        "y": 348,
+        "w": 306,
+        "h": 1042
+      },
+      "visibleWidth": 306,
+      "visibleHeight": 1042,
       "mirrorable": true
     },
     {

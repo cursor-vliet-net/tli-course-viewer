@@ -93,4 +93,5 @@ Stop, a missing catalog file, or an unknown person all leave the existing idle/s
 - Talking APNGs were built only on the **neutral, front** body. A speaking line cannot keep a listen/wave/sampeah gaze.
 - No sitting, walking, receiving, or empty-handed giving poses. Srey Mom’s “explain” picture holds up a tomato (tagged `giving`). Kru Sopheak holds a green book in every pose.
 - Wave / explain / listen (and the rest of the twelve-person export, and the extra professor close-ups) are not in the runtime folder, so S1–S6 can only use neutral and talking (plus the professor panel close-ups). The catalog still records their hints.
+- v1.12.0: Bopha and Dara gained `neutral-right` and `talking-right` (head, body and feet turned right; mirrorable, so they can also face left). Same canvas, feet line and visible height as their front poses (checked with `tools/measure_cast_bboxes.py`). The talking loops move the mouth only.
 - The runtime professor close-up is a tighter crop than the export close-up of the same name; both are catalogued separately.
