@@ -2,7 +2,7 @@
   "schema": "tli-cast-images/v1",
   "storyYear": 1,
   "viewed": "Every catalogued still was opened, and every APNG was opened at its first frame, on 2026-11-10. lookingAt is the gaze in that picture (left/right = the viewer's screen left/right). facing is the body direction when it differs from a straight front stance. bodyFacing is the body direction and must equal facing. The feet are checked separately in feetFacing (see feetAudit), because a body can turn while the feet still point the other way.",
-  "feetAudit": "feetFacing is the direction the toes point (left/right = the viewer's screen left/right; front = straight at the viewer or splayed). Every full-body picture was opened and its feet checked by eye on 2026-11-11 (t228). Rules, enforced by viewer/tests/cast-images.test.js and check_course.py: (1) the feet never point away from the face: if facing, or else lookingAt, is left or right, feetFacing is that side or front; (2) a side-facing walking picture has feetFacing equal to facing; (3) feetMeasured (written by viewer/tools/measure_cast_bboxes.py from the pixels) must agree with feetFacing whenever its offset is clear (|offset| >= 0.15), except for sitting pictures, where chair legs confuse the measurement. The stage also avoids a picture whose feet would point away from the person it looks at, mirroring it when allowed. (4) v1.13.3 (t231u): feetMeasured.perShoe measures each shoe on its own (reach past the leg to screen right minus to screen left, in leg widths); a picture turned to a side (facing or lookingAt) whose feetFacing is that side must have every shoe at least 0.2 that way, so one side-view shoe plus one shoe pointing at the viewer is caught. feetPerShoeException marks a checked exception.",
+  "feetAudit": "feetFacing is the direction the toes point (left/right = the viewer's screen left/right; front = straight at the viewer or splayed). Every full-body picture was opened and its feet checked by eye on 2026-11-11 (t228). Rules, enforced by viewer/tests/cast-images.test.js and check_course.py: (1) the feet never point away from the face: if facing, or else lookingAt, is left or right, feetFacing is that side or front; (2) a side-facing walking picture has feetFacing equal to facing; (3) feetMeasured (written by viewer/tools/measure_cast_bboxes.py from the pixels) must agree with feetFacing whenever its offset is clear (|offset| >= 0.15), except for sitting pictures, where chair legs confuse the measurement. The stage also avoids a picture whose feet would point away from the person it looks at, mirroring it when allowed. (4) v1.13.3 (t231u): feetMeasured.perShoe measures each shoe on its own (reach past the leg to screen right minus to screen left, in leg widths); a picture turned to a side (facing or lookingAt) whose feetFacing is that side must have every shoe at least 0.2 that way, so one side-view shoe plus one shoe pointing at the viewer is caught. feetPerShoeException marks a checked exception. (5) v1.14.0 (t233u): the torso turns with the face and feet: a picture that looks to a side with feetFacing that side must have facing (= bodyFacing, the torso) that side too; torsoException marks a checked exception.",
   "height": {
     "courseAge": "Grade 1 / story year 0 (the current year-01 art).",
     "twins": "Bora and Sreyneang have baselineAge 6 in process/cast/cast.json. Heights use WHO Child Growth Standards (2006/2007) height-for-age medians at 6.0 years: 116 cm (boys), 115 cm (girls). Marked estimated: true because the baseline is \"about 6\" at official entrance, not a birthday.",
@@ -210,7 +210,8 @@
           0.89
         ]
       },
-      "feetPerShoeException": "Front-facing stance with one sandal turned out to the right and the other at the viewer (checked by eye 2026-11-11, t231u). Not used in S1-S6; redraw before using it turned."
+      "feetPerShoeException": "Front-facing stance with one sandal turned out to the right and the other at the viewer (checked by eye 2026-11-11, t231u). Not used in S1-S6; redraw before using it turned.",
+      "torsoException": "Front torso (waving at the viewer) with the eyes and one sandal turned right (checked by eye 2026-11-11, t233u). Not redrawn in v1.14.0; redraw the whole figure before using it turned."
     },
     {
       "id": "sopha-explain",
@@ -2014,7 +2015,8 @@
           0.24,
           0.71
         ]
-      }
+      },
+      "torsoException": "Torso nearly at the viewer with the face and sandals slightly turned right (checked by eye 2026-11-11, t233u). Not redrawn in v1.14.0; redraw the whole figure turned if it reads as twisted."
     },
     {
       "id": "yeay-chan-listen",
@@ -2228,8 +2230,8 @@
       "src": "media/characters/year-01/kru-sopheak-listen.png",
       "exportSrc": "exports/cast-year-01/cast/kru-sopheak/poses/kru-sopheak_listen.png",
       "lookingAt": "right",
-      "facing": "front",
-      "bodyFacing": "front",
+      "facing": "right",
+      "bodyFacing": "right",
       "feetFacing": "right",
       "pose": [
         "standing",
@@ -2244,20 +2246,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 286,
-        "y": 141,
-        "w": 452,
-        "h": 1249
+        "x": 349,
+        "y": 149,
+        "w": 355,
+        "h": 1242
       },
-      "visibleWidth": 452,
-      "visibleHeight": 1249,
+      "visibleWidth": 355,
+      "visibleHeight": 1242,
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.34,
+        "offset": 0.31,
         "perShoe": [
-          0.39,
-          0.64
+          0.34,
+          0.61
         ]
       }
     },
@@ -2435,8 +2437,8 @@
       "src": "media/characters/year-01/srey-mom-listen.png",
       "exportSrc": "exports/cast-year-01/cast/srey-mom/poses/srey-mom_listen.png",
       "lookingAt": "right",
-      "facing": "front",
-      "bodyFacing": "front",
+      "facing": "right",
+      "bodyFacing": "right",
       "feetFacing": "right",
       "pose": [
         "standing",
@@ -2451,20 +2453,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 214,
+        "x": 225,
         "y": 234,
-        "w": 477,
+        "w": 454,
         "h": 1156
       },
-      "visibleWidth": 477,
+      "visibleWidth": 454,
       "visibleHeight": 1156,
       "mirrorable": false,
       "feetMeasured": {
-        "shoes": 1,
-        "offset": -0.12,
+        "shoes": 2,
+        "offset": 0.38,
         "perShoe": [
-          1.22,
-          1.18
+          0.67,
+          1.14
         ]
       }
     },
@@ -2639,8 +2641,8 @@
       "src": "media/characters/year-01/professor-mordechai-listen.png",
       "exportSrc": "exports/cast-year-01/cast/professor-mordechai/poses/professor-mordechai_listen.png",
       "lookingAt": "right",
-      "facing": "front",
-      "bodyFacing": "front",
+      "facing": "right",
+      "bodyFacing": "right",
       "feetFacing": "right",
       "pose": [
         "standing",
@@ -2654,20 +2656,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 306,
-        "y": 195,
-        "w": 423,
-        "h": 1196
+        "x": 329,
+        "y": 198,
+        "w": 371,
+        "h": 1193
       },
-      "visibleWidth": 423,
-      "visibleHeight": 1196,
+      "visibleWidth": 371,
+      "visibleHeight": 1193,
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.31,
+        "offset": 0.28,
         "perShoe": [
-          0.41,
-          0.53
+          0.22,
+          0.64
         ]
       }
     },
@@ -4060,20 +4062,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 299,
+        "x": 337,
         "y": 149,
-        "w": 439,
+        "w": 361,
         "h": 1242
       },
-      "visibleWidth": 439,
+      "visibleWidth": 361,
       "visibleHeight": 1242,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 2,
-        "offset": 0.34,
+        "shoes": 1,
+        "offset": -0.1,
         "perShoe": [
           0.39,
-          0.65
+          0.61
         ]
       }
     },
@@ -4101,20 +4103,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 299,
+        "x": 337,
         "y": 149,
-        "w": 439,
+        "w": 361,
         "h": 1242
       },
-      "visibleWidth": 439,
+      "visibleWidth": 361,
       "visibleHeight": 1242,
       "mirrorable": true,
       "feetMeasured": {
-        "shoes": 2,
-        "offset": 0.34,
+        "shoes": 1,
+        "offset": -0.1,
         "perShoe": [
           0.39,
-          0.65
+          0.61
         ]
       }
     },
@@ -4178,20 +4180,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 302,
+        "x": 309,
         "y": 198,
-        "w": 426,
+        "w": 412,
         "h": 1193
       },
-      "visibleWidth": 426,
+      "visibleWidth": 412,
       "visibleHeight": 1193,
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.3,
+        "offset": 0.29,
         "perShoe": [
-          0.4,
-          0.52
+          0.21,
+          0.65
         ]
       }
     },
@@ -4218,20 +4220,20 @@
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 302,
+        "x": 309,
         "y": 198,
-        "w": 426,
+        "w": 412,
         "h": 1193
       },
-      "visibleWidth": 426,
+      "visibleWidth": 412,
       "visibleHeight": 1193,
       "mirrorable": true,
       "feetMeasured": {
         "shoes": 2,
-        "offset": 0.3,
+        "offset": 0.29,
         "perShoe": [
-          0.4,
-          0.52
+          0.21,
+          0.65
         ]
       }
     },
