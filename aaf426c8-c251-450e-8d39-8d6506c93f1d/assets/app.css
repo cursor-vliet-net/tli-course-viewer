@@ -434,3 +434,15 @@ body[data-mode="student"] legend.quiz-stem:has([data-letter-prompt]) {
   gap: .35rem .6rem;
 }
 
+
+/* v1.8 RTTI rubric references: "→ 1" = serves rubric row 1 (teacher and designer only) */
+[data-rubric]::after { content: " → " attr(data-rubric); font-size: .75em; font-weight: 600; color: var(--bs-secondary-color, #6c757d);
+  border: 1px solid currentColor; border-radius: .6em; padding: 0 .4em; margin-left: .4em; white-space: nowrap; vertical-align: middle; }
+.quiz-q[data-rubric]::after, body[data-mode="student"] [data-rubric]::after { content: none; display: none; border: 0; padding: 0; margin: 0; }
+.rubric-ref { font-weight: 600; border: 1px solid currentColor; border-radius: .6em; padding: 0 .4em; }
+.vis-tag.vis-teacher { font-weight: 600; color: var(--bs-warning-text-emphasis, #997404); }
+.quiz-stem-picture { margin: .25rem 0 .5rem; }
+.quiz-stem-img { max-height: 9rem; max-width: 100%; height: auto; }
+.quiz-opt:has(> .q-listen) > label { display: inline-flex; width: auto; vertical-align: middle; }
+.quiz-opt > .q-listen { margin-left: .5rem; vertical-align: middle; }
+.quiz-talk { border-left: 4px solid var(--bs-info-border-subtle, #9eeaf9); padding-left: .75rem; }

@@ -634,8 +634,15 @@
           if (h !== 'RTTI' && h !== 'Picture or gesture cue') return;
           $$('tr', t).forEach(function (tr) { var cell = tr.children[i]; if (cell) cell.setAttribute('data-drop', '1'); });
         });
+        /* v1.8 RTTI rubric (Nr | Goal | Remember | Train | Transfer | Insight): low grades see Nr and Goal only. */
+        var heads = $$('th,td', head).map(function (c) { return (c.getAttribute('data-en-html') ? plainFromHtml(c.getAttribute('data-en-html')) : c.textContent).trim(); });
+        if (heads[0] === 'Nr' && heads[1] === 'Goal' && heads[2] === 'Remember') {
+          t.classList.add('rubric-student');
+          $$('tr', t).forEach(function (tr) { $$('th,td', tr).forEach(function (c, i) { if (i > 1) c.setAttribute('data-drop', '1'); }); });
+        }
         $$('[data-drop]', t).forEach(function (c) { c.remove(); });
       });
+      $$('.rubric-ref', root).forEach(function (x) { x.remove(); });
       var aim = $('.blk[data-student-role="aim"]', root);
       var review = $('[data-review-lesson]', root);
       if (aim && review) aim.setAttribute('data-review-lesson', review.getAttribute('data-review-lesson') || '1');
@@ -971,7 +978,13 @@
     q.setAttribute('data-mode', MODE);
     var openEnded = !$('.quiz-opt, .quiz-order', q);
     var needsCheck = !!$('.quiz-order, input[type=checkbox]', q);
-    if (MODE === 'teacher') { /* answer key: acceptable options marked, every explanation shown */
+    /* v1.8: why items (data-discussion) are a teacher-led "Talk about it" block: interactive in
+       teacher and designer view, with feedback right after each answer (no answer key up front). */
+    var talk = !!$('.quiz-q[data-discussion="1"]', q);
+    if (talk) {
+      q.classList.add('quiz-talk');
+      if (!needsCheck) $('.quiz-check', q).hidden = true;
+    } else if (MODE === 'teacher') { /* answer key: acceptable options marked, every explanation shown */
       q.classList.add('quiz-key');
       $$('.quiz-opt', q).forEach(function (o) {
         if (o.getAttribute('data-correct') === '1') $('.quiz-mark', o).innerHTML = '<span class="mark-right">' + icon('fa-circle-check') + '<span class="visually-hidden"> correct answer</span></span>';
@@ -1436,7 +1449,7 @@
     var qEl = t.closest && t.closest('.quiz-q');
     if (qEl && (t.type === 'radio' || t.type === 'checkbox')) {
       var quiz = qEl.closest('.quiz');
-      if (MODE === 'student' && t.type === 'radio' && !qEl.querySelector('input[type=checkbox], .quiz-order')) {
+      if ((MODE === 'student' || (quiz && quiz.classList.contains('quiz-talk'))) && t.type === 'radio' && !qEl.querySelector('input[type=checkbox], .quiz-order')) {
         answerStudent(qEl);
       } else if (MODE !== 'teacher' && quiz && quiz.getAttribute('data-scored') === '1' && t.closest('.quiz-opt')) {
         revealChoice(t.closest('.quiz-opt'));
