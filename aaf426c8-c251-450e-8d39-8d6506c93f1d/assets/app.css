@@ -459,3 +459,14 @@ body[data-mode="student"] .quiz-result, body[data-mode="student"] .quiz-score { 
 /* t220: feed up (rubric Nr + Goal) at the top */
 .rubric-table td.student-aim .q-listen { margin-left: .5rem; }
 .rubric-table td.student-aim .student-aim-text { display: inline-block; vertical-align: middle; }
+
+/* t222: Letters "In depth" toggle (default off per session). Off = capital only + listen-and-find
+   check; on = capital + small + cursive and the cross-form check. */
+.reading:not([data-in-depth="0"]) .basic-only,
+.reading[data-in-depth="0"] .depth-only { display: none !important; }
+.letters-head::after { content: ""; display: table; clear: both; }
+.letters-head .depth-toggle { float: right; margin: .15rem 0 .35rem .75rem; display: inline-flex; align-items: center; gap: .35rem; }
+.depth-toggle[aria-pressed="true"] { background: var(--tli-accent, #0d6efd); border-color: var(--tli-accent, #0d6efd); color: #fff; }
+.letter-basic { display: inline-flex; align-items: center; gap: .35rem; }
+.letter-basic .q-listen-basic { margin-left: .15rem; }
+body[data-mode="student"] .letter-basic-text { display: none; }

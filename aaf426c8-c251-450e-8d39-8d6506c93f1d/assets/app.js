@@ -69,6 +69,60 @@
     }
   };
   function uiLang() { return S.settings.uiLang === 'km' ? 'km' : 'en'; }
+
+  /* t222 (Herbert): "In depth" in the Letters section = small letter, cursive letter and the
+     cross-form letter check. Default OFF for every session. inDepthDefault is the ONE hook for that
+     default. User setting to override in-depth default — postponed until settings exist; when it
+     exists, read it here (S.settings) instead of the constant. The toggle state is per session,
+     in memory only (not persisted). */
+  var READER_DEFAULTS = { inDepthDefault: false };
+  var depthByPart = {};
+  function inDepthFor(partId) {
+    return Object.prototype.hasOwnProperty.call(depthByPart, partId) ? depthByPart[partId] : !!READER_DEFAULTS.inDepthDefault;
+  }
+  function depthOff(el) {
+    var art = el && el.closest ? el.closest('.reading') : null;
+    return !!art && art.getAttribute('data-in-depth') === '0';
+  }
+  function syncDepthLabels(root) {
+    var km = uiLang() === 'km';
+    $$('.depth-toggle-label', root || document).forEach(function (el) {
+      var k = el.getAttribute('data-km') || '';
+      el.textContent = (km && k) ? k : (el.getAttribute('data-en') || '');
+    });
+    $$('figure.letter-intro[data-alt-en]', root || document).forEach(function (fig) {
+      var off = depthOff(fig) && fig.getAttribute('data-alt-basic-en');
+      var en = fig.getAttribute(off ? 'data-alt-basic-en' : 'data-alt-en') || '';
+      var k = fig.getAttribute(off ? 'data-alt-basic-km' : 'data-alt-km') || '';
+      fig.setAttribute('aria-label', (km && k) ? k : en);
+    });
+    $$('legend[data-label-depth]', root || document).forEach(function (lg) {
+      var basic = lg.querySelector('.letter-basic');
+      if (depthOff(lg) && basic) {
+        var k = basic.getAttribute('data-basic-km') || '';
+        lg.setAttribute('aria-label', (km && k) ? k : (basic.getAttribute('data-basic-en') || ''));
+      } else {
+        lg.setAttribute('aria-label', lg.getAttribute('data-label-depth') || '');
+      }
+    });
+  }
+  function applyDepth(article) {
+    if (!article) return;
+    var on = inDepthFor(article.getAttribute('data-part'));
+    article.setAttribute('data-in-depth', on ? '1' : '0');
+    $$('.depth-toggle', article).forEach(function (b) {
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.classList.toggle('active', on);
+    });
+    syncDepthLabels(article);
+  }
+  function toggleDepth(btn) {
+    var article = btn.closest('.reading');
+    if (!article) return;
+    var id = article.getAttribute('data-part');
+    depthByPart[id] = !inDepthFor(id);
+    applyDepth(article);
+  }
   function kmText(text) {
     var map = (D.i18n && D.i18n.km) || {};
     return map[text] || '';
@@ -209,11 +263,7 @@
       var km = el.getAttribute('data-km-label') || kmText(en);
       el.setAttribute('aria-label', (uiLang() === 'km' && km) ? km : en);
     });
-    $$('figure.letter-intro[data-alt-en]', root || document).forEach(function (fig) {
-      var en = fig.getAttribute('data-alt-en') || '';
-      var km = fig.getAttribute('data-alt-km') || '';
-      fig.setAttribute('aria-label', (uiLang() === 'km' && km) ? km : en);
-    });
+    syncDepthLabels(root);
   }
   /* Split plain text on a placeholder. Translated text is escaped; the sample span is ours. */
   function slotHtml(template, token, html) {
@@ -552,7 +602,8 @@
       var legend = el.closest('legend, .quiz-stem');
       if (legend) {
         var label = (uiLang() === 'km' && fullKm) ? fullKm : (fullEn || fullKm);
-        if (label) legend.setAttribute('aria-label', label);
+        if (label) legend.setAttribute('data-label-depth', label);
+        syncDepthLabels(legend.parentNode || legend);
       }
     });
   }
@@ -596,11 +647,13 @@
     if (MODE !== 'student') return;
     $$('[data-letter-prompt="1"]', root).forEach(function (el) {
       var stem = el.closest('.quiz-stem, legend');
-      if (!stem || stem.querySelector('.q-listen')) return;
+      if (!stem || stem.querySelector('.q-listen.depth-only')) return;
       var sample = el.getAttribute('data-sample') || '';
       var speak = ('Find the same letter. ' + sample).trim();
-      var goalBtn = stem.querySelector('.q-goal-ref');
-      stem.insertBefore(makeSpeakButton(speak, 'Find the same letter.'), goalBtn || null);
+      var before = stem.querySelector('.letter-basic') || stem.querySelector('.q-goal-ref');
+      var btn = makeSpeakButton(speak, 'Find the same letter.');
+      btn.classList.add('depth-only'); /* t222: the in-depth (cross-form) check */
+      stem.insertBefore(btn, before || null);
     });
     $$('.blk[data-student-role="say-it"] .quiz-stem', root).forEach(function (stem) {
       if (stem.querySelector('.q-listen')) return;
@@ -706,6 +759,7 @@
       '<div class="part-html">' + p.html + '</div>' +
       '</article>';
     var article = $('.reading', main);
+    applyDepth(article);
     applyMode(article);
     var goals = document.createElement('section');
     goals.className = 'goals'; goals.setAttribute('aria-label', 'Goals of this part');
@@ -740,6 +794,7 @@
     applyUiLang();
     if (window.TLIAudioRecorder && window.TLIAudioRecorder.refreshLabels) window.TLIAudioRecorder.refreshLabels(article);
     applyStudentView(article);
+    applyDepth(article);
     if (MODE === 'student') document.title = p.id + ' ' + studentFacingTitle(p.title, 'en') + ' · ' + D.project;
   }
   function flash(el) { el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1800); }
@@ -1429,6 +1484,7 @@
     if (t.closest('.quiz-check')) { checkQuiz(t.closest('.quiz')); return; }
     if (t.closest('.quiz-retry')) { resetQuiz(t.closest('.quiz')); return; }
     if (t.closest('.q-listen')) { speakEnglish(t.closest('.q-listen')); return; }
+    if (t.closest('.depth-toggle')) { toggleDepth(t.closest('.depth-toggle')); return; }
     if (t.closest('.q-goal-ref')) { showGoalRow(t.closest('.q-goal-ref')); return; }
     if (t.closest('.q-up, .q-down')) { moveTile(t.closest('.q-up, .q-down')); return; }
     if (t.closest('.q-met')) { markObserved(t.closest('.quiz-q'), true); return; }
