@@ -1027,6 +1027,8 @@
   /* v1.8.1 (t218): pupils see only the explainer of the answer they picked; picking another swaps it. */
   function onlyThisExplainer(f, opt) {
     $$('.quiz-opt .quiz-expl', f).forEach(function (x) { if (!opt || !opt.contains(x)) x.hidden = true; });
+    /* t220: and only the selected option keeps its check or cross */
+    $$('.quiz-opt .quiz-mark', f).forEach(function (m) { if (!opt || !opt.contains(m)) m.innerHTML = ''; });
   }
   /* v1.8.1 (t218): the learning-goal button scrolls to the rubric row (Nr + Goal for pupils) and highlights it. Speaks nothing. */
   function showGoalRow(btn) {
@@ -1059,7 +1061,8 @@
       f.setAttribute('data-attempted', '1');
       f.setAttribute('data-first-correct', ok ? '1' : '0');
       f.classList.add(ok ? 'q-right' : 'q-wrong');
-      $('.quiz-result', f).innerHTML = ok
+      /* t220: pupils get no status line under the answers and no score summary */
+      if (MODE !== 'student') $('.quiz-result', f).innerHTML = ok
         ? '<span class="mark-right">' + icon('fa-star') + ' Well done!</span>'
         : '<span class="mark-wrong">' + icon('fa-lightbulb') + ' Not yet. Read the tip.</span>';
     }
@@ -1068,7 +1071,7 @@
     if (!first || done.length < qs.length) return;
     var right = qs.filter(function (x) { return x.getAttribute('data-first-correct') === '1' || x.classList.contains('q-right'); }).length, n = qs.length;
     var msg = right === n ? 'Great job! You got all ' + n + ' right.' : right * 2 >= n ? 'Good work! You got ' + right + ' of ' + n + '.' + (MODE === 'student' ? ' Look at the other answers too.' : ' Try again to get them all.') : 'Good try! You got ' + right + ' of ' + n + '.' + (MODE === 'student' ? ' Look at the other answers too.' : ' Let us practise and try again.');
-    var sc = $('.quiz-score', q); sc.textContent = msg; sc.classList.add('quiz-gentle');
+    var sc = $('.quiz-score', q); if (MODE !== 'student') { sc.textContent = msg; sc.classList.add('quiz-gentle'); }
     q.setAttribute('data-scored', '1');
     $('.quiz-retry', q).hidden = MODE === 'student'; /* t218: no Try again for pupils; options stay explorable */
   }

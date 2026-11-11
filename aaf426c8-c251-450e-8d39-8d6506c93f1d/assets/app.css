@@ -454,3 +454,8 @@ body[data-mode="student"] legend.quiz-stem:has([data-letter-prompt]) {
 .q-goal-ref { margin-left: .35rem; vertical-align: middle; display: inline-flex; align-items: center; justify-content: center;
   width: 2.15rem; height: 2.15rem; padding: 0; line-height: 1; box-sizing: border-box; font-weight: 700; }
 tr.goal-flash > td, tr.goal-flash > th { background: var(--bs-warning-bg-subtle, #fff3cd) !important; transition: background .3s; outline: 2px solid #d98b2b; }
+/* t220: no per-question status line or score summary for pupils */
+body[data-mode="student"] .quiz-result, body[data-mode="student"] .quiz-score { display: none; }
+/* t220: feed up (rubric Nr + Goal) at the top */
+.rubric-table td.student-aim .q-listen { margin-left: .5rem; }
+.rubric-table td.student-aim .student-aim-text { display: inline-block; vertical-align: middle; }
