@@ -36,8 +36,9 @@ Every still was opened, and every APNG was opened at its first frame, when the h
 ### Height source
 
 - **Bora and Sreyneang:** `process/cast/cast.json` gives `baselineAge` 6 at Grade 1 (story year 0). Height uses the WHO Child Growth Standards (2006/2007) height-for-age median at 6.0 years: **116 cm** (boys), **115 cm** (girls). Marked `estimated: true` because the baseline is “about 6” at official entrance, not a birthday.
+- **Bopha:** a classmate of the twins (decided 2026-11-11), drawn at their height: 115 cm like Sreyneang. Her pictures were enlarged to the twins' visible height (about 869 px on the 960×1440 canvas).
 - **Everyone else:** no baseline age is recorded. Height is estimated from the year-01 `relative_scale` in `exports/cast-year-01/tools/chars.json` (also in `manifest.json`), anchored to Bora: `heightCm = round(116 × scale / 0.7)`.
-- Yeay Chan 146, Kru Sopheak 166, Professor Mordechai 159, Bopha 103, Dara 139, Sopha 156, Vuthy 166, Visal 162, Srey Mom 154.
+- Yeay Chan 146, Kru Sopheak 166, Professor Mordechai 159, Dara 139, Sopha 156, Vuthy 166, Visal 162, Srey Mom 154.
 
 `mirrorable` is `false` for Yeay Chan, Malis, and Srey Mom: each wears a krama over one shoulder. Kru Sopheak’s green book has no text and may be mirrored.
 

@@ -5,7 +5,7 @@
   "height": {
     "courseAge": "Grade 1 / story year 0 (the current year-01 art).",
     "twins": "Bora and Sreyneang have baselineAge 6 in process/cast/cast.json. Heights use WHO Child Growth Standards (2006/2007) height-for-age medians at 6.0 years: 116 cm (boys), 115 cm (girls). Marked estimated: true because the baseline is \"about 6\" at official entrance, not a birthday.",
-    "others": "No baseline age is recorded for anyone else. Height is estimated from the year-01 relative_scale in exports/cast-year-01/tools/chars.json (also in manifest.json), anchored to Bora: heightCm = round(116 × scale / 0.7).",
+    "others": "Except Bopha (a classmate, drawn at the twins' height), no baseline age is recorded for anyone else. Height is estimated from the year-01 relative_scale in exports/cast-year-01/tools/chars.json (also in manifest.json), anchored to Bora: heightCm = round(116 × scale / 0.7).",
     "people": {
       "bora": {
         "heightCm": 116,
@@ -20,10 +20,10 @@
         "source": "WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years. Age from process/cast/cast.json baselineAge 6 at Grade 1 (story year 0)."
       },
       "bopha": {
-        "heightCm": 103,
+        "heightCm": 115,
         "estimated": true,
-        "relativeScale": 0.62,
-        "source": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7)."
+        "relativeScale": 0.7,
+        "source": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height: WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years, as Sreyneang."
       },
       "dara": {
         "heightCm": 139,
@@ -769,21 +769,21 @@
         "standing",
         "neutral"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 336,
-        "y": 620,
-        "w": 294,
-        "h": 770
+        "x": 317,
+        "y": 521,
+        "w": 332,
+        "h": 868
       },
-      "visibleWidth": 294,
-      "visibleHeight": 770,
+      "visibleWidth": 332,
+      "visibleHeight": 868,
       "mirrorable": true
     },
     {
@@ -800,21 +800,21 @@
         "standing",
         "waving"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 309,
-        "y": 611,
-        "w": 333,
-        "h": 779
+        "x": 286,
+        "y": 511,
+        "w": 376,
+        "h": 879
       },
-      "visibleWidth": 333,
-      "visibleHeight": 779,
+      "visibleWidth": 376,
+      "visibleHeight": 879,
       "mirrorable": true
     },
     {
@@ -831,21 +831,21 @@
         "standing",
         "talking"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 274,
-        "y": 619,
-        "w": 415,
-        "h": 771
+        "x": 248,
+        "y": 519,
+        "w": 468,
+        "h": 871
       },
-      "visibleWidth": 415,
-      "visibleHeight": 771,
+      "visibleWidth": 468,
+      "visibleHeight": 871,
       "mirrorable": true
     },
     {
@@ -862,21 +862,21 @@
         "standing",
         "listening"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 337,
-        "y": 616,
-        "w": 292,
-        "h": 774
+        "x": 318,
+        "y": 516,
+        "w": 330,
+        "h": 874
       },
-      "visibleWidth": 292,
-      "visibleHeight": 774,
+      "visibleWidth": 330,
+      "visibleHeight": 874,
       "mirrorable": true
     },
     {
@@ -894,21 +894,21 @@
         "talking",
         "neutral"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 336,
-        "y": 620,
-        "w": 295,
-        "h": 770
+        "x": 317,
+        "y": 520,
+        "w": 333,
+        "h": 869
       },
-      "visibleWidth": 295,
-      "visibleHeight": 770,
+      "visibleWidth": 333,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -924,21 +924,21 @@
         "standing",
         "neutral"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 352,
-        "y": 620,
-        "w": 263,
-        "h": 770
+        "x": 334,
+        "y": 521,
+        "w": 297,
+        "h": 869
       },
-      "visibleWidth": 263,
-      "visibleHeight": 770,
+      "visibleWidth": 297,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
@@ -955,21 +955,21 @@
         "talking",
         "neutral"
       ],
-      "heightCm": 103,
+      "heightCm": 115,
       "estimated": true,
-      "heightSource": "No baseline age in process/cast/cast.json. Estimated from year-01 relative_scale 0.62 in exports/cast-year-01/tools/chars.json (and manifest.json), anchored to Bora: round(116 × scale / 0.7).",
+      "heightSource": "Classmate of the twins in Grade 1 (decided 2026-11-11), drawn at the twins' height. WHO Child Growth Standards 2006/2007 height-for-age median, girls, 6.0 years (as Sreyneang).",
       "posture": "standing",
       "postureFactor": 1.0,
       "width": 960,
       "height": 1440,
       "bbox": {
-        "x": 352,
-        "y": 620,
-        "w": 263,
-        "h": 770
+        "x": 334,
+        "y": 521,
+        "w": 297,
+        "h": 869
       },
-      "visibleWidth": 263,
-      "visibleHeight": 770,
+      "visibleWidth": 297,
+      "visibleHeight": 869,
       "mirrorable": true
     },
     {
