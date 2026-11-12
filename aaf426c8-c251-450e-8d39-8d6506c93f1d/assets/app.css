@@ -537,3 +537,6 @@ table.rubric-stacked tr.rubric-goal-row > td.rubric-goal { grid-row: 1; font-wei
 table.rubric-stacked tr.rubric-goal-row > td.rubric-level { grid-column: 2; border-top-style: dashed; }
 table.rubric-stacked td.rubric-level::before { content: attr(data-label); display: block; font-size: .75em; font-weight: 700; text-transform: none; color: var(--bs-secondary-color, #6c757d); }
 table.rubric-stacked td.rubric-level[data-label-km]::before { content: attr(data-label) " · " attr(data-label-km); }
+
+/* v1.16.2 (t251u): each picture carries its own explainer under the picture */
+.quiz-picture .quiz-expl { margin-left: 0; max-width: 16rem; }
