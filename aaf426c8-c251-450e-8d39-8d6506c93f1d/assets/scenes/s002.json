@@ -1,6 +1,6 @@
 {
   "id": "S002",
-  "title": "I am / you are",
+  "title": "What's your name?",
   "defaultDurationMs": 3200,
   "background": "media/backgrounds/home-morning.png",
   "actors": {
@@ -43,7 +43,7 @@
       "id": "1",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "A name game at home: asking and saying your name",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -76,22 +76,22 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Hello, Bora.",
+          "text": "Hello! What's your name?",
           "translations": {
-            "km": "សួស្តី បូរ៉ា។"
+            "km": "សួស្តី! ឈ្មោះអ្វី?"
           },
           "audio": null,
-          "durationMs": 2800,
+          "durationMs": 3400,
           "atMs": 0
         }
       ],
-      "durationMs": 2800
+      "durationMs": 3400
     },
     {
       "id": "2",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "A name game at home: asking and saying your name",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -124,22 +124,22 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "Hello, Yeay. I am Bora.",
+          "text": "I am Bora.",
           "translations": {
-            "km": "សួស្តី យាយ។ ខ្ញុំឈ្មោះបូរ៉ា។"
+            "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 3500,
+          "durationMs": 3000,
           "atMs": 0
         }
       ],
-      "durationMs": 3500
+      "durationMs": 3000
     },
     {
       "id": "3",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "A name game at home: asking and saying your name",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -172,9 +172,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Hello, Sreyneang.",
+          "text": "What's your name?",
           "translations": {
-            "km": "សួស្តី ស្រីណាង។"
+            "km": "ឈ្មោះអ្វី?"
           },
           "audio": null,
           "durationMs": 2800,
@@ -187,7 +187,7 @@
       "id": "4",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "A name game at home: asking and saying your name",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -220,22 +220,22 @@
       "lines": [
         {
           "speaker": "sreyneang",
-          "text": "Hello, Yeay. I am Sreyneang.",
+          "text": "I am Sreyneang.",
           "translations": {
-            "km": "សួស្តី យាយ។ ខ្ញុំឈ្មោះស្រីណាង។"
+            "km": "ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
-          "durationMs": 3600,
+          "durationMs": 3000,
           "atMs": 0
         }
       ],
-      "durationMs": 3600
+      "durationMs": 3000
     },
     {
       "id": "5",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "Listen: Yeay says you are to the child she looks at",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -283,7 +283,7 @@
       "id": "6",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "Listen: Yeay says you are to the child she looks at",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -331,7 +331,7 @@
       "id": "7",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "Listen: Yeay says you are to the child she looks at",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",
@@ -379,7 +379,7 @@
       "id": "8",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying who you are; hearing who the other person is",
+        "what": "Listen: Yeay says you are to the child she looks at",
         "where": "Home, still morning",
         "who": [
           "yeay-chan",

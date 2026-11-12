@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "id": "s001.say-my-name",
+  "model": {
+    "en": "Hello. My name is Bora."
+  },
+  "audioFile": null
+}

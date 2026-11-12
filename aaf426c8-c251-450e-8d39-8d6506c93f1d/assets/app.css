@@ -67,6 +67,7 @@ body.editing-off .edit-toggle { background: #6c757d; color: #fff; border-color: 
 .goals { border: 1px solid #b9dbe7; background: var(--tli-accent-2); border-radius: .4rem; padding: .7rem 1rem; margin: 0 0 1.2rem; font-size: .95rem; clear: both; }
 .goals-title { font-size: .95rem; font-weight: 700; margin: 0 0 .3rem; color: var(--tli-accent); }
 .goals ul { margin-bottom: .2rem; }
+.goals.goals-meta-only { background: transparent; border-style: dashed; padding: .3rem .8rem; }
 .meta summary { cursor: pointer; font-size: .85rem; color: var(--tli-muted); }
 
 /* blocks and references */

@@ -1,6 +1,6 @@
 {
   "id": "S001",
-  "title": "Good morning, Yeay",
+  "title": "Hello, my name is …",
   "defaultDurationMs": 3200,
   "background": "media/backgrounds/home-morning.png",
   "professor": {
@@ -70,8 +70,8 @@
       "id": "1",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "A grandmother greets her grandchildren",
-        "where": "Home, early morning",
+        "what": "A grandmother says hello to her grandchildren",
+        "where": "Home, morning",
         "who": [
           "yeay-chan",
           "bora",
@@ -103,9 +103,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Good morning, Bora!",
+          "text": "Hello, Bora!",
           "translations": {
-            "km": "អរុណសួស្តី បូរ៉ា!"
+            "km": "សួស្តី បូរ៉ា!"
           },
           "audio": null,
           "durationMs": 3200,
@@ -113,9 +113,9 @@
         },
         {
           "speaker": "bora",
-          "text": "Good morning, Yeay!",
+          "text": "Hello, Yeay!",
           "translations": {
-            "km": "អរុណសួស្តី យាយ!"
+            "km": "សួស្តី យាយ!"
           },
           "audio": null,
           "durationMs": 3000,
@@ -136,8 +136,8 @@
             "note": "English already said in this scene. Khmer subtitles need a native-speaker review. No gesture lecture. The first part is the professor's self-introduction (Herbert, 2026-11-11): English, then in KH the same English followed by a Khmer draft. Khmer name spelling ម៉ាដេកាយ (as in the Khmer Bible for Mordecai) and the address ប្អូនៗ need native review."
           },
           "text": {
-            "en": "Hello. My name is Mordechai. I will help you. Yeay said good morning, then the name. Say good morning, and then the name. You can say good morning with no name.",
-            "km": "Hello. My name is Mordechai. I will help you. សួស្តី។ ខ្ញុំឈ្មោះ ម៉ាដេកាយ។ ខ្ញុំនឹងជួយប្អូនៗ។ យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។ និយាយអរុណសួស្តី រួចហើយឈ្មោះ។ អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
+            "en": "Hello. My name is Mordechai. I will help you. Yeay said hello, then the name. Say hello, and then the name. You can say hello with no name.",
+            "km": "Hello. My name is Mordechai. I will help you. សួស្តី។ ខ្ញុំឈ្មោះ ម៉ាដេកាយ។ ខ្ញុំនឹងជួយប្អូនៗ។ យាយនិយាយសួស្តី រួចហើយឈ្មោះ។ និយាយសួស្តី រួចហើយឈ្មោះ។ អ្នកក៏អាចនិយាយសួស្តី ដោយគ្មានឈ្មោះ។"
           },
           "subtitles": {
             "en": [
@@ -149,17 +149,17 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "Yeay said good morning, then the name."
+                "text": "Yeay said hello, then the name."
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "Say good morning, and then the name."
+                "text": "Say hello, and then the name."
               },
               {
                 "atMs": 12000,
                 "durationMs": 4000,
-                "text": "You can say good morning with no name."
+                "text": "You can say hello with no name."
               }
             ],
             "km": [
@@ -176,17 +176,17 @@
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "យាយនិយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
+                "text": "យាយនិយាយសួស្តី រួចហើយឈ្មោះ។"
               },
               {
                 "atMs": 12000,
                 "durationMs": 4000,
-                "text": "និយាយអរុណសួស្តី រួចហើយឈ្មោះ។"
+                "text": "និយាយសួស្តី រួចហើយឈ្មោះ។"
               },
               {
                 "atMs": 16000,
                 "durationMs": 4000,
-                "text": "អ្នកក៏អាចនិយាយអរុណសួស្តី ដោយគ្មានឈ្មោះ។"
+                "text": "អ្នកក៏អាចនិយាយសួស្តី ដោយគ្មានឈ្មោះ។"
               }
             ]
           },
@@ -206,8 +206,8 @@
       "id": "2",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "A grandmother greets her grandchildren",
-        "where": "Home, early morning",
+        "what": "A grandmother says hello to her grandchildren",
+        "where": "Home, morning",
         "who": [
           "yeay-chan",
           "bora",
@@ -239,9 +239,9 @@
       "lines": [
         {
           "speaker": "yeay-chan",
-          "text": "Good morning, Sreyneang!",
+          "text": "Hello, Sreyneang!",
           "translations": {
-            "km": "អរុណសួស្តី ស្រីណាង!"
+            "km": "សួស្តី ស្រីណាង!"
           },
           "audio": null,
           "durationMs": 3200,
@@ -249,9 +249,9 @@
         },
         {
           "speaker": "sreyneang",
-          "text": "Good morning, Yeay!",
+          "text": "Hello, Yeay!",
           "translations": {
-            "km": "អរុណសួស្តី យាយ!"
+            "km": "សួស្តី យាយ!"
           },
           "audio": null,
           "durationMs": 3000,
@@ -264,8 +264,8 @@
       "id": "3",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "The teacher greets the children and asks their names",
-        "where": "Home, early morning",
+        "what": "The new teacher says hello and his name",
+        "where": "Home, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -297,23 +297,23 @@
       "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "Good morning.",
+          "text": "Hello. My name is Kru Sopheak.",
           "translations": {
-            "km": "អរុណសួស្តី។"
+            "km": "សួស្តី។ ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រា។"
           },
           "audio": null,
-          "durationMs": 3500,
+          "durationMs": 4200,
           "atMs": 0
         }
       ],
-      "durationMs": 3500
+      "durationMs": 4200
     },
     {
       "id": "4",
       "background": "media/backgrounds/home-morning.png",
       "setup": {
         "what": "The teacher asks their names",
-        "where": "Home, early morning",
+        "where": "Home, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -361,7 +361,7 @@
       "background": "media/backgrounds/home-morning.png",
       "setup": {
         "what": "Bora says his name",
-        "where": "Home, early morning",
+        "where": "Home, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -393,7 +393,7 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "I am Bora.",
+          "text": "My name is Bora.",
           "translations": {
             "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
           },
@@ -416,8 +416,8 @@
             "note": "Only the English question and answer already said. Khmer needs a native-speaker review."
           },
           "text": {
-            "en": "What's your name? is how we ask when we do not know. The answer is I am, and then the name.",
-            "km": "ឈ្មោះអ្វី? គឺរបៀបសួរពេលយើងមិនស្គាល់។ ចម្លើយគឺ I am រួចហើយឈ្មោះ។"
+            "en": "What's your name? is how we ask when we do not know. The answer is My name is, and then the name.",
+            "km": "ឈ្មោះអ្វី? គឺរបៀបសួរពេលយើងមិនស្គាល់។ ចម្លើយគឺ My name is រួចហើយឈ្មោះ។"
           },
           "subtitles": {
             "en": [
@@ -429,7 +429,7 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "The answer is I am, and then the name."
+                "text": "The answer is My name is, and then the name."
               }
             ],
             "km": [
@@ -441,7 +441,7 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "ចម្លើយគឺ I am រួចហើយឈ្មោះ។"
+                "text": "ចម្លើយគឺ My name is រួចហើយឈ្មោះ។"
               }
             ]
           },
@@ -457,7 +457,7 @@
       "background": "media/backgrounds/home-morning.png",
       "setup": {
         "what": "Sreyneang says her name",
-        "where": "Home, early morning",
+        "where": "Home, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -489,16 +489,16 @@
       "lines": [
         {
           "speaker": "sreyneang",
-          "text": "I am Sreyneang.",
+          "text": "My name is Sreyneang.",
           "translations": {
             "km": "ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
-          "durationMs": 2800,
+          "durationMs": 3200,
           "atMs": 0
         }
       ],
-      "durationMs": 2800
+      "durationMs": 3200
     }
   ]
 }

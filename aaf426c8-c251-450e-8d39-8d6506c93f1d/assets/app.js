@@ -700,6 +700,7 @@
         var heads = $$('th,td', head).map(function (c) { return (c.getAttribute('data-en-html') ? plainFromHtml(c.getAttribute('data-en-html')) : c.textContent).trim(); });
         if (heads[0] === 'Nr' && heads[1] === 'Goal' && heads[2] === 'Remember') {
           t.classList.add('rubric-student');
+          $$('.goal-icon', t).forEach(function (x) { x.remove(); }); /* goal cues are teacher-facing; pupils keep the aim speak icon */
           $$('tr', t).forEach(function (tr) { $$('th,td', tr).forEach(function (c, i) { if (i > 1) c.setAttribute('data-drop', '1'); }); });
         }
         $$('[data-drop]', t).forEach(function (c) { c.remove(); });
@@ -776,7 +777,19 @@
       (meta ? '<details class="meta"><summary>Metadata · ' + esc(p.file) + '</summary><table class="table table-sm mb-0">' + meta + '</table></details>' : '');
     var first = $('.blk', article);
     if (MODE !== 'designer') { var md = $('details.meta', goals); if (md) md.remove(); }
-    if (MODE !== 'student') first.parentNode.insertBefore(goals, first.nextSibling);
+    /* v1.15 (t240u–t242u): a session with an RTTI rubric states its goals only in the rubric (all views).
+       The separate Goals list stays for parts without a rubric (L.0); designers keep the metadata panel. */
+    var hasRubric = !!$('table.rubric-table', article);
+    if (hasRubric) {
+      $$('ul, .goals-title', goals).forEach(function (x) { x.remove(); });
+      goals.className = 'goals goals-meta-only';
+      goals.setAttribute('aria-label', 'Metadata of this part');
+    }
+    if (MODE !== 'student' && !hasRubric) first.parentNode.insertBefore(goals, first.nextSibling);
+    else if (MODE !== 'student' && $('details.meta', goals)) {
+      var rubBlk = $('table.rubric-table', article).closest('.blk') || first;
+      rubBlk.parentNode.insertBefore(goals, rubBlk.nextSibling);
+    }
     var draft = document.createElement('p');
     draft.id = 'kmDraft'; draft.className = 'km-draft'; draft.setAttribute('role', 'note');
     draft.hidden = true;
