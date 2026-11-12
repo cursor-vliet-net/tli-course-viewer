@@ -2,16 +2,16 @@
   "id": "S002",
   "title": "What's your name?",
   "defaultDurationMs": 3200,
-  "background": "media/backgrounds/home-morning.png",
+  "background": "media/backgrounds/classroom.png",
   "actors": {
-    "yeay-chan": {
-      "name": "Yeay Chan",
-      "gender": "female",
+    "kru-sopheak": {
+      "name": "Kru Sopheak",
+      "gender": "male",
       "kind": "character",
       "sprites": {
-        "idle": "media/characters/year-01/yeay-chan-neutral.png",
-        "speak": "media/characters/year-01/yeay-chan-talking.apng",
-        "speakStill": "media/characters/year-01/yeay-chan-neutral.png"
+        "idle": "media/characters/year-01/kru-sopheak-neutral.png",
+        "speak": "media/characters/year-01/kru-sopheak-talking.apng",
+        "speakStill": "media/characters/year-01/kru-sopheak-neutral.png"
       },
       "lipSync": false
     },
@@ -41,21 +41,21 @@
   "scenes": [
     {
       "id": "1",
-      "background": "media/backgrounds/home-morning.png",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "A name game at home: asking and saying your name",
-        "where": "Home, still morning",
+        "what": "A name game in class: the teacher is learning his new pupils' names",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "kru-sopheak",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
           "y": 95
@@ -75,35 +75,36 @@
       ],
       "lines": [
         {
-          "speaker": "yeay-chan",
+          "speaker": "kru-sopheak",
           "text": "Hello! What's your name?",
           "translations": {
             "km": "សួស្តី! ឈ្មោះអ្វី?"
           },
           "audio": null,
-          "durationMs": 3400,
-          "atMs": 0
+          "durationMs": 3280,
+          "atMs": 0,
+          "lookingAt": "bora"
         }
       ],
-      "durationMs": 3400
+      "durationMs": 3280
     },
     {
       "id": "2",
-      "background": "media/backgrounds/home-morning.png",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "A name game at home: asking and saying your name",
-        "where": "Home, still morning",
+        "what": "A name game in class: the teacher is learning his new pupils' names",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "bora",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
           "y": 95
@@ -129,29 +130,29 @@
             "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 3000,
+          "durationMs": 2800,
           "atMs": 0
         }
       ],
-      "durationMs": 3000
+      "durationMs": 2800
     },
     {
       "id": "3",
-      "background": "media/backgrounds/home-morning.png",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "A name game at home: asking and saying your name",
-        "where": "Home, still morning",
+        "what": "A name game in class: the teacher is learning his new pupils' names",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "kru-sopheak",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
           "y": 95
@@ -171,35 +172,85 @@
       ],
       "lines": [
         {
-          "speaker": "yeay-chan",
-          "text": "What's your name?",
+          "speaker": "kru-sopheak",
+          "text": "Hello, Bora!",
           "translations": {
-            "km": "ឈ្មោះអ្វី?"
+            "km": "សួស្តី បូរ៉ា!"
           },
           "audio": null,
           "durationMs": 2800,
-          "atMs": 0
+          "atMs": 0,
+          "lookingAt": "bora"
         }
       ],
       "durationMs": 2800
     },
     {
       "id": "4",
-      "background": "media/backgrounds/home-morning.png",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "A name game at home: asking and saying your name",
-        "where": "Home, still morning",
+        "what": "A name game in class: the teacher is learning his new pupils' names",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "kru-sopheak",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "What's your name?",
+          "translations": {
+            "km": "ឈ្មោះអ្វី?"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "lookingAt": "sreyneang"
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "5",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "A name game in class: the teacher is learning his new pupils' names",
+        "where": "Classroom, first week, morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "sreyneang",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
           "y": 95
@@ -220,34 +271,34 @@
       "lines": [
         {
           "speaker": "sreyneang",
-          "text": "I am Sreyneang.",
+          "text": "My name is Sreyneang.",
           "translations": {
             "km": "ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
-          "durationMs": 3000,
+          "durationMs": 3070,
           "atMs": 0
         }
       ],
-      "durationMs": 3000
+      "durationMs": 3070
     },
     {
-      "id": "5",
-      "background": "media/backgrounds/home-morning.png",
+      "id": "6",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Listen: Yeay says you are to the child she looks at",
-        "where": "Home, still morning",
+        "what": "A name game in class: the teacher is learning his new pupils' names",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "kru-sopheak",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "speak",
           "x": 26,
           "y": 95
@@ -267,35 +318,36 @@
       ],
       "lines": [
         {
-          "speaker": "yeay-chan",
-          "text": "You are Bora.",
+          "speaker": "kru-sopheak",
+          "text": "Hello, Sreyneang!",
           "translations": {
-            "km": "អ្នកឈ្មោះបូរ៉ា។"
+            "km": "សួស្តី ស្រីណាង!"
           },
           "audio": null,
-          "durationMs": 3200,
-          "atMs": 0
+          "durationMs": 2800,
+          "atMs": 0,
+          "lookingAt": "sreyneang"
         }
       ],
-      "durationMs": 3200
+      "durationMs": 2800
     },
     {
-      "id": "6",
-      "background": "media/backgrounds/home-morning.png",
+      "id": "7",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Listen: Yeay says you are to the child she looks at",
-        "where": "Home, still morning",
+        "what": "In the name game it is Bora's turn to ask",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "bora",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
+          "id": "kru-sopheak",
           "sprite": "idle",
           "x": 26,
           "y": 95
@@ -316,83 +368,35 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "I am Bora!",
+          "text": "What's your name?",
           "translations": {
-            "km": "ខ្ញុំឈ្មោះបូរ៉ា!"
+            "km": "ឈ្មោះអ្វី?"
           },
           "audio": null,
-          "durationMs": 4000,
+          "durationMs": 2800,
           "atMs": 0
         }
       ],
-      "durationMs": 4000
-    },
-    {
-      "id": "7",
-      "background": "media/backgrounds/home-morning.png",
-      "setup": {
-        "what": "Listen: Yeay says you are to the child she looks at",
-        "where": "Home, still morning",
-        "who": [
-          "yeay-chan",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "yeay-chan",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "speak",
-          "x": 26,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "yeay-chan",
-          "text": "You are Sreyneang.",
-          "translations": {
-            "km": "អ្នកឈ្មោះស្រីណាង។"
-          },
-          "audio": null,
-          "durationMs": 3400,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 3400
+      "durationMs": 2800
     },
     {
       "id": "8",
-      "background": "media/backgrounds/home-morning.png",
+      "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Listen: Yeay says you are to the child she looks at",
-        "where": "Home, still morning",
+        "what": "In the name game it is Bora's turn to ask",
+        "where": "Classroom, first week, morning",
         "who": [
-          "yeay-chan",
+          "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "kru-sopheak",
         "gaze": "rules"
       },
       "placements": [
         {
-          "id": "yeay-chan",
-          "sprite": "idle",
+          "id": "kru-sopheak",
+          "sprite": "speak",
           "x": 26,
           "y": 95
         },
@@ -404,24 +408,151 @@
         },
         {
           "id": "sreyneang",
-          "sprite": "speak",
+          "sprite": "idle",
           "x": 78,
           "y": 95
         }
       ],
       "lines": [
         {
-          "speaker": "sreyneang",
-          "text": "I am Sreyneang!",
+          "speaker": "kru-sopheak",
+          "text": "I am Kru Sopheak.",
           "translations": {
-            "km": "ខ្ញុំឈ្មោះស្រីណាង!"
+            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រា។"
           },
           "audio": null,
-          "durationMs": 4200,
+          "durationMs": 2800,
+          "atMs": 0,
+          "lookingAt": "bora"
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "9",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "In the name game it is Bora's turn to ask",
+        "where": "Classroom, first week, morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "bora",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Hello, Kru Sopheak!",
+          "translations": {
+            "km": "សួស្តី គ្រូសុភ័ក្ត្រា!"
+          },
+          "audio": null,
+          "durationMs": 2930,
           "atMs": 0
         }
       ],
-      "durationMs": 4200
+      "durationMs": 2930,
+      "explanations": [
+        {
+          "id": "s002.name-game",
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
+          "durationMs": 12000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: a related topic (find out more about ...). Khmer needs a native-speaker review."
+          },
+          "text": {
+            "en": "Ha! Bora asked the teacher. What fun! You could find out more about your own name. Ask at home what it means!",
+            "km": "ហាហា! បូរ៉ាសួរលោកគ្រូវិញ។ សប្បាយណាស់! ប្អូនអាចស្វែងយល់បន្ថែមអំពីឈ្មោះរបស់ប្អូន។ សួរនៅផ្ទះថា ឈ្មោះប្អូនមានន័យអ្វី!"
+          },
+          "subtitles": {
+            "en": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "Ha! Bora asked the teacher. What fun!"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "You could find out more about your own name."
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "Ask at home what it means!"
+              }
+            ],
+            "km": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "ហាហា! បូរ៉ាសួរលោកគ្រូវិញ។ សប្បាយណាស់!"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "ប្អូនអាចស្វែងយល់បន្ថែមអំពីឈ្មោះរបស់ប្អូន។"
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "សួរនៅផ្ទះថា ឈ្មោះប្អូនមានន័យអ្វី!"
+              }
+            ]
+          },
+          "audio": {
+            "en": null,
+            "km": null
+          }
+        }
+      ]
     }
+  ],
+  "professor": {
+    "id": "professor-mordechai",
+    "name": "Professor Mordechai",
+    "gender": "male",
+    "leadMs": 1200,
+    "windowMs": 2800,
+    "minVisibleMs": 7000,
+    "icon": "media/characters/year-01/professor-icon.svg",
+    "avatar": "media/characters/year-01/professor-closeup-neutral.png",
+    "sprites": {
+      "idle": "media/characters/year-01/professor-closeup-neutral.png",
+      "talk": "media/characters/year-01/professor-closeup-talk.apng",
+      "speakStill": "media/characters/year-01/professor-closeup-neutral.png"
+    },
+    "lipSync": false
+  },
+  "goalTargets": [
+    "What's your name?",
+    "I am"
   ]
 }

@@ -4,6 +4,17 @@
   "defaultDurationMs": 3200,
   "background": "media/backgrounds/school-door.png",
   "actors": {
+    "yeay-chan": {
+      "name": "Yeay Chan",
+      "gender": "female",
+      "kind": "character",
+      "sprites": {
+        "idle": "media/characters/year-01/yeay-chan-neutral.png",
+        "speak": "media/characters/year-01/yeay-chan-talking.apng",
+        "speakStill": "media/characters/year-01/yeay-chan-neutral.png"
+      },
+      "lipSync": false
+    },
     "kru-sopheak": {
       "name": "Kru Sopheak",
       "gender": "male",
@@ -41,39 +52,173 @@
   "scenes": [
     {
       "id": "1",
+      "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "The twins wake up and say good morning to Yeay",
+        "where": "Home, early morning",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "bora",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "idle",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Good morning, Yeay!",
+          "translations": {
+            "km": "អរុណសួស្តី យាយ!"
+          },
+          "audio": null,
+          "durationMs": 2930,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2930
+    },
+    {
+      "id": "2",
+      "background": "media/backgrounds/home-morning.png",
+      "setup": {
+        "what": "The twins wake up and say good morning to Yeay",
+        "where": "Home, early morning",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "yeay-chan",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "speak",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Good morning, Bora! Good morning, Sreyneang!",
+          "translations": {
+            "km": "អរុណសួស្តី បូរ៉ា! អរុណសួស្តី ស្រីណាង!"
+          },
+          "audio": null,
+          "durationMs": 4200,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 4200
+    },
+    {
+      "id": "3",
       "background": "media/backgrounds/school-door.png",
       "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
+        "what": "The twins greet the teacher at the classroom door",
+        "where": "School, at the classroom door, start of the day",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "bora",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Good morning, teacher.",
+          "translations": {
+            "km": "អរុណសួស្តី គ្រូ។"
+          },
+          "audio": null,
+          "durationMs": 3140,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 3140
+    },
+    {
+      "id": "4",
+      "background": "media/backgrounds/school-door.png",
+      "setup": {
+        "what": "The twins greet the teacher at the classroom door",
+        "where": "School, at the classroom door, start of the day",
         "who": [
           "kru-sopheak",
           "bora",
           "sreyneang"
         ],
         "focus": "kru-sopheak",
-        "gaze": "rules",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "walking"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "walking"
-          }
-        ]
+        "gaze": "rules"
       },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 32,
+          "x": 26,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 58,
+          "x": 55,
           "y": 95
         },
         {
@@ -91,76 +236,67 @@
             "km": "អរុណសួស្តី បូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 3000,
-          "atMs": 0
+          "durationMs": 2930,
+          "atMs": 0,
+          "lookingAt": "bora"
         }
       ],
-      "durationMs": 3000
+      "durationMs": 2930
     },
     {
-      "id": "2",
+      "id": "5",
       "background": "media/backgrounds/school-door.png",
       "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
+        "what": "The twins greet the teacher at the classroom door",
+        "where": "School, at the classroom door, start of the day",
         "who": [
           "kru-sopheak",
           "bora",
           "sreyneang"
         ],
-        "focus": "kru-sopheak",
-        "gaze": "rules",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "walking"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "walking"
-          }
-        ]
+        "focus": "sreyneang",
+        "gaze": "rules"
       },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 32,
+          "x": 26,
           "y": 95
         },
         {
           "id": "bora",
-          "sprite": "speak",
-          "x": 58,
+          "sprite": "idle",
+          "x": 55,
           "y": 95
         },
         {
           "id": "sreyneang",
-          "sprite": "idle",
+          "sprite": "speak",
           "x": 78,
           "y": 95
         }
       ],
       "lines": [
         {
-          "speaker": "bora",
+          "speaker": "sreyneang",
           "text": "Good morning, teacher.",
           "translations": {
             "km": "អរុណសួស្តី គ្រូ។"
           },
           "audio": null,
-          "durationMs": 3000,
+          "durationMs": 3140,
           "atMs": 0
         }
       ],
-      "durationMs": 3000
+      "durationMs": 3140
     },
     {
-      "id": "3",
+      "id": "6",
       "background": "media/backgrounds/school-door.png",
       "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
+        "what": "The twins greet the teacher at the classroom door",
+        "where": "School, at the classroom door, start of the day",
         "who": [
           "kru-sopheak",
           "bora",
@@ -173,13 +309,13 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 32,
+          "x": 26,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 58,
+          "x": 55,
           "y": 95
         },
         {
@@ -197,203 +333,80 @@
             "km": "អរុណសួស្តី ស្រីណាង។"
           },
           "audio": null,
-          "durationMs": 3200,
-          "atMs": 0
+          "durationMs": 3280,
+          "atMs": 0,
+          "lookingAt": "sreyneang"
         }
       ],
-      "durationMs": 3200
-    },
-    {
-      "id": "4",
-      "background": "media/backgrounds/school-door.png",
-      "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "kru-sopheak",
-        "gaze": "rules"
-      },
-      "placements": [
+      "durationMs": 3280,
+      "explanations": [
         {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 32,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 58,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "speak",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "sreyneang",
-          "text": "Good morning, teacher.",
-          "translations": {
-            "km": "អរុណសួស្តី គ្រូ។"
+          "id": "s004.start-of-day",
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
+          "durationMs": 8000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: a possible why (The reason ...). Khmer needs a native-speaker review."
           },
-          "audio": null,
-          "durationMs": 3000,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 3000
-    },
-    {
-      "id": "5",
-      "background": "media/backgrounds/school-door.png",
-      "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "kru-sopheak",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "speak",
-          "x": 32,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 58,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "kru-sopheak",
-          "text": "I am Kru Sopheak. You are Bora.",
-          "translations": {
-            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រា។ អ្នកឈ្មោះបូរ៉ា។"
+          "text": {
+            "en": "Good morning! What a happy sound! The reason for this greeting: it is the start of the day.",
+            "km": "អរុណសួស្តី! សំឡេងរីករាយណាស់! មូលហេតុ៖ វាជាពេលចាប់ផ្តើមថ្ងៃ។"
           },
-          "audio": null,
-          "durationMs": 4200,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 4200
-    },
-    {
-      "id": "6",
-      "background": "media/backgrounds/school-door.png",
-      "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "kru-sopheak",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 32,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "speak",
-          "x": 58,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "bora",
-          "text": "I am Bora.",
-          "translations": {
-            "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
+          "subtitles": {
+            "en": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "Good morning! What a happy sound!"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "The reason for this greeting: it is the start of the day."
+              }
+            ],
+            "km": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "អរុណសួស្តី! សំឡេងរីករាយណាស់!"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "មូលហេតុ៖ វាជាពេលចាប់ផ្តើមថ្ងៃ។"
+              }
+            ]
           },
-          "audio": null,
-          "durationMs": 4000,
-          "atMs": 0
+          "audio": {
+            "en": null,
+            "km": null
+          }
         }
-      ],
-      "durationMs": 4000
-    },
-    {
-      "id": "7",
-      "background": "media/backgrounds/school-door.png",
-      "setup": {
-        "what": "Greeting the teacher at the classroom door",
-        "where": "School, start of the day",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "kru-sopheak",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 32,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 58,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "speak",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "sreyneang",
-          "text": "I am Sreyneang.",
-          "translations": {
-            "km": "ខ្ញុំឈ្មោះស្រីណាង។"
-          },
-          "audio": null,
-          "durationMs": 2800,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2800
+      ]
     }
+  ],
+  "professor": {
+    "id": "professor-mordechai",
+    "name": "Professor Mordechai",
+    "gender": "male",
+    "leadMs": 1200,
+    "windowMs": 2800,
+    "minVisibleMs": 7000,
+    "icon": "media/characters/year-01/professor-icon.svg",
+    "avatar": "media/characters/year-01/professor-closeup-neutral.png",
+    "sprites": {
+      "idle": "media/characters/year-01/professor-closeup-neutral.png",
+      "talk": "media/characters/year-01/professor-closeup-talk.apng",
+      "speakStill": "media/characters/year-01/professor-closeup-neutral.png"
+    },
+    "lipSync": false
+  },
+  "goalTargets": [
+    "Good morning, teacher",
+    "Good morning, Yeay"
   ]
 }

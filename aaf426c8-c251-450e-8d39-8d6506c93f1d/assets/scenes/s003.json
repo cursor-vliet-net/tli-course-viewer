@@ -2,7 +2,7 @@
   "id": "S003",
   "title": "Goodbye",
   "defaultDurationMs": 3000,
-  "background": "media/backgrounds/home-later.png",
+  "background": "media/backgrounds/home-morning.png",
   "actors": {
     "yeay-chan": {
       "name": "Yeay Chan",
@@ -41,216 +41,17 @@
   "scenes": [
     {
       "id": "1",
-      "background": "media/backgrounds/home-later.png",
+      "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying hello at home",
-        "where": "Home, later in the morning",
+        "what": "The twins say goodbye when they leave home for school",
+        "where": "Home, early morning, at the door",
         "who": [
           "yeay-chan",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
+        "focus": "bora",
         "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "speak",
-          "x": 26,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "yeay-chan",
-          "text": "Hello, Bora.",
-          "translations": {
-            "km": "សួស្តី បូរ៉ា។"
-          },
-          "audio": null,
-          "durationMs": 2800,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2800
-    },
-    {
-      "id": "2",
-      "background": "media/backgrounds/home-later.png",
-      "setup": {
-        "what": "Saying hello at home",
-        "where": "Home, later in the morning",
-        "who": [
-          "yeay-chan",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "yeay-chan",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "idle",
-          "x": 26,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "speak",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "bora",
-          "text": "Hello, Yeay.",
-          "translations": {
-            "km": "សួស្តី យាយ។"
-          },
-          "audio": null,
-          "durationMs": 2600,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2600
-    },
-    {
-      "id": "3",
-      "background": "media/backgrounds/home-later.png",
-      "setup": {
-        "what": "Saying hello at home",
-        "where": "Home, later in the morning",
-        "who": [
-          "yeay-chan",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "yeay-chan",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "speak",
-          "x": 26,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "yeay-chan",
-          "text": "Hello, Sreyneang.",
-          "translations": {
-            "km": "សួស្តី ស្រីណាង។"
-          },
-          "audio": null,
-          "durationMs": 2800,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2800
-    },
-    {
-      "id": "4",
-      "background": "media/backgrounds/home-later.png",
-      "setup": {
-        "what": "Saying hello at home",
-        "where": "Home, later in the morning",
-        "who": [
-          "yeay-chan",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "yeay-chan",
-        "gaze": "rules"
-      },
-      "placements": [
-        {
-          "id": "yeay-chan",
-          "sprite": "idle",
-          "x": 26,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 55,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "speak",
-          "x": 78,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "sreyneang",
-          "text": "Hello, Yeay.",
-          "translations": {
-            "km": "សួស្តី យាយ។"
-          },
-          "audio": null,
-          "durationMs": 2600,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2600
-    },
-    {
-      "id": "5",
-      "background": "media/backgrounds/home-later.png",
-      "setup": {
-        "what": "Saying goodbye when leaving home for school",
-        "where": "Home, later in the morning",
-        "who": [
-          "yeay-chan",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "yeay-chan",
-        "gaze": "rules",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "waving",
-            "lookingAt": "front"
-          }
-        ]
       },
       "placements": [
         {
@@ -281,37 +82,24 @@
           },
           "audio": null,
           "durationMs": 2800,
-          "atMs": 0,
-          "pose": "waving"
+          "atMs": 0
         }
       ],
       "durationMs": 2800
     },
     {
-      "id": "6",
-      "background": "media/backgrounds/home-later.png",
+      "id": "2",
+      "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying goodbye when leaving home for school",
-        "where": "Home, later in the morning",
+        "what": "The twins say goodbye when they leave home for school",
+        "where": "Home, early morning, at the door",
         "who": [
           "yeay-chan",
           "bora",
           "sreyneang"
         ],
-        "focus": "bora",
-        "gaze": "rules",
-        "people": [
-          {
-            "id": "yeay-chan",
-            "pose": "waving",
-            "lookingAt": "front"
-          },
-          {
-            "id": "bora",
-            "pose": "waving",
-            "lookingAt": "front"
-          }
-        ]
+        "focus": "yeay-chan",
+        "gaze": "rules"
       },
       "placements": [
         {
@@ -343,31 +131,24 @@
           "audio": null,
           "durationMs": 2800,
           "atMs": 0,
-          "pose": "waving"
+          "lookingAt": "bora"
         }
       ],
       "durationMs": 2800
     },
     {
-      "id": "7",
-      "background": "media/backgrounds/home-later.png",
+      "id": "3",
+      "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying goodbye when leaving home for school",
-        "where": "Home, later in the morning",
+        "what": "The twins say goodbye when they leave home for school",
+        "where": "Home, early morning, at the door",
         "who": [
           "yeay-chan",
           "bora",
           "sreyneang"
         ],
-        "focus": "yeay-chan",
-        "gaze": "rules",
-        "people": [
-          {
-            "id": "sreyneang",
-            "pose": "waving",
-            "lookingAt": "front"
-          }
-        ]
+        "focus": "sreyneang",
+        "gaze": "rules"
       },
       "placements": [
         {
@@ -398,37 +179,24 @@
           },
           "audio": null,
           "durationMs": 2800,
-          "atMs": 0,
-          "pose": "waving"
+          "atMs": 0
         }
       ],
       "durationMs": 2800
     },
     {
-      "id": "8",
-      "background": "media/backgrounds/home-later.png",
+      "id": "4",
+      "background": "media/backgrounds/home-morning.png",
       "setup": {
-        "what": "Saying goodbye when leaving home for school",
-        "where": "Home, later in the morning",
+        "what": "The twins say goodbye when they leave home for school",
+        "where": "Home, early morning, at the door",
         "who": [
           "yeay-chan",
           "bora",
           "sreyneang"
         ],
-        "focus": "sreyneang",
-        "gaze": "rules",
-        "people": [
-          {
-            "id": "yeay-chan",
-            "pose": "waving",
-            "lookingAt": "front"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "waving",
-            "lookingAt": "front"
-          }
-        ]
+        "focus": "yeay-chan",
+        "gaze": "rules"
       },
       "placements": [
         {
@@ -458,12 +226,284 @@
             "km": "លាហើយ ស្រីណាង!"
           },
           "audio": null,
-          "durationMs": 2800,
+          "durationMs": 2930,
           "atMs": 0,
-          "pose": "waving"
+          "lookingAt": "sreyneang"
+        }
+      ],
+      "durationMs": 2930
+    },
+    {
+      "id": "5",
+      "background": "media/backgrounds/home-later.png",
+      "setup": {
+        "what": "The twins come home from school and say hello",
+        "where": "Home, late morning, after school",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "bora",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "idle",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Hello, Yeay!",
+          "translations": {
+            "km": "សួស្តី យាយ!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
         }
       ],
       "durationMs": 2800
+    },
+    {
+      "id": "6",
+      "background": "media/backgrounds/home-later.png",
+      "setup": {
+        "what": "The twins come home from school and say hello",
+        "where": "Home, late morning, after school",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "yeay-chan",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "speak",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Hello, Bora!",
+          "translations": {
+            "km": "សួស្តី បូរ៉ា!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "lookingAt": "bora"
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "7",
+      "background": "media/backgrounds/home-later.png",
+      "setup": {
+        "what": "The twins come home from school and say hello",
+        "where": "Home, late morning, after school",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "sreyneang",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "idle",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "speak",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "sreyneang",
+          "text": "Hello, Yeay!",
+          "translations": {
+            "km": "សួស្តី យាយ!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0
+        }
+      ],
+      "durationMs": 2800
+    },
+    {
+      "id": "8",
+      "background": "media/backgrounds/home-later.png",
+      "setup": {
+        "what": "The twins come home from school and say hello",
+        "where": "Home, late morning, after school",
+        "who": [
+          "yeay-chan",
+          "bora",
+          "sreyneang"
+        ],
+        "focus": "yeay-chan",
+        "gaze": "rules"
+      },
+      "placements": [
+        {
+          "id": "yeay-chan",
+          "sprite": "speak",
+          "x": 26,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 55,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 78,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "yeay-chan",
+          "text": "Hello, Sreyneang!",
+          "translations": {
+            "km": "សួស្តី ស្រីណាង!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "lookingAt": "sreyneang"
+        }
+      ],
+      "durationMs": 2800,
+      "explanations": [
+        {
+          "id": "s003.home-again",
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
+          "durationMs": 12000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: a cultural observation, hedged (in many places, perhaps). Khmer needs a native-speaker review."
+          },
+          "text": {
+            "en": "Oh, they are home again! Hello! In many places, people wave when they say goodbye. Perhaps you also do a sampeah for Yeay?",
+            "km": "អូ! ពួកគេត្រឡប់មកផ្ទះវិញហើយ! សួស្តី! នៅកន្លែងជាច្រើន មនុស្សគ្រវីដៃពេលនិយាយលា។ ប្រហែលជាប្អូនក៏សំពះយាយដែរ?"
+          },
+          "subtitles": {
+            "en": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "Oh, they are home again! Hello!"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "In many places, people wave when they say goodbye."
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "Perhaps you also do a sampeah for Yeay?"
+              }
+            ],
+            "km": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "អូ! ពួកគេត្រឡប់មកផ្ទះវិញហើយ! សួស្តី!"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "នៅកន្លែងជាច្រើន មនុស្សគ្រវីដៃពេលនិយាយលា។"
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "ប្រហែលជាប្អូនក៏សំពះយាយដែរ?"
+              }
+            ]
+          },
+          "audio": {
+            "en": null,
+            "km": null
+          }
+        }
+      ]
     }
+  ],
+  "professor": {
+    "id": "professor-mordechai",
+    "name": "Professor Mordechai",
+    "gender": "male",
+    "leadMs": 1200,
+    "windowMs": 2800,
+    "minVisibleMs": 7000,
+    "icon": "media/characters/year-01/professor-icon.svg",
+    "avatar": "media/characters/year-01/professor-closeup-neutral.png",
+    "sprites": {
+      "idle": "media/characters/year-01/professor-closeup-neutral.png",
+      "talk": "media/characters/year-01/professor-closeup-talk.apng",
+      "speakStill": "media/characters/year-01/professor-closeup-neutral.png"
+    },
+    "lipSync": false
+  },
+  "goalTargets": [
+    "Goodbye",
+    "Hello"
   ]
 }

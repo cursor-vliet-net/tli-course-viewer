@@ -54,240 +54,68 @@
       "id": "1",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying your name in class",
-        "where": "Classroom",
+        "what": "Bora greets the teacher in class",
+        "where": "Classroom, week 3, morning",
         "who": [
           "kru-sopheak",
           "bora",
           "sreyneang"
         ],
         "focus": "kru-sopheak",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
+        "gaze": "focus"
       },
       "placements": [
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 24,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 46,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 64,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "kru-sopheak",
-          "text": "I am Kru Sopheak.",
-          "translations": {
-            "km": "ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រា។"
-          },
-          "audio": null,
-          "durationMs": 3000,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 3000
-    },
-    {
-      "id": "2",
-      "background": "media/backgrounds/classroom.png",
-      "setup": {
-        "what": "Saying your name in class",
-        "where": "Classroom",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "bora",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 24,
+          "x": 26,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 46,
+          "x": 55,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 78,
           "y": 95
         }
       ],
       "lines": [
         {
           "speaker": "bora",
-          "text": "I am Bora.",
+          "text": "Good morning, teacher.",
           "translations": {
-            "km": "ខ្ញុំឈ្មោះបូរ៉ា។"
+            "km": "អរុណសួស្តី គ្រូ។"
           },
           "audio": null,
-          "durationMs": 2600,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2600
-    },
-    {
-      "id": "3",
-      "background": "media/backgrounds/classroom.png",
-      "setup": {
-        "what": "Saying your name in class",
-        "where": "Classroom",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "sreyneang",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "idle",
-          "x": 24,
-          "y": 95
+          "durationMs": 3140,
+          "atMs": 0,
+          "lookingAt": "kru-sopheak"
         },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 46,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "speak",
-          "x": 64,
-          "y": 95
-        }
-      ],
-      "lines": [
-        {
-          "speaker": "sreyneang",
-          "text": "I am Sreyneang.",
-          "translations": {
-            "km": "ខ្ញុំឈ្មោះស្រីណាង។"
-          },
-          "audio": null,
-          "durationMs": 2800,
-          "atMs": 0
-        }
-      ],
-      "durationMs": 2800
-    },
-    {
-      "id": "4",
-      "background": "media/backgrounds/classroom.png",
-      "setup": {
-        "what": "Saying your name in class",
-        "where": "Classroom",
-        "who": [
-          "kru-sopheak",
-          "bora",
-          "sreyneang"
-        ],
-        "focus": "bora",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
-      },
-      "placements": [
-        {
-          "id": "kru-sopheak",
-          "sprite": "speak",
-          "x": 24,
-          "y": 95
-        },
-        {
-          "id": "bora",
-          "sprite": "idle",
-          "x": 46,
-          "y": 95
-        },
-        {
-          "id": "sreyneang",
-          "sprite": "idle",
-          "x": 64,
-          "y": 95
-        }
-      ],
-      "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "You are Bora.",
+          "text": "Good morning, Bora.",
           "translations": {
-            "km": "អ្នកឈ្មោះបូរ៉ា។"
+            "km": "អរុណសួស្តី បូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 4000,
-          "atMs": 0
+          "durationMs": 2930,
+          "atMs": 3140,
+          "lookingAt": "bora"
         }
       ],
-      "durationMs": 4000
+      "durationMs": 6070
     },
     {
-      "id": "5",
+      "id": "2",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Greeting a new classmate and saying your name",
-        "where": "Classroom",
+        "what": "A new girl comes to the class",
+        "where": "Classroom, week 3, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -295,17 +123,7 @@
           "bopha"
         ],
         "focus": "bopha",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
+        "gaze": "focus"
       },
       "placements": [
         {
@@ -338,21 +156,22 @@
           "speaker": "kru-sopheak",
           "text": "Hello. What's your name?",
           "translations": {
-            "km": "សួស្តី។ តើអ្នកឈ្មោះអ្វី?"
+            "km": "សួស្តី។ ឈ្មោះអ្វី?"
           },
           "audio": null,
-          "durationMs": 3200,
-          "atMs": 0
+          "durationMs": 3280,
+          "atMs": 0,
+          "lookingAt": "bopha"
         }
       ],
-      "durationMs": 3200
+      "durationMs": 3280
     },
     {
-      "id": "6",
+      "id": "3",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Greeting a new classmate and saying your name",
-        "where": "Classroom",
+        "what": "A new girl comes to the class",
+        "where": "Classroom, week 3, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -360,17 +179,7 @@
           "bopha"
         ],
         "focus": "kru-sopheak",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
+        "gaze": "focus"
       },
       "placements": [
         {
@@ -407,17 +216,18 @@
           },
           "audio": null,
           "durationMs": 2800,
-          "atMs": 0
+          "atMs": 0,
+          "lookingAt": "kru-sopheak"
         }
       ],
       "durationMs": 2800
     },
     {
-      "id": "7",
+      "id": "4",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Greeting a new classmate and saying your name",
-        "where": "Classroom",
+        "what": "A new girl comes to the class",
+        "where": "Classroom, week 3, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -425,17 +235,63 @@
           "bopha"
         ],
         "focus": "bopha",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
+        "gaze": "focus"
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "speak",
+          "x": 24,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "idle",
+          "x": 46,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "idle",
+          "x": 84,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "kru-sopheak",
+          "text": "Hello, Bopha. My name is Kru Sopheak.",
+          "translations": {
+            "km": "សួស្តី បុប្ផា។ ខ្ញុំឈ្មោះគ្រូសុភ័ក្ត្រា។"
           },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
+          "audio": null,
+          "durationMs": 4190,
+          "atMs": 0,
+          "lookingAt": "bopha"
+        }
+      ],
+      "durationMs": 4190
+    },
+    {
+      "id": "5",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "The twins greet the new classmate and say their names",
+        "where": "Classroom, week 3, morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang",
+          "bopha"
+        ],
+        "focus": "bopha",
+        "gaze": "focus"
       },
       "placements": [
         {
@@ -471,18 +327,19 @@
             "km": "សួស្តី បុប្ផា! ខ្ញុំឈ្មោះបូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 3400,
-          "atMs": 0
+          "durationMs": 3280,
+          "atMs": 0,
+          "lookingAt": "bopha"
         }
       ],
-      "durationMs": 3400
+      "durationMs": 3280
     },
     {
-      "id": "8",
+      "id": "6",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Greeting a new classmate and saying your name",
-        "where": "Classroom",
+        "what": "The twins greet the new classmate and say their names",
+        "where": "Classroom, week 3, morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -490,17 +347,7 @@
           "bopha"
         ],
         "focus": "bopha",
-        "gaze": "focus",
-        "people": [
-          {
-            "id": "bora",
-            "pose": "sitting"
-          },
-          {
-            "id": "sreyneang",
-            "pose": "sitting"
-          }
-        ]
+        "gaze": "focus"
       },
       "placements": [
         {
@@ -531,39 +378,47 @@
       "lines": [
         {
           "speaker": "sreyneang",
-          "text": "Hello, Bopha! I am Sreyneang.",
+          "text": "Hello, Bopha! My name is Sreyneang.",
           "translations": {
             "km": "សួស្តី បុប្ផា! ខ្ញុំឈ្មោះស្រីណាង។"
           },
           "audio": null,
-          "durationMs": 3600,
-          "atMs": 0
+          "durationMs": 4050,
+          "atMs": 0,
+          "lookingAt": "bopha"
         }
       ],
-      "durationMs": 3600
+      "durationMs": 4050
     },
     {
-      "id": "9",
+      "id": "7",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Greeting a new classmate and saying your name",
-        "where": "Classroom",
+        "what": "The twins greet the new classmate and say their names",
+        "where": "Classroom, week 3, morning",
         "who": [
           "kru-sopheak",
           "bora",
           "sreyneang",
           "bopha"
         ],
-        "focus": "bora",
+        "focus": [
+          "bora",
+          "sreyneang"
+        ],
         "gaze": "focus",
         "people": [
           {
             "id": "bora",
-            "pose": "sitting"
+            "lookingAt": "bopha"
           },
           {
             "id": "sreyneang",
-            "pose": "sitting"
+            "lookingAt": "bopha"
+          },
+          {
+            "id": "kru-sopheak",
+            "lookingAt": "bopha"
           }
         ]
       },
@@ -601,11 +456,169 @@
             "km": "សួស្តី បូរ៉ា! សួស្តី ស្រីណាង!"
           },
           "audio": null,
-          "durationMs": 3400,
+          "durationMs": 3700,
           "atMs": 0
         }
       ],
-      "durationMs": 3400
+      "durationMs": 3700,
+      "explanations": [
+        {
+          "id": "s005.new-friend",
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
+          "durationMs": 12000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: another application (You could ...). Khmer needs a native-speaker review."
+          },
+          "text": {
+            "en": "Hooray! Bopha knows two names now. You could say hello to a new child at your school. Then say your name.",
+            "km": "ហ៊ូរ៉េ! ឥឡូវបុប្ផាស្គាល់ឈ្មោះពីរហើយ។ ប្អូនអាចនិយាយសួស្តីទៅក្មេងថ្មីនៅសាលា។ រួចប្រាប់ឈ្មោះប្អូន។"
+          },
+          "subtitles": {
+            "en": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "Hooray! Bopha knows two names now."
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "You could say hello to a new child at your school."
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "Then say your name."
+              }
+            ],
+            "km": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "ហ៊ូរ៉េ! ឥឡូវបុប្ផាស្គាល់ឈ្មោះពីរហើយ។"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "ប្អូនអាចនិយាយសួស្តីទៅក្មេងថ្មីនៅសាលា។"
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "រួចប្រាប់ឈ្មោះប្អូន។"
+              }
+            ]
+          },
+          "audio": {
+            "en": null,
+            "km": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "background": "media/backgrounds/classroom.png",
+      "setup": {
+        "what": "The end of the school morning: the twins say goodbye to Bopha",
+        "where": "Classroom, end of the school morning",
+        "who": [
+          "kru-sopheak",
+          "bora",
+          "sreyneang",
+          "bopha"
+        ],
+        "focus": "bopha",
+        "gaze": "focus",
+        "people": [
+          {
+            "id": "sreyneang",
+            "lookingAt": "bopha"
+          },
+          {
+            "id": "kru-sopheak",
+            "lookingAt": "bopha"
+          }
+        ]
+      },
+      "placements": [
+        {
+          "id": "kru-sopheak",
+          "sprite": "idle",
+          "x": 24,
+          "y": 95
+        },
+        {
+          "id": "bora",
+          "sprite": "speak",
+          "x": 46,
+          "y": 95
+        },
+        {
+          "id": "sreyneang",
+          "sprite": "idle",
+          "x": 64,
+          "y": 95
+        },
+        {
+          "id": "bopha",
+          "sprite": "speak",
+          "x": 84,
+          "y": 95
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "bora",
+          "text": "Goodbye, Bopha!",
+          "translations": {
+            "km": "លាហើយ បុប្ផា!"
+          },
+          "audio": null,
+          "durationMs": 2800,
+          "atMs": 0,
+          "lookingAt": "bopha"
+        },
+        {
+          "speaker": "bopha",
+          "text": "Goodbye, Bora! Goodbye, Sreyneang!",
+          "translations": {
+            "km": "លាហើយ បូរ៉ា! លាហើយ ស្រីណាង!"
+          },
+          "audio": null,
+          "durationMs": 3980,
+          "atMs": 2800
+        }
+      ],
+      "durationMs": 6780
     }
+  ],
+  "professor": {
+    "id": "professor-mordechai",
+    "name": "Professor Mordechai",
+    "gender": "male",
+    "leadMs": 1200,
+    "windowMs": 2800,
+    "minVisibleMs": 7000,
+    "icon": "media/characters/year-01/professor-icon.svg",
+    "avatar": "media/characters/year-01/professor-closeup-neutral.png",
+    "sprites": {
+      "idle": "media/characters/year-01/professor-closeup-neutral.png",
+      "talk": "media/characters/year-01/professor-closeup-talk.apng",
+      "speakStill": "media/characters/year-01/professor-closeup-neutral.png"
+    },
+    "lipSync": false
+  },
+  "goalTargets": [
+    "What's your name?",
+    "I am",
+    "My name is",
+    "Hello",
+    "Good morning",
+    "Goodbye"
   ]
 }

@@ -93,6 +93,8 @@ Characters with no line in the current scene are not clickable. If they have sev
 
 A story with no `professor` and no `explanations` plays exactly as before. Do not add an explanation to every scene. The same rules apply to every story. Nothing here is special to S001.
 
+**His role (ADR 0001, `docs/adr/0001-professor-mordechai-role.md`, v1.16.0).** Each comment is one of four kinds, usually only one per comment: a hedged cultural observation (Western and Khmer: *perhaps*, *often*, *in many places*), another application (*You could …*), a possible why (*The reason for this is …*), or a related topic (*You could find out more about …*). He is curious and shows fascination, joy and glee. Short lines. Every session S1–S6 has at least one comment; `review.note` names its kind.
+
 He can clarify only something that has already been said or done. Each explanation names one scope:
 
 - `"scope": "scene"` — the whole current scene.
@@ -147,7 +149,7 @@ On a scene:
 ]
 ```
 
-S001 scene 1 uses a scene scope. Its first part is the professor's self-introduction, *Hello. My name is Mordechai. I will help you.* In `subtitles.km` that English line is the first cue and the Khmer translation the second, so a Khmer recording says the English first. Only this first appearance has it. Its words are about Yeay saying hello and then the name (v1.15: S1 is Hello, my name is …). They do not explain the later question from Kru Sopheak. That question has its own explanation after Bora has answered. The icon may show during the last 1200 ms of the reply. The panel waits until the scene has finished. That wording check is manual. The schema check only proves the clock.
+S001 scene 1 uses a scene scope. Its first part is the professor's self-introduction, *Hello. My name is Mordechai. I will help you.* In `subtitles.km` that English line is the first cue and the Khmer translation the second, so a Khmer recording says the English first. Only this first appearance has it. Then one comment of the *another application* kind (v1.16.0: *Oh, I love this! Yeay said hello, then the name. You could say hello to someone at home today.*). It does not explain the later question from Kru Sopheak. That question has its own explanation (a possible why) after Bora has answered. The icon may show during the last 1200 ms of the reply. The panel waits until the scene has finished. That wording check is manual. The schema check only proves the clock.
 
 The panel has previous, play/pause, and next for his own spoken parts, plus a part counter such as 1 / 3. It has no timeline. Clicking his icon opens the panel and starts the first part. Close stops him. The story stays paused. The language control is one EN/KH selector at the top left, and Close is at the top right. The selector is hidden unless that explanation has a recorded Khmer file. With no Khmer recording the panel speaks English only (the English file, or English speech synthesis). It never uses a Khmer browser voice. A Khmer recording that fails to play falls back to English and hides the selector. The story's EN / ខ្មែរ switches do not change this. Subtitles follow the professor language that is actually playing. Each spoken line runs until the voice or the file finishes. The subtitle clock and the icon timer do not cut it off. Automatic scene advance does not close an explanation that is already open. Seek, Previous, Next, Replay, and Close do.
 

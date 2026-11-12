@@ -43,8 +43,8 @@
       "id": "1",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Bora greets the teacher in class",
+        "where": "Classroom, start of the school morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -76,23 +76,23 @@
       "lines": [
         {
           "speaker": "bora",
-          "text": "Hello, teacher.",
+          "text": "Good morning, teacher.",
           "translations": {
-            "km": "សួស្តី គ្រូ។"
+            "km": "អរុណសួស្តី គ្រូ។"
           },
           "audio": null,
-          "durationMs": 2600,
+          "durationMs": 3140,
           "atMs": 0
         }
       ],
-      "durationMs": 2600
+      "durationMs": 3140
     },
     {
       "id": "2",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Bora greets the teacher in class",
+        "where": "Classroom, start of the school morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -124,23 +124,23 @@
       "lines": [
         {
           "speaker": "kru-sopheak",
-          "text": "Hello, Bora.",
+          "text": "Good morning, Bora.",
           "translations": {
-            "km": "សួស្តី បូរ៉ា។"
+            "km": "អរុណសួស្តី បូរ៉ា។"
           },
           "audio": null,
-          "durationMs": 2600,
+          "durationMs": 2930,
           "atMs": 0
         }
       ],
-      "durationMs": 2600
+      "durationMs": 2930
     },
     {
       "id": "3",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Reading time: Bora asks the teacher for a book",
+        "where": "Classroom, reading time",
         "who": [
           "kru-sopheak",
           "bora",
@@ -212,8 +212,8 @@
       "id": "4",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Reading time: Bora asks the teacher for a book",
+        "where": "Classroom, reading time",
         "who": [
           "kru-sopheak",
           "bora",
@@ -285,8 +285,8 @@
       "id": "5",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Reading time: Bora asks the teacher for a book",
+        "where": "Classroom, reading time",
         "who": [
           "kru-sopheak",
           "bora",
@@ -358,8 +358,8 @@
       "id": "6",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Bora hands out the books; Sreyneang asks him for one",
+        "where": "Classroom, reading time",
         "who": [
           "kru-sopheak",
           "bora",
@@ -369,7 +369,7 @@
           "kind": "objects-with-people",
           "ids": [
             "book",
-            "kru-sopheak",
+            "bora",
             "sreyneang"
           ]
         },
@@ -431,8 +431,8 @@
       "id": "7",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Bora hands out the books; Sreyneang asks him for one",
+        "where": "Classroom, reading time",
         "who": [
           "kru-sopheak",
           "bora",
@@ -504,8 +504,8 @@
       "id": "8",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Asking for a book and saying thank you",
-        "where": "Classroom, sharing a book",
+        "what": "Bora hands out the books; Sreyneang asks him for one",
+        "where": "Classroom, reading time",
         "who": [
           "kru-sopheak",
           "bora",
@@ -571,14 +571,72 @@
           "atMs": 0
         }
       ],
-      "durationMs": 2400
+      "durationMs": 2400,
+      "explanations": [
+        {
+          "id": "s006.two-hands",
+          "scope": "scene",
+          "leadMs": 1200,
+          "windowMs": 2800,
+          "durationMs": 12000,
+          "review": {
+            "km": "draft",
+            "cultural": "pending-khmer-native-review",
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: a cultural observation, hedged (often, perhaps). Khmer needs a native-speaker review."
+          },
+          "text": {
+            "en": "Oh, how kind! Please, then thank you. In Cambodia, people often give and take with two hands. Perhaps you do that too!",
+            "km": "អូ! ចិត្តល្អណាស់! please រួច thank you។ នៅកម្ពុជា មនុស្សជាញឹកញាប់ហុច និងទទួលដោយដៃទាំងពីរ។ ប្រហែលជាប្អូនក៏ធ្វើដូច្នោះដែរ!"
+          },
+          "subtitles": {
+            "en": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "Oh, how kind! Please, then thank you."
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "In Cambodia, people often give and take with two hands."
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "Perhaps you do that too!"
+              }
+            ],
+            "km": [
+              {
+                "atMs": 0,
+                "durationMs": 4000,
+                "text": "អូ! ចិត្តល្អណាស់! please រួច thank you។"
+              },
+              {
+                "atMs": 4000,
+                "durationMs": 4000,
+                "text": "នៅកម្ពុជា មនុស្សជាញឹកញាប់ហុច និងទទួលដោយដៃទាំងពីរ។"
+              },
+              {
+                "atMs": 8000,
+                "durationMs": 4000,
+                "text": "ប្រហែលជាប្អូនក៏ធ្វើដូច្នោះដែរ!"
+              }
+            ]
+          },
+          "audio": {
+            "en": null,
+            "km": null
+          }
+        }
+      ]
     },
     {
       "id": "9",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying goodbye to the teacher",
-        "where": "Classroom, sharing a book",
+        "what": "The school morning ends: saying goodbye to the teacher",
+        "where": "Classroom, end of the school morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -638,8 +696,8 @@
       "id": "10",
       "background": "media/backgrounds/classroom.png",
       "setup": {
-        "what": "Saying goodbye to the teacher",
-        "where": "Classroom, sharing a book",
+        "what": "The school morning ends: saying goodbye to the teacher",
+        "where": "Classroom, end of the school morning",
         "who": [
           "kru-sopheak",
           "bora",
@@ -700,5 +758,25 @@
       ],
       "durationMs": 3600
     }
+  ],
+  "professor": {
+    "id": "professor-mordechai",
+    "name": "Professor Mordechai",
+    "gender": "male",
+    "leadMs": 1200,
+    "windowMs": 2800,
+    "minVisibleMs": 7000,
+    "icon": "media/characters/year-01/professor-icon.svg",
+    "avatar": "media/characters/year-01/professor-closeup-neutral.png",
+    "sprites": {
+      "idle": "media/characters/year-01/professor-closeup-neutral.png",
+      "talk": "media/characters/year-01/professor-closeup-talk.apng",
+      "speakStill": "media/characters/year-01/professor-closeup-neutral.png"
+    },
+    "lipSync": false
+  },
+  "goalTargets": [
+    "please",
+    "Thank you"
   ]
 }
