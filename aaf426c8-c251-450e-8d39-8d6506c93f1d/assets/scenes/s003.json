@@ -436,11 +436,11 @@
           "review": {
             "km": "draft",
             "cultural": "pending-khmer-native-review",
-            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: a cultural observation, hedged (in many places, perhaps). Khmer needs a native-speaker review."
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes about Western customs). Type: a cultural observation, hedged (in many Western countries, often, perhaps). Khmer needs a native-speaker review."
           },
           "text": {
-            "en": "Oh, they are home again! Hello! In many places, people wave when they say goodbye. Perhaps you also do a sampeah for Yeay?",
-            "km": "អូ! ពួកគេត្រឡប់មកផ្ទះវិញហើយ! សួស្តី! នៅកន្លែងជាច្រើន មនុស្សគ្រវីដៃពេលនិយាយលា។ ប្រហែលជាប្អូនក៏សំពះយាយដែរ?"
+            "en": "Oh, they are home again! Hello! In many Western countries, people often hug to say goodbye. Perhaps they wave too. How interesting!",
+            "km": "អូ! ពួកគេត្រឡប់មកផ្ទះវិញហើយ! សួស្តី! នៅប្រទេសលោកខាងលិចជាច្រើន មនុស្សតែងតែឱបគ្នាពេលនិយាយលា។ ប្រហែលជាពួកគេគ្រវីដៃដែរ។ គួរឱ្យចាប់អារម្មណ៍ណាស់!"
           },
           "subtitles": {
             "en": [
@@ -452,12 +452,12 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "In many places, people wave when they say goodbye."
+                "text": "In many Western countries, people often hug to say goodbye."
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "Perhaps you also do a sampeah for Yeay?"
+                "text": "Perhaps they wave too. How interesting!"
               }
             ],
             "km": [
@@ -469,12 +469,12 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "នៅកន្លែងជាច្រើន មនុស្សគ្រវីដៃពេលនិយាយលា។"
+                "text": "នៅប្រទេសលោកខាងលិចជាច្រើន មនុស្សតែងតែឱបគ្នាពេលនិយាយលា។"
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "ប្រហែលជាប្អូនក៏សំពះយាយដែរ?"
+                "text": "ប្រហែលជាពួកគេគ្រវីដៃដែរ។ គួរឱ្យចាប់អារម្មណ៍ណាស់!"
               }
             ]
           },

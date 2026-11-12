@@ -57,19 +57,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -106,19 +106,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -154,19 +154,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -203,19 +203,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -252,19 +252,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -300,19 +300,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -349,19 +349,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -397,19 +397,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -446,19 +446,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],

@@ -68,19 +68,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 26,
+          "x": 74,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 78,
+          "x": 22,
           "y": 95
         }
       ],
@@ -129,25 +129,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "idle",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],
@@ -185,25 +185,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "speak",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],
@@ -241,25 +241,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "idle",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],
@@ -297,25 +297,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "idle",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],
@@ -353,25 +353,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "idle",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],
@@ -426,25 +426,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "speak",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],
@@ -549,25 +549,25 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 24,
+          "x": 76,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 46,
+          "x": 54,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 64,
+          "x": 36,
           "y": 95
         },
         {
           "id": "bopha",
           "sprite": "speak",
-          "x": 84,
+          "x": 16,
           "y": 95
         }
       ],

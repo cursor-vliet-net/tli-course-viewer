@@ -57,19 +57,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -105,19 +105,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -159,7 +159,7 @@
           {
             "id": "book",
             "label": "a book",
-            "x": 36,
+            "x": 64,
             "y": 78
           }
         ],
@@ -178,19 +178,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -232,7 +232,7 @@
           {
             "id": "book",
             "label": "a book",
-            "x": 36,
+            "x": 64,
             "y": 78
           }
         ],
@@ -251,19 +251,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -305,7 +305,7 @@
           {
             "id": "book",
             "label": "a book",
-            "x": 36,
+            "x": 64,
             "y": 78
           }
         ],
@@ -324,19 +324,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -378,7 +378,7 @@
           {
             "id": "book",
             "label": "a book",
-            "x": 36,
+            "x": 64,
             "y": 78
           }
         ],
@@ -397,19 +397,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -451,7 +451,7 @@
           {
             "id": "book",
             "label": "a book",
-            "x": 36,
+            "x": 64,
             "y": 78
           }
         ],
@@ -470,19 +470,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -524,7 +524,7 @@
           {
             "id": "book",
             "label": "a book",
-            "x": 36,
+            "x": 64,
             "y": 78
           }
         ],
@@ -543,19 +543,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "speak",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -582,11 +582,11 @@
           "review": {
             "km": "draft",
             "cultural": "pending-khmer-native-review",
-            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes). Type: a cultural observation, hedged (often, perhaps). Khmer needs a native-speaker review."
+            "note": "Professor role: ADR docs/adr/0001-professor-mordechai-role.md (one comment type per comment; hedged cultural notes about Western customs). Type: a cultural observation, hedged (in many Western countries, often, perhaps). Khmer needs a native-speaker review."
           },
           "text": {
-            "en": "Oh, how kind! Please, then thank you. In Cambodia, people often give and take with two hands. Perhaps you do that too!",
-            "km": "អូ! ចិត្តល្អណាស់! please រួច thank you។ នៅកម្ពុជា មនុស្សជាញឹកញាប់ហុច និងទទួលដោយដៃទាំងពីរ។ ប្រហែលជាប្អូនក៏ធ្វើដូច្នោះដែរ!"
+            "en": "Oh, how kind! Please, then thank you. In many Western countries, people often say please and thank you a lot. Perhaps even to their own family! How lovely!",
+            "km": "អូ! ចិត្តល្អណាស់! please រួច thank you។ នៅប្រទេសលោកខាងលិចជាច្រើន មនុស្សតែងតែនិយាយ please និង thank you ញឹកញាប់ណាស់។ ប្រហែលជាសូម្បីតែនិយាយទៅកាន់គ្រួសាររបស់ខ្លួន! គួរឱ្យស្រឡាញ់ណាស់!"
           },
           "subtitles": {
             "en": [
@@ -598,12 +598,12 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "In Cambodia, people often give and take with two hands."
+                "text": "In many Western countries, people often say please and thank you a lot."
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "Perhaps you do that too!"
+                "text": "Perhaps even to their own family! How lovely!"
               }
             ],
             "km": [
@@ -615,12 +615,12 @@
               {
                 "atMs": 4000,
                 "durationMs": 4000,
-                "text": "នៅកម្ពុជា មនុស្សជាញឹកញាប់ហុច និងទទួលដោយដៃទាំងពីរ។"
+                "text": "នៅប្រទេសលោកខាងលិចជាច្រើន មនុស្សតែងតែនិយាយ please និង thank you ញឹកញាប់ណាស់។"
               },
               {
                 "atMs": 8000,
                 "durationMs": 4000,
-                "text": "ប្រហែលជាប្អូនក៏ធ្វើដូច្នោះដែរ!"
+                "text": "ប្រហែលជាសូម្បីតែនិយាយទៅកាន់គ្រួសាររបស់ខ្លួន! គួរឱ្យស្រឡាញ់ណាស់!"
               }
             ]
           },
@@ -661,19 +661,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "idle",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "speak",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],
@@ -727,19 +727,19 @@
         {
           "id": "kru-sopheak",
           "sprite": "speak",
-          "x": 28,
+          "x": 72,
           "y": 95
         },
         {
           "id": "bora",
           "sprite": "idle",
-          "x": 55,
+          "x": 45,
           "y": 95
         },
         {
           "id": "sreyneang",
           "sprite": "idle",
-          "x": 76,
+          "x": 24,
           "y": 95
         }
       ],

@@ -93,7 +93,9 @@ Characters with no line in the current scene are not clickable. If they have sev
 
 A story with no `professor` and no `explanations` plays exactly as before. Do not add an explanation to every scene. The same rules apply to every story. Nothing here is special to S001.
 
-**His role (ADR 0001, `docs/adr/0001-professor-mordechai-role.md`, v1.16.0).** Each comment is one of four kinds, usually only one per comment: a hedged cultural observation (Western and Khmer: *perhaps*, *often*, *in many places*), another application (*You could …*), a possible why (*The reason for this is …*), or a related topic (*You could find out more about …*). He is curious and shows fascination, joy and glee. Short lines. Every session S1–S6 has at least one comment; `review.note` names its kind.
+**His role (ADR 0001, `docs/adr/0001-professor-mordechai-role.md`, v1.16.0).** Each comment is one of four kinds, usually only one per comment: a hedged cultural observation about a **Western** custom, told to Khmer learners (*In many Western countries, people often …*, *Perhaps …*; never a description of Khmer customs, v1.16.1), another application (*You could …*), a possible why (*The reason for this is …*), or a related topic (*You could find out more about …*). He is curious and shows fascination, joy and glee. Short lines. Every session S1–S6 has at least one comment; `review.note` names its kind.
+
+**Stage layout (v1.16.1, Herbert t248u).** In every school scene (classroom and school door) Kru Sopheak stands on the right and the children on the left, facing him; home scenes keep Yeay on the left. The song pictures with the teacher and the twins (`verse-s1`, `verse-s2`, `verse-s4`, `verse-s5`, `goodbye`) follow the same layout. `tests/scene-realism.test.js` checks the teacher's side.
 
 He can clarify only something that has already been said or done. Each explanation names one scope:
 

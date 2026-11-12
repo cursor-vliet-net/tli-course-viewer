@@ -524,3 +524,16 @@ body[data-mode="student"] .quiz-heard { display: none; }
 .song-again { font-size: .88rem; font-style: italic; margin: .4rem 0 0; color: var(--bs-secondary-color, #5c6672); }
 [data-theme="dark"] .song-again { color: var(--tli-muted); }
 .song-text .i18n-alt { display: block; font-size: .82em; }
+
+/* v1.16.1 (Herbert t249u): stacked RTTI rubric. Nr + Goal on one line; R, T1, T2 and I each on their own
+   line below it, labelled in English and Khmer. No horizontal scrolling on narrow screens. */
+.table-wrap:has(> table.rubric-stacked) { overflow-x: visible; }
+table.rubric-stacked { width: 100%; table-layout: fixed; }
+table.rubric-stacked th.rubric-level-head { display: none; }
+table.rubric-stacked thead tr, table.rubric-stacked tr.rubric-goal-row { display: grid; grid-template-columns: 3rem minmax(0, 1fr); }
+table.rubric-stacked thead th, table.rubric-stacked tr.rubric-goal-row > td { display: block; min-width: 0; overflow-wrap: anywhere; }
+table.rubric-stacked tr.rubric-goal-row > td:first-child { grid-row: 1; font-weight: 700; }
+table.rubric-stacked tr.rubric-goal-row > td.rubric-goal { grid-row: 1; font-weight: 600; }
+table.rubric-stacked tr.rubric-goal-row > td.rubric-level { grid-column: 2; border-top-style: dashed; }
+table.rubric-stacked td.rubric-level::before { content: attr(data-label); display: block; font-size: .75em; font-weight: 700; text-transform: none; color: var(--bs-secondary-color, #6c757d); }
+table.rubric-stacked td.rubric-level[data-label-km]::before { content: attr(data-label) " · " attr(data-label-km); }
